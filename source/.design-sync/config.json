@@ -1,0 +1,304 @@
+{
+  "pkg": "india-bus-ds",
+  "globalName": "IndiaBusDS",
+  "shape": "package",
+  "buildCmd": "npm run build",
+  "srcDir": "src",
+  "tsconfig": "tsconfig.json",
+  "cssEntry": "dist/india-bus-ds.css",
+  "runtimeFontPrefixes": [
+    "Roboto",
+    "Noto Sans",
+    "Segoe UI",
+    "Arial"
+  ],
+  "overrides": {
+    "BottomSheet": {
+      "cardMode": "single",
+      "primaryStory": "FiltersSheet",
+      "viewport": "400x600"
+    },
+    "Dialog": {
+      "cardMode": "single",
+      "primaryStory": "CancelBooking",
+      "viewport": "400x520"
+    },
+    "Snackbar": {
+      "cardMode": "single",
+      "primaryStory": "WithAction",
+      "viewport": "400x300"
+    },
+    "TopNav": {
+      "cardMode": "column"
+    },
+    "BottomNav": {
+      "cardMode": "column"
+    },
+    "Tabs": {
+      "cardMode": "column"
+    },
+    "Table": {
+      "cardMode": "column"
+    },
+    "IonsRoot": {
+      "cardMode": "column"
+    },
+    "RatingInput": {
+      "cardMode": "column"
+    },
+    "IconButton": {
+      "cardMode": "column"
+    },
+    "LoginButton": {
+      "cardMode": "column"
+    },
+    "SearchField": {
+      "cardMode": "column"
+    },
+    "SegmentedControl": {
+      "cardMode": "column"
+    },
+    "Select": {
+      "cardMode": "column"
+    },
+    "Slider": {
+      "cardMode": "column"
+    },
+    "Stepper": {
+      "cardMode": "column"
+    },
+    "Switch": {
+      "cardMode": "column"
+    },
+    "TextField": {
+      "cardMode": "column"
+    },
+    "Coupon": {
+      "cardMode": "column"
+    },
+    "Nudge": {
+      "cardMode": "column"
+    },
+    "OfferStrip": {
+      "cardMode": "column"
+    },
+    "RedDeal": {
+      "cardMode": "column"
+    },
+    "Timer": {
+      "cardMode": "column"
+    },
+    "Alert": {
+      "cardMode": "column"
+    },
+    "LoadingIndicator": {
+      "cardMode": "column"
+    },
+    "Icon": {
+      "cardMode": "column"
+    },
+    "Text": {
+      "cardMode": "column"
+    },
+    "Callout": {
+      "cardMode": "column"
+    },
+    "Carousel": {
+      "cardMode": "column"
+    },
+    "Divider": {
+      "cardMode": "column"
+    },
+    "List": {
+      "cardMode": "column"
+    },
+    "ListItem": {
+      "cardMode": "column"
+    },
+    "Pagination": {
+      "cardMode": "column"
+    },
+    "RatingTag": {
+      "cardMode": "column"
+    },
+    "Tag": {
+      "cardMode": "column"
+    },
+    "TitleBlock": {
+      "cardMode": "column"
+    },
+    "Button": {
+      "cardMode": "column"
+    },
+    "Chip": {
+      "cardMode": "column"
+    },
+    "ChipGroup": {
+      "cardMode": "column"
+    },
+    "Choice": {
+      "cardMode": "column"
+    },
+    "ChoiceList": {
+      "cardMode": "column"
+    },
+    "RouteHeader": {
+      "cardMode": "column"
+    },
+    "ResultModeTabs": {
+      "cardMode": "column"
+    },
+    "FeatureCardRail": {
+      "cardMode": "column"
+    },
+    "FilterRail": {
+      "cardMode": "column"
+    },
+    "FilterChip": {
+      "cardMode": "column"
+    },
+    "FilterSortChip": {
+      "cardMode": "column"
+    },
+    "AiSmartFilter": {
+      "cardMode": "column"
+    },
+    "BusTuple": {
+      "cardMode": "column"
+    },
+    "OfferRibbon": {
+      "cardMode": "column"
+    },
+    "RayFab": {
+      "cardMode": "column"
+    },
+    "RaySheet": {
+      "cardMode": "single",
+      "primaryStory": "Welcome",
+      "viewport": "400x840"
+    },
+    "FreeCancellationCard": {
+      "cardMode": "column"
+    },
+    "EndOfResults": {
+      "cardMode": "column"
+    },
+    "HorizontalRail": {
+      "cardMode": "column"
+    },
+    "HomeServices": {
+      "cardMode": "column"
+    },
+    "JourneySearch": {
+      "cardMode": "column"
+    },
+    "HomeSearchButton": {
+      "cardMode": "column"
+    },
+    "WomenBookingToggle": {
+      "cardMode": "column"
+    },
+    "HomeCampaign": {
+      "cardMode": "column"
+    },
+    "HomeOffers": {
+      "cardMode": "column"
+    },
+    "HomeBottomNav": {
+      "cardMode": "column"
+    },
+    "SeatPill": {
+      "cardMode": "column"
+    },
+    "DetailSection": {
+      "cardMode": "column"
+    },
+    "PolicyTable": {
+      "cardMode": "column"
+    },
+    "PolicyList": {
+      "cardMode": "column"
+    },
+    "RouteTimeline": {
+      "cardMode": "column"
+    },
+    "ReviewTuple": {
+      "cardMode": "column"
+    },
+    "PointTabs": {
+      "cardMode": "column"
+    },
+    "PointRow": {
+      "cardMode": "column"
+    },
+    "PointList": {
+      "cardMode": "column"
+    },
+    "TripSummary": {
+      "cardMode": "column"
+    },
+    "ContactDetailsCard": {
+      "cardMode": "column"
+    },
+    "PassengerCard": {
+      "cardMode": "column"
+    },
+    "ResultsLoader": {
+      "cardMode": "single",
+      "primaryStory": "InitialLoad",
+      "viewport": "400x840"
+    },
+    "FilterSheet": {
+      "cardMode": "single",
+      "primaryStory": "AiSmartFilter",
+      "viewport": "400x840"
+    },
+    "DateSheet": {
+      "cardMode": "single",
+      "primaryStory": "NinthJuly",
+      "viewport": "400x840"
+    },
+    "LocationSearch": {
+      "cardMode": "single",
+      "primaryStory": "Origin",
+      "viewport": "400x840"
+    },
+    "SeatMap": {
+      "cardMode": "single",
+      "primaryStory": "OneSeatSelected",
+      "viewport": "400x840"
+    },
+    "SeatTray": {
+      "cardMode": "single",
+      "primaryStory": "WithSelection",
+      "viewport": "400x840"
+    },
+    "SeatSelectionFooter": {
+      "cardMode": "single",
+      "primaryStory": "OneSeat",
+      "viewport": "400x840"
+    },
+    "FareSheet": {
+      "cardMode": "single",
+      "primaryStory": "TwoSeats",
+      "viewport": "400x840"
+    },
+    "BusDetailsSheet": {
+      "cardMode": "single",
+      "primaryStory": "Overview",
+      "viewport": "400x840"
+    },
+    "ReviewsExplorer": {
+      "cardMode": "single",
+      "primaryStory": "AllReviews",
+      "viewport": "400x840"
+    },
+    "BusRoute": {
+      "cardMode": "column"
+    }
+  },
+  "readmeHeader": ".design-sync/conventions.md",
+  "componentSrcMap": {
+    "HomeSearchButton": "src/home/JourneySearch.tsx"
+  }
+}

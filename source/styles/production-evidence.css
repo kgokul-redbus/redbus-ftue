@@ -1,0 +1,196 @@
+/*
+ * Visuals built from PRODUCTION SCREENSHOTS where the kit's calibration
+ * prototype has no implementation (as opposed to binding-fixes.css, which
+ * corrects bugs in rules the kit does have). Every rule names its evidence.
+ * Values reuse the kit's own palette and type scale wherever one exists.
+ * Emitted last by build-css.mjs.
+ */
+
+/*
+ * Bus-details section subtitle — `Scroll on bus details sheet.jpeg` and
+ * `Further scroll on bus details sheet on Seat layout.jpeg`: "421 km · 8h 35m"
+ * under Bus route, the city under Boarding/Dropping points. Grey, tight under
+ * the heading (the kit's h2 carries a 14px bottom margin meant for no subtitle).
+ */
+.ff-detail-section h2:has(+ .ib-section-summary) {
+  margin-bottom: 2px;
+}
+
+.ib-section-summary {
+  margin: 0 0 16px;
+  color: #74747a;
+  font-size: 14px;
+  line-height: 18px;
+}
+
+/*
+ * P26 Bus route — `Scroll on bus details sheet.jpeg`. Wrapping chain of towns
+ * joined by grey arrows; the traveller's boarding and dropping towns are bold
+ * with a yellow highlighter band; towns outside the trip are greyed.
+ * Measured at 1x: 15px text, ~19px line pitch. Each town travels with its
+ * arrow (`__hop` is unbreakable), so wraps land after an arrow as in
+ * production, never with an arrow starting a line.
+ */
+.ib-bus-route__hop {
+  white-space: nowrap;
+}
+
+.ib-bus-route__chain {
+  margin: 0;
+  color: var(--ff-text);
+  font-size: 15px;
+  line-height: 19px;
+}
+
+.ib-bus-route__stop {
+  white-space: nowrap;
+}
+
+.ib-bus-route__stop[data-endpoint] {
+  font-weight: 700;
+  background: linear-gradient(transparent 58%, #ffe38c 58%);
+}
+
+.ib-bus-route__stop[data-outside] {
+  color: #8a8a90;
+}
+
+.ib-bus-route__arrow.c-icon {
+  width: 16px;
+  height: 16px;
+  margin: 0 8px;
+  vertical-align: -3px;
+  color: #3a3a40;
+}
+
+/*
+ * P26 boarding/dropping timeline — `Further scroll on bus details sheet on
+ * Seat layout.jpeg`. Right-aligned bold 15px time with the date beneath; a 7px
+ * dark filled dot on a light grey rail; bold 15px point name with a grey
+ * address line; ~57px row pitch. Replaces the kit's hollow brand dot and 12px
+ * single-line rows. Measured at 1x: time column ends at 51px, dot centred at
+ * ~69px, name starts at 87px.
+ */
+.ff-route-stop {
+  grid-template-columns: 52px 35px minmax(0, 1fr);
+  min-height: 57px;
+  padding-bottom: 16px;
+  color: var(--ff-text);
+  font-size: 15px;
+  line-height: 19px;
+}
+
+.ff-route-stop > strong {
+  text-align: right;
+}
+
+.ff-route-stop small {
+  display: block;
+  font-weight: 400;
+}
+
+.ff-route-stop > strong small {
+  font-size: 12px;
+  line-height: 16px;
+}
+
+/* Production keeps the address to one truncated line. */
+.ff-route-stop > span small {
+  overflow: hidden;
+  color: #74747a;
+  font-size: 13px;
+  line-height: 17px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/*
+ * The kit sizes its rail as a fixed 48px `i::after`, which only fits one-line
+ * rows. Here `i` stretches the full row (including its bottom padding) and
+ * draws the dot as `::before`, so the rail always reaches the next dot however
+ * many lines a point name takes.
+ */
+.ff-route-stop i {
+  width: 7px;
+  height: auto;
+  top: 0;
+  align-self: stretch;
+  justify-self: center;
+  background: none;
+  border: 0;
+  border-radius: 0;
+}
+
+.ff-route-stop i::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  position: absolute;
+  top: 6px;
+  left: 0;
+  border-radius: 50%;
+  background: #3a3a40;
+}
+
+.ff-route-stop i::after {
+  width: 3px;
+  height: auto;
+  top: 13px;
+  bottom: -6px;
+  left: 2px;
+  background: #e7e7ec;
+}
+
+/*
+ * P25 policy table check — `Bus details sheet open on Seat Layout.jpeg`. Each
+ * "100% refund" in the free-cancellation column carries a green check at the
+ * cell's right edge. The kit's cell already sets the green text and tint.
+ */
+.ib-policy-refund {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.ib-policy-refund .c-icon {
+  flex-shrink: 0;
+  color: var(--ff-green);
+}
+
+/*
+ * P29 chosen point — `BP selected.jpeg`. Once a stage has a chosen point, its
+ * supporting text is that point in dark text; the kit keeps it grey (#74747a,
+ * its "city before selection" colour) with no hook for the chosen state.
+ */
+.ff-point-tab[data-point-chosen="true"] span {
+  color: var(--ff-text);
+}
+
+/*
+ * P22 sold berths — `Seat layout page loaded.jpeg`. Production tints a sold
+ * berth's pillow to match its border (blue, or pink when women-only). The kit
+ * tints the borders (#dbe3f7 / #f5dce8) but leaves the pillow at the available
+ * green; the pillow reuses the kit's own border tints.
+ */
+.ff-seat[data-state="sold"]::after {
+  background: #dbe3f7;
+}
+
+.ff-seat[data-state="sold"][data-restriction="female"]::after {
+  background: #f5dce8;
+}
+
+/*
+ * P23 bus-photo tile — `Seat layout page loaded.jpeg`. Production's highlight
+ * rail opens with a wider photo tile of the operator's bus. It reuses the
+ * calibrated operator photo crop with cover framing instead of a second,
+ * fade-baked crop from the peek screenshot.
+ */
+.ib-highlight-photo {
+  width: 124px;
+  min-width: 124px;
+  padding: 0;
+  background-size: cover;
+  background-position: center;
+}

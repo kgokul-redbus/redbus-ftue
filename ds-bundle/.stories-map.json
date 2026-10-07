@@ -1,0 +1,814 @@
+{
+  "global": "IndiaBusDS",
+  "pkg": "india-bus-ds",
+  "pkgDir": "C:\\Users\\admin\\Downloads\\India-Bus-Prototype-Kit\\India-Bus-Prototype-Kit\\codex-india-bus-prototype-kit\\design-system",
+  "extraEntries": [],
+  "exported": [
+    "AiSmartFilter",
+    "Alert",
+    "BottomNav",
+    "BottomSheet",
+    "BusDetailsSheet",
+    "BusRating",
+    "BusRoute",
+    "BusTuple",
+    "Button",
+    "Callout",
+    "Carousel",
+    "Chip",
+    "ChipGroup",
+    "Choice",
+    "ChoiceList",
+    "Coachmark",
+    "ContactDetailsCard",
+    "Coupon",
+    "DateSheet",
+    "DetailSection",
+    "Dialog",
+    "Divider",
+    "EndOfResults",
+    "FareSheet",
+    "FeatureCard",
+    "FeatureCardRail",
+    "FilterChip",
+    "FilterRail",
+    "FilterSheet",
+    "FilterSortChip",
+    "FreeCancellationCard",
+    "HomeBottomNav",
+    "HomeCampaign",
+    "HomeOffers",
+    "HomeSearchButton",
+    "HomeServices",
+    "HorizontalRail",
+    "Icon",
+    "IconButton",
+    "IonsRoot",
+    "JourneySearch",
+    "List",
+    "ListItem",
+    "LoadingIndicator",
+    "LocationSearch",
+    "LoginButton",
+    "Nudge",
+    "OfferRibbon",
+    "OfferStrip",
+    "Pagination",
+    "PassengerCard",
+    "PointList",
+    "PointRow",
+    "PointTabs",
+    "PolicyList",
+    "PolicyTable",
+    "RatingInput",
+    "RatingTag",
+    "RayFab",
+    "RaySheet",
+    "RedDeal",
+    "ResultModeTabs",
+    "ResultsLoader",
+    "ReviewTuple",
+    "ReviewsExplorer",
+    "RouteHeader",
+    "RouteTimeline",
+    "SearchField",
+    "SeatMap",
+    "SeatPill",
+    "SeatSelectionFooter",
+    "SeatTray",
+    "SegmentedControl",
+    "Select",
+    "Slider",
+    "Snackbar",
+    "Stepper",
+    "Switch",
+    "Table",
+    "Tabs",
+    "Tag",
+    "Text",
+    "TextField",
+    "Timer",
+    "TitleBlock",
+    "Tooltip",
+    "TopNav",
+    "TripSummary",
+    "WomenBookingToggle"
+  ],
+  "storybookStatic": null,
+  "keyRecipe": 7,
+  "cfgSliceGlobal": "a139d95ad8ab0a8ba08b44a258c54602e36090304087f48fe923c61aa5a8ae08",
+  "components": [
+    {
+      "name": "AiSmartFilter",
+      "group": "srp",
+      "srcSha": null,
+      "sourceKey": "4430990c5c453a51",
+      "cfgSlice": "5ff899b099eb6923833804cda955efdd69101524bec86f67dac5537cd81802e8",
+      "stories": []
+    },
+    {
+      "name": "Alert",
+      "group": "feedback",
+      "srcSha": null,
+      "sourceKey": "d7e0efc33791f6ba",
+      "cfgSlice": "5ff899b099eb6923833804cda955efdd69101524bec86f67dac5537cd81802e8",
+      "stories": []
+    },
+    {
+      "name": "BottomNav",
+      "group": "navigation",
+      "srcSha": null,
+      "sourceKey": "14fa4dbf214b76c5",
+      "cfgSlice": "5ff899b099eb6923833804cda955efdd69101524bec86f67dac5537cd81802e8",
+      "stories": []
+    },
+    {
+      "name": "BottomSheet",
+      "group": "information",
+      "srcSha": null,
+      "sourceKey": "8530c6d5c6eae20f",
+      "cfgSlice": "2bc2eaef09e0a7e073c846b8d926586dae127b482735b06889e9d2cae0db95a8",
+      "stories": []
+    },
+    {
+      "name": "BusDetailsSheet",
+      "group": "details",
+      "srcSha": null,
+      "sourceKey": "2d0498beeb5e603c",
+      "cfgSlice": "0c28b320042ddb02e6ea723362651151de8fa3906421d0c7f7ae52f39aa4e4f6",
+      "stories": []
+    },
+    {
+      "name": "BusRating",
+      "group": "srp",
+      "srcSha": null,
+      "sourceKey": "fca9c83b3ed9216f",
+      "cfgSlice": "5ff899b099eb6923833804cda955efdd69101524bec86f67dac5537cd81802e8",
+      "stories": []
+    },
+    {
+      "name": "BusRoute",
+      "group": "details",
+      "srcSha": null,
+      "sourceKey": "747f256b266bd84c",
+      "cfgSlice": "5ff899b099eb6923833804cda955efdd69101524bec86f67dac5537cd81802e8",
+      "stories": []
+    },
+    {
+      "name": "BusTuple",
+      "group": "srp",
+      "srcSha": null,
+      "sourceKey": "db6d73c03af610a9",
+      "cfgSlice": "5ff899b099eb6923833804cda955efdd69101524bec86f67dac5537cd81802e8",
+      "stories": []
+    },
+    {
+      "name": "Button",
+      "group": "input",
+      "srcSha": null,
+      "sourceKey": "ee6ea8e46cc7f93c",
+      "cfgSlice": "5ff899b099eb6923833804cda955efdd69101524bec86f67dac5537cd81802e8",
+      "stories": []
+    },
+    {
+      "name": "Callout",
+      "group": "information",
+      "srcSha": null,
+      "sourceKey": "ef8d222fd9dd1d7b",
+      "cfgSlice": "5ff899b099eb6923833804cda955efdd69101524bec86f67dac5537cd81802e8",
+      "stories": []
+    },
+    {
+      "name": "Carousel",
+      "group": "information",
+      "srcSha": null,
+      "sourceKey": "6df069666105dd81",
+      "cfgSlice": "5ff899b099eb6923833804cda955efdd69101524bec86f67dac5537cd81802e8",
+      "stories": []
+    },
+    {
+      "name": "Chip",
+      "group": "input",
+      "srcSha": null,
+      "sourceKey": "4c2c3976da513e85",
+      "cfgSlice": "5ff899b099eb6923833804cda955efdd69101524bec86f67dac5537cd81802e8",
+      "stories": []
+    },
+    {
+      "name": "ChipGroup",
+      "group": "input",
+      "srcSha": null,
+      "sourceKey": "a42bb5d7e337acdb",
+      "cfgSlice": "5ff899b099eb6923833804cda955efdd69101524bec86f67dac5537cd81802e8",
+      "stories": []
+    },
+    {
+      "name": "Choice",
+      "group": "input",
+      "srcSha": null,
+      "sourceKey": "cc1f5585ffb296f2",
+      "cfgSlice": "5ff899b099eb6923833804cda955efdd69101524bec86f67dac5537cd81802e8",
+      "stories": []
+    },
+    {
+      "name": "ChoiceList",
+      "group": "input",
+      "srcSha": null,
+      "sourceKey": "e14259bdcf8ed689",
+      "cfgSlice": "5ff899b099eb6923833804cda955efdd69101524bec86f67dac5537cd81802e8",
+      "stories": []
+    },
+    {
+      "name": "Coachmark",
+      "group": "feedback",
+      "srcSha": null,
+      "sourceKey": "05559ac9f8ddc506",
+      "cfgSlice": "5ff899b099eb6923833804cda955efdd69101524bec86f67dac5537cd81802e8",
+      "stories": []
+    },
+    {
+      "name": "ContactDetailsCard",
+      "group": "checkout",
+      "srcSha": null,
+      "sourceKey": "39a00d94d4261d41",
+      "cfgSlice": "5ff899b099eb6923833804cda955efdd69101524bec86f67dac5537cd81802e8",
+      "stories": []
+    },
+    {
+      "name": "Coupon",
+      "group": "persuasion",
+      "srcSha": null,
+      "sourceKey": "a1da84dbef79dd67",
+      "cfgSlice": "5ff899b099eb6923833804cda955efdd69101524bec86f67dac5537cd81802e8",
+      "stories": []
+    },
+    {
+      "name": "DateSheet",
+      "group": "srp",
+      "srcSha": null,
+      "sourceKey": "c6b72cb1d6a3ae6b",
+      "cfgSlice": "0c28b320042ddb02e6ea723362651151de8fa3906421d0c7f7ae52f39aa4e4f6",
+      "stories": []
+    },
+    {
+      "name": "DetailSection",
+      "group": "details",
+      "srcSha": null,
+      "sourceKey": "7ae5365127a0e586",
+      "cfgSlice": "5ff899b099eb6923833804cda955efdd69101524bec86f67dac5537cd81802e8",
+      "stories": []
+    },
+    {
+      "name": "Dialog",
+      "group": "information",
+      "srcSha": null,
+      "sourceKey": "8a9953b2d99b76d8",
+      "cfgSlice": "b8efa202f6c5069de3d1e2fdf042c40afa234d055437723dab91340d7a242f7c",
+      "stories": []
+    },
+    {
+      "name": "Divider",
+      "group": "information",
+      "srcSha": null,
+      "sourceKey": "3fafa92c9e1222c2",
+      "cfgSlice": "5ff899b099eb6923833804cda955efdd69101524bec86f67dac5537cd81802e8",
+      "stories": []
+    },
+    {
+      "name": "EndOfResults",
+      "group": "srp",
+      "srcSha": null,
+      "sourceKey": "ce214fc3d74b4165",
+      "cfgSlice": "5ff899b099eb6923833804cda955efdd69101524bec86f67dac5537cd81802e8",
+      "stories": []
+    },
+    {
+      "name": "FareSheet",
+      "group": "seats",
+      "srcSha": null,
+      "sourceKey": "4a2746a0ef6a626e",
+      "cfgSlice": "0c28b320042ddb02e6ea723362651151de8fa3906421d0c7f7ae52f39aa4e4f6",
+      "stories": []
+    },
+    {
+      "name": "FeatureCard",
+      "group": "srp",
+      "srcSha": null,
+      "sourceKey": "65250a07dde9b2c8",
+      "cfgSlice": "5ff899b099eb6923833804cda955efdd69101524bec86f67dac5537cd81802e8",
+      "stories": []
+    },
+    {
+      "name": "FeatureCardRail",
+      "group": "srp",
+      "srcSha": null,
+      "sourceKey": "c64d5f5be23bad0d",
+      "cfgSlice": "5ff899b099eb6923833804cda955efdd69101524bec86f67dac5537cd81802e8",
+      "stories": []
+    },
+    {
+      "name": "FilterChip",
+      "group": "srp",
+      "srcSha": null,
+      "sourceKey": "cda6c55ef68146ab",
+      "cfgSlice": "5ff899b099eb6923833804cda955efdd69101524bec86f67dac5537cd81802e8",
+      "stories": []
+    },
+    {
+      "name": "FilterRail",
+      "group": "srp",
+      "srcSha": null,
+      "sourceKey": "ce5f1c4e99fca3f5",
+      "cfgSlice": "5ff899b099eb6923833804cda955efdd69101524bec86f67dac5537cd81802e8",
+      "stories": []
+    },
+    {
+      "name": "FilterSheet",
+      "group": "srp",
+      "srcSha": null,
+      "sourceKey": "9fd76b80cbfc1757",
+      "cfgSlice": "0c28b320042ddb02e6ea723362651151de8fa3906421d0c7f7ae52f39aa4e4f6",
+      "stories": []
+    },
+    {
+      "name": "FilterSortChip",
+      "group": "srp",
+      "srcSha": null,
+      "sourceKey": "cced33c24fbadb96",
+      "cfgSlice": "5ff899b099eb6923833804cda955efdd69101524bec86f67dac5537cd81802e8",
+      "stories": []
+    },
+    {
+      "name": "FreeCancellationCard",
+      "group": "srp",
+      "srcSha": null,
+      "sourceKey": "0b2c6ca509c3301c",
+      "cfgSlice": "5ff899b099eb6923833804cda955efdd69101524bec86f67dac5537cd81802e8",
+      "stories": []
+    },
+    {
+      "name": "HomeBottomNav",
+      "group": "home",
+      "srcSha": null,
+      "sourceKey": "d55b8dd26acc7efd",
+      "cfgSlice": "5ff899b099eb6923833804cda955efdd69101524bec86f67dac5537cd81802e8",
+      "stories": []
+    },
+    {
+      "name": "HomeCampaign",
+      "group": "home",
+      "srcSha": null,
+      "sourceKey": "8a36990f692bf1ef",
+      "cfgSlice": "5ff899b099eb6923833804cda955efdd69101524bec86f67dac5537cd81802e8",
+      "stories": []
+    },
+    {
+      "name": "HomeOffers",
+      "group": "home",
+      "srcSha": null,
+      "sourceKey": "87b815b3a5f9b046",
+      "cfgSlice": "5ff899b099eb6923833804cda955efdd69101524bec86f67dac5537cd81802e8",
+      "stories": []
+    },
+    {
+      "name": "HomeSearchButton",
+      "group": "home",
+      "srcSha": null,
+      "sourceKey": "a248f031c551da31",
+      "cfgSlice": "5ff899b099eb6923833804cda955efdd69101524bec86f67dac5537cd81802e8",
+      "stories": []
+    },
+    {
+      "name": "HomeServices",
+      "group": "home",
+      "srcSha": null,
+      "sourceKey": "4491c2fe21763209",
+      "cfgSlice": "5ff899b099eb6923833804cda955efdd69101524bec86f67dac5537cd81802e8",
+      "stories": []
+    },
+    {
+      "name": "HorizontalRail",
+      "group": "srp",
+      "srcSha": null,
+      "sourceKey": "ce29eb9ca3332d71",
+      "cfgSlice": "5ff899b099eb6923833804cda955efdd69101524bec86f67dac5537cd81802e8",
+      "stories": []
+    },
+    {
+      "name": "Icon",
+      "group": "foundations",
+      "srcSha": null,
+      "sourceKey": "e2964890440b0370",
+      "cfgSlice": "5ff899b099eb6923833804cda955efdd69101524bec86f67dac5537cd81802e8",
+      "stories": []
+    },
+    {
+      "name": "IconButton",
+      "group": "input",
+      "srcSha": null,
+      "sourceKey": "6920990ee7a191a7",
+      "cfgSlice": "5ff899b099eb6923833804cda955efdd69101524bec86f67dac5537cd81802e8",
+      "stories": []
+    },
+    {
+      "name": "IonsRoot",
+      "group": "foundations",
+      "srcSha": null,
+      "sourceKey": "b8ef0c8c73dc107a",
+      "cfgSlice": "5ff899b099eb6923833804cda955efdd69101524bec86f67dac5537cd81802e8",
+      "stories": []
+    },
+    {
+      "name": "JourneySearch",
+      "group": "home",
+      "srcSha": null,
+      "sourceKey": "beda36be9650a594",
+      "cfgSlice": "5ff899b099eb6923833804cda955efdd69101524bec86f67dac5537cd81802e8",
+      "stories": []
+    },
+    {
+      "name": "List",
+      "group": "information",
+      "srcSha": null,
+      "sourceKey": "1d3da38f220b8525",
+      "cfgSlice": "5ff899b099eb6923833804cda955efdd69101524bec86f67dac5537cd81802e8",
+      "stories": []
+    },
+    {
+      "name": "ListItem",
+      "group": "information",
+      "srcSha": null,
+      "sourceKey": "347d126ec040fdcb",
+      "cfgSlice": "5ff899b099eb6923833804cda955efdd69101524bec86f67dac5537cd81802e8",
+      "stories": []
+    },
+    {
+      "name": "LoadingIndicator",
+      "group": "feedback",
+      "srcSha": null,
+      "sourceKey": "5582dad04dab7ccb",
+      "cfgSlice": "5ff899b099eb6923833804cda955efdd69101524bec86f67dac5537cd81802e8",
+      "stories": []
+    },
+    {
+      "name": "LocationSearch",
+      "group": "home",
+      "srcSha": null,
+      "sourceKey": "5ddb03dcbc46f0a4",
+      "cfgSlice": "0c28b320042ddb02e6ea723362651151de8fa3906421d0c7f7ae52f39aa4e4f6",
+      "stories": []
+    },
+    {
+      "name": "LoginButton",
+      "group": "input",
+      "srcSha": null,
+      "sourceKey": "0a44e654ef450ced",
+      "cfgSlice": "5ff899b099eb6923833804cda955efdd69101524bec86f67dac5537cd81802e8",
+      "stories": []
+    },
+    {
+      "name": "Nudge",
+      "group": "persuasion",
+      "srcSha": null,
+      "sourceKey": "eb078d3f2c82c6fc",
+      "cfgSlice": "5ff899b099eb6923833804cda955efdd69101524bec86f67dac5537cd81802e8",
+      "stories": []
+    },
+    {
+      "name": "OfferRibbon",
+      "group": "srp",
+      "srcSha": null,
+      "sourceKey": "8a775c59cf8a50c3",
+      "cfgSlice": "5ff899b099eb6923833804cda955efdd69101524bec86f67dac5537cd81802e8",
+      "stories": []
+    },
+    {
+      "name": "OfferStrip",
+      "group": "persuasion",
+      "srcSha": null,
+      "sourceKey": "f9f9faa08da3dfce",
+      "cfgSlice": "5ff899b099eb6923833804cda955efdd69101524bec86f67dac5537cd81802e8",
+      "stories": []
+    },
+    {
+      "name": "Pagination",
+      "group": "information",
+      "srcSha": null,
+      "sourceKey": "24ceba3ec2abb9ff",
+      "cfgSlice": "5ff899b099eb6923833804cda955efdd69101524bec86f67dac5537cd81802e8",
+      "stories": []
+    },
+    {
+      "name": "PassengerCard",
+      "group": "checkout",
+      "srcSha": null,
+      "sourceKey": "c646f50b48554de0",
+      "cfgSlice": "5ff899b099eb6923833804cda955efdd69101524bec86f67dac5537cd81802e8",
+      "stories": []
+    },
+    {
+      "name": "PointList",
+      "group": "checkout",
+      "srcSha": null,
+      "sourceKey": "2d16ee7586a91bc3",
+      "cfgSlice": "5ff899b099eb6923833804cda955efdd69101524bec86f67dac5537cd81802e8",
+      "stories": []
+    },
+    {
+      "name": "PointRow",
+      "group": "checkout",
+      "srcSha": null,
+      "sourceKey": "f9d50be36784d551",
+      "cfgSlice": "5ff899b099eb6923833804cda955efdd69101524bec86f67dac5537cd81802e8",
+      "stories": []
+    },
+    {
+      "name": "PointTabs",
+      "group": "checkout",
+      "srcSha": null,
+      "sourceKey": "2fc25e01b2abe657",
+      "cfgSlice": "5ff899b099eb6923833804cda955efdd69101524bec86f67dac5537cd81802e8",
+      "stories": []
+    },
+    {
+      "name": "PolicyList",
+      "group": "details",
+      "srcSha": null,
+      "sourceKey": "85915d6c5c0f8be9",
+      "cfgSlice": "5ff899b099eb6923833804cda955efdd69101524bec86f67dac5537cd81802e8",
+      "stories": []
+    },
+    {
+      "name": "PolicyTable",
+      "group": "details",
+      "srcSha": null,
+      "sourceKey": "5b63e802d270ee8a",
+      "cfgSlice": "5ff899b099eb6923833804cda955efdd69101524bec86f67dac5537cd81802e8",
+      "stories": []
+    },
+    {
+      "name": "RatingInput",
+      "group": "social",
+      "srcSha": null,
+      "sourceKey": "f3214c72824b0506",
+      "cfgSlice": "5ff899b099eb6923833804cda955efdd69101524bec86f67dac5537cd81802e8",
+      "stories": []
+    },
+    {
+      "name": "RatingTag",
+      "group": "information",
+      "srcSha": null,
+      "sourceKey": "59456a45da406e5d",
+      "cfgSlice": "5ff899b099eb6923833804cda955efdd69101524bec86f67dac5537cd81802e8",
+      "stories": []
+    },
+    {
+      "name": "RayFab",
+      "group": "srp",
+      "srcSha": null,
+      "sourceKey": "bb7fa30c7fb6af51",
+      "cfgSlice": "5ff899b099eb6923833804cda955efdd69101524bec86f67dac5537cd81802e8",
+      "stories": []
+    },
+    {
+      "name": "RaySheet",
+      "group": "srp",
+      "srcSha": null,
+      "sourceKey": "c3bb3161957dee9b",
+      "cfgSlice": "0c28b320042ddb02e6ea723362651151de8fa3906421d0c7f7ae52f39aa4e4f6",
+      "stories": []
+    },
+    {
+      "name": "RedDeal",
+      "group": "persuasion",
+      "srcSha": null,
+      "sourceKey": "8cd28ed2e4fd9cb9",
+      "cfgSlice": "5ff899b099eb6923833804cda955efdd69101524bec86f67dac5537cd81802e8",
+      "stories": []
+    },
+    {
+      "name": "ResultModeTabs",
+      "group": "srp",
+      "srcSha": null,
+      "sourceKey": "4c2422880700060e",
+      "cfgSlice": "5ff899b099eb6923833804cda955efdd69101524bec86f67dac5537cd81802e8",
+      "stories": []
+    },
+    {
+      "name": "ResultsLoader",
+      "group": "srp",
+      "srcSha": null,
+      "sourceKey": "54b302d52af1fcdf",
+      "cfgSlice": "0c28b320042ddb02e6ea723362651151de8fa3906421d0c7f7ae52f39aa4e4f6",
+      "stories": []
+    },
+    {
+      "name": "ReviewsExplorer",
+      "group": "details",
+      "srcSha": null,
+      "sourceKey": "3f83c370b54db597",
+      "cfgSlice": "0c28b320042ddb02e6ea723362651151de8fa3906421d0c7f7ae52f39aa4e4f6",
+      "stories": []
+    },
+    {
+      "name": "ReviewTuple",
+      "group": "details",
+      "srcSha": null,
+      "sourceKey": "a69637b5708b528d",
+      "cfgSlice": "5ff899b099eb6923833804cda955efdd69101524bec86f67dac5537cd81802e8",
+      "stories": []
+    },
+    {
+      "name": "RouteHeader",
+      "group": "srp",
+      "srcSha": null,
+      "sourceKey": "4026b2d4e14ae8cf",
+      "cfgSlice": "5ff899b099eb6923833804cda955efdd69101524bec86f67dac5537cd81802e8",
+      "stories": []
+    },
+    {
+      "name": "RouteTimeline",
+      "group": "details",
+      "srcSha": null,
+      "sourceKey": "e0f4a5ecaf978503",
+      "cfgSlice": "5ff899b099eb6923833804cda955efdd69101524bec86f67dac5537cd81802e8",
+      "stories": []
+    },
+    {
+      "name": "SearchField",
+      "group": "input",
+      "srcSha": null,
+      "sourceKey": "292c67a1c1e12b0a",
+      "cfgSlice": "5ff899b099eb6923833804cda955efdd69101524bec86f67dac5537cd81802e8",
+      "stories": []
+    },
+    {
+      "name": "SeatMap",
+      "group": "seats",
+      "srcSha": null,
+      "sourceKey": "8a3007662af61674",
+      "cfgSlice": "0c28b320042ddb02e6ea723362651151de8fa3906421d0c7f7ae52f39aa4e4f6",
+      "stories": []
+    },
+    {
+      "name": "SeatPill",
+      "group": "seats",
+      "srcSha": null,
+      "sourceKey": "40098648b544cbf4",
+      "cfgSlice": "5ff899b099eb6923833804cda955efdd69101524bec86f67dac5537cd81802e8",
+      "stories": []
+    },
+    {
+      "name": "SeatSelectionFooter",
+      "group": "seats",
+      "srcSha": null,
+      "sourceKey": "098d8c2e66ba1327",
+      "cfgSlice": "0c28b320042ddb02e6ea723362651151de8fa3906421d0c7f7ae52f39aa4e4f6",
+      "stories": []
+    },
+    {
+      "name": "SeatTray",
+      "group": "seats",
+      "srcSha": null,
+      "sourceKey": "425b9db8f8bb1c7f",
+      "cfgSlice": "0c28b320042ddb02e6ea723362651151de8fa3906421d0c7f7ae52f39aa4e4f6",
+      "stories": []
+    },
+    {
+      "name": "SegmentedControl",
+      "group": "input",
+      "srcSha": null,
+      "sourceKey": "bd75da8dbae2a4fb",
+      "cfgSlice": "5ff899b099eb6923833804cda955efdd69101524bec86f67dac5537cd81802e8",
+      "stories": []
+    },
+    {
+      "name": "Select",
+      "group": "input",
+      "srcSha": null,
+      "sourceKey": "9d9d19f2210519e1",
+      "cfgSlice": "5ff899b099eb6923833804cda955efdd69101524bec86f67dac5537cd81802e8",
+      "stories": []
+    },
+    {
+      "name": "Slider",
+      "group": "input",
+      "srcSha": null,
+      "sourceKey": "d9c7508edf4fc15d",
+      "cfgSlice": "5ff899b099eb6923833804cda955efdd69101524bec86f67dac5537cd81802e8",
+      "stories": []
+    },
+    {
+      "name": "Snackbar",
+      "group": "feedback",
+      "srcSha": null,
+      "sourceKey": "981b659177261cc8",
+      "cfgSlice": "4ea9436b8bb222c46c58b8970e76af2e84b759ac9f46c0f51f7abce83b9b73ca",
+      "stories": []
+    },
+    {
+      "name": "Stepper",
+      "group": "input",
+      "srcSha": null,
+      "sourceKey": "e3e2fa931f4ccd25",
+      "cfgSlice": "5ff899b099eb6923833804cda955efdd69101524bec86f67dac5537cd81802e8",
+      "stories": []
+    },
+    {
+      "name": "Switch",
+      "group": "input",
+      "srcSha": null,
+      "sourceKey": "8aa4f18d230de311",
+      "cfgSlice": "5ff899b099eb6923833804cda955efdd69101524bec86f67dac5537cd81802e8",
+      "stories": []
+    },
+    {
+      "name": "Table",
+      "group": "information",
+      "srcSha": null,
+      "sourceKey": "35aece69135d6935",
+      "cfgSlice": "5ff899b099eb6923833804cda955efdd69101524bec86f67dac5537cd81802e8",
+      "stories": []
+    },
+    {
+      "name": "Tabs",
+      "group": "navigation",
+      "srcSha": null,
+      "sourceKey": "e42db2aef2ff90f4",
+      "cfgSlice": "5ff899b099eb6923833804cda955efdd69101524bec86f67dac5537cd81802e8",
+      "stories": []
+    },
+    {
+      "name": "Tag",
+      "group": "information",
+      "srcSha": null,
+      "sourceKey": "bb0c79b1441e1a6c",
+      "cfgSlice": "5ff899b099eb6923833804cda955efdd69101524bec86f67dac5537cd81802e8",
+      "stories": []
+    },
+    {
+      "name": "Text",
+      "group": "foundations",
+      "srcSha": null,
+      "sourceKey": "158b8e6d498486c2",
+      "cfgSlice": "5ff899b099eb6923833804cda955efdd69101524bec86f67dac5537cd81802e8",
+      "stories": []
+    },
+    {
+      "name": "TextField",
+      "group": "input",
+      "srcSha": null,
+      "sourceKey": "bf57c784748ce36b",
+      "cfgSlice": "5ff899b099eb6923833804cda955efdd69101524bec86f67dac5537cd81802e8",
+      "stories": []
+    },
+    {
+      "name": "Timer",
+      "group": "social",
+      "srcSha": null,
+      "sourceKey": "da41fd3010cd737b",
+      "cfgSlice": "5ff899b099eb6923833804cda955efdd69101524bec86f67dac5537cd81802e8",
+      "stories": []
+    },
+    {
+      "name": "TitleBlock",
+      "group": "information",
+      "srcSha": null,
+      "sourceKey": "69fa89b87225bc0e",
+      "cfgSlice": "5ff899b099eb6923833804cda955efdd69101524bec86f67dac5537cd81802e8",
+      "stories": []
+    },
+    {
+      "name": "Tooltip",
+      "group": "feedback",
+      "srcSha": null,
+      "sourceKey": "6401963a2e5c918c",
+      "cfgSlice": "5ff899b099eb6923833804cda955efdd69101524bec86f67dac5537cd81802e8",
+      "stories": []
+    },
+    {
+      "name": "TopNav",
+      "group": "navigation",
+      "srcSha": null,
+      "sourceKey": "e84142079ed7096d",
+      "cfgSlice": "5ff899b099eb6923833804cda955efdd69101524bec86f67dac5537cd81802e8",
+      "stories": []
+    },
+    {
+      "name": "TripSummary",
+      "group": "checkout",
+      "srcSha": null,
+      "sourceKey": "14741c5a475198e7",
+      "cfgSlice": "5ff899b099eb6923833804cda955efdd69101524bec86f67dac5537cd81802e8",
+      "stories": []
+    },
+    {
+      "name": "WomenBookingToggle",
+      "group": "home",
+      "srcSha": null,
+      "sourceKey": "e69e35593a552484",
+      "cfgSlice": "5ff899b099eb6923833804cda955efdd69101524bec86f67dac5537cd81802e8",
+      "stories": []
+    }
+  ]
+}

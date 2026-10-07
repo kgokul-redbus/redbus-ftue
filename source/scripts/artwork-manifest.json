@@ -1,0 +1,17 @@
+{
+  "comment": "Product artwork slots the kit paints from production screenshots. Rects are in the kit's 356x800 logical crop space (read from patterns/srp-system.css background-position/size and the ff-art-crop img offsets in prototypes/android-india-bus-system-calibration.html); screenshots are 712x1600, so extraction is an exact 2x crop. `selectors` get the crop as their background; `className` slots are rendered by React pattern components.",
+  "screenshotDir": "../pm-prototype-kit/India bus screenshots",
+  "slots": [
+    { "id": "feature-primo", "shot": "SearchSRP.jpeg", "x": 14, "y": 170, "w": 130, "h": 105, "selectors": [".gems-feature-card--primo"] },
+    { "id": "feature-exclusive", "shot": "SearchSRP.jpeg", "x": 152, "y": 170, "w": 130, "h": 105, "selectors": [".gems-feature-card--exclusive"] },
+    { "id": "primo-logo", "shot": "SearchSRP.jpeg", "x": 27, "y": 438, "w": 60, "h": 26, "selectors": [".srp-primo-logo"] },
+    { "id": "ray-sparkle", "shot": "SearchSRP.jpeg", "x": 27, "y": 369, "w": 24, "h": 24, "selectors": [".ray-sparkle"] },
+    { "id": "ray-sparkle-field", "shot": "SearchSRP.jpeg", "x": 27, "y": 369, "w": 25, "h": 25, "selectors": [".ray-sparkle--field"] },
+    { "id": "ray-sparkle-fab", "shot": "SearchSRP.jpeg", "x": 136, "y": 700, "w": 24, "h": 24, "selectors": [".srp-ray-fab .ray-sparkle"] },
+    { "id": "ray-sparkle-filter", "shot": "Sort & filter.jpeg", "x": 13, "y": 113, "w": 20, "h": 20, "selectors": [".srp-filter-categories .ray-sparkle"] },
+    { "id": "ray-sparkle-sheet", "shot": "Ray open on fab icon click.jpeg", "x": 16, "y": 143, "w": 27, "h": 27, "selectors": [".srp-ray-sheet__header .ray-sparkle"] },
+    { "id": "home-services", "shot": "Home Page.jpeg", "x": 0, "y": 48, "w": 356, "h": 74, "className": "ib-art-home-services" },
+    { "id": "home-campaign", "shot": "Home prefilled post tapping on from and to.jpeg", "x": 0, "y": 458, "w": 356, "h": 138, "className": "ib-art-home-campaign" },
+    { "id": "bus-photo", "shot": "Bus details sheet open on Seat Layout.jpeg", "x": 14, "y": 183, "w": 251, "h": 139, "className": "ib-art-bus-photo" }
+  ]
+}

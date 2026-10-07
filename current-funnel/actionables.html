@@ -1,0 +1,900 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1"><style>:root{color-scheme:light}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FTUE Design Actionables</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Libre+Franklin:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap">
+<style id="page-style">
+:root{
+  --ground:#FAF7F1;
+  --panel:#F2ECE1;
+  --panel-2:#EAE2D3;
+  --line:#DAD0BC;
+  --ink:#211C15;
+  --ink-soft:#5B5344;
+  --ink-faint:#8B8171;
+  --accent:#2F4A54;
+  --accent-soft:#DCE6E5;
+  --accent-ink:#1E3339;
+  --blank-bg:#FBF3E7;
+  --blank-line:#D9B98A;
+  --blank-ink:#8A6A2F;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ground:#17140F; --panel:#1F1B14; --panel-2:#262019; --line:#3A3226;
+    --ink:#F2EBDC; --ink-soft:#C4BAA5; --ink-faint:#8B8171;
+    --accent:#8FB6BC; --accent-soft:#243233; --accent-ink:#CFE6E9;
+    --blank-bg:#2A2013; --blank-line:#6B5527; --blank-ink:#E0B85C;
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#17140F; --panel:#1F1B14; --panel-2:#262019; --line:#3A3226;
+  --ink:#F2EBDC; --ink-soft:#C4BAA5; --ink-faint:#8B8171;
+  --accent:#8FB6BC; --accent-soft:#243233; --accent-ink:#CFE6E9;
+  --blank-bg:#2A2013; --blank-line:#6B5527; --blank-ink:#E0B85C;
+}
+*{box-sizing:border-box;}
+body{background:var(--ground); color:var(--ink); font-family:"Libre Franklin",system-ui,sans-serif; line-height:1.5; -webkit-font-smoothing:antialiased;}
+.wrap{max-width:920px; margin:0 auto; padding:56px 32px 100px;}
+.eyebrow{font-family:"IBM Plex Mono",monospace; font-size:12px; letter-spacing:.09em; text-transform:uppercase; color:var(--accent-ink); background:var(--accent-soft); display:inline-block; padding:4px 10px; border-radius:3px; margin-bottom:18px;}
+h1{font-family:"Fraunces",Georgia,serif; font-weight:600; font-size:clamp(30px,4vw,42px); line-height:1.1; letter-spacing:-.01em; margin:0 0 22px; text-wrap:balance;}
+.lede{font-size:16.5px; color:var(--ink-soft); max-width:66ch; margin:0 0 24px;}
+.meta-row{font-size:13.5px; color:var(--ink-faint); border-top:1px solid var(--line); border-bottom:1px solid var(--line); padding:14px 0; display:flex; gap:26px; flex-wrap:wrap; margin-bottom:40px;}
+.meta-row b{color:var(--ink-soft); font-weight:600;}
+
+.theme-block{margin-bottom:48px;}
+.theme-head{display:flex; align-items:baseline; gap:12px; border-top:2px solid var(--line); padding-top:22px; margin-bottom:20px;}
+.theme-num{font-family:"IBM Plex Mono",monospace; font-size:13px; color:var(--accent-ink); background:var(--accent-soft); padding:2px 8px; border-radius:3px;}
+h2{font-family:"Fraunces",Georgia,serif; font-size:23px; font-weight:600; margin:0;}
+
+.item{background:var(--panel); border:1px solid var(--line); border-radius:8px; padding:18px 20px; margin-bottom:14px;}
+.item-title{font-weight:600; font-size:15.5px; color:var(--ink); margin-bottom:10px; display:flex; align-items:baseline; gap:8px;}
+.item-num{font-family:"IBM Plex Mono",monospace; font-size:12px; color:var(--ink-faint); font-weight:500;}
+.inline-edit-btn{font-family:"IBM Plex Mono",monospace; font-size:11px; font-weight:400; border:none; background:transparent; color:var(--ink-faint); cursor:pointer; padding:2px 6px; border-radius:3px; line-height:1; opacity:.55;}
+.item:hover .inline-edit-btn, .inline-edit-btn:focus-visible{opacity:1;}
+.inline-edit-btn:hover{background:var(--panel-2); color:var(--ink);}
+.inline-edit-btn[hidden]{display:none;}
+.item-title[hidden], .problem-body[hidden], .new-section[hidden]{display:none;}
+.field-label .inline-edit-btn{font-size:10.5px; margin-left:2px; text-transform:none; letter-spacing:0;}
+.title-edit-row{display:flex; gap:6px; align-items:center; flex-wrap:wrap; margin-bottom:10px;}
+.title-edit-row input, .new-section input{flex:1; min-width:180px; font-family:"Libre Franklin",sans-serif; font-size:15px; font-weight:600; padding:6px 9px; border:1px solid var(--line); border-radius:5px; background:var(--ground); color:var(--ink);}
+.title-edit-row input:focus, .new-section input:focus, .new-section textarea:focus{outline:none; border-color:var(--accent); box-shadow:0 0 0 2px var(--accent-soft);}
+.title-edit-row button, .new-section-foot button{font-family:"IBM Plex Mono",monospace; font-size:11px; padding:6px 10px; border-radius:4px; border:none; cursor:pointer;}
+.title-edit-row .save-btn, .new-section-foot .save-btn{background:var(--accent); color:var(--ground);}
+.title-edit-row .cancel-btn, .new-section-foot .cancel-btn{background:var(--panel-2); color:var(--ink-soft);}
+.problem-edit-row .rte{margin-top:2px;}
+.add-section-btn{display:block; width:100%; font-family:"IBM Plex Mono",monospace; font-size:11.5px; color:var(--accent-ink); background:transparent; border:1px dashed var(--line); border-radius:8px; padding:12px; cursor:pointer; text-align:center;}
+.add-section-btn:hover{background:var(--accent-soft); border-color:var(--accent);}
+.add-section-btn[hidden]{display:none;}
+.new-section{display:grid; gap:10px; border-style:dashed; border-color:var(--accent);}
+.new-section label{font-family:"IBM Plex Mono",monospace; font-size:10.5px; text-transform:uppercase; letter-spacing:.06em; color:var(--ink-faint); display:grid; gap:4px;}
+.new-section input{width:100%;}
+.new-section textarea{width:100%; min-height:64px; resize:vertical; font-family:"Libre Franklin",sans-serif; font-size:14px; line-height:1.55; padding:8px 10px; border:1px solid var(--line); border-radius:6px; background:var(--ground); color:var(--ink); text-transform:none; letter-spacing:0;}
+.new-section-foot{display:flex; gap:6px; align-items:center; flex-wrap:wrap;}
+.new-section-foot .rte-hint{flex:1;}
+.field{margin-bottom:10px;}
+.field:last-of-type{margin-bottom:0;}
+.field-label{font-family:"IBM Plex Mono",monospace; font-size:10.5px; text-transform:uppercase; letter-spacing:.06em; color:var(--ink-faint); margin-bottom:4px;}
+.field-body{font-size:14px; color:var(--ink-soft); line-height:1.6;}
+.field-body.blank{
+  background:var(--blank-bg);
+  border:1px dashed var(--blank-line);
+  border-radius:6px;
+  padding:10px 12px;
+  color:var(--blank-ink);
+  font-style:italic;
+  font-size:13.5px;
+}
+.src-tag{font-family:"IBM Plex Mono",monospace; font-size:10px; color:var(--ink-faint); margin-left:6px; font-style:normal;}
+
+.solve-list{margin:0; padding:0; list-style:none; display:grid; gap:7px;}
+.solve-list li{display:flex; align-items:baseline; gap:9px; font-size:14px; color:var(--ink-soft); line-height:1.55;}
+.solve-id{
+  font-family:"IBM Plex Mono",monospace;
+  font-size:10px;
+  font-weight:600;
+  color:var(--accent-ink);
+  background:var(--accent-soft);
+  padding:1px 6px;
+  border-radius:3px;
+  flex:none;
+  white-space:nowrap;
+}
+.solve-text{flex:1; min-width:0;}
+.solve-text ul, .solve-text ol{margin:4px 0 2px; padding-left:20px;}
+.solve-text ul{list-style:disc;}
+.solve-text ol{list-style:decimal;}
+.solve-list .solve-text li, .solve-list .rte-area li{display:list-item; font-size:inherit; line-height:inherit;}
+.solve-text b, .solve-text strong{color:var(--ink); font-weight:600;}
+.rte{flex:1; min-width:180px; display:flex; flex-direction:column; border:1px solid var(--line); border-radius:6px; background:var(--ground); overflow:hidden;}
+.rte:focus-within{border-color:var(--accent); box-shadow:0 0 0 2px var(--accent-soft);}
+.rte-bar{display:flex; gap:2px; padding:4px 5px; border-bottom:1px solid var(--line); background:var(--panel-2); flex-wrap:wrap;}
+.rte-bar button{font-family:"Libre Franklin",sans-serif; font-size:12.5px; min-width:26px; height:24px; padding:0 6px; border:none; border-radius:4px; background:transparent; color:var(--ink-soft); cursor:pointer;}
+.rte-bar button:hover{background:var(--line); color:var(--ink);}
+.rte-bar button.on{background:var(--accent-soft); color:var(--accent-ink);}
+.rte-bar .sep{width:1px; background:var(--line); margin:3px 4px;}
+.rte-area{min-height:64px; max-height:320px; overflow:auto; padding:8px 10px; font-size:14px; line-height:1.55; color:var(--ink); outline:none;}
+.rte-area ul, .rte-area ol{margin:4px 0; padding-left:22px;}
+.rte-area:empty::before{content:attr(data-placeholder); color:var(--ink-faint); pointer-events:none;}
+.rte-foot{display:flex; align-items:center; gap:6px; padding:6px 8px; border-top:1px solid var(--line); flex-wrap:wrap;}
+.rte-hint{flex:1; font-family:"IBM Plex Mono",monospace; font-size:10px; color:var(--ink-faint); min-width:150px;}
+.rte-foot button{font-family:"IBM Plex Mono",monospace; font-size:11px; padding:5px 10px; border-radius:4px; border:none; cursor:pointer;}
+.rte-foot .save-btn{background:var(--accent); color:var(--ground);}
+.rte-foot .cancel-btn{background:var(--panel-2); color:var(--ink-soft);}
+.solve-input-row .rte{margin-top:9px;}
+.solve-stage{
+  flex:none;
+  font-family:"IBM Plex Mono",monospace;
+  font-size:10.5px;
+  color:var(--ink-soft);
+  background:var(--ground);
+  border:1px solid var(--line);
+  border-radius:4px;
+  padding:3px 22px 3px 7px;
+  max-width:150px;
+  cursor:pointer;
+  appearance:none;
+  -webkit-appearance:none;
+  background-image:linear-gradient(45deg,transparent 50%,var(--ink-faint) 50%),linear-gradient(135deg,var(--ink-faint) 50%,transparent 50%);
+  background-position:calc(100% - 11px) 50%,calc(100% - 7px) 50%;
+  background-size:4px 4px,4px 4px;
+  background-repeat:no-repeat;
+}
+.solve-stage:hover{border-color:var(--ink-faint);}
+.solve-stage:focus-visible{outline:2px solid var(--accent); outline-offset:1px;}
+.solve-stage.unset{color:var(--blank-ink); background-color:var(--blank-bg); border-style:dashed; border-color:var(--blank-line);}
+.solve-stage[hidden]{display:none;}
+@media (max-width:600px){
+  .wrap{padding:36px 16px 80px;}
+  .solve-list li{flex-wrap:wrap;}
+  .solve-text{flex-basis:calc(100% - 70px);}
+  .solve-stage{margin-left:54px;}
+}
+.solve-actions{display:flex; gap:2px; flex:none;}
+.solve-actions button{
+  font-family:"IBM Plex Mono",monospace;
+  font-size:11px;
+  border:none;
+  background:transparent;
+  color:var(--ink-faint);
+  cursor:pointer;
+  padding:2px 6px;
+  border-radius:3px;
+  line-height:1;
+}
+.solve-actions button:hover{background:var(--panel-2); color:var(--ink);}
+.solve-edit-row, .solve-remove-row{display:flex; gap:6px; flex:1; align-items:center; flex-wrap:wrap;}
+.solve-edit-row input{flex:1; min-width:140px; font-family:"Libre Franklin",sans-serif; font-size:13.5px; padding:5px 8px; border:1px solid var(--line); border-radius:5px; background:var(--ground); color:var(--ink);}
+.solve-remove-row span{font-size:13px; color:var(--ink-soft); font-style:italic;}
+.solve-edit-row button, .solve-remove-row button{font-family:"IBM Plex Mono",monospace; font-size:11px; padding:5px 9px; border-radius:4px; border:none; cursor:pointer;}
+.solve-edit-row .save-btn, .solve-remove-row .confirm-btn{background:var(--accent); color:var(--ground);}
+.solve-edit-row .cancel-btn, .solve-remove-row .cancel-btn{background:var(--panel-2); color:var(--ink-soft);}
+.solve-remove-row .confirm-btn{background:#B33A3A; color:#fff;}
+
+.add-solve-btn{
+  margin-top:9px;
+  font-family:"IBM Plex Mono",monospace;
+  font-size:11px;
+  color:var(--accent-ink);
+  background:var(--accent-soft);
+  border:none;
+  padding:4px 10px;
+  border-radius:4px;
+  cursor:pointer;
+}
+.add-solve-btn:hover{filter:brightness(0.95);}
+.add-solve-btn[hidden]{display:none;}
+.solve-input-row{display:flex; gap:6px; margin-top:9px; align-items:center; flex-wrap:wrap;}
+.solve-input-row input{flex:1; min-width:160px; font-family:"Libre Franklin",sans-serif; font-size:13.5px; padding:6px 9px; border:1px solid var(--line); border-radius:5px; background:var(--ground); color:var(--ink);}
+.solve-input-row button{font-family:"IBM Plex Mono",monospace; font-size:11px; padding:6px 10px; border-radius:4px; border:none; cursor:pointer;}
+.solve-input-row .save-btn{background:var(--accent); color:var(--ground);}
+.solve-input-row .cancel-btn{background:var(--panel-2); color:var(--ink-soft);}
+.save-note{font-size:11.5px; color:var(--ink-faint); margin-top:7px; font-style:italic;}
+
+details.src{margin-top:12px; border-top:1px solid var(--line); padding-top:10px;}
+details.src summary{
+  cursor:pointer;
+  font-family:"IBM Plex Mono",monospace;
+  font-size:10.5px;
+  text-transform:uppercase;
+  letter-spacing:.06em;
+  color:var(--ink-faint);
+  list-style:none;
+  display:flex;
+  align-items:center;
+  gap:7px;
+  user-select:none;
+}
+details.src summary::-webkit-details-marker{display:none;}
+details.src summary::before{content:"▸"; font-size:9px; display:inline-block; transition:transform .15s ease;}
+details.src[open] summary::before{transform:rotate(90deg);}
+details.src summary:hover{color:var(--ink-soft);}
+.src-body{margin-top:10px; display:grid; gap:10px; background:var(--panel-2); border-radius:6px; padding:12px 14px;}
+.src-item{font-size:12.5px; line-height:1.55;}
+.src-origin{display:block; font-family:"IBM Plex Mono",monospace; font-size:10.5px; color:var(--ink-faint); margin-bottom:2px;}
+.src-quote{color:var(--ink); font-style:italic;}
+.src-note{display:block; color:var(--ink-faint); font-size:11.5px; font-style:normal; margin-top:3px;}
+
+.view-switch{display:inline-flex; gap:2px; padding:3px; background:var(--panel-2); border:1px solid var(--line); border-radius:9px; margin:0 0 36px;}
+.view-switch button{font-family:"Libre Franklin",sans-serif; font-size:13.5px; font-weight:600; color:var(--ink-soft); background:transparent; border:none; border-radius:6px; padding:7px 16px; cursor:pointer; line-height:1.2;}
+.view-switch button:hover{color:var(--ink);}
+.view-switch button[aria-selected="true"]{background:var(--ground); color:var(--ink); box-shadow:0 1px 2px rgba(0,0,0,.08), 0 0 0 1px var(--line);}
+.view-switch button:focus-visible{outline:2px solid var(--accent); outline-offset:1px;}
+#app[hidden], #pages-view[hidden]{display:none;}
+.pv-nav{display:flex; flex-wrap:wrap; gap:6px; margin:0 0 36px;}
+.pv-nav button{font-family:"IBM Plex Mono",monospace; font-size:11px; color:var(--accent-ink); background:var(--accent-soft); border:none; border-radius:999px; padding:5px 11px; cursor:pointer;}
+.pv-nav button:hover{filter:brightness(.95);}
+.pv-nav button .n{opacity:.65; margin-left:5px;}
+.pv-nav button.untagged{color:var(--blank-ink); background:var(--blank-bg); outline:1px dashed var(--blank-line);}
+.page-block{margin-bottom:48px; scroll-margin-top:16px;}
+.page-count{font-family:"IBM Plex Mono",monospace; font-size:11.5px; color:var(--ink-faint); margin-left:auto;}
+.pv-crumb{font-family:"IBM Plex Mono",monospace; font-size:10.5px; text-transform:uppercase; letter-spacing:.06em; color:var(--ink-faint); margin-bottom:4px;}
+.pv-title{display:inline-flex; align-items:baseline; gap:8px; font-family:"Libre Franklin",sans-serif; font-weight:600; font-size:15.5px; color:var(--ink); background:none; border:none; padding:0; margin:0 0 6px; cursor:pointer; text-align:left;}
+.pv-title:hover .pv-title-text{text-decoration:underline; text-underline-offset:3px;}
+.pv-title .pv-jump{font-family:"IBM Plex Mono",monospace; font-size:10.5px; font-weight:500; color:var(--ink-faint);}
+.pv-problem{font-size:13.5px; color:var(--ink-faint); line-height:1.55; margin-bottom:10px;}
+.pv-empty{font-size:14px; color:var(--ink-faint); font-style:italic;}
+.item.flash{box-shadow:0 0 0 2px var(--accent); transition:box-shadow .2s ease;}
+.view-bar{display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; margin:0 0 36px;}
+.view-bar .view-switch{margin:0;}
+.fold-all{display:flex; gap:4px;}
+.fold-all button{font-family:"IBM Plex Mono",monospace; font-size:11px; color:var(--ink-soft); background:transparent; border:1px solid var(--line); border-radius:6px; padding:6px 10px; cursor:pointer;}
+.fold-all button:hover{background:var(--panel-2); color:var(--ink);}
+.theme-head.fold{cursor:pointer; user-select:none;}
+.theme-head.fold:focus-visible{outline:2px solid var(--accent); outline-offset:4px; border-radius:2px;}
+.theme-head .chev{display:inline-flex; color:var(--ink-faint); width:16px; justify-content:center; align-self:center; flex:none; display:inline-block; transition:transform .15s ease; transform:rotate(90deg);}
+.theme-head .head-count{font-family:"IBM Plex Mono",monospace; font-size:11.5px; color:var(--ink-faint); margin-left:auto;}
+.theme-head.fold:hover h2{color:var(--accent-ink);}
+.is-collapsed > .theme-head .chev{transform:rotate(0deg);}
+.is-collapsed > :not(.theme-head){display:none !important;}
+.theme-block.is-collapsed, .page-block.is-collapsed{margin-bottom:10px;}
+.is-collapsed > .theme-head{margin-bottom:0; padding-bottom:12px;}
+.scope-note{
+  margin-top:56px;
+  padding-top:20px;
+  border-top:1px solid var(--line);
+}
+.scope-note h3{font-family:"Fraunces",Georgia,serif; font-size:17px; font-weight:600; margin:0 0 10px;}
+.scope-note ul{margin:0; padding-left:20px; font-size:13.5px; color:var(--ink-soft); line-height:1.7;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>FTUE design actionables</h1>
+  <div class="view-bar">
+  <div class="view-switch" role="tablist" aria-label="View">
+    <button type="button" role="tab" data-view="themes" aria-selected="true">By themes</button>
+    <button type="button" role="tab" data-view="pages" aria-selected="false">By pages</button>
+  </div>
+  <div class="fold-all"><button type="button" data-fold="collapse">Collapse all</button><button type="button" data-fold="expand">Expand all</button></div>
+  </div>
+
+  <div id="app"><div class="theme-block" data-theme="0"><div class="theme-head"><span class="theme-num">01</span><h2>Clarity &amp; trust signals</h2></div><div class="item" data-item="item-1"><div class="item-title"><span class="item-title-text">Primo education</span> <span class="item-num">1</span><button type="button" class="inline-edit-btn edit-title-btn" title="Edit title" aria-label="Edit title">✎</button></div><div class="field problem-field"><div class="field-label">Problem<button type="button" class="inline-edit-btn edit-problem-btn" title="Edit problem" aria-label="Edit problem">✎</button></div><div class="field-body problem-body">FTUs don't understand Primo.</div></div><div class="field"><div class="field-label">Potential solve</div><div class="solve-area"><ul class="solve-list"><li data-solve="SOL-01"><span class="solve-id">SOL-01</span><div class="solve-text">Introduce Primo in a non-intrusive way on SRP, rather than just depending on the logo on every tuple. Explain what Primo is and show Primo benefits. Explore card extensions on 2 session to convey about primo buses.</div><select class="solve-stage" aria-label="Funnel stage for SOL-01"><option value="Onboarding">Onboarding</option><option value="Splash">Splash</option><option value="Common home">Common home</option><option value="SRP" selected="">SRP</option><option value="Seat selection">Seat selection</option><option value="Bus details">Bus details</option><option value="BP/DP selection">BP/DP selection</option><option value="Cust. Info.">Cust. Info.</option><option value="Payments">Payments</option><option value="Ticket page">Ticket page</option><option value="Booking funnel">Booking funnel</option></select><span class="solve-actions"><button type="button" class="edit-solve-btn" title="Edit">✎</button><button type="button" class="remove-solve-btn" title="Remove">✕</button></span></li><li data-solve="SOL-02"><span class="solve-id">SOL-02</span><div class="solve-text">Reinforce it again on the seat layout and BusBuddy (ticket) pages. Explore header manifestations that explain what Primo buses are. These manifestations can appear and disappear.</div><select class="solve-stage" aria-label="Funnel stage for SOL-02"><option value="Onboarding">Onboarding</option><option value="Splash">Splash</option><option value="Common home">Common home</option><option value="SRP">SRP</option><option value="Seat selection" selected="">Seat selection</option><option value="Bus details">Bus details</option><option value="BP/DP selection">BP/DP selection</option><option value="Cust. Info.">Cust. Info.</option><option value="Payments">Payments</option><option value="Ticket page">Ticket page</option><option value="Booking funnel">Booking funnel</option></select><span class="solve-actions"><button type="button" class="edit-solve-btn" title="Edit">✎</button><button type="button" class="remove-solve-btn" title="Remove">✕</button></span></li><li data-solve="SOL-28"><span class="solve-id">SOL-28</span><div class="solve-text">Make Primo logo in the collapsed bus-details tray tappable. Upon tap, explain the What and why.</div><select class="solve-stage" aria-label="Funnel stage for SOL-28"><option value="Onboarding">Onboarding</option><option value="Splash">Splash</option><option value="Common home">Common home</option><option value="SRP">SRP</option><option value="Seat selection">Seat selection</option><option value="Bus details" selected="">Bus details</option><option value="BP/DP selection">BP/DP selection</option><option value="Cust. Info.">Cust. Info.</option><option value="Payments">Payments</option><option value="Ticket page">Ticket page</option><option value="Booking funnel">Booking funnel</option></select><span class="solve-actions"><button type="button" class="edit-solve-btn" title="Edit">✎</button><button type="button" class="remove-solve-btn" title="Remove">✕</button></span></li><li data-solve="SOL-29"><span class="solve-id">SOL-29</span><div class="solve-text">Reinforce Primo on bus-buddy. The idea is to make the users feel good about the choice they made by booking a Primo.</div><select class="solve-stage" aria-label="Funnel stage for SOL-29"><option value="Onboarding">Onboarding</option><option value="Splash">Splash</option><option value="Common home">Common home</option><option value="SRP">SRP</option><option value="Seat selection">Seat selection</option><option value="Bus details">Bus details</option><option value="BP/DP selection">BP/DP selection</option><option value="Cust. Info.">Cust. Info.</option><option value="Payments">Payments</option><option value="Ticket page" selected="">Ticket page</option><option value="Booking funnel">Booking funnel</option></select><span class="solve-actions"><button type="button" class="edit-solve-btn" title="Edit">✎</button><button type="button" class="remove-solve-btn" title="Remove">✕</button></span></li><li data-solve="SOL-30"><span class="solve-id">SOL-30</span><div class="solve-text">Explore differentiated theme for Primo booking funnel.</div><select class="solve-stage" aria-label="Funnel stage for SOL-30"><option value="Onboarding">Onboarding</option><option value="Splash">Splash</option><option value="Common home">Common home</option><option value="SRP">SRP</option><option value="Seat selection">Seat selection</option><option value="Bus details">Bus details</option><option value="BP/DP selection">BP/DP selection</option><option value="Cust. Info.">Cust. Info.</option><option value="Payments">Payments</option><option value="Ticket page">Ticket page</option><option value="Booking funnel" selected="">Booking funnel</option></select><span class="solve-actions"><button type="button" class="edit-solve-btn" title="Edit">✎</button><button type="button" class="remove-solve-btn" title="Remove">✕</button></span></li></ul></div><button type="button" class="add-solve-btn" data-item="item-1">+ Add solve</button></div><details class="src"><summary>Research source</summary><div class="src-body"><div class="src-item"><span class="src-origin">Tracker · row 18 · SRP · High</span><span class="src-quote">“Primo - use tuple real estate on SRP to give a teaser intro of the tag which is otherwise not understood”</span></div><div class="src-item"><span class="src-origin">Tracker · row 33 · SL · High</span><span class="src-quote">“Primo card needs to be optimised for 5 second comprehension - construct pillars shown on carousel but user skip past due to first screen not offering sufficient context”</span></div><div class="src-item"><span class="src-origin">Study · “Primo, meaningless tags, time formats” (SRP 1/2)</span><span class="src-quote">“Users have no clear idea of Primo, even if they have seen buses with such a sticker offline. It's difficult to think the call out on a tuple is clickable when every other persuasion tag isn't (which users are more interested to know more about but that lands them to SL).”</span><span class="src-note">Recommendation on the same slide: “Use the space beside it to call out 'One of the best in the route' or some qualifier to give some context.”</span></div></div></details></div><div class="item" data-item="item-2"><div class="item-title"><span class="item-title-text">Price shock at payment step</span> <span class="item-num">2</span><button type="button" class="inline-edit-btn edit-title-btn" title="Edit title" aria-label="Edit title">✎</button></div><div class="field problem-field"><div class="field-label">Problem<button type="button" class="inline-edit-btn edit-problem-btn" title="Edit problem" aria-label="Edit problem">✎</button></div><div class="field-body problem-body">Statutory charges and fees at payment read as unexplained additional cost.</div></div><div class="field"><div class="field-label">Potential solve</div><div class="solve-area"><ul class="solve-list"><li data-solve="SOL-03"><span class="solve-id">SOL-03</span><div class="solve-text">Communicate marginal additional costs from Cust. Info onwards.</div><select class="solve-stage" aria-label="Funnel stage for SOL-03"><option value="Onboarding">Onboarding</option><option value="Splash">Splash</option><option value="Common home">Common home</option><option value="SRP">SRP</option><option value="Seat selection">Seat selection</option><option value="Bus details">Bus details</option><option value="BP/DP selection">BP/DP selection</option><option value="Cust. Info." selected="">Cust. Info.</option><option value="Payments">Payments</option><option value="Ticket page">Ticket page</option><option value="Booking funnel">Booking funnel</option></select><span class="solve-actions"><button type="button" class="edit-solve-btn" title="Edit">✎</button><button type="button" class="remove-solve-btn" title="Remove">✕</button></span></li><li data-solve="SOL-04"><span class="solve-id">SOL-04</span><div class="solve-text">Make what the user has to pay more discoverable — right now it's on the header, which can be missed.</div><select class="solve-stage" aria-label="Funnel stage for SOL-04"><option value="Onboarding">Onboarding</option><option value="Splash">Splash</option><option value="Common home">Common home</option><option value="SRP">SRP</option><option value="Seat selection">Seat selection</option><option value="Bus details">Bus details</option><option value="BP/DP selection">BP/DP selection</option><option value="Cust. Info.">Cust. Info.</option><option value="Payments" selected="">Payments</option><option value="Ticket page">Ticket page</option><option value="Booking funnel">Booking funnel</option></select><span class="solve-actions"><button type="button" class="edit-solve-btn" title="Edit">✎</button><button type="button" class="remove-solve-btn" title="Remove">✕</button></span></li><li data-solve="SOL-05"><span class="solve-id">SOL-05</span><div class="solve-text">Provide easier access to the price break-up on the payment page.</div><select class="solve-stage" aria-label="Funnel stage for SOL-05"><option value="Onboarding">Onboarding</option><option value="Splash">Splash</option><option value="Common home">Common home</option><option value="SRP">SRP</option><option value="Seat selection">Seat selection</option><option value="Bus details">Bus details</option><option value="BP/DP selection">BP/DP selection</option><option value="Cust. Info.">Cust. Info.</option><option value="Payments" selected="">Payments</option><option value="Ticket page">Ticket page</option><option value="Booking funnel">Booking funnel</option></select><span class="solve-actions"><button type="button" class="edit-solve-btn" title="Edit">✎</button><button type="button" class="remove-solve-btn" title="Remove">✕</button></span></li><li data-solve="SOL-31"><span class="solve-id">SOL-31</span><div class="solve-text">Use "Price breakup" across the board.</div><select class="solve-stage" aria-label="Funnel stage for SOL-31"><option value="Onboarding">Onboarding</option><option value="Splash">Splash</option><option value="Common home">Common home</option><option value="SRP">SRP</option><option value="Seat selection">Seat selection</option><option value="Bus details">Bus details</option><option value="BP/DP selection">BP/DP selection</option><option value="Cust. Info.">Cust. Info.</option><option value="Payments" selected="">Payments</option><option value="Ticket page">Ticket page</option><option value="Booking funnel">Booking funnel</option></select><span class="solve-actions"><button type="button" class="edit-solve-btn" title="Edit">✎</button><button type="button" class="remove-solve-btn" title="Remove">✕</button></span></li><li data-solve="SOL-32"><span class="solve-id">SOL-32</span><div class="solve-text">Improve discovery of Price breakup by labelling the button. Right now it is a + icon that can be missed.</div><select class="solve-stage" aria-label="Funnel stage for SOL-32"><option value="Onboarding">Onboarding</option><option value="Splash">Splash</option><option value="Common home">Common home</option><option value="SRP">SRP</option><option value="Seat selection">Seat selection</option><option value="Bus details">Bus details</option><option value="BP/DP selection">BP/DP selection</option><option value="Cust. Info.">Cust. Info.</option><option value="Payments" selected="">Payments</option><option value="Ticket page">Ticket page</option><option value="Booking funnel">Booking funnel</option></select><span class="solve-actions"><button type="button" class="edit-solve-btn" title="Edit">✎</button><button type="button" class="remove-solve-btn" title="Remove">✕</button></span></li><li data-solve="SOL-33"><span class="solve-id">SOL-33</span><div class="solve-text">Provide clarity on GST and statutiry chargers not collected by redBus</div><select class="solve-stage" aria-label="Funnel stage for SOL-33"><option value="Onboarding">Onboarding</option><option value="Splash">Splash</option><option value="Common home">Common home</option><option value="SRP">SRP</option><option value="Seat selection">Seat selection</option><option value="Bus details">Bus details</option><option value="BP/DP selection">BP/DP selection</option><option value="Cust. Info.">Cust. Info.</option><option value="Payments" selected="">Payments</option><option value="Ticket page">Ticket page</option><option value="Booking funnel">Booking funnel</option></select><span class="solve-actions"><button type="button" class="edit-solve-btn" title="Edit">✎</button><button type="button" class="remove-solve-btn" title="Remove">✕</button></span></li><li data-solve="SOL-34"><span class="solve-id">SOL-34</span><div class="solve-text">Educate users on redBus not charging convinience fee, commisons and hindden charges.</div><select class="solve-stage" aria-label="Funnel stage for SOL-34"><option value="Onboarding">Onboarding</option><option value="Splash">Splash</option><option value="Common home">Common home</option><option value="SRP">SRP</option><option value="Seat selection">Seat selection</option><option value="Bus details">Bus details</option><option value="BP/DP selection">BP/DP selection</option><option value="Cust. Info.">Cust. Info.</option><option value="Payments" selected="">Payments</option><option value="Ticket page">Ticket page</option><option value="Booking funnel">Booking funnel</option></select><span class="solve-actions"><button type="button" class="edit-solve-btn" title="Edit">✎</button><button type="button" class="remove-solve-btn" title="Remove">✕</button></span></li></ul></div><button type="button" class="add-solve-btn" data-item="item-2">+ Add solve</button></div><details class="src"><summary>Research source</summary><div class="src-body"><div class="src-item"><span class="src-origin">Tracker · row 48 · Payment · High</span><span class="src-quote">“Communicate price shock on payments are GST or commission to Statutiry bodies and not commission to redBus”</span></div><div class="src-item"><span class="src-origin">Tracker · row 54 · Payment · Medium</span><span class="src-quote">“Reword fare breakup as price breakup across payment page”</span></div><div class="src-item"><span class="src-origin">Study · Payments, key concerns</span><span class="src-quote">“Charges which are not visible or understood are mistaken to be commission and add to Price shock (figure out ways to educate user about the govt charges).”</span></div><div class="src-item"><span class="src-origin">Study · Payment Page UX Audit (2/2)</span><span class="src-quote">“The fare breakup has multiple buttons that lead to the same information, making it confusing. Its visual design also causes many users to miss or ignore it.”</span><span class="src-note">Same slide: “RTC users miss the disclaimer on Cust info and assume we add extra charge on payment page as we dont show the same on fare breakup.”</span></div><div class="src-item"><span class="src-origin">Play Store · Akshay Kulkarni, 1 Sept 2026</span><span class="src-quote">“Ticket price varies as soon as I enter payment site”</span></div></div></details></div><div class="item" data-item="item-3"><div class="item-title"><span class="item-title-text">Price shock from SRP to SL</span> <span class="item-num">3</span><button type="button" class="inline-edit-btn edit-title-btn" title="Edit title" aria-label="Edit title">✎</button></div><div class="field problem-field"><div class="field-label">Problem<button type="button" class="inline-edit-btn edit-problem-btn" title="Edit problem" aria-label="Edit problem">✎</button></div><div class="field-body problem-body">Users see the lowest price on SRP, but the lowest-fare seat isn't visible within the page fold on SL.</div></div><div class="field"><div class="field-label">Potential solve</div><div class="solve-area"><ul class="solve-list"><li data-solve="SOL-06"><span class="solve-id">SOL-06</span><div class="solve-text">Improve visibility of “Onwards” pricing on the SRP tuple.</div><select class="solve-stage" aria-label="Funnel stage for SOL-06"><option value="Onboarding">Onboarding</option><option value="Splash">Splash</option><option value="Common home">Common home</option><option value="SRP" selected="">SRP</option><option value="Seat selection">Seat selection</option><option value="Bus details">Bus details</option><option value="BP/DP selection">BP/DP selection</option><option value="Cust. Info.">Cust. Info.</option><option value="Payments">Payments</option><option value="Ticket page">Ticket page</option><option value="Booking funnel">Booking funnel</option></select><span class="solve-actions"><button type="button" class="edit-solve-btn" title="Edit">✎</button><button type="button" class="remove-solve-btn" title="Remove">✕</button></span></li><li data-solve="SOL-07"><span class="solve-id">SOL-07</span><div class="solve-text">Improve visibility of the cheapest-priced seat on SL. This can be achived by highliting the lowest priced seat on SL which is usually at the last row and not visiable in first fold.</div><select class="solve-stage" aria-label="Funnel stage for SOL-07"><option value="Onboarding">Onboarding</option><option value="Splash">Splash</option><option value="Common home">Common home</option><option value="SRP">SRP</option><option value="Seat selection" selected="">Seat selection</option><option value="Bus details">Bus details</option><option value="BP/DP selection">BP/DP selection</option><option value="Cust. Info.">Cust. Info.</option><option value="Payments">Payments</option><option value="Ticket page">Ticket page</option><option value="Booking funnel">Booking funnel</option></select><span class="solve-actions"><button type="button" class="edit-solve-btn" title="Edit">✎</button><button type="button" class="remove-solve-btn" title="Remove">✕</button></span></li><li data-solve="SOL-35"><span class="solve-id">SOL-35</span><div class="solve-text">Show full SL on load and then transsion to bigger view.</div><select class="solve-stage" aria-label="Funnel stage for SOL-35"><option value="Onboarding">Onboarding</option><option value="Splash">Splash</option><option value="Common home">Common home</option><option value="SRP">SRP</option><option value="Seat selection" selected="">Seat selection</option><option value="Bus details">Bus details</option><option value="BP/DP selection">BP/DP selection</option><option value="Cust. Info.">Cust. Info.</option><option value="Payments">Payments</option><option value="Ticket page">Ticket page</option><option value="Booking funnel">Booking funnel</option></select><span class="solve-actions"><button type="button" class="edit-solve-btn" title="Edit">✎</button><button type="button" class="remove-solve-btn" title="Remove">✕</button></span></li></ul></div><button type="button" class="add-solve-btn" data-item="item-3">+ Add solve</button></div><details class="src"><summary>Research source</summary><div class="src-body"><div class="src-item"><span class="src-origin">Study · Seat Layout section note</span><span class="src-quote">“Price shock was observed among many users as ₹500 - 700 difference was seen in SL vs SRP.”</span><span class="src-note">No matching tracker row — this one rests on the study alone.</span></div></div></details></div><div class="item" data-item="item-7-8"><div class="item-title"><span class="item-title-text">Time format</span> <span class="item-num">7 / 8</span><button type="button" class="inline-edit-btn edit-title-btn" title="Edit title" aria-label="Edit title">✎</button></div><div class="field problem-field"><div class="field-label">Problem<button type="button" class="inline-edit-btn edit-problem-btn" title="Edit problem" aria-label="Edit problem">✎</button></div><div class="field-body problem-body">The app uses 24-hour format largely, with some places showing 12-hour instead, and users generally prefer 12-hour.</div></div><div class="field"><div class="field-label">Potential solve</div><div class="solve-area"><ul class="solve-list"><li data-solve="SOL-08"><span class="solve-id">SOL-08</span><div class="solve-text">Standardise on one format across the app for consistency. SRP, Filters, Cancellation policy, etc.</div><select class="solve-stage" aria-label="Funnel stage for SOL-08"><option value="Onboarding">Onboarding</option><option value="Splash">Splash</option><option value="Common home">Common home</option><option value="SRP">SRP</option><option value="Seat selection">Seat selection</option><option value="Bus details">Bus details</option><option value="BP/DP selection">BP/DP selection</option><option value="Cust. Info.">Cust. Info.</option><option value="Payments">Payments</option><option value="Ticket page">Ticket page</option><option value="Booking funnel" selected="">Booking funnel</option></select><span class="solve-actions"><button type="button" class="edit-solve-btn" title="Edit">✎</button><button type="button" class="remove-solve-btn" title="Remove">✕</button></span></li><li data-solve="SOL-09"><span class="solve-id">SOL-09</span><div class="solve-text">Which format to standardise on is a separate decision, informed by an experiment testing 12-hour vs 24-hour.</div><select class="solve-stage" aria-label="Funnel stage for SOL-09"><option value="Onboarding">Onboarding</option><option value="Splash">Splash</option><option value="Common home">Common home</option><option value="SRP">SRP</option><option value="Seat selection">Seat selection</option><option value="Bus details">Bus details</option><option value="BP/DP selection">BP/DP selection</option><option value="Cust. Info.">Cust. Info.</option><option value="Payments">Payments</option><option value="Ticket page">Ticket page</option><option value="Booking funnel" selected="">Booking funnel</option></select><span class="solve-actions"><button type="button" class="edit-solve-btn" title="Edit">✎</button><button type="button" class="remove-solve-btn" title="Remove">✕</button></span></li></ul></div><button type="button" class="add-solve-btn" data-item="item-7-8">+ Add solve</button></div><details class="src"><summary>Research source</summary><div class="src-body"><div class="src-item"><span class="src-origin">Tracker · row 15 · SRP · High</span><span class="src-quote">“Explore a 12 hour time format”</span></div><div class="src-item"><span class="src-origin">Study · “Primo, meaningless tags, time formats” (SRP 1/2), point 7</span><span class="src-quote">“Different time formats across the flow confuse users - moreover, less savvy users are more error prone with 24 hour format”</span></div></div></details></div><div class="item" data-item="item-9"><div class="item-title"><span class="item-title-text">Naming inconsistencies</span> <span class="item-num">9</span><button type="button" class="inline-edit-btn edit-title-btn" title="Edit title" aria-label="Edit title">✎</button></div><div class="field problem-field"><div class="field-label">Problem<button type="button" class="inline-edit-btn edit-problem-btn" title="Edit problem" aria-label="Edit problem">✎</button></div><div class="field-body problem-body">Free reschedule, free date change, and reschedule are used for the same thing in different places. Same pattern with fare breakup / price breakup, and amenities / bus features.</div></div><div class="field"><div class="field-label">Potential solve</div><div class="solve-area"><ul class="solve-list"><li data-solve="SOL-10"><span class="solve-id">SOL-10</span><div class="solve-text">Ensure consistant usage of terms. Cancellation policy / Booking policy, Free reschedule / free date change, etc.</div><select class="solve-stage" aria-label="Funnel stage for SOL-10"><option value="Onboarding">Onboarding</option><option value="Splash">Splash</option><option value="Common home">Common home</option><option value="SRP">SRP</option><option value="Seat selection">Seat selection</option><option value="Bus details">Bus details</option><option value="BP/DP selection">BP/DP selection</option><option value="Cust. Info.">Cust. Info.</option><option value="Payments">Payments</option><option value="Ticket page">Ticket page</option><option value="Booking funnel" selected="">Booking funnel</option></select><span class="solve-actions"><button type="button" class="edit-solve-btn" title="Edit">✎</button><button type="button" class="remove-solve-btn" title="Remove">✕</button></span></li></ul></div><button type="button" class="add-solve-btn" data-item="item-9">+ Add solve</button></div><details class="src"><summary>Research source</summary><div class="src-body"><div class="src-item"><span class="src-origin">Tracker · row 28 · SL · High</span><span class="src-quote">“Content on BD tray - fix term for features as per filter (consistency), FR is called as reschedule policy and free date change on same tray, FC table (ensure clarity + deadline for cancellation is called out clearly)...”</span></div><div class="src-item"><span class="src-origin">Tracker · row 54 · Payment · Medium</span><span class="src-quote">“Reword fare breakup as price breakup across payment page”</span></div><div class="src-item"><span class="src-origin">Study · Bus details discoverability, point 2</span><span class="src-quote">“Multiple terms used on same screen for same property - reschedule vs free date change”</span></div><div class="src-item"><span class="src-origin">Study · Payment Page UX Audit, point 2</span><span class="src-quote">“Users find 'Payment Details' or 'Price Details' more intuitive than 'Fare breakup'”</span></div><div class="src-item"><span class="src-origin">Study · Filters, SRP (2/2), point e</span><span class="src-quote">“Filter has both amenities and features as themes vs Bus details in SL calls amenities as features?”</span></div></div></details></div><div class="item" data-item="item-12"><div class="item-title"><span class="item-title-text">Seat representation consistency</span> <span class="item-num">12</span><button type="button" class="inline-edit-btn edit-title-btn" title="Edit title" aria-label="Edit title">✎</button></div><div class="field problem-field"><div class="field-label">Problem<button type="button" class="inline-edit-btn edit-problem-btn" title="Edit problem" aria-label="Edit problem">✎</button></div><div class="field-body problem-body">Seat representation differs between the seat-layout screen and the payment screen, so users exit payment to go re-check their seat selection.</div></div><div class="field"><div class="field-label">Potential solve</div><div class="solve-area"><ul class="solve-list"><li data-solve="SOL-11"><span class="solve-id">SOL-11</span><div class="solve-text">Reuse the same seat component and labelling on both screens, so there's nothing to recheck.<span class="src-tag">from the study</span></div><select class="solve-stage" aria-label="Funnel stage for SOL-11"><option value="Onboarding">Onboarding</option><option value="Splash">Splash</option><option value="Common home">Common home</option><option value="SRP">SRP</option><option value="Seat selection">Seat selection</option><option value="Bus details">Bus details</option><option value="BP/DP selection">BP/DP selection</option><option value="Cust. Info.">Cust. Info.</option><option value="Payments" selected="">Payments</option><option value="Ticket page">Ticket page</option><option value="Booking funnel">Booking funnel</option></select><span class="solve-actions"><button type="button" class="edit-solve-btn" title="Edit">✎</button><button type="button" class="remove-solve-btn" title="Remove">✕</button></span></li></ul></div><button type="button" class="add-solve-btn" data-item="item-12">+ Add solve</button></div><details class="src"><summary>Research source</summary><div class="src-body"><div class="src-item"><span class="src-origin">Tracker · row 55 · Payment · Medium</span><span class="src-quote">“Payment screen seat map reference can at least have upper deck lower deck call out if the orientation is going to be horizontal (vs vertical in SL)”</span></div><div class="src-item"><span class="src-origin">Study · Payment Page UX Audit, point 4</span><span class="src-quote">“Users have to spend effort to understand their selected seat as seat representation differs between the seat layout and exit from payment page to verify it.”</span><span class="src-note">Recommendation on the same slide: “Reuse the same seat component/label across both screens so the user doesn't have recheck with the seat layout and exit the payment page.”</span></div></div></details></div><div class="item" data-item="item-13"><div class="item-title"><span class="item-title-text">Support reassurance early in the journey</span> <span class="item-num">13</span><button type="button" class="inline-edit-btn edit-title-btn" title="Edit title" aria-label="Edit title">✎</button></div><div class="field problem-field"><div class="field-label">Problem<button type="button" class="inline-edit-btn edit-problem-btn" title="Edit problem" aria-label="Edit problem">✎</button></div><div class="field-body problem-body">First-time users want reassurance that support exists before they commit to a booking, and this isn't surfaced until deep in the funnel.</div></div><div class="field"><div class="field-label">Potential solve</div><div class="solve-area"><ul class="solve-list"><li data-solve="SOL-12"><span class="solve-id">SOL-12</span><div class="solve-text">Place a low-intrusion support call out on SRP along with other USPs of redBus like Lowest price gauranteed etc.<span class="src-tag">from the study</span></div><select class="solve-stage" aria-label="Funnel stage for SOL-12"><option value="Onboarding">Onboarding</option><option value="Splash">Splash</option><option value="Common home">Common home</option><option value="SRP" selected="">SRP</option><option value="Seat selection">Seat selection</option><option value="Bus details">Bus details</option><option value="BP/DP selection">BP/DP selection</option><option value="Cust. Info.">Cust. Info.</option><option value="Payments">Payments</option><option value="Ticket page">Ticket page</option><option value="Booking funnel">Booking funnel</option></select><span class="solve-actions"><button type="button" class="edit-solve-btn" title="Edit">✎</button><button type="button" class="remove-solve-btn" title="Remove">✕</button></span></li><li data-solve="SOL-36"><span class="solve-id">SOL-36</span><div class="solve-text">Add post booking support callout as a part of onboarding.</div><select class="solve-stage" aria-label="Funnel stage for SOL-36"><option value="Onboarding" selected="">Onboarding</option><option value="Splash">Splash</option><option value="Common home">Common home</option><option value="SRP">SRP</option><option value="Seat selection">Seat selection</option><option value="Bus details">Bus details</option><option value="BP/DP selection">BP/DP selection</option><option value="Cust. Info.">Cust. Info.</option><option value="Payments">Payments</option><option value="Ticket page">Ticket page</option><option value="Booking funnel">Booking funnel</option></select><span class="solve-actions"><button type="button" class="edit-solve-btn" title="Edit">✎</button><button type="button" class="remove-solve-btn" title="Remove">✕</button></span></li><li data-solve="SOL-37"><span class="solve-id">SOL-37</span><div class="solve-text">Make support ingress on Ticket page a lot more discoverable. It can be a ticket related action like cancel, etc.</div><select class="solve-stage" aria-label="Funnel stage for SOL-37"><option value="Onboarding">Onboarding</option><option value="Splash">Splash</option><option value="Common home">Common home</option><option value="SRP">SRP</option><option value="Seat selection">Seat selection</option><option value="Bus details">Bus details</option><option value="BP/DP selection">BP/DP selection</option><option value="Cust. Info.">Cust. Info.</option><option value="Payments">Payments</option><option value="Ticket page" selected="">Ticket page</option><option value="Booking funnel">Booking funnel</option></select><span class="solve-actions"><button type="button" class="edit-solve-btn" title="Edit">✎</button><button type="button" class="remove-solve-btn" title="Remove">✕</button></span></li></ul></div><button type="button" class="add-solve-btn" data-item="item-13">+ Add solve</button></div><details class="src"><summary>Research source</summary><div class="src-body"><div class="src-item"><span class="src-origin">Tracker · row 29 · SL · Medium</span><span class="src-quote">“Explore showcasing support assurance in the prebooking funnel (highlight regional language based support)”</span></div><div class="src-item"><span class="src-origin">Study · Seat Layout Page UX Audit (2/2), point 3</span><span class="src-quote">“First time &amp; Regional users want reassurance that RedBus offers customer support in their preferred language while they're still evaluating buses, to make a trusted booking.”</span><span class="src-note">Recommendation on the same slide: “Place a persistent support cue on the critical decision making point across pages.” Note: the tracker framed this as regional-language specific; the study frames it more broadly — matching the scope decision to drop the regional restriction here.</span></div></div></details></div><div class="item" data-item="item-muw7dv08"><div class="item-title"><span class="item-title-text">Cancellation and reschedule policy education</span> <span class="item-num">17</span><button type="button" class="inline-edit-btn edit-title-btn" title="Edit title" aria-label="Edit title">✎</button></div><div class="field problem-field"><div class="field-label">Problem<button type="button" class="inline-edit-btn edit-problem-btn" title="Edit problem" aria-label="Edit problem">✎</button></div><div class="field-body problem-body">Users can't tell at a glance what they can cancel or reschedule, until when, and how much they'd get back.</div></div><div class="field"><div class="field-label">Potential solve</div><div class="solve-area"><ul class="solve-list"><li data-solve="SOL-39"><span class="solve-id">SOL-39</span><div class="solve-text">Cancellation and reschedule policy communication should capture a one line summary of the policies and the table can potentially be a tap away.</div><select class="solve-stage" aria-label="Funnel stage for SOL-39"><option value="Onboarding">Onboarding</option><option value="Splash">Splash</option><option value="Common home">Common home</option><option value="SRP">SRP</option><option value="Seat selection">Seat selection</option><option value="Bus details" selected="">Bus details</option><option value="BP/DP selection">BP/DP selection</option><option value="Cust. Info.">Cust. Info.</option><option value="Payments">Payments</option><option value="Ticket page">Ticket page</option><option value="Booking funnel">Booking funnel</option></select><span class="solve-actions"><button type="button" class="edit-solve-btn" title="Edit">✎</button><button type="button" class="remove-solve-btn" title="Remove">✕</button></span></li><li data-solve="SOL-40"><span class="solve-id">SOL-40</span><div class="solve-text">Display one line summary of cancellation and reschdule policy along with the booking summary.</div><select class="solve-stage" aria-label="Funnel stage for SOL-40"><option value="Onboarding">Onboarding</option><option value="Splash">Splash</option><option value="Common home">Common home</option><option value="SRP">SRP</option><option value="Seat selection">Seat selection</option><option value="Bus details">Bus details</option><option value="BP/DP selection">BP/DP selection</option><option value="Cust. Info." selected="">Cust. Info.</option><option value="Payments">Payments</option><option value="Ticket page">Ticket page</option><option value="Booking funnel">Booking funnel</option></select><span class="solve-actions"><button type="button" class="edit-solve-btn" title="Edit">✎</button><button type="button" class="remove-solve-btn" title="Remove">✕</button></span></li></ul></div><button type="button" class="add-solve-btn" data-item="item-muw7dv08">+ Add solve</button></div><details class="src"><summary>Research source</summary><div class="src-body"><div class="src-item"><span class="src-origin">Tracker · row 28 · SL · High</span><span class="src-quote">“Content on BD tray - fix term for features as per filter (consistency), FR is called as reschedule policy and free date change on same tray, FC table (ensure clarity + deadline for cancellation is called out clearly)...”</span></div><div class="src-item"><span class="src-origin">Study · Bus details discoverability, point 2</span><span class="src-quote">“Multiple terms used on same screen for same property - reschedule vs free date change”</span></div><div class="src-item"><span class="src-origin">Study · Free Cancellation table</span><span class="src-quote">The Free Cancellation table shows “100% refund” in green even in time slots where it doesn't apply.</span><span class="src-note">Paraphrased from the theme analysis — the exact slide wording wasn't in the extracted notes. Worth checking against the deck.</span></div></div></details></div><button type="button" class="add-section-btn" data-theme="0">+ Add section to Clarity &amp; trust signals</button></div><div class="theme-block" data-theme="1"><div class="theme-head"><span class="theme-num">02</span><h2>Discoverability &amp; flow</h2></div><div class="item" data-item="item-5"><div class="item-title"><span class="item-title-text">Sort order clarity</span> <span class="item-num">5</span><button type="button" class="inline-edit-btn edit-title-btn" title="Edit title" aria-label="Edit title">✎</button></div><div class="field problem-field"><div class="field-label">Problem<button type="button" class="inline-edit-btn edit-problem-btn" title="Edit problem" aria-label="Edit problem">✎</button></div><div class="field-body problem-body">Users don't see a recognisable pattern in the SRP sort order.</div></div><div class="field"><div class="field-label">Potential solve</div><div class="solve-area"><ul class="solve-list"><li data-solve="SOL-13"><span class="solve-id">SOL-13</span><div class="solve-text">Show “sorted by” up front, with an option to change the sort order.</div><select class="solve-stage" aria-label="Funnel stage for SOL-13"><option value="Onboarding">Onboarding</option><option value="Splash">Splash</option><option value="Common home">Common home</option><option value="SRP" selected="">SRP</option><option value="Seat selection">Seat selection</option><option value="Bus details">Bus details</option><option value="BP/DP selection">BP/DP selection</option><option value="Cust. Info.">Cust. Info.</option><option value="Payments">Payments</option><option value="Ticket page">Ticket page</option><option value="Booking funnel">Booking funnel</option></select><span class="solve-actions"><button type="button" class="edit-solve-btn" title="Edit">✎</button><button type="button" class="remove-solve-btn" title="Remove">✕</button></span></li><li data-solve="SOL-38"><span class="solve-id">SOL-38</span><div class="solve-text">Sort orders to have sub text explaining what every sort option is optimized for. Example: Relavance (Optimized for best value), Low to high (Optimized to find the cheapest buses), Best rated first (Optimized for the best buses)</div><select class="solve-stage" aria-label="Funnel stage for SOL-38"><option value="Onboarding">Onboarding</option><option value="Splash">Splash</option><option value="Common home">Common home</option><option value="SRP" selected="">SRP</option><option value="Seat selection">Seat selection</option><option value="Bus details">Bus details</option><option value="BP/DP selection">BP/DP selection</option><option value="Cust. Info.">Cust. Info.</option><option value="Payments">Payments</option><option value="Ticket page">Ticket page</option><option value="Booking funnel">Booking funnel</option></select><span class="solve-actions"><button type="button" class="edit-solve-btn" title="Edit">✎</button><button type="button" class="remove-solve-btn" title="Remove">✕</button></span></li></ul></div><button type="button" class="add-solve-btn" data-item="item-5">+ Add solve</button></div><details class="src"><summary>Research source</summary><div class="src-body"><div class="src-item"><span class="src-origin">Tracker · row 12 · SRP · High</span><span class="src-quote">“Consolidate filter categories (remove internal definitions like features vs amenities, add redundancy for toilets across multiple relevant categories) and reword sort order to make it more clearer”</span></div><div class="src-item"><span class="src-origin">Tracker · row 11 · SRP · Medium</span><span class="src-quote">“Work towards filter prominence, sequence of filter chips, feedback on selection (chips &amp; list), easy clearance of filters and sort order”</span></div></div></details></div><div class="item" data-item="item-6"><div class="item-title"><span class="item-title-text">Filter discovery and engagement</span> <span class="item-num">6</span><button type="button" class="inline-edit-btn edit-title-btn" title="Edit title" aria-label="Edit title">✎</button></div><div class="field problem-field"><div class="field-label">Problem<button type="button" class="inline-edit-btn edit-problem-btn" title="Edit problem" aria-label="Edit problem">✎</button></div><div class="field-body problem-body">Users miss filters entirely. Filter chips shown upfront aren't always relevant for FTUs. The filter page is cumbersome to consume.</div></div><div class="field"><div class="field-label">Potential solve</div><div class="solve-area"><ul class="solve-list"><li data-solve="SOL-14"><span class="solve-id">SOL-14</span><div class="solve-text">Remove the ad cards and collection cards on top to give filters better visibility.</div><select class="solve-stage" aria-label="Funnel stage for SOL-14"><option value="Onboarding">Onboarding</option><option value="Splash">Splash</option><option value="Common home">Common home</option><option value="SRP" selected="">SRP</option><option value="Seat selection">Seat selection</option><option value="Bus details">Bus details</option><option value="BP/DP selection">BP/DP selection</option><option value="Cust. Info.">Cust. Info.</option><option value="Payments">Payments</option><option value="Ticket page">Ticket page</option><option value="Booking funnel">Booking funnel</option></select><span class="solve-actions"><button type="button" class="edit-solve-btn" title="Edit">✎</button><button type="button" class="remove-solve-btn" title="Remove">✕</button></span></li><li data-solve="SOL-15"><span class="solve-id">SOL-15</span><div class="solve-text">Improve filter visual affordance to draw engagement.</div><select class="solve-stage" aria-label="Funnel stage for SOL-15"><option value="Onboarding">Onboarding</option><option value="Splash">Splash</option><option value="Common home">Common home</option><option value="SRP" selected="">SRP</option><option value="Seat selection">Seat selection</option><option value="Bus details">Bus details</option><option value="BP/DP selection">BP/DP selection</option><option value="Cust. Info.">Cust. Info.</option><option value="Payments">Payments</option><option value="Ticket page">Ticket page</option><option value="Booking funnel">Booking funnel</option></select><span class="solve-actions"><button type="button" class="edit-solve-btn" title="Edit">✎</button><button type="button" class="remove-solve-btn" title="Remove">✕</button></span></li><li data-solve="SOL-16"><span class="solve-id">SOL-16</span><div class="solve-text">Formally introduce AI smart filter to encourage usage.</div><select class="solve-stage" aria-label="Funnel stage for SOL-16"><option value="Onboarding">Onboarding</option><option value="Splash">Splash</option><option value="Common home">Common home</option><option value="SRP" selected="">SRP</option><option value="Seat selection">Seat selection</option><option value="Bus details">Bus details</option><option value="BP/DP selection">BP/DP selection</option><option value="Cust. Info.">Cust. Info.</option><option value="Payments">Payments</option><option value="Ticket page">Ticket page</option><option value="Booking funnel">Booking funnel</option></select><span class="solve-actions"><button type="button" class="edit-solve-btn" title="Edit">✎</button><button type="button" class="remove-solve-btn" title="Remove">✕</button></span></li></ul></div><button type="button" class="add-solve-btn" data-item="item-6">+ Add solve</button></div><details class="src"><summary>Research source</summary><div class="src-body"><div class="src-item"><span class="src-origin">Tracker · row 12 · SRP · High</span><span class="src-quote">“Consolidate filter categories (remove internal definitions like features vs amenities, add redundancy for toilets across multiple relevant categories) and reword sort order to make it more clearer”</span></div><div class="src-item"><span class="src-origin">Tracker · row 11 · SRP · Medium</span><span class="src-quote">“Work towards filter prominence, sequence of filter chips, feedback on selection (chips &amp; list), easy clearance of filters and sort order”</span></div><div class="src-item"><span class="src-origin">Tracker · row 7 · SRP · Medium</span><span class="src-quote">“Revisit banner size on SRP - banners tend to overshadow filter discoverability”</span></div><div class="src-item"><span class="src-origin">Study · “Choices, relevance and role of filters” (SRP 1/2), point 1</span><span class="src-quote">“Top cards ignored and filters generally missed. Too many choices with no clear logic of sequence doesn't land positively with new users - depth of supply vs relevance.”</span><span class="src-note">Recommendation: “Can we give more prominence to filter and sort by moving top cards as a horizontal carousel in between the SRP listings - it is a waste of first fold?”</span></div><div class="src-item"><span class="src-origin">Study · Filters (SRP 2/2), point 2</span><span class="src-quote">“Filters need to be more user friendly: a. Show relevant options first (AC, Sleeper, Time) b. Remove deadweight (Primo, Deals in RTC flow) c. Consolidated view of applied filters for easy deselection not present today d. Auto removal expected on click / clear all...”</span></div></div></details></div><div class="item" data-item="item-11"><div class="item-title"><span class="item-title-text">Search widget experience</span> <span class="item-num">11</span><button type="button" class="inline-edit-btn edit-title-btn" title="Edit title" aria-label="Edit title">✎</button></div><div class="field problem-field"><div class="field-label">Problem<button type="button" class="inline-edit-btn edit-problem-btn" title="Edit problem" aria-label="Edit problem">✎</button></div><div class="field-body problem-body">Too much back-and-forth. The Today/Tomorrow button takes users straight to SRP, making them miss the Women-mode option.</div></div><div class="field"><div class="field-label">Potential solve</div><div class="solve-area"><ul class="solve-list"><li data-solve="SOL-17"><span class="solve-id">SOL-17</span><div class="solve-text">A well-integrated search experience optimised for speed and clarity.</div><select class="solve-stage" aria-label="Funnel stage for SOL-17"><option value="Onboarding">Onboarding</option><option value="Splash">Splash</option><option value="Common home" selected="">Common home</option><option value="SRP">SRP</option><option value="Seat selection">Seat selection</option><option value="Bus details">Bus details</option><option value="BP/DP selection">BP/DP selection</option><option value="Cust. Info.">Cust. Info.</option><option value="Payments">Payments</option><option value="Ticket page">Ticket page</option><option value="Booking funnel">Booking funnel</option></select><span class="solve-actions"><button type="button" class="edit-solve-btn" title="Edit">✎</button><button type="button" class="remove-solve-btn" title="Remove">✕</button></span></li><li data-solve="SOL-18"><span class="solve-id">SOL-18</span><div class="solve-text">Today/Tomorrow could work like tabs rather than buttons.</div><select class="solve-stage" aria-label="Funnel stage for SOL-18"><option value="Onboarding">Onboarding</option><option value="Splash">Splash</option><option value="Common home" selected="">Common home</option><option value="SRP">SRP</option><option value="Seat selection">Seat selection</option><option value="Bus details">Bus details</option><option value="BP/DP selection">BP/DP selection</option><option value="Cust. Info.">Cust. Info.</option><option value="Payments">Payments</option><option value="Ticket page">Ticket page</option><option value="Booking funnel">Booking funnel</option></select><span class="solve-actions"><button type="button" class="edit-solve-btn" title="Edit">✎</button><button type="button" class="remove-solve-btn" title="Remove">✕</button></span></li></ul></div><button type="button" class="add-solve-btn" data-item="item-11">+ Add solve</button></div><details class="src"><summary>Research source</summary><div class="src-body"><div class="src-item"><span class="src-origin">Study · “Mislands, wrong search, female flow” (Homepage), point 3</span><span class="src-quote">“Different interactions for dates in search widget confusing - today / tomorrow takes users to SRP directly while a specific date requires an additional interaction the Search CTA. Women funnel penalised. Should we keep women funnel toggle on SRP too?”</span><span class="src-note">No matching tracker row — the closest tracker item (row 5, a Women-toggle interaction bug) is a different, engineering-side issue and sits in the parked list.</span></div></div></details></div><div class="item" data-item="item-14"><div class="item-title"><span class="item-title-text">Bus-details tray discoverability</span> <span class="item-num">14</span><button type="button" class="inline-edit-btn edit-title-btn" title="Edit title" aria-label="Edit title">✎</button></div><div class="field problem-field"><div class="field-label">Problem<button type="button" class="inline-edit-btn edit-problem-btn" title="Edit problem" aria-label="Edit problem">✎</button></div><div class="field-body problem-body">Most users don't realise the tray expands to show bus details. The details are helpful but go unexplored for lack of affordance, and once opened, the tray behaves erratically (close, drop-down, drag).</div></div><div class="field"><div class="field-label">Potential solve</div><div class="solve-area"><ul class="solve-list"><li data-solve="SOL-19"><span class="solve-id">SOL-19</span><div class="solve-text">Make the page continuous.</div><select class="solve-stage" aria-label="Funnel stage for SOL-19"><option value="Onboarding">Onboarding</option><option value="Splash">Splash</option><option value="Common home">Common home</option><option value="SRP">SRP</option><option value="Seat selection">Seat selection</option><option value="Bus details" selected="">Bus details</option><option value="BP/DP selection">BP/DP selection</option><option value="Cust. Info.">Cust. Info.</option><option value="Payments">Payments</option><option value="Ticket page">Ticket page</option><option value="Booking funnel">Booking funnel</option></select><span class="solve-actions"><button type="button" class="edit-solve-btn" title="Edit">✎</button><button type="button" class="remove-solve-btn" title="Remove">✕</button></span></li><li data-solve="SOL-20"><span class="solve-id">SOL-20</span><div class="solve-text">Add a chevron to indicate it expands.</div><select class="solve-stage" aria-label="Funnel stage for SOL-20"><option value="Onboarding">Onboarding</option><option value="Splash">Splash</option><option value="Common home">Common home</option><option value="SRP">SRP</option><option value="Seat selection">Seat selection</option><option value="Bus details" selected="">Bus details</option><option value="BP/DP selection">BP/DP selection</option><option value="Cust. Info.">Cust. Info.</option><option value="Payments">Payments</option><option value="Ticket page">Ticket page</option><option value="Booking funnel">Booking funnel</option></select><span class="solve-actions"><button type="button" class="edit-solve-btn" title="Edit">✎</button><button type="button" class="remove-solve-btn" title="Remove">✕</button></span></li><li data-solve="SOL-21"><span class="solve-id">SOL-21</span><div class="solve-text">Load the tray in half-expanded state on page load and tuck it away to ensure users understand there is more information inside the tray.<span class="src-tag">from the study</span></div><select class="solve-stage" aria-label="Funnel stage for SOL-21"><option value="Onboarding">Onboarding</option><option value="Splash">Splash</option><option value="Common home">Common home</option><option value="SRP">SRP</option><option value="Seat selection">Seat selection</option><option value="Bus details" selected="">Bus details</option><option value="BP/DP selection">BP/DP selection</option><option value="Cust. Info.">Cust. Info.</option><option value="Payments">Payments</option><option value="Ticket page">Ticket page</option><option value="Booking funnel">Booking funnel</option></select><span class="solve-actions"><button type="button" class="edit-solve-btn" title="Edit">✎</button><button type="button" class="remove-solve-btn" title="Remove">✕</button></span></li></ul></div><button type="button" class="add-solve-btn" data-item="item-14">+ Add solve</button></div><details class="src"><summary>Research source</summary><div class="src-body"><div class="src-item"><span class="src-origin">Tracker · row 25 · SL · High</span><span class="src-quote">“Resolve Bus details discoverability - gesture not expected and performed by users - make it auto scroll”</span></div><div class="src-item"><span class="src-origin">Study · “Bus details discoverability hampered”, point 1</span><span class="src-quote">“Most users didn't realise the tray expands to show Bus details. The details were very helpful but lay unexplored for lack of a better interaction. When opened the tray tends to behave erratically - close, drop down, drag.”</span><span class="src-note">Recommendation on the same slide: “Make the page continuous, add a Λ chevron to indicate and make the movement smoother.”</span></div></div></details></div><button type="button" class="add-section-btn" data-theme="1">+ Add section to Discoverability &amp; flow</button></div><div class="theme-block" data-theme="2"><div class="theme-head"><span class="theme-num">03</span><h2>Monetisation vs. core task</h2></div><div class="item" data-item="item-4"><div class="item-title"><span class="item-title-text">Offer discovery</span> <span class="item-num">4</span><button type="button" class="inline-edit-btn edit-title-btn" title="Edit title" aria-label="Edit title">✎</button></div><div class="field problem-field"><div class="field-label">Problem<button type="button" class="inline-edit-btn edit-problem-btn" title="Edit problem" aria-label="Edit problem">✎</button></div><div class="field-body problem-body">Users don't discover offers early.</div></div><div class="field"><div class="field-label">Potential solve</div><div class="solve-area"><ul class="solve-list"><li data-solve="SOL-22"><span class="solve-id">SOL-22</span><div class="solve-text">Make all offers on the homepage a lot more discoverable by doing the following:<br><ol><li>Offers section should be visible on the first fold of the common home</li><li>Offers section should have clear communication about the depth of deals and the exclusivity on redBus.&nbsp;</li><li>Offers section should have clear bucketing of platform and payment offers.&nbsp;</li></ol></div><select class="solve-stage" aria-label="Funnel stage for SOL-22"><option value="Onboarding">Onboarding</option><option value="Splash">Splash</option><option value="Common home" selected="">Common home</option><option value="SRP">SRP</option><option value="Seat selection">Seat selection</option><option value="Bus details">Bus details</option><option value="BP/DP selection">BP/DP selection</option><option value="Cust. Info.">Cust. Info.</option><option value="Payments">Payments</option><option value="Ticket page">Ticket page</option><option value="Booking funnel">Booking funnel</option></select><span class="solve-actions"><button type="button" class="edit-solve-btn" title="Edit">✎</button><button type="button" class="remove-solve-btn" title="Remove">✕</button></span></li><li data-solve="SOL-23"><span class="solve-id">SOL-23</span><div class="solve-text">Surface payment offers on the payment page by doing the following:<br><ol><li>A low intrusive ingress point revealing all offers with capability to apply.&nbsp;</li><li>The expanded view of the offers section should have clear bucketing of playform and payment offers.&nbsp;</li></ol></div><select class="solve-stage" aria-label="Funnel stage for SOL-23"><option value="Onboarding">Onboarding</option><option value="Splash">Splash</option><option value="Common home">Common home</option><option value="SRP">SRP</option><option value="Seat selection">Seat selection</option><option value="Bus details">Bus details</option><option value="BP/DP selection">BP/DP selection</option><option value="Cust. Info.">Cust. Info.</option><option value="Payments" selected="">Payments</option><option value="Ticket page">Ticket page</option><option value="Booking funnel">Booking funnel</option></select><span class="solve-actions"><button type="button" class="edit-solve-btn" title="Edit">✎</button><button type="button" class="remove-solve-btn" title="Remove">✕</button></span></li></ul></div><button type="button" class="add-solve-btn" data-item="item-4">+ Add solve</button></div><details class="src"><summary>Research source</summary><div class="src-body"><div class="src-item"><span class="src-origin">Study · Payments, key concerns, point 1</span><span class="src-quote">“User expect coupons to be shown on this screen. If they hunt for coupons, the experience is broken: a. The entire txn is gone - find the bus, get a new seat, fill details and then apply coupon to book your ticket (it may not work). b. Coupons don't have better context when not applicable. c. Coupons with cashback don't highlight validity of CB (a key lever to judge value of the offer).”</span><span class="src-note">No tracker row speaks to homepage offer discovery specifically; this is the closest evidence available, from the payment-screen coupon findings.</span></div></div></details></div><div class="item" data-item="item-10"><div class="item-title"><span class="item-title-text">Timing of app permission and review requests</span> <span class="item-num">10</span><button type="button" class="inline-edit-btn edit-title-btn" title="Edit title" aria-label="Edit title">✎</button></div><div class="field problem-field"><div class="field-label">Problem<button type="button" class="inline-edit-btn edit-problem-btn" title="Edit problem" aria-label="Edit problem">✎</button></div><div class="field-body problem-body">Location permission is asked at onboarding. Notification permission and the app-review prompt appear on the homepage, for a user who hasn't seen SRP even once.</div></div><div class="field"><div class="field-label">Potential solve</div><div class="solve-area"><ul class="solve-list"><li data-solve="SOL-24"><span class="solve-id">SOL-24</span><div class="solve-text">Contextualise requests, dont ask plainly — location permission can stay at onboarding.</div><select class="solve-stage" aria-label="Funnel stage for SOL-24"><option value="Onboarding" selected="">Onboarding</option><option value="Splash">Splash</option><option value="Common home">Common home</option><option value="SRP">SRP</option><option value="Seat selection">Seat selection</option><option value="Bus details">Bus details</option><option value="BP/DP selection">BP/DP selection</option><option value="Cust. Info.">Cust. Info.</option><option value="Payments">Payments</option><option value="Ticket page">Ticket page</option><option value="Booking funnel">Booking funnel</option></select><span class="solve-actions"><button type="button" class="edit-solve-btn" title="Edit">✎</button><button type="button" class="remove-solve-btn" title="Remove">✕</button></span></li><li data-solve="SOL-25"><span class="solve-id">SOL-25</span><div class="solve-text">Ask for notification permission when a user drops from a session, with context and highlighting value.</div><select class="solve-stage" aria-label="Funnel stage for SOL-25"><option value="Onboarding">Onboarding</option><option value="Splash">Splash</option><option value="Common home">Common home</option><option value="SRP">SRP</option><option value="Seat selection">Seat selection</option><option value="Bus details">Bus details</option><option value="BP/DP selection">BP/DP selection</option><option value="Cust. Info.">Cust. Info.</option><option value="Payments">Payments</option><option value="Ticket page">Ticket page</option><option value="Booking funnel" selected="">Booking funnel</option></select><span class="solve-actions"><button type="button" class="edit-solve-btn" title="Edit">✎</button><button type="button" class="remove-solve-btn" title="Remove">✕</button></span></li><li data-solve="SOL-26"><span class="solve-id">SOL-26</span><div class="solve-text">Ask for the app review after booking completion. Definetly not on home page after app install, which is what the current production behaviour. Contextualise the ask.</div><select class="solve-stage" aria-label="Funnel stage for SOL-26"><option value="Onboarding">Onboarding</option><option value="Splash">Splash</option><option value="Common home">Common home</option><option value="SRP">SRP</option><option value="Seat selection">Seat selection</option><option value="Bus details">Bus details</option><option value="BP/DP selection">BP/DP selection</option><option value="Cust. Info.">Cust. Info.</option><option value="Payments">Payments</option><option value="Ticket page" selected="">Ticket page</option><option value="Booking funnel">Booking funnel</option></select><span class="solve-actions"><button type="button" class="edit-solve-btn" title="Edit">✎</button><button type="button" class="remove-solve-btn" title="Remove">✕</button></span></li><li data-solve="SOL-41"><span class="solve-id">SOL-41</span><div class="solve-text">Remove log-in bottomsheet on SL. (Design not required for this)</div><select class="solve-stage" aria-label="Funnel stage for SOL-41"><option value="Onboarding">Onboarding</option><option value="Splash">Splash</option><option value="Common home">Common home</option><option value="SRP">SRP</option><option value="Seat selection" selected="">Seat selection</option><option value="Bus details">Bus details</option><option value="BP/DP selection">BP/DP selection</option><option value="Cust. Info.">Cust. Info.</option><option value="Payments">Payments</option><option value="Ticket page">Ticket page</option><option value="Booking funnel">Booking funnel</option></select><span class="solve-actions"><button type="button" class="edit-solve-btn" title="Edit">✎</button><button type="button" class="remove-solve-btn" title="Remove">✕</button></span></li></ul></div><button type="button" class="add-solve-btn" data-item="item-10">+ Add solve</button></div><details class="src"><summary>Research source</summary><div class="src-body"><div class="src-item"><span class="src-origin">Tracker · row 60 · App · High</span><span class="src-quote">“Stop asking Playstore reviews after log in - allow user to at least explore SRP”</span></div><div class="src-item"><span class="src-origin">Study · Home Page UX Audit, point 2</span><span class="src-quote">“The review prompt fires within ~10 seconds of first launch leading to abandonment or poor rating.”</span><span class="src-note">Recommendation on the same slide: “Trigger the prompt on a positive value moment, not a timer (e.g. after a completed first booking or after availing an offer).” The study's timing (~10 seconds after first launch) supersedes the tracker's “after login” framing.</span></div></div></details></div><button type="button" class="add-section-btn" data-theme="2">+ Add section to Monetisation vs. core task</button></div><div class="theme-block" data-theme="3"><div class="theme-head"><span class="theme-num">04</span><h2>Error &amp; recovery copy</h2></div><div class="item" data-item="item-15"><div class="item-title"><span class="item-title-text">Cust. Info validation error handling</span> <span class="item-num">15</span><button type="button" class="inline-edit-btn edit-title-btn" title="Edit title" aria-label="Edit title">✎</button></div><div class="field problem-field"><div class="field-label">Problem<button type="button" class="inline-edit-btn edit-problem-btn" title="Edit problem" aria-label="Edit problem">✎</button></div><div class="field-body problem-body">On the customer-info page, error messages persist after the user has already fixed the issue, and technical errors (like the sold-out-seat message) aren't rewritten in plain language, so users can't tell if anything's resolved. Validation errors aren't handled well on this page generally.</div></div><div class="field"><div class="field-label">Potential solve</div><div class="solve-area"><ul class="solve-list"><li data-solve="SOL-42"><span class="solve-id">SOL-42</span><div class="solve-text">Update error copies with appropriate replacements. Some examples of poor copy.&nbsp;<br><ul><li>"Enter your name in English" when a number is input in the name field.&nbsp;</li><li>"Please enter valid Age" is the error message when 3 digits are entered.&nbsp;</li><li>"Please enter valid phone number" is the error when error phone number is not entered or partially entered. There should be different copies for when not entered and when incorrectly entered.&nbsp;</li></ul></div><select class="solve-stage" aria-label="Funnel stage for SOL-42"><option value="Onboarding">Onboarding</option><option value="Splash">Splash</option><option value="Common home">Common home</option><option value="SRP">SRP</option><option value="Seat selection">Seat selection</option><option value="Bus details">Bus details</option><option value="BP/DP selection">BP/DP selection</option><option value="Cust. Info." selected="">Cust. Info.</option><option value="Payments">Payments</option><option value="Ticket page">Ticket page</option><option value="Booking funnel">Booking funnel</option></select><span class="solve-actions"><button type="button" class="edit-solve-btn" title="Edit">✎</button><button type="button" class="remove-solve-btn" title="Remove">✕</button></span></li><li data-solve="SOL-43"><span class="solve-id">SOL-43</span><div class="solve-text">State of residence and WhatsApp optin can be selected by default and have a much lower visual affordance.</div><select class="solve-stage" aria-label="Funnel stage for SOL-43"><option value="Onboarding">Onboarding</option><option value="Splash">Splash</option><option value="Common home">Common home</option><option value="SRP">SRP</option><option value="Seat selection">Seat selection</option><option value="Bus details">Bus details</option><option value="BP/DP selection">BP/DP selection</option><option value="Cust. Info." selected="">Cust. Info.</option><option value="Payments">Payments</option><option value="Ticket page">Ticket page</option><option value="Booking funnel">Booking funnel</option></select><span class="solve-actions"><button type="button" class="edit-solve-btn" title="Edit">✎</button><button type="button" class="remove-solve-btn" title="Remove">✕</button></span></li><li data-solve="SOL-44"><span class="solve-id">SOL-44</span><div class="solve-text">Login to view saved passenger list CTA can be contextual and have lesser visual affordance.</div><select class="solve-stage" aria-label="Funnel stage for SOL-44"><option value="Onboarding">Onboarding</option><option value="Splash">Splash</option><option value="Common home">Common home</option><option value="SRP">SRP</option><option value="Seat selection">Seat selection</option><option value="Bus details">Bus details</option><option value="BP/DP selection">BP/DP selection</option><option value="Cust. Info." selected="">Cust. Info.</option><option value="Payments">Payments</option><option value="Ticket page">Ticket page</option><option value="Booking funnel">Booking funnel</option></select><span class="solve-actions"><button type="button" class="edit-solve-btn" title="Edit">✎</button><button type="button" class="remove-solve-btn" title="Remove">✕</button></span></li></ul></div><button type="button" class="add-solve-btn" data-item="item-15">+ Add solve</button></div><details class="src"><summary>Research source</summary><div class="src-body"><div class="src-item"><span class="src-origin">Tracker · row 41 · Cust Info · Medium</span><span class="src-quote">“Error messages don't disappear till CTA is clicked - confuses users whether they have fixed the error or not (frustrated when they have solved it correctly but error message doesnt disappear)”</span></div><div class="src-item"><span class="src-origin">Tracker · row 43 · Cust Info · Low</span><span class="src-quote">“Mobweb - when seat was sold out while user was in booking journey a vague error message was shown 'IAS response null' slide 12 FTUE”</span></div><div class="src-item"><span class="src-origin">Study · Cust Info, “Archaic error handling”, point 2</span><span class="src-quote">“Error messages remain till CTA is clicked and user is unsure whether the issue has been solved.”</span><span class="src-note">Recommendation on the same slide: “Responsive error messages needed - UX has evolved, we have not.”</span></div><div class="src-item"><span class="src-origin">Study · Search Result Page UX Audit, point 2</span><span class="src-quote">“Show a clear, user-friendly error message instead of technical ones (e.g. 'IAS response is null')”</span></div></div></details></div><button type="button" class="add-section-btn" data-theme="3">+ Add section to Error &amp; recovery copy</button></div><div class="theme-block" data-theme="4"><div class="theme-head"><span class="theme-num">05</span><h2>Drop-off recovery</h2></div><div class="item" data-item="item-16"><div class="item-title"><span class="item-title-text">Resume booking flow</span> <span class="item-num">16</span><button type="button" class="inline-edit-btn edit-title-btn" title="Edit title" aria-label="Edit title">✎</button></div><div class="field problem-field"><div class="field-label">Problem<button type="button" class="inline-edit-btn edit-problem-btn" title="Edit problem" aria-label="Edit problem">✎</button></div><div class="field-body problem-body">No way back into a booking abandoned at the payment step. The homepage doesn't offer to resume it.</div></div><div class="field"><div class="field-label">Potential solve</div><div class="solve-area"><ul class="solve-list"><li data-solve="SOL-27"><span class="solve-id">SOL-27</span><div class="solve-text">Introduce a “Continue booking” card on the homepage for payment-page drop-offs.<span class="src-tag">already scheduled S4 Q2 / S1 Q3</span></div><select class="solve-stage" aria-label="Funnel stage for SOL-27"><option value="Onboarding">Onboarding</option><option value="Splash">Splash</option><option value="Common home" selected="">Common home</option><option value="SRP">SRP</option><option value="Seat selection">Seat selection</option><option value="Bus details">Bus details</option><option value="BP/DP selection">BP/DP selection</option><option value="Cust. Info.">Cust. Info.</option><option value="Payments">Payments</option><option value="Ticket page">Ticket page</option><option value="Booking funnel">Booking funnel</option></select><span class="solve-actions"><button type="button" class="edit-solve-btn" title="Edit">✎</button><button type="button" class="remove-solve-btn" title="Remove">✕</button></span></li><li data-solve="SOL-45"><span class="solve-id">SOL-45</span><div class="solve-text">Make recently viewed services easily scannable on SRP. We can try a small green text with a check mark on a tuple that says "seen".</div><select class="solve-stage" aria-label="Funnel stage for SOL-45"><option value="Onboarding">Onboarding</option><option value="Splash">Splash</option><option value="Common home">Common home</option><option value="SRP" selected="">SRP</option><option value="Seat selection">Seat selection</option><option value="Bus details">Bus details</option><option value="BP/DP selection">BP/DP selection</option><option value="Cust. Info.">Cust. Info.</option><option value="Payments">Payments</option><option value="Ticket page">Ticket page</option><option value="Booking funnel">Booking funnel</option></select><span class="solve-actions"><button type="button" class="edit-solve-btn" title="Edit">✎</button><button type="button" class="remove-solve-btn" title="Remove">✕</button></span></li></ul></div><button type="button" class="add-solve-btn" data-item="item-16">+ Add solve</button></div><details class="src"><summary>Research source</summary><div class="src-body"><div class="src-item"><span class="src-origin">Tracker · row 1 · HP · High · FTUE + UXB</span><span class="src-quote">“Introduce a 'Continue booking card' on HP for payment page drop offs”</span><span class="src-note">Status column: S4 Q2 / S1 Q3.</span></div></div></details></div><button type="button" class="add-section-btn" data-theme="4">+ Add section to Drop-off recovery</button></div></div>
+
+  <div id="pages-view" hidden=""><div class="pv-nav" aria-label="Jump to page"><button type="button" data-jump="pv-onboarding">Onboarding<span class="n">2</span></button><button type="button" data-jump="pv-common-home">Common home<span class="n">4</span></button><button type="button" data-jump="pv-srp">SRP<span class="n">9</span></button><button type="button" data-jump="pv-seat-selection">Seat selection<span class="n">4</span></button><button type="button" data-jump="pv-bus-details">Bus details<span class="n">5</span></button><button type="button" data-jump="pv-cust-info-">Cust. Info.<span class="n">5</span></button><button type="button" data-jump="pv-payments">Payments<span class="n">8</span></button><button type="button" data-jump="pv-ticket-page">Ticket page<span class="n">3</span></button><button type="button" data-jump="pv-booking-funnel">Booking funnel<span class="n">5</span></button></div><section class="page-block" id="pv-onboarding"><div class="theme-head"><span class="theme-num">01</span><h2>Onboarding</h2><span class="page-count">2 solves</span></div><div class="item"><div class="pv-crumb">01 · Clarity &amp; trust signals</div><button type="button" class="pv-title" data-goto="item-13" title="Open in By themes"><span class="pv-title-text">Support reassurance early in the journey</span><span class="item-num">13</span><span class="pv-jump">↗</span></button><div class="pv-problem">First-time users want reassurance that support exists before they commit to a booking, and this isn't surfaced until deep in the funnel.</div><ul class="solve-list"><li><span class="solve-id">SOL-36</span><div class="solve-text">Add post booking support callout as a part of onboarding.</div></li></ul></div><div class="item"><div class="pv-crumb">03 · Monetisation vs. core task</div><button type="button" class="pv-title" data-goto="item-10" title="Open in By themes"><span class="pv-title-text">Timing of app permission and review requests</span><span class="item-num">10</span><span class="pv-jump">↗</span></button><div class="pv-problem">Location permission is asked at onboarding. Notification permission and the app-review prompt appear on the homepage, for a user who hasn't seen SRP even once.</div><ul class="solve-list"><li><span class="solve-id">SOL-24</span><div class="solve-text">Contextualise requests, dont ask plainly — location permission can stay at onboarding.</div></li></ul></div></section><section class="page-block" id="pv-common-home"><div class="theme-head"><span class="theme-num">03</span><h2>Common home</h2><span class="page-count">4 solves</span></div><div class="item"><div class="pv-crumb">02 · Discoverability &amp; flow</div><button type="button" class="pv-title" data-goto="item-11" title="Open in By themes"><span class="pv-title-text">Search widget experience</span><span class="item-num">11</span><span class="pv-jump">↗</span></button><div class="pv-problem">Too much back-and-forth. The Today/Tomorrow button takes users straight to SRP, making them miss the Women-mode option.</div><ul class="solve-list"><li><span class="solve-id">SOL-17</span><div class="solve-text">A well-integrated search experience optimised for speed and clarity.</div></li><li><span class="solve-id">SOL-18</span><div class="solve-text">Today/Tomorrow could work like tabs rather than buttons.</div></li></ul></div><div class="item"><div class="pv-crumb">03 · Monetisation vs. core task</div><button type="button" class="pv-title" data-goto="item-4" title="Open in By themes"><span class="pv-title-text">Offer discovery</span><span class="item-num">4</span><span class="pv-jump">↗</span></button><div class="pv-problem">Users don't discover offers early.</div><ul class="solve-list"><li><span class="solve-id">SOL-22</span><div class="solve-text">Make all offers on the homepage a lot more discoverable by doing the following:<br><ol><li>Offers section should be visible on the first fold of the common home</li><li>Offers section should have clear communication about the depth of deals and the exclusivity on redBus.&nbsp;</li><li>Offers section should have clear bucketing of platform and payment offers.&nbsp;</li></ol></div></li></ul></div><div class="item"><div class="pv-crumb">05 · Drop-off recovery</div><button type="button" class="pv-title" data-goto="item-16" title="Open in By themes"><span class="pv-title-text">Resume booking flow</span><span class="item-num">16</span><span class="pv-jump">↗</span></button><div class="pv-problem">No way back into a booking abandoned at the payment step. The homepage doesn't offer to resume it.</div><ul class="solve-list"><li><span class="solve-id">SOL-27</span><div class="solve-text">Introduce a “Continue booking” card on the homepage for payment-page drop-offs.<span class="src-tag">already scheduled S4 Q2 / S1 Q3</span></div></li></ul></div></section><section class="page-block" id="pv-srp"><div class="theme-head"><span class="theme-num">04</span><h2>SRP</h2><span class="page-count">9 solves</span></div><div class="item"><div class="pv-crumb">01 · Clarity &amp; trust signals</div><button type="button" class="pv-title" data-goto="item-1" title="Open in By themes"><span class="pv-title-text">Primo education</span><span class="item-num">1</span><span class="pv-jump">↗</span></button><div class="pv-problem">FTUs don't understand Primo.</div><ul class="solve-list"><li><span class="solve-id">SOL-01</span><div class="solve-text">Introduce Primo in a non-intrusive way on SRP, rather than just depending on the logo on every tuple. Explain what Primo is and show Primo benefits. Explore card extensions on 2 session to convey about primo buses.</div></li></ul></div><div class="item"><div class="pv-crumb">01 · Clarity &amp; trust signals</div><button type="button" class="pv-title" data-goto="item-3" title="Open in By themes"><span class="pv-title-text">Price shock from SRP to SL</span><span class="item-num">3</span><span class="pv-jump">↗</span></button><div class="pv-problem">Users see the lowest price on SRP, but the lowest-fare seat isn't visible within the page fold on SL.</div><ul class="solve-list"><li><span class="solve-id">SOL-06</span><div class="solve-text">Improve visibility of “Onwards” pricing on the SRP tuple.</div></li></ul></div><div class="item"><div class="pv-crumb">01 · Clarity &amp; trust signals</div><button type="button" class="pv-title" data-goto="item-13" title="Open in By themes"><span class="pv-title-text">Support reassurance early in the journey</span><span class="item-num">13</span><span class="pv-jump">↗</span></button><div class="pv-problem">First-time users want reassurance that support exists before they commit to a booking, and this isn't surfaced until deep in the funnel.</div><ul class="solve-list"><li><span class="solve-id">SOL-12</span><div class="solve-text">Place a low-intrusion support call out on SRP along with other USPs of redBus like Lowest price gauranteed etc.<span class="src-tag">from the study</span></div></li></ul></div><div class="item"><div class="pv-crumb">02 · Discoverability &amp; flow</div><button type="button" class="pv-title" data-goto="item-5" title="Open in By themes"><span class="pv-title-text">Sort order clarity</span><span class="item-num">5</span><span class="pv-jump">↗</span></button><div class="pv-problem">Users don't see a recognisable pattern in the SRP sort order.</div><ul class="solve-list"><li><span class="solve-id">SOL-13</span><div class="solve-text">Show “sorted by” up front, with an option to change the sort order.</div></li><li><span class="solve-id">SOL-38</span><div class="solve-text">Sort orders to have sub text explaining what every sort option is optimized for. Example: Relavance (Optimized for best value), Low to high (Optimized to find the cheapest buses), Best rated first (Optimized for the best buses)</div></li></ul></div><div class="item"><div class="pv-crumb">02 · Discoverability &amp; flow</div><button type="button" class="pv-title" data-goto="item-6" title="Open in By themes"><span class="pv-title-text">Filter discovery and engagement</span><span class="item-num">6</span><span class="pv-jump">↗</span></button><div class="pv-problem">Users miss filters entirely. Filter chips shown upfront aren't always relevant for FTUs. The filter page is cumbersome to consume.</div><ul class="solve-list"><li><span class="solve-id">SOL-14</span><div class="solve-text">Remove the ad cards and collection cards on top to give filters better visibility.</div></li><li><span class="solve-id">SOL-15</span><div class="solve-text">Improve filter visual affordance to draw engagement.</div></li><li><span class="solve-id">SOL-16</span><div class="solve-text">Formally introduce AI smart filter to encourage usage.</div></li></ul></div><div class="item"><div class="pv-crumb">05 · Drop-off recovery</div><button type="button" class="pv-title" data-goto="item-16" title="Open in By themes"><span class="pv-title-text">Resume booking flow</span><span class="item-num">16</span><span class="pv-jump">↗</span></button><div class="pv-problem">No way back into a booking abandoned at the payment step. The homepage doesn't offer to resume it.</div><ul class="solve-list"><li><span class="solve-id">SOL-45</span><div class="solve-text">Make recently viewed services easily scannable on SRP. We can try a small green text with a check mark on a tuple that says "seen".</div></li></ul></div></section><section class="page-block" id="pv-seat-selection"><div class="theme-head"><span class="theme-num">05</span><h2>Seat selection</h2><span class="page-count">4 solves</span></div><div class="item"><div class="pv-crumb">01 · Clarity &amp; trust signals</div><button type="button" class="pv-title" data-goto="item-1" title="Open in By themes"><span class="pv-title-text">Primo education</span><span class="item-num">1</span><span class="pv-jump">↗</span></button><div class="pv-problem">FTUs don't understand Primo.</div><ul class="solve-list"><li><span class="solve-id">SOL-02</span><div class="solve-text">Reinforce it again on the seat layout and BusBuddy (ticket) pages. Explore header manifestations that explain what Primo buses are. These manifestations can appear and disappear.</div></li></ul></div><div class="item"><div class="pv-crumb">01 · Clarity &amp; trust signals</div><button type="button" class="pv-title" data-goto="item-3" title="Open in By themes"><span class="pv-title-text">Price shock from SRP to SL</span><span class="item-num">3</span><span class="pv-jump">↗</span></button><div class="pv-problem">Users see the lowest price on SRP, but the lowest-fare seat isn't visible within the page fold on SL.</div><ul class="solve-list"><li><span class="solve-id">SOL-07</span><div class="solve-text">Improve visibility of the cheapest-priced seat on SL. This can be achived by highliting the lowest priced seat on SL which is usually at the last row and not visiable in first fold.</div></li><li><span class="solve-id">SOL-35</span><div class="solve-text">Show full SL on load and then transsion to bigger view.</div></li></ul></div><div class="item"><div class="pv-crumb">03 · Monetisation vs. core task</div><button type="button" class="pv-title" data-goto="item-10" title="Open in By themes"><span class="pv-title-text">Timing of app permission and review requests</span><span class="item-num">10</span><span class="pv-jump">↗</span></button><div class="pv-problem">Location permission is asked at onboarding. Notification permission and the app-review prompt appear on the homepage, for a user who hasn't seen SRP even once.</div><ul class="solve-list"><li><span class="solve-id">SOL-41</span><div class="solve-text">Remove log-in bottomsheet on SL. (Design not required for this)</div></li></ul></div></section><section class="page-block" id="pv-bus-details"><div class="theme-head"><span class="theme-num">06</span><h2>Bus details</h2><span class="page-count">5 solves</span></div><div class="item"><div class="pv-crumb">01 · Clarity &amp; trust signals</div><button type="button" class="pv-title" data-goto="item-1" title="Open in By themes"><span class="pv-title-text">Primo education</span><span class="item-num">1</span><span class="pv-jump">↗</span></button><div class="pv-problem">FTUs don't understand Primo.</div><ul class="solve-list"><li><span class="solve-id">SOL-28</span><div class="solve-text">Make Primo logo in the collapsed bus-details tray tappable. Upon tap, explain the What and why.</div></li></ul></div><div class="item"><div class="pv-crumb">01 · Clarity &amp; trust signals</div><button type="button" class="pv-title" data-goto="item-muw7dv08" title="Open in By themes"><span class="pv-title-text">Cancellation and reschedule policy education</span><span class="item-num">17</span><span class="pv-jump">↗</span></button><div class="pv-problem">Users can't tell at a glance what they can cancel or reschedule, until when, and how much they'd get back.</div><ul class="solve-list"><li><span class="solve-id">SOL-39</span><div class="solve-text">Cancellation and reschedule policy communication should capture a one line summary of the policies and the table can potentially be a tap away.</div></li></ul></div><div class="item"><div class="pv-crumb">02 · Discoverability &amp; flow</div><button type="button" class="pv-title" data-goto="item-14" title="Open in By themes"><span class="pv-title-text">Bus-details tray discoverability</span><span class="item-num">14</span><span class="pv-jump">↗</span></button><div class="pv-problem">Most users don't realise the tray expands to show bus details. The details are helpful but go unexplored for lack of affordance, and once opened, the tray behaves erratically (close, drop-down, drag).</div><ul class="solve-list"><li><span class="solve-id">SOL-19</span><div class="solve-text">Make the page continuous.</div></li><li><span class="solve-id">SOL-20</span><div class="solve-text">Add a chevron to indicate it expands.</div></li><li><span class="solve-id">SOL-21</span><div class="solve-text">Load the tray in half-expanded state on page load and tuck it away to ensure users understand there is more information inside the tray.<span class="src-tag">from the study</span></div></li></ul></div></section><section class="page-block" id="pv-cust-info-"><div class="theme-head"><span class="theme-num">08</span><h2>Cust. Info.</h2><span class="page-count">5 solves</span></div><div class="item"><div class="pv-crumb">01 · Clarity &amp; trust signals</div><button type="button" class="pv-title" data-goto="item-2" title="Open in By themes"><span class="pv-title-text">Price shock at payment step</span><span class="item-num">2</span><span class="pv-jump">↗</span></button><div class="pv-problem">Statutory charges and fees at payment read as unexplained additional cost.</div><ul class="solve-list"><li><span class="solve-id">SOL-03</span><div class="solve-text">Communicate marginal additional costs from Cust. Info onwards.</div></li></ul></div><div class="item"><div class="pv-crumb">01 · Clarity &amp; trust signals</div><button type="button" class="pv-title" data-goto="item-muw7dv08" title="Open in By themes"><span class="pv-title-text">Cancellation and reschedule policy education</span><span class="item-num">17</span><span class="pv-jump">↗</span></button><div class="pv-problem">Users can't tell at a glance what they can cancel or reschedule, until when, and how much they'd get back.</div><ul class="solve-list"><li><span class="solve-id">SOL-40</span><div class="solve-text">Display one line summary of cancellation and reschdule policy along with the booking summary.</div></li></ul></div><div class="item"><div class="pv-crumb">04 · Error &amp; recovery copy</div><button type="button" class="pv-title" data-goto="item-15" title="Open in By themes"><span class="pv-title-text">Cust. Info validation error handling</span><span class="item-num">15</span><span class="pv-jump">↗</span></button><div class="pv-problem">On the customer-info page, error messages persist after the user has already fixed the issue, and technical errors (like the sold-out-seat message) aren't rewritten in plain language, so users can't tell if anything's resolved. Validation errors aren't handled well on this page generally.</div><ul class="solve-list"><li><span class="solve-id">SOL-42</span><div class="solve-text">Update error copies with appropriate replacements. Some examples of poor copy.&nbsp;<br><ul><li>"Enter your name in English" when a number is input in the name field.&nbsp;</li><li>"Please enter valid Age" is the error message when 3 digits are entered.&nbsp;</li><li>"Please enter valid phone number" is the error when error phone number is not entered or partially entered. There should be different copies for when not entered and when incorrectly entered.&nbsp;</li></ul></div></li><li><span class="solve-id">SOL-43</span><div class="solve-text">State of residence and WhatsApp optin can be selected by default and have a much lower visual affordance.</div></li><li><span class="solve-id">SOL-44</span><div class="solve-text">Login to view saved passenger list CTA can be contextual and have lesser visual affordance.</div></li></ul></div></section><section class="page-block" id="pv-payments"><div class="theme-head"><span class="theme-num">09</span><h2>Payments</h2><span class="page-count">8 solves</span></div><div class="item"><div class="pv-crumb">01 · Clarity &amp; trust signals</div><button type="button" class="pv-title" data-goto="item-2" title="Open in By themes"><span class="pv-title-text">Price shock at payment step</span><span class="item-num">2</span><span class="pv-jump">↗</span></button><div class="pv-problem">Statutory charges and fees at payment read as unexplained additional cost.</div><ul class="solve-list"><li><span class="solve-id">SOL-04</span><div class="solve-text">Make what the user has to pay more discoverable — right now it's on the header, which can be missed.</div></li><li><span class="solve-id">SOL-05</span><div class="solve-text">Provide easier access to the price break-up on the payment page.</div></li><li><span class="solve-id">SOL-31</span><div class="solve-text">Use "Price breakup" across the board.</div></li><li><span class="solve-id">SOL-32</span><div class="solve-text">Improve discovery of Price breakup by labelling the button. Right now it is a + icon that can be missed.</div></li><li><span class="solve-id">SOL-33</span><div class="solve-text">Provide clarity on GST and statutiry chargers not collected by redBus</div></li><li><span class="solve-id">SOL-34</span><div class="solve-text">Educate users on redBus not charging convinience fee, commisons and hindden charges.</div></li></ul></div><div class="item"><div class="pv-crumb">01 · Clarity &amp; trust signals</div><button type="button" class="pv-title" data-goto="item-12" title="Open in By themes"><span class="pv-title-text">Seat representation consistency</span><span class="item-num">12</span><span class="pv-jump">↗</span></button><div class="pv-problem">Seat representation differs between the seat-layout screen and the payment screen, so users exit payment to go re-check their seat selection.</div><ul class="solve-list"><li><span class="solve-id">SOL-11</span><div class="solve-text">Reuse the same seat component and labelling on both screens, so there's nothing to recheck.<span class="src-tag">from the study</span></div></li></ul></div><div class="item"><div class="pv-crumb">03 · Monetisation vs. core task</div><button type="button" class="pv-title" data-goto="item-4" title="Open in By themes"><span class="pv-title-text">Offer discovery</span><span class="item-num">4</span><span class="pv-jump">↗</span></button><div class="pv-problem">Users don't discover offers early.</div><ul class="solve-list"><li><span class="solve-id">SOL-23</span><div class="solve-text">Surface payment offers on the payment page by doing the following:<br><ol><li>A low intrusive ingress point revealing all offers with capability to apply.&nbsp;</li><li>The expanded view of the offers section should have clear bucketing of playform and payment offers.&nbsp;</li></ol></div></li></ul></div></section><section class="page-block" id="pv-ticket-page"><div class="theme-head"><span class="theme-num">10</span><h2>Ticket page</h2><span class="page-count">3 solves</span></div><div class="item"><div class="pv-crumb">01 · Clarity &amp; trust signals</div><button type="button" class="pv-title" data-goto="item-1" title="Open in By themes"><span class="pv-title-text">Primo education</span><span class="item-num">1</span><span class="pv-jump">↗</span></button><div class="pv-problem">FTUs don't understand Primo.</div><ul class="solve-list"><li><span class="solve-id">SOL-29</span><div class="solve-text">Reinforce Primo on bus-buddy. The idea is to make the users feel good about the choice they made by booking a Primo.</div></li></ul></div><div class="item"><div class="pv-crumb">01 · Clarity &amp; trust signals</div><button type="button" class="pv-title" data-goto="item-13" title="Open in By themes"><span class="pv-title-text">Support reassurance early in the journey</span><span class="item-num">13</span><span class="pv-jump">↗</span></button><div class="pv-problem">First-time users want reassurance that support exists before they commit to a booking, and this isn't surfaced until deep in the funnel.</div><ul class="solve-list"><li><span class="solve-id">SOL-37</span><div class="solve-text">Make support ingress on Ticket page a lot more discoverable. It can be a ticket related action like cancel, etc.</div></li></ul></div><div class="item"><div class="pv-crumb">03 · Monetisation vs. core task</div><button type="button" class="pv-title" data-goto="item-10" title="Open in By themes"><span class="pv-title-text">Timing of app permission and review requests</span><span class="item-num">10</span><span class="pv-jump">↗</span></button><div class="pv-problem">Location permission is asked at onboarding. Notification permission and the app-review prompt appear on the homepage, for a user who hasn't seen SRP even once.</div><ul class="solve-list"><li><span class="solve-id">SOL-26</span><div class="solve-text">Ask for the app review after booking completion. Definetly not on home page after app install, which is what the current production behaviour. Contextualise the ask.</div></li></ul></div></section><section class="page-block" id="pv-booking-funnel"><div class="theme-head"><span class="theme-num">11</span><h2>Booking funnel</h2><span class="page-count">5 solves</span></div><div class="item"><div class="pv-crumb">01 · Clarity &amp; trust signals</div><button type="button" class="pv-title" data-goto="item-1" title="Open in By themes"><span class="pv-title-text">Primo education</span><span class="item-num">1</span><span class="pv-jump">↗</span></button><div class="pv-problem">FTUs don't understand Primo.</div><ul class="solve-list"><li><span class="solve-id">SOL-30</span><div class="solve-text">Explore differentiated theme for Primo booking funnel.</div></li></ul></div><div class="item"><div class="pv-crumb">01 · Clarity &amp; trust signals</div><button type="button" class="pv-title" data-goto="item-7-8" title="Open in By themes"><span class="pv-title-text">Time format</span><span class="item-num">7 / 8</span><span class="pv-jump">↗</span></button><div class="pv-problem">The app uses 24-hour format largely, with some places showing 12-hour instead, and users generally prefer 12-hour.</div><ul class="solve-list"><li><span class="solve-id">SOL-08</span><div class="solve-text">Standardise on one format across the app for consistency. SRP, Filters, Cancellation policy, etc.</div></li><li><span class="solve-id">SOL-09</span><div class="solve-text">Which format to standardise on is a separate decision, informed by an experiment testing 12-hour vs 24-hour.</div></li></ul></div><div class="item"><div class="pv-crumb">01 · Clarity &amp; trust signals</div><button type="button" class="pv-title" data-goto="item-9" title="Open in By themes"><span class="pv-title-text">Naming inconsistencies</span><span class="item-num">9</span><span class="pv-jump">↗</span></button><div class="pv-problem">Free reschedule, free date change, and reschedule are used for the same thing in different places. Same pattern with fare breakup / price breakup, and amenities / bus features.</div><ul class="solve-list"><li><span class="solve-id">SOL-10</span><div class="solve-text">Ensure consistant usage of terms. Cancellation policy / Booking policy, Free reschedule / free date change, etc.</div></li></ul></div><div class="item"><div class="pv-crumb">03 · Monetisation vs. core task</div><button type="button" class="pv-title" data-goto="item-10" title="Open in By themes"><span class="pv-title-text">Timing of app permission and review requests</span><span class="item-num">10</span><span class="pv-jump">↗</span></button><div class="pv-problem">Location permission is asked at onboarding. Notification permission and the app-review prompt appear on the homepage, for a user who hasn't seen SRP even once.</div><ul class="solve-list"><li><span class="solve-id">SOL-25</span><div class="solve-text">Ask for notification permission when a user drops from a session, with context and highlighting value.</div></li></ul></div></section></div>
+  <div class="scope-note">
+    <h3>Out of scope, on record</h3>
+    <ul>
+      <li>AC/Non-AC and Seater/Sleeper distinction missed by some tier-2+ users — dropped.</li>
+      <li>Concession type forcing seniors to abandon and re-book — dropped, RTC-specific and out of scope while private buses are the priority.</li>
+      <li>Regional-language coupon copy — dropped, scope limited to the English booking funnel (90%+ of users).</li>
+    </ul>
+  </div>
+</div>
+<script>const INITIAL_STATE = {"nextSolId":46,"themes":[{"num":"01","name":"Clarity &amp; trust signals","items":[{"id":"item-1","num":"1","title":"Primo education","problem":"FTUs don't understand Primo.","blank":false,"solves":[{"id":"SOL-01","text":"Introduce Primo in a non-intrusive way on SRP, rather than just depending on the logo on every tuple. Explain what Primo is and show Primo benefits. Explore card extensions on 2 session to convey about primo buses.","stage":"SRP"},{"id":"SOL-02","text":"Reinforce it again on the seat layout and BusBuddy (ticket) pages. Explore header manifestations that explain what Primo buses are. These manifestations can appear and disappear.","stage":"Seat selection"},{"id":"SOL-28","text":"Make Primo logo in the collapsed bus-details tray tappable. Upon tap, explain the What and why.","stage":"Bus details"},{"id":"SOL-29","text":"Reinforce Primo on bus-buddy. The idea is to make the users feel good about the choice they made by booking a Primo.","stage":"Ticket page"},{"id":"SOL-30","text":"Explore differentiated theme for Primo booking funnel.","stage":"Booking funnel"}],"sources":[{"origin":"Tracker &middot; row 18 &middot; SRP &middot; High","quote":"“Primo - use tuple real estate on SRP to give a teaser intro of the tag which is otherwise not understood”"},{"origin":"Tracker &middot; row 33 &middot; SL &middot; High","quote":"“Primo card needs to be optimised for 5 second comprehension - construct pillars shown on carousel but user skip past due to first screen not offering sufficient context”"},{"origin":"Study &middot; “Primo, meaningless tags, time formats” (SRP 1/2)","quote":"“Users have no clear idea of Primo, even if they have seen buses with such a sticker offline. It's difficult to think the call out on a tuple is clickable when every other persuasion tag isn't (which users are more interested to know more about but that lands them to SL).”","note":"Recommendation on the same slide: “Use the space beside it to call out 'One of the best in the route' or some qualifier to give some context.”"}]},{"id":"item-2","num":"2","title":"Price shock at payment step","problem":"Statutory charges and fees at payment read as unexplained additional cost.","blank":false,"solves":[{"id":"SOL-03","text":"Communicate marginal additional costs from Cust. Info onwards.","stage":"Cust. Info."},{"id":"SOL-04","text":"Make what the user has to pay more discoverable — right now it's on the header, which can be missed.","stage":"Payments"},{"id":"SOL-05","text":"Provide easier access to the price break-up on the payment page.","stage":"Payments"},{"id":"SOL-31","text":"Use \"Price breakup\" across the board.","stage":"Payments"},{"id":"SOL-32","text":"Improve discovery of Price breakup by labelling the button. Right now it is a + icon that can be missed.","stage":"Payments"},{"id":"SOL-33","text":"Provide clarity on GST and statutiry chargers not collected by redBus","stage":"Payments"},{"id":"SOL-34","text":"Educate users on redBus not charging convinience fee, commisons and hindden charges.","stage":"Payments"}],"sources":[{"origin":"Tracker &middot; row 48 &middot; Payment &middot; High","quote":"“Communicate price shock on payments are GST or commission to Statutiry bodies and not commission to redBus”"},{"origin":"Tracker &middot; row 54 &middot; Payment &middot; Medium","quote":"“Reword fare breakup as price breakup across payment page”"},{"origin":"Study &middot; Payments, key concerns","quote":"“Charges which are not visible or understood are mistaken to be commission and add to Price shock (figure out ways to educate user about the govt charges).”"},{"origin":"Study &middot; Payment Page UX Audit (2/2)","quote":"“The fare breakup has multiple buttons that lead to the same information, making it confusing. Its visual design also causes many users to miss or ignore it.”","note":"Same slide: “RTC users miss the disclaimer on Cust info and assume we add extra charge on payment page as we dont show the same on fare breakup.”"},{"origin":"Play Store &middot; Akshay Kulkarni, 1 Sept 2026","quote":"“Ticket price varies as soon as I enter payment site”"}]},{"id":"item-3","num":"3","title":"Price shock from SRP to SL","problem":"Users see the lowest price on SRP, but the lowest-fare seat isn't visible within the page fold on SL.","blank":false,"solves":[{"id":"SOL-06","text":"Improve visibility of “Onwards” pricing on the SRP tuple.","stage":"SRP"},{"id":"SOL-07","text":"Improve visibility of the cheapest-priced seat on SL. This can be achived by highliting the lowest priced seat on SL which is usually at the last row and not visiable in first fold.","stage":"Seat selection"},{"id":"SOL-35","text":"Show full SL on load and then transsion to bigger view.","stage":"Seat selection"}],"sources":[{"origin":"Study &middot; Seat Layout section note","quote":"“Price shock was observed among many users as ₹500 - 700 difference was seen in SL vs SRP.”","note":"No matching tracker row &mdash; this one rests on the study alone."}]},{"id":"item-7-8","num":"7 / 8","title":"Time format","problem":"The app uses 24-hour format largely, with some places showing 12-hour instead, and users generally prefer 12-hour.","blank":false,"solves":[{"id":"SOL-08","text":"Standardise on one format across the app for consistency. SRP, Filters, Cancellation policy, etc.","stage":"Booking funnel"},{"id":"SOL-09","text":"Which format to standardise on is a separate decision, informed by an experiment testing 12-hour vs 24-hour.","stage":"Booking funnel"}],"sources":[{"origin":"Tracker &middot; row 15 &middot; SRP &middot; High","quote":"“Explore a 12 hour time format”"},{"origin":"Study &middot; “Primo, meaningless tags, time formats” (SRP 1/2), point 7","quote":"“Different time formats across the flow confuse users - moreover, less savvy users are more error prone with 24 hour format”"}]},{"id":"item-9","num":"9","title":"Naming inconsistencies","problem":"Free reschedule, free date change, and reschedule are used for the same thing in different places. Same pattern with fare breakup / price breakup, and amenities / bus features.","blank":false,"solves":[{"id":"SOL-10","text":"Ensure consistant usage of terms. Cancellation policy / Booking policy, Free reschedule / free date change, etc.","stage":"Booking funnel"}],"sources":[{"origin":"Tracker &middot; row 28 &middot; SL &middot; High","quote":"“Content on BD tray - fix term for features as per filter (consistency), FR is called as reschedule policy and free date change on same tray, FC table (ensure clarity + deadline for cancellation is called out clearly)...”"},{"origin":"Tracker &middot; row 54 &middot; Payment &middot; Medium","quote":"“Reword fare breakup as price breakup across payment page”"},{"origin":"Study &middot; Bus details discoverability, point 2","quote":"“Multiple terms used on same screen for same property - reschedule vs free date change”"},{"origin":"Study &middot; Payment Page UX Audit, point 2","quote":"“Users find 'Payment Details' or 'Price Details' more intuitive than 'Fare breakup'”"},{"origin":"Study &middot; Filters, SRP (2/2), point e","quote":"“Filter has both amenities and features as themes vs Bus details in SL calls amenities as features?”"}]},{"id":"item-12","num":"12","title":"Seat representation consistency","problem":"Seat representation differs between the seat-layout screen and the payment screen, so users exit payment to go re-check their seat selection.","blank":false,"solves":[{"id":"SOL-11","text":"Reuse the same seat component and labelling on both screens, so there's nothing to recheck.","tag":"from the study","stage":"Payments"}],"sources":[{"origin":"Tracker &middot; row 55 &middot; Payment &middot; Medium","quote":"“Payment screen seat map reference can at least have upper deck lower deck call out if the orientation is going to be horizontal (vs vertical in SL)”"},{"origin":"Study &middot; Payment Page UX Audit, point 4","quote":"“Users have to spend effort to understand their selected seat as seat representation differs between the seat layout and exit from payment page to verify it.”","note":"Recommendation on the same slide: “Reuse the same seat component/label across both screens so the user doesn't have recheck with the seat layout and exit the payment page.”"}]},{"id":"item-13","num":"13","title":"Support reassurance early in the journey","problem":"First-time users want reassurance that support exists before they commit to a booking, and this isn't surfaced until deep in the funnel.","blank":false,"solves":[{"id":"SOL-12","text":"Place a low-intrusion support call out on SRP along with other USPs of redBus like Lowest price gauranteed etc.","tag":"from the study","stage":"SRP"},{"id":"SOL-36","text":"Add post booking support callout as a part of onboarding.","stage":"Onboarding"},{"id":"SOL-37","text":"Make support ingress on Ticket page a lot more discoverable. It can be a ticket related action like cancel, etc.","stage":"Ticket page"}],"sources":[{"origin":"Tracker &middot; row 29 &middot; SL &middot; Medium","quote":"“Explore showcasing support assurance in the prebooking funnel (highlight regional language based support)”"},{"origin":"Study &middot; Seat Layout Page UX Audit (2/2), point 3","quote":"“First time &amp; Regional users want reassurance that RedBus offers customer support in their preferred language while they're still evaluating buses, to make a trusted booking.”","note":"Recommendation on the same slide: “Place a persistent support cue on the critical decision making point across pages.” Note: the tracker framed this as regional-language specific; the study frames it more broadly &mdash; matching the scope decision to drop the regional restriction here."}]},{"id":"item-muw7dv08","num":"17","title":"Cancellation and reschedule policy education","problem":"Users can't tell at a glance what they can cancel or reschedule, until when, and how much they'd get back.","blank":false,"solves":[{"id":"SOL-39","text":"Cancellation and reschedule policy communication should capture a one line summary of the policies and the table can potentially be a tap away.","stage":"Bus details"},{"id":"SOL-40","text":"Display one line summary of cancellation and reschdule policy along with the booking summary.","stage":"Cust. Info."}],"sources":[{"origin":"Tracker &middot; row 28 &middot; SL &middot; High","quote":"“Content on BD tray - fix term for features as per filter (consistency), FR is called as reschedule policy and free date change on same tray, FC table (ensure clarity + deadline for cancellation is called out clearly)...”"},{"origin":"Study &middot; Bus details discoverability, point 2","quote":"“Multiple terms used on same screen for same property - reschedule vs free date change”"},{"origin":"Study &middot; Free Cancellation table","quote":"The Free Cancellation table shows “100% refund” in green even in time slots where it doesn't apply.","note":"Paraphrased from the theme analysis &mdash; the exact slide wording wasn't in the extracted notes. Worth checking against the deck."}]}]},{"num":"02","name":"Discoverability &amp; flow","items":[{"id":"item-5","num":"5","title":"Sort order clarity","problem":"Users don't see a recognisable pattern in the SRP sort order.","blank":false,"solves":[{"id":"SOL-13","text":"Show “sorted by” up front, with an option to change the sort order.","stage":"SRP"},{"id":"SOL-38","text":"Sort orders to have sub text explaining what every sort option is optimized for. Example: Relavance (Optimized for best value), Low to high (Optimized to find the cheapest buses), Best rated first (Optimized for the best buses)","stage":"SRP"}],"sources":[{"origin":"Tracker &middot; row 12 &middot; SRP &middot; High","quote":"“Consolidate filter categories (remove internal definitions like features vs amenities, add redundancy for toilets across multiple relevant categories) and reword sort order to make it more clearer”"},{"origin":"Tracker &middot; row 11 &middot; SRP &middot; Medium","quote":"“Work towards filter prominence, sequence of filter chips, feedback on selection (chips &amp; list), easy clearance of filters and sort order”"}]},{"id":"item-6","num":"6","title":"Filter discovery and engagement","problem":"Users miss filters entirely. Filter chips shown upfront aren't always relevant for FTUs. The filter page is cumbersome to consume.","blank":false,"solves":[{"id":"SOL-14","text":"Remove the ad cards and collection cards on top to give filters better visibility.","stage":"SRP"},{"id":"SOL-15","text":"Improve filter visual affordance to draw engagement.","stage":"SRP"},{"id":"SOL-16","text":"Formally introduce AI smart filter to encourage usage.","stage":"SRP"}],"sources":[{"origin":"Tracker &middot; row 12 &middot; SRP &middot; High","quote":"“Consolidate filter categories (remove internal definitions like features vs amenities, add redundancy for toilets across multiple relevant categories) and reword sort order to make it more clearer”"},{"origin":"Tracker &middot; row 11 &middot; SRP &middot; Medium","quote":"“Work towards filter prominence, sequence of filter chips, feedback on selection (chips &amp; list), easy clearance of filters and sort order”"},{"origin":"Tracker &middot; row 7 &middot; SRP &middot; Medium","quote":"“Revisit banner size on SRP - banners tend to overshadow filter discoverability”"},{"origin":"Study &middot; “Choices, relevance and role of filters” (SRP 1/2), point 1","quote":"“Top cards ignored and filters generally missed. Too many choices with no clear logic of sequence doesn't land positively with new users - depth of supply vs relevance.”","note":"Recommendation: “Can we give more prominence to filter and sort by moving top cards as a horizontal carousel in between the SRP listings - it is a waste of first fold?”"},{"origin":"Study &middot; Filters (SRP 2/2), point 2","quote":"“Filters need to be more user friendly: a. Show relevant options first (AC, Sleeper, Time) b. Remove deadweight (Primo, Deals in RTC flow) c. Consolidated view of applied filters for easy deselection not present today d. Auto removal expected on click / clear all...”"}]},{"id":"item-11","num":"11","title":"Search widget experience","problem":"Too much back-and-forth. The Today/Tomorrow button takes users straight to SRP, making them miss the Women-mode option.","blank":false,"solves":[{"id":"SOL-17","text":"A well-integrated search experience optimised for speed and clarity.","stage":"Common home"},{"id":"SOL-18","text":"Today/Tomorrow could work like tabs rather than buttons.","stage":"Common home"}],"sources":[{"origin":"Study &middot; “Mislands, wrong search, female flow” (Homepage), point 3","quote":"“Different interactions for dates in search widget confusing - today / tomorrow takes users to SRP directly while a specific date requires an additional interaction the Search CTA. Women funnel penalised. Should we keep women funnel toggle on SRP too?”","note":"No matching tracker row &mdash; the closest tracker item (row 5, a Women-toggle interaction bug) is a different, engineering-side issue and sits in the parked list."}]},{"id":"item-14","num":"14","title":"Bus-details tray discoverability","problem":"Most users don't realise the tray expands to show bus details. The details are helpful but go unexplored for lack of affordance, and once opened, the tray behaves erratically (close, drop-down, drag).","blank":false,"solves":[{"id":"SOL-19","text":"Make the page continuous.","stage":"Bus details"},{"id":"SOL-20","text":"Add a chevron to indicate it expands.","stage":"Bus details"},{"id":"SOL-21","text":"Load the tray in half-expanded state on page load and tuck it away to ensure users understand there is more information inside the tray.","tag":"from the study","stage":"Bus details"}],"sources":[{"origin":"Tracker &middot; row 25 &middot; SL &middot; High","quote":"“Resolve Bus details discoverability - gesture not expected and performed by users - make it auto scroll”"},{"origin":"Study &middot; “Bus details discoverability hampered”, point 1","quote":"“Most users didn't realise the tray expands to show Bus details. The details were very helpful but lay unexplored for lack of a better interaction. When opened the tray tends to behave erratically - close, drop down, drag.”","note":"Recommendation on the same slide: “Make the page continuous, add a Λ chevron to indicate and make the movement smoother.”"}]}]},{"num":"03","name":"Monetisation vs. core task","items":[{"id":"item-4","num":"4","title":"Offer discovery","problem":"Users don't discover offers early.","blank":false,"solves":[{"id":"SOL-22","text":"Make all offers on the homepage a lot more discoverable by doing the following:<br><ol><li>Offers section should be visible on the first fold of the common home</li><li>Offers section should have clear communication about the depth of deals and the exclusivity on redBus. </li><li>Offers section should have clear bucketing of platform and payment offers. </li></ol>","stage":"Common home"},{"id":"SOL-23","text":"Surface payment offers on the payment page by doing the following:<br><ol><li>A low intrusive ingress point revealing all offers with capability to apply. </li><li>The expanded view of the offers section should have clear bucketing of playform and payment offers. </li></ol>","stage":"Payments"}],"sources":[{"origin":"Study &middot; Payments, key concerns, point 1","quote":"“User expect coupons to be shown on this screen. If they hunt for coupons, the experience is broken: a. The entire txn is gone - find the bus, get a new seat, fill details and then apply coupon to book your ticket (it may not work). b. Coupons don't have better context when not applicable. c. Coupons with cashback don't highlight validity of CB (a key lever to judge value of the offer).”","note":"No tracker row speaks to homepage offer discovery specifically; this is the closest evidence available, from the payment-screen coupon findings."}]},{"id":"item-10","num":"10","title":"Timing of app permission and review requests","problem":"Location permission is asked at onboarding. Notification permission and the app-review prompt appear on the homepage, for a user who hasn't seen SRP even once.","blank":false,"solves":[{"id":"SOL-24","text":"Contextualise requests, dont ask plainly — location permission can stay at onboarding.","stage":"Onboarding"},{"id":"SOL-25","text":"Ask for notification permission when a user drops from a session, with context and highlighting value.","stage":"Booking funnel"},{"id":"SOL-26","text":"Ask for the app review after booking completion. Definetly not on home page after app install, which is what the current production behaviour. Contextualise the ask.","stage":"Ticket page"},{"id":"SOL-41","text":"Remove log-in bottomsheet on SL. (Design not required for this)","stage":"Seat selection"}],"sources":[{"origin":"Tracker &middot; row 60 &middot; App &middot; High","quote":"“Stop asking Playstore reviews after log in - allow user to at least explore SRP”"},{"origin":"Study &middot; Home Page UX Audit, point 2","quote":"“The review prompt fires within ~10 seconds of first launch leading to abandonment or poor rating.”","note":"Recommendation on the same slide: “Trigger the prompt on a positive value moment, not a timer (e.g. after a completed first booking or after availing an offer).” The study's timing (~10 seconds after first launch) supersedes the tracker's “after login” framing."}]}]},{"num":"04","name":"Error &amp; recovery copy","items":[{"id":"item-15","num":"15","title":"Cust. Info validation error handling","problem":"On the customer-info page, error messages persist after the user has already fixed the issue, and technical errors (like the sold-out-seat message) aren't rewritten in plain language, so users can't tell if anything's resolved. Validation errors aren't handled well on this page generally.","blank":false,"blankText":"space for solve","solves":[{"id":"SOL-42","text":"Update error copies with appropriate replacements. Some examples of poor copy. <br><ul><li>\"Enter your name in English\" when a number is input in the name field. </li><li>\"Please enter valid Age\" is the error message when 3 digits are entered. </li><li>\"Please enter valid phone number\" is the error when error phone number is not entered or partially entered. There should be different copies for when not entered and when incorrectly entered. </li></ul>","stage":"Cust. Info."},{"id":"SOL-43","text":"State of residence and WhatsApp optin can be selected by default and have a much lower visual affordance.","stage":"Cust. Info."},{"id":"SOL-44","text":"Login to view saved passenger list CTA can be contextual and have lesser visual affordance.","stage":"Cust. Info."}],"sources":[{"origin":"Tracker &middot; row 41 &middot; Cust Info &middot; Medium","quote":"“Error messages don't disappear till CTA is clicked - confuses users whether they have fixed the error or not (frustrated when they have solved it correctly but error message doesnt disappear)”"},{"origin":"Tracker &middot; row 43 &middot; Cust Info &middot; Low","quote":"“Mobweb - when seat was sold out while user was in booking journey a vague error message was shown 'IAS response null' slide 12 FTUE”"},{"origin":"Study &middot; Cust Info, “Archaic error handling”, point 2","quote":"“Error messages remain till CTA is clicked and user is unsure whether the issue has been solved.”","note":"Recommendation on the same slide: “Responsive error messages needed - UX has evolved, we have not.”"},{"origin":"Study &middot; Search Result Page UX Audit, point 2","quote":"“Show a clear, user-friendly error message instead of technical ones (e.g. 'IAS response is null')”"}]}]},{"num":"05","name":"Drop-off recovery","items":[{"id":"item-16","num":"16","title":"Resume booking flow","problem":"No way back into a booking abandoned at the payment step. The homepage doesn't offer to resume it.","blank":false,"solves":[{"id":"SOL-27","text":"Introduce a “Continue booking” card on the homepage for payment-page drop-offs.","tag":"already scheduled S4 Q2 / S1 Q3","stage":"Common home"},{"id":"SOL-45","text":"Make recently viewed services easily scannable on SRP. We can try a small green text with a check mark on a tuple that says \"seen\".","stage":"SRP"}],"sources":[{"origin":"Tracker &middot; row 1 &middot; HP &middot; High &middot; FTUE + UXB","quote":"“Introduce a 'Continue booking card' on HP for payment page drop offs”","note":"Status column: S4 Q2 / S1 Q3."}]}]}]};</script>
+<script id="app-logic">
+function pad(n){ return String(n).padStart(2, "0"); }
+
+function escText(t){ return t.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"); }
+
+function sanitizeRich(html){
+  const box = document.createElement("div");
+  box.innerHTML = html;
+  const INLINE = { b: "b", strong: "b", i: "i", em: "i", u: "u" };
+  function walk(node){
+    let out = "";
+    node.childNodes.forEach(function(c){
+      if (c.nodeType === 3){ out += escText(c.textContent); return; }
+      if (c.nodeType !== 1) return;
+      const t = c.tagName.toLowerCase();
+      const st = c.getAttribute("style") || "";
+      if (INLINE[t]){ const inner = walk(c); if (inner) out += "<" + INLINE[t] + ">" + inner + "</" + INLINE[t] + ">"; }
+      else if (t === "br"){ out += "<br>"; }
+      else if (t === "ul" || t === "ol"){ const inner = walk(c); if (inner) out += "<" + t + ">" + inner + "</" + t + ">"; }
+      else if (t === "li"){ out += "<li>" + walk(c).replace(/(<br>)+$/, "") + "</li>"; }
+      else if (t === "div" || t === "p"){
+        const inner = walk(c);
+        if (out && !/(<br>|<\/ul>|<\/ol>)$/.test(out)) out += "<br>";
+        out += (inner || "<br>");
+      }
+      else if (t === "span" && /font-weight:\s*(bold|[6-9]00)/.test(st)){ out += "<b>" + walk(c) + "</b>"; }
+      else if (t === "span" && /font-style:\s*italic/.test(st)){ out += "<i>" + walk(c) + "</i>"; }
+      else { out += walk(c); }
+    });
+    return out;
+  }
+  let r = walk(box);
+  r = r.replace(/^(\s|&nbsp;|<br>)+/, "").replace(/(\s|&nbsp;|<br>)+$/, "");
+  return r;
+}
+
+function richIsEmpty(html){
+  const d = document.createElement("div");
+  d.innerHTML = html;
+  return !d.textContent.replace(/ /g, " ").trim();
+}
+
+const IS_MAC = /Mac|iPhone|iPad/.test(navigator.platform || navigator.userAgent);
+
+function createRichEditor(opts){
+  const wrap = document.createElement("div");
+  wrap.className = "rte";
+  const mod = IS_MAC ? "⌘" : "Ctrl";
+  wrap.innerHTML =
+    "<div class=\"rte-bar\" role=\"toolbar\" aria-label=\"Formatting\">" +
+      "<button type=\"button\" data-cmd=\"bold\" title=\"Bold (" + mod + "+B)\"><b>B</b></button>" +
+      "<button type=\"button\" data-cmd=\"italic\" title=\"Italic (" + mod + "+I)\"><i>I</i></button>" +
+      "<button type=\"button\" data-cmd=\"underline\" title=\"Underline (" + mod + "+U)\"><u>U</u></button>" +
+      "<span class=\"sep\"></span>" +
+      "<button type=\"button\" data-cmd=\"insertUnorderedList\" title=\"Bulleted list\">• List</button>" +
+      "<button type=\"button\" data-cmd=\"insertOrderedList\" title=\"Numbered list\">1. List</button>" +
+    "</div>" +
+    "<div class=\"rte-area\" contenteditable=\"true\" spellcheck=\"true\" autocorrect=\"on\" autocapitalize=\"sentences\" lang=\"en\" role=\"textbox\" aria-multiline=\"true\"></div>" +
+    "<div class=\"rte-foot\">" +
+      "<span class=\"rte-hint\">Shift+Return new line · " + mod + "+Return save · Esc cancel · right-click a misspelling for fixes</span>" +
+      "<button type=\"button\" class=\"cancel-btn\">Cancel</button>" +
+      "<button type=\"button\" class=\"save-btn\">" + (opts.saveLabel || "Save") + "</button>" +
+    "</div>";
+  const area = wrap.querySelector(".rte-area");
+  area.setAttribute("data-placeholder", opts.placeholder || "");
+  area.innerHTML = opts.html || "";
+  try { document.execCommand("defaultParagraphSeparator", false, "div"); } catch (e) {}
+
+  function refreshState(){
+    wrap.querySelectorAll(".rte-bar button").forEach(function(b){
+      let on = false;
+      try { on = document.queryCommandState(b.dataset.cmd); } catch (e) {}
+      b.classList.toggle("on", !!on && wrap.contains(document.getSelection().anchorNode));
+    });
+  }
+  function save(){
+    const clean = sanitizeRich(area.innerHTML);
+    if (richIsEmpty(clean)) { area.focus(); return; }
+    opts.onSave(clean);
+  }
+
+  wrap.querySelectorAll(".rte-bar button").forEach(function(b){
+    b.addEventListener("mousedown", function(ev){ ev.preventDefault(); });
+    b.addEventListener("click", function(){
+      area.focus();
+      document.execCommand(b.dataset.cmd, false, null);
+      refreshState();
+    });
+  });
+  area.addEventListener("keydown", function(ev){
+    const modKey = ev.metaKey || ev.ctrlKey;
+    if (ev.key === "Enter" && modKey){ ev.preventDefault(); save(); return; }
+    if (ev.key === "Enter" && ev.shiftKey){
+      const sel = document.getSelection();
+      const node = sel && sel.anchorNode;
+      const inList = node && (node.nodeType === 1 ? node : node.parentElement).closest("li");
+      if (!inList){ ev.preventDefault(); document.execCommand("insertLineBreak"); }
+      return;
+    }
+    if (ev.key === "Escape"){ ev.preventDefault(); opts.onCancel(); return; }
+    if (modKey && !ev.shiftKey && !ev.altKey){
+      const k = ev.key.toLowerCase();
+      const map = { b: "bold", i: "italic", u: "underline" };
+      if (map[k]){ ev.preventDefault(); document.execCommand(map[k], false, null); refreshState(); }
+    }
+  });
+  area.addEventListener("keyup", refreshState);
+  area.addEventListener("mouseup", refreshState);
+  area.addEventListener("paste", function(ev){
+    ev.preventDefault();
+    const text = (ev.clipboardData || window.clipboardData).getData("text/plain");
+    document.execCommand("insertText", false, text);
+  });
+  wrap.querySelector(".save-btn").addEventListener("click", save);
+  wrap.querySelector(".cancel-btn").addEventListener("click", function(){ opts.onCancel(); });
+
+  wrap.focusEnd = function(){
+    area.focus();
+    const r = document.createRange();
+    r.selectNodeContents(area);
+    r.collapse(false);
+    const sel = document.getSelection();
+    sel.removeAllRanges();
+    sel.addRange(r);
+  };
+  return wrap;
+}
+
+const FUNNEL_STAGES = ["Onboarding", "Splash", "Common home", "SRP", "Seat selection", "Bus details", "BP/DP selection", "Cust. Info.", "Payments", "Ticket page", "Booking funnel"];
+
+function renderStageSelect(s){
+  const cur = s.stage || "";
+  const opts = (cur ? [] : ["<option value=\"\" selected disabled hidden>Funnel stage…</option>"]).concat(FUNNEL_STAGES.map(function(st){
+    return "<option value=\"" + st + "\"" + (st === cur ? " selected" : "") + ">" + st + "</option>";
+  })).join("");
+  return "<select class=\"solve-stage" + (cur ? "" : " unset") + "\" aria-label=\"Funnel stage for " + s.id + "\">" + opts + "</select>";
+}
+
+function findItem(state, id){
+  for (const theme of state.themes){
+    for (const item of theme.items){
+      if (item.id === id) return item;
+    }
+  }
+  return null;
+}
+
+function renderSolveArea(item){
+  if (item.solves.length === 0){
+    return "<div class=\"field-body blank\" data-blank>" + (item.blankText || "space for solve") + "</div>";
+  }
+  const rows = item.solves.map(function(s){
+    return "<li data-solve=\"" + s.id + "\">" +
+      "<span class=\"solve-id\">" + s.id + "</span>" +
+      "<div class=\"solve-text\">" + s.text + (s.tag ? "<span class=\"src-tag\">" + s.tag + "</span>" : "") + "</div>" +
+      renderStageSelect(s) +
+      "<span class=\"solve-actions\">" +
+        "<button type=\"button\" class=\"edit-solve-btn\" title=\"Edit\">✎</button>" +
+        "<button type=\"button\" class=\"remove-solve-btn\" title=\"Remove\">✕</button>" +
+      "</span>" +
+    "</li>";
+  }).join("");
+  return "<ul class=\"solve-list\">" + rows + "</ul>";
+}
+
+function renderItem(item){
+  const sources = (item.sources || []).map(function(s){
+    return "<div class=\"src-item\"><span class=\"src-origin\">" + s.origin + "</span><span class=\"src-quote\">" + s.quote + "</span>" + (s.note ? "<span class=\"src-note\">" + s.note + "</span>" : "") + "</div>";
+  }).join("");
+  return "" +
+    "<div class=\"item\" data-item=\"" + item.id + "\">" +
+      "<div class=\"item-title\"><span class=\"item-title-text\">" + item.title + "</span> <span class=\"item-num\">" + item.num + "</span><button type=\"button\" class=\"inline-edit-btn edit-title-btn\" title=\"Edit title\" aria-label=\"Edit title\">✎</button></div>" +
+      "<div class=\"field problem-field\"><div class=\"field-label\">Problem<button type=\"button\" class=\"inline-edit-btn edit-problem-btn\" title=\"Edit problem\" aria-label=\"Edit problem\">✎</button></div><div class=\"field-body problem-body" + (item.problem ? "" : " blank") + "\">" + (item.problem || "space for problem") + "</div></div>" +
+      "<div class=\"field\">" +
+        "<div class=\"field-label\">Potential solve</div>" +
+        "<div class=\"solve-area\">" + renderSolveArea(item) + "</div>" +
+        "<button type=\"button\" class=\"add-solve-btn\" data-item=\"" + item.id + "\">+ Add solve</button>" +
+      "</div>" +
+      (item.sources && item.sources.length ? "<details class=\"src\">" +
+        "<summary>Research source</summary>" +
+        "<div class=\"src-body\">" + sources + "</div>" +
+      "</details>" : "") +
+    "</div>";
+}
+
+function renderTheme(theme, ti){
+  return "" +
+    "<div class=\"theme-block\" data-theme=\"" + ti + "\">" +
+      "<div class=\"theme-head fold\" role=\"button\" tabindex=\"0\" aria-expanded=\"true\" data-fold-key=\"t:" + ti + "\"><span class=\"chev\"><svg viewBox=\"0 0 16 16\" width=\"14\" height=\"14\" aria-hidden=\"true\"><path d=\"M6 3.5 10.5 8 6 12.5\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg></span><span class=\"theme-num\">" + theme.num + "</span><h2>" + theme.name + "</h2><span class=\"head-count\">" + theme.items.length + (theme.items.length === 1 ? " sub-theme · " : " sub-themes · ") + theme.items.reduce(function(n, it){ return n + it.solves.length; }, 0) + " solves</span></div>" +
+      theme.items.map(renderItem).join("") +
+      "<button type=\"button\" class=\"add-section-btn\" data-theme=\"" + ti + "\">+ Add section to " + theme.name + "</button>" +
+    "</div>";
+}
+
+function nextItemNum(state){
+  let max = 0;
+  state.themes.forEach(function(t){ t.items.forEach(function(it){
+    String(it.num).split(/[^0-9]+/).forEach(function(n){ const v = parseInt(n, 10); if (v > max) max = v; });
+  }); });
+  return String(max + 1);
+}
+
+function renderPagesView(state){
+  const groups = FUNNEL_STAGES.concat([""]).map(function(stage){ return { stage: stage, cards: [], count: 0 }; });
+  const byStage = {}; groups.forEach(function(g){ byStage[g.stage] = g; });
+  state.themes.forEach(function(theme){
+    theme.items.forEach(function(item){
+      const perStage = {};
+      item.solves.forEach(function(sv){
+        const st = byStage[sv.stage || ""] ? (sv.stage || "") : "";
+        (perStage[st] = perStage[st] || []).push(sv);
+      });
+      Object.keys(perStage).forEach(function(st){
+        byStage[st].cards.push({ theme: theme, item: item, solves: perStage[st] });
+        byStage[st].count += perStage[st].length;
+      });
+    });
+  });
+  const used = groups.filter(function(g){ return g.count > 0; });
+  if (!used.length) return "<p class=\"pv-empty\">No solves yet.</p>";
+  function label(g){ return g.stage || "Not tagged yet"; }
+  function slug(g){ return "pv-" + (g.stage || "untagged").toLowerCase().replace(/[^a-z0-9]+/g, "-"); }
+  const nav = "<div class=\"pv-nav\" aria-label=\"Jump to page\">" + used.map(function(g){
+    return "<button type=\"button\" data-jump=\"" + slug(g) + "\"" + (g.stage ? "" : " class=\"untagged\"") + ">" + label(g) + "<span class=\"n\">" + g.count + "</span></button>";
+  }).join("") + "</div>";
+  const blocks = used.map(function(g, gi){
+    const cards = g.cards.map(function(c){
+      const rows = c.solves.map(function(sv){
+        return "<li><span class=\"solve-id\">" + sv.id + "</span><div class=\"solve-text\">" + sv.text + (sv.tag ? "<span class=\"src-tag\">" + sv.tag + "</span>" : "") + "</div></li>";
+      }).join("");
+      return "<div class=\"item\">" +
+        "<div class=\"pv-crumb\">" + c.theme.num + " · " + c.theme.name + "</div>" +
+        "<button type=\"button\" class=\"pv-title\" data-goto=\"" + c.item.id + "\" title=\"Open in By themes\"><span class=\"pv-title-text\">" + c.item.title + "</span><span class=\"item-num\">" + c.item.num + "</span><span class=\"pv-jump\">↗</span></button>" +
+        (c.item.problem ? "<div class=\"pv-problem\">" + c.item.problem + "</div>" : "") +
+        "<ul class=\"solve-list\">" + rows + "</ul>" +
+      "</div>";
+    }).join("");
+    return "<section class=\"page-block\" id=\"" + slug(g) + "\">" +
+      "<div class=\"theme-head fold\" role=\"button\" tabindex=\"0\" aria-expanded=\"true\" data-fold-key=\"p:" + slug(g) + "\"><span class=\"chev\"><svg viewBox=\"0 0 16 16\" width=\"14\" height=\"14\" aria-hidden=\"true\"><path d=\"M6 3.5 10.5 8 6 12.5\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg></span><span class=\"theme-num\">" + (g.stage ? pad(FUNNEL_STAGES.indexOf(g.stage) + 1) : "—") + "</span><h2>" + label(g) + "</h2><span class=\"head-count\">" + g.cards.length + (g.cards.length === 1 ? " sub-theme · " : " sub-themes · ") + g.count + (g.count === 1 ? " solve" : " solves") + "</span></div>" +
+      cards +
+    "</section>";
+  }).join("");
+  return nav + blocks;
+}
+
+let FOLDED = {};
+try { FOLDED = JSON.parse(localStorage.getItem("ftue-folded") || "{}") || {}; } catch (e) { FOLDED = {}; }
+function saveFolded(){ try { localStorage.setItem("ftue-folded", JSON.stringify(FOLDED)); } catch (e) {} }
+function applyFold(head){
+  const block = head.parentElement;
+  const closed = !!FOLDED[head.dataset.foldKey];
+  block.classList.toggle("is-collapsed", closed);
+  head.setAttribute("aria-expanded", closed ? "false" : "true");
+}
+function applyAllFolds(){ document.querySelectorAll(".theme-head.fold").forEach(applyFold); }
+function setFold(key, closed){
+  if (closed) FOLDED[key] = true; else delete FOLDED[key];
+  saveFolded();
+  document.querySelectorAll(".theme-head.fold[data-fold-key=\"" + key + "\"]").forEach(applyFold);
+}
+
+function renderApp(state, app){
+  app.innerHTML = state.themes.map(function(t, i){ return renderTheme(t, i); }).join("");
+  const pv = document.getElementById("pages-view");
+  if (pv) pv.innerHTML = renderPagesView(state);
+  applyAllFolds();
+  const range = document.getElementById("solve-range");
+  if (range) range.textContent = "SOL-01 through SOL-" + pad(state.nextSolId - 1);
+}
+
+function showSaveNote(itemEl, text){
+  let note = itemEl.querySelector(".save-note");
+  if (!note){
+    note = document.createElement("div");
+    note.className = "save-note";
+    const fields = itemEl.querySelectorAll(".field");
+    fields[fields.length - 1].appendChild(note);
+  }
+  note.textContent = text;
+}
+
+function disableAllAddButtons(){
+  document.querySelectorAll(".add-solve-btn, .add-section-btn, .inline-edit-btn").forEach(function(btn){ btn.hidden = true; });
+}
+
+function buildDocument(state){
+  const css = document.getElementById("page-style").textContent;
+  const wrapHtml = document.querySelector(".wrap").outerHTML;
+  const logic = document.getElementById("app-logic").textContent;
+  const stateJson = JSON.stringify(state);
+  return "<!doctype html>\n<html>\n<head>\n<meta charset=\"utf-8\">\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n<title>FTUE Design Actionables</title>\n<link rel=\"stylesheet\" href=\"https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Libre+Franklin:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap\">\n<style id=\"page-style\">" + css + "</style>\n</head>\n<body>\n" + wrapHtml + "\n<script>const INITIAL_STATE = " + stateJson + ";<" + "/script>\n<script id=\"app-logic\">" + logic + "<" + "/script>\n<script>window.__boot && window.__boot();<" + "/script>\n</body>\n</html>";
+}
+
+async function publishUpdate(state, itemEl){
+  const html = buildDocument(state);
+  if (!window.claude || typeof window.claude.use !== "function"){
+    showSaveNote(itemEl, "Inline saving isn't available in this preview.");
+    return;
+  }
+  try {
+    const ns = await window.claude.use("artifact");
+    if (!ns){
+      showSaveNote(itemEl, "Inline saving isn't available in this view.");
+      return;
+    }
+    await ns.publish(html);
+  } catch (err){
+    const code = err && err.code;
+    if (code === "conflict") return;
+    if (code === "not_writer" || code === "not_granted" || code === "not_declared" || code === "capability_disabled" || code === "capability_removed"){
+      disableAllAddButtons();
+      showSaveNote(itemEl, "This view can't save changes here.");
+      return;
+    }
+    showSaveNote(itemEl, "Couldn't save just now — try again.");
+  }
+}
+
+function initApp(){
+  if (window.__ftueInited) return;
+  window.__ftueInited = true;
+  const state = JSON.parse(JSON.stringify(INITIAL_STATE));
+  const app = document.getElementById("app");
+  renderApp(state, app);
+
+  const pagesView = document.getElementById("pages-view");
+  const switchBtns = document.querySelectorAll(".view-switch [data-view]");
+  function setView(v){
+    if (v !== "pages") v = "themes";
+    app.hidden = v !== "themes";
+    pagesView.hidden = v !== "pages";
+    switchBtns.forEach(function(b){ b.setAttribute("aria-selected", b.dataset.view === v ? "true" : "false"); });
+    try { localStorage.setItem("ftue-view", v); } catch (e) {}
+  }
+  let startView = "themes";
+  try { startView = localStorage.getItem("ftue-view") || "themes"; } catch (e) {}
+  setView(startView);
+  switchBtns.forEach(function(b){
+    b.addEventListener("click", function(){ setView(b.dataset.view); window.scrollTo({ top: 0 }); });
+  });
+  function onHeadToggle(e){
+    const head = e.target.closest(".theme-head.fold");
+    if (!head) return false;
+    if (e.type === "keydown" && e.key !== "Enter" && e.key !== " ") return false;
+    e.preventDefault();
+    setFold(head.dataset.foldKey, !FOLDED[head.dataset.foldKey]);
+    return true;
+  }
+  [app, pagesView].forEach(function(root){
+    root.addEventListener("click", function(e){ if (onHeadToggle(e)) e.stopImmediatePropagation(); }, true);
+    root.addEventListener("keydown", function(e){ if (e.target.classList && e.target.classList.contains("fold")) onHeadToggle(e); });
+  });
+  document.querySelectorAll(".fold-all [data-fold]").forEach(function(b){
+    b.addEventListener("click", function(){
+      const root = app.hidden ? pagesView : app;
+      const closed = b.dataset.fold === "collapse";
+      root.querySelectorAll(".theme-head.fold").forEach(function(h){
+        if (closed) FOLDED[h.dataset.foldKey] = true; else delete FOLDED[h.dataset.foldKey];
+      });
+      saveFolded();
+      applyAllFolds();
+    });
+  });
+  pagesView.addEventListener("click", function(e){
+    const jump = e.target.closest("[data-jump]");
+    if (jump){
+      const el = document.getElementById(jump.dataset.jump);
+      if (el && FOLDED["p:" + jump.dataset.jump]) setFold("p:" + jump.dataset.jump, false);
+      if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+      return;
+    }
+    const go = e.target.closest("[data-goto]");
+    if (go){
+      setView("themes");
+      const el = app.querySelector("[data-item=\"" + go.dataset.goto + "\"]");
+      const tb = el && el.closest(".theme-block");
+      if (tb && FOLDED["t:" + tb.dataset.theme]) setFold("t:" + tb.dataset.theme, false);
+      if (el){
+        el.scrollIntoView({ block: "center" });
+        el.classList.add("flash");
+        setTimeout(function(){ el.classList.remove("flash"); }, 1400);
+      }
+    }
+  });
+
+  function addSolve(itemId, text, itemEl){
+    const item = findItem(state, itemId);
+    if (!item) return;
+    const newId = "SOL-" + pad(state.nextSolId);
+    state.nextSolId += 1;
+    if (item.blank) item.blank = false;
+    item.solves.push({ id: newId, text: text });
+    renderApp(state, app);
+    publishUpdate(state, document.querySelector("[data-item=\"" + itemId + "\"]"));
+  }
+
+  function editSolveText(itemId, solveId, newText){
+    const item = findItem(state, itemId);
+    if (!item) return;
+    const solve = item.solves.find(function(s){ return s.id === solveId; });
+    if (!solve) return;
+    solve.text = newText;
+    renderApp(state, app);
+    publishUpdate(state, document.querySelector("[data-item=\"" + itemId + "\"]"));
+  }
+
+  function setSolveStage(itemId, solveId, stage){
+    const item = findItem(state, itemId);
+    if (!item) return;
+    const solve = item.solves.find(function(s){ return s.id === solveId; });
+    if (!solve) return;
+    if (stage) solve.stage = stage; else delete solve.stage;
+    renderApp(state, app);
+    publishUpdate(state, document.querySelector("[data-item=\"" + itemId + "\"]"));
+  }
+
+  app.addEventListener("change", function(e){
+    const sel = e.target.closest(".solve-stage");
+    if (!sel) return;
+    const li = sel.closest("li[data-solve]");
+    const itemEl = sel.closest(".item");
+    setSolveStage(itemEl.dataset.item, li.dataset.solve, sel.value);
+  });
+
+  function removeSolve(itemId, solveId){
+    const item = findItem(state, itemId);
+    if (!item) return;
+    item.solves = item.solves.filter(function(s){ return s.id !== solveId; });
+    renderApp(state, app);
+    publishUpdate(state, document.querySelector("[data-item=\"" + itemId + "\"]"));
+  }
+
+  function addSection(themeIndex, title, problem){
+    const theme = state.themes[themeIndex];
+    if (!theme) return;
+    const id = "item-" + Date.now().toString(36);
+    theme.items.push({ id: id, num: nextItemNum(state), title: title, problem: problem, blank: true, solves: [], sources: [] });
+    renderApp(state, app);
+    const el = document.querySelector("[data-item=\"" + id + "\"]");
+    if (el) el.scrollIntoView({ block: "center" });
+    publishUpdate(state, el);
+  }
+
+  function editItemField(itemId, field, value){
+    const item = findItem(state, itemId);
+    if (!item) return;
+    item[field] = value;
+    renderApp(state, app);
+    publishUpdate(state, document.querySelector("[data-item=\"" + itemId + "\"]"));
+  }
+
+  const MOD = IS_MAC ? "⌘" : "Ctrl";
+
+  app.addEventListener("click", function(e){
+    const addSecBtn = e.target.closest(".add-section-btn");
+    if (addSecBtn){
+      const block = addSecBtn.closest(".theme-block");
+      if (block.querySelector(".new-section")) return;
+      const form = document.createElement("div");
+      form.className = "item new-section";
+      form.innerHTML =
+        "<label>Section title<input type=\"text\" class=\"ns-title\" spellcheck=\"true\" placeholder=\"e.g. Boarding point clarity\"></label>" +
+        "<label>Problem<textarea class=\"ns-problem\" spellcheck=\"true\" placeholder=\"What's going wrong for the user? (optional, you can add it later)\"></textarea></label>" +
+        "<div class=\"new-section-foot\"><span class=\"rte-hint\">" + MOD + "+Return add · Esc cancel</span><button type=\"button\" class=\"cancel-btn\">Cancel</button><button type=\"button\" class=\"save-btn\">Add section</button></div>";
+      addSecBtn.before(form);
+      addSecBtn.hidden = true;
+      const t = form.querySelector(".ns-title"), pr = form.querySelector(".ns-problem");
+      t.focus();
+      function close(){ form.remove(); addSecBtn.hidden = false; }
+      function submit(){
+        const title = t.value.trim();
+        if (!title){ t.focus(); return; }
+        const problem = pr.value.trim() ? escText(pr.value.trim()).replace(/\n/g, "<br>") : "";
+        addSection(parseInt(addSecBtn.dataset.theme, 10), escText(title), problem);
+      }
+      form.querySelector(".save-btn").addEventListener("click", submit);
+      form.querySelector(".cancel-btn").addEventListener("click", close);
+      form.addEventListener("keydown", function(ev){
+        if (ev.key === "Escape"){ ev.preventDefault(); close(); }
+        else if (ev.key === "Enter" && (ev.metaKey || ev.ctrlKey)){ ev.preventDefault(); submit(); }
+        else if (ev.key === "Enter" && ev.target === t){ ev.preventDefault(); pr.focus(); }
+      });
+      return;
+    }
+
+    const titleBtn = e.target.closest(".edit-title-btn");
+    if (titleBtn){
+      const itemEl = titleBtn.closest(".item");
+      const item = findItem(state, itemEl.dataset.item);
+      if (!item || itemEl.querySelector(".title-edit-row")) return;
+      const titleEl = itemEl.querySelector(".item-title");
+      const tmp = document.createElement("div"); tmp.innerHTML = item.title;
+      const row = document.createElement("div");
+      row.className = "title-edit-row";
+      row.innerHTML = "<input type=\"text\" spellcheck=\"true\" aria-label=\"Section title\"><button type=\"button\" class=\"cancel-btn\">Cancel</button><button type=\"button\" class=\"save-btn\">Save</button>";
+      const input = row.querySelector("input");
+      input.value = tmp.textContent;
+      titleEl.hidden = true;
+      titleEl.after(row);
+      input.focus(); input.select();
+      function close(){ row.remove(); titleEl.hidden = false; }
+      function save(){
+        const v = input.value.trim();
+        if (!v){ input.focus(); return; }
+        editItemField(itemEl.dataset.item, "title", escText(v));
+      }
+      row.querySelector(".save-btn").addEventListener("click", save);
+      row.querySelector(".cancel-btn").addEventListener("click", close);
+      input.addEventListener("keydown", function(ev){
+        if (ev.key === "Enter"){ ev.preventDefault(); save(); }
+        if (ev.key === "Escape"){ ev.preventDefault(); close(); }
+      });
+      return;
+    }
+
+    const probBtn = e.target.closest(".edit-problem-btn");
+    if (probBtn){
+      const itemEl = probBtn.closest(".item");
+      const item = findItem(state, itemEl.dataset.item);
+      if (!item || itemEl.querySelector(".problem-edit-row")) return;
+      const body = itemEl.querySelector(".problem-body");
+      const row = document.createElement("div");
+      row.className = "problem-edit-row";
+      function close(){ row.remove(); body.hidden = false; probBtn.hidden = false; }
+      const editor = createRichEditor({
+        html: item.problem || "",
+        placeholder: "Describe the problem…",
+        onSave: function(html){ editItemField(itemEl.dataset.item, "problem", html); },
+        onCancel: close
+      });
+      row.appendChild(editor);
+      body.hidden = true;
+      probBtn.hidden = true;
+      body.after(row);
+      editor.focusEnd();
+      return;
+    }
+
+    const addBtn = e.target.closest(".add-solve-btn");
+    if (addBtn){
+      const itemEl = addBtn.closest(".item");
+      const solveArea = itemEl.querySelector(".solve-area");
+      if (itemEl.querySelector(".solve-input-row")) return;
+      const row = document.createElement("div");
+      row.className = "solve-input-row";
+      const editor = createRichEditor({
+        placeholder: "New solve…",
+        saveLabel: "Add",
+        onSave: function(html){ row.remove(); addSolve(addBtn.dataset.item, html, itemEl); },
+        onCancel: function(){ row.remove(); }
+      });
+      row.appendChild(editor);
+      solveArea.after(row);
+      editor.focusEnd();
+      return;
+    }
+
+    const editBtn = e.target.closest(".edit-solve-btn");
+    if (editBtn){
+      const li = editBtn.closest("li[data-solve]");
+      const itemEl = editBtn.closest(".item");
+      if (li.querySelector(".solve-edit-row")) return;
+      const textSpan = li.querySelector(".solve-text");
+      const item = findItem(state, itemEl.dataset.item);
+      const solve = item && item.solves.find(function(x){ return x.id === li.dataset.solve; });
+      if (!solve) return;
+      textSpan.hidden = true;
+      li.querySelector(".solve-actions").hidden = true;
+      li.querySelector(".solve-stage").hidden = true;
+      const row = document.createElement("div");
+      row.className = "solve-edit-row";
+      function closeEdit(){ row.remove(); textSpan.hidden = false; li.querySelector(".solve-actions").hidden = false; li.querySelector(".solve-stage").hidden = false; }
+      const editor = createRichEditor({
+        html: solve.text,
+        onSave: function(html){ editSolveText(itemEl.dataset.item, li.dataset.solve, html); },
+        onCancel: closeEdit
+      });
+      row.appendChild(editor);
+      textSpan.after(row);
+      editor.focusEnd();
+      return;
+    }
+
+    const removeBtn = e.target.closest(".remove-solve-btn");
+    if (removeBtn){
+      const li = removeBtn.closest("li[data-solve]");
+      const itemEl = removeBtn.closest(".item");
+      if (li.querySelector(".solve-remove-row")) return;
+      const textSpan = li.querySelector(".solve-text");
+      textSpan.hidden = true;
+      li.querySelector(".solve-actions").hidden = true;
+      li.querySelector(".solve-stage").hidden = true;
+      const row = document.createElement("span");
+      row.className = "solve-remove-row";
+      row.innerHTML = "<span>Remove this solve?</span><button type=\"button\" class=\"confirm-btn\">Remove</button><button type=\"button\" class=\"cancel-btn\">Cancel</button>";
+      textSpan.after(row);
+      function closeRemove(){ row.remove(); textSpan.hidden = false; li.querySelector(".solve-actions").hidden = false; li.querySelector(".solve-stage").hidden = false; }
+      row.querySelector(".confirm-btn").addEventListener("click", function(){
+        removeSolve(itemEl.dataset.item, li.dataset.solve);
+      });
+      row.querySelector(".cancel-btn").addEventListener("click", closeRemove);
+      return;
+    }
+  });
+}
+
+window.__boot = initApp;
+initApp();
+</script>
+<script>window.__boot && window.__boot();</script>
+</body>
+</html>
+</body></html>

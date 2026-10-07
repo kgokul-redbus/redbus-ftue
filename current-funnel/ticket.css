@@ -1,0 +1,19 @@
+/* Ticket details, rebuilt from production screenshots 35-36 (411.43 dp native space) */
+.tk-tabs{position:absolute;left:0;right:0;top:119.4px;height:54.6px;background:#fff;border-top:1px solid #e6e6e6;border-bottom:1px solid #e6e6e6;z-index:6}
+.tk-tabs button{position:absolute;top:0;height:53.6px;font-size:14px;white-space:nowrap}
+.tk-tabs .on{color:#d63941;font-weight:600}
+.tk-tabs .on::after{content:"";position:absolute;left:-.5px;right:-.5px;bottom:-1px;height:2.8px;border-radius:3px 3px 0 0;background:#d63941}
+.tk-scroll{position:absolute;left:0;right:0;top:174px;bottom:0;overflow-y:auto;overflow-x:hidden;scrollbar-width:none;background:#fff}
+.tk-scroll::-webkit-scrollbar{display:none}
+.tk-card{position:absolute;left:18.2px;width:374.5px;background:#fff;border-radius:24px;box-shadow:0 1px 5px rgba(20,20,40,.1)}
+.tk-card--line{box-shadow:none;border:1px solid #e6e6e6}
+.tk-h{position:absolute;left:18.7px;margin:0;font-weight:700;font-size:22px;line-height:28px;letter-spacing:-.3px;white-space:nowrap}
+.tk-div{position:absolute;left:0;right:0;height:1px;background:#e6e6e6}
+.tk-grad{position:absolute;left:0;right:0;background:linear-gradient(90deg,#123877 0%,#4b1d5d 50%,#860140 100%);color:#fff;overflow:hidden}
+.tk-ul{text-decoration:underline;text-underline-offset:2px}
+.tk-pill{position:absolute;display:flex;align-items:center;justify-content:center;border-radius:999px;background:#eaf0fd;color:#0b3fcf;font-weight:700;font-size:14px}
+.tk-notch{position:absolute;width:34px;height:34px;border-radius:50%;background:#e7e7e7}
+.tk-dash{position:absolute;height:0;border-top:1px dashed #d9d9d9}
+.tk-p{font-size:14px;line-height:20.5px;color:#6c6c6c}
+.tk-soft{display:flex;align-items:center;justify-content:center;border-radius:999px;background:#ffd9d6;font-weight:700;font-size:14px}
+.tk-scrim{position:absolute;inset:0;background:rgba(0,0,0,.8);z-index:30}

@@ -1,0 +1,22 @@
+{
+  "name": "india-bus-ds",
+  "globalName": "IndiaBusDS",
+  "components": 89,
+  "groups": [
+    "checkout",
+    "details",
+    "feedback",
+    "foundations",
+    "home",
+    "information",
+    "input",
+    "navigation",
+    "persuasion",
+    "seats",
+    "social",
+    "srp"
+  ],
+  "files": 665,
+  "builtAt": "2026-09-17T06:32:46.151Z",
+  "adopt": "See ADOPT.md — Path 1 uploads ds-bundle/ as-is; Path 2 rebuilds from source/."
+}

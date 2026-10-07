@@ -1,0 +1,1856 @@
+/*
+ * Android India bus SRP calibration layer.
+ * Foundations: Ions tokens/type -> Crystal primitives -> Android GEMS anatomy
+ * -> screenshot-verified India bus composition overrides.
+ * Logical viewport: 360 x 800 dp. Review target: 720 x 1600 at 2x.
+ */
+
+:root {
+  --srp-logical-width: 360;
+  --srp-logical-height: 800;
+  --srp-review-scale: 1;
+  --srp-results-surface: #f6f5fa;
+  --srp-brand-red: var(--action-primary-surface-default);
+  --srp-ray-start: #d32d60;
+  --srp-ray-end: #8b3fe4;
+  --srp-golden-opacity: 0.5;
+}
+
+.srp-calibration-page {
+  min-width: 360px;
+  min-height: 100vh;
+  overflow: auto;
+  background: #e7e7ec;
+}
+
+.srp-calibration-page button,
+.srp-calibration-page input,
+.srp-calibration-page textarea {
+  font-family: var(--font-family-android);
+}
+
+.srp-review {
+  min-height: 100vh;
+  display: grid;
+  place-items: start center;
+}
+
+.srp-stage {
+  width: 360px;
+  height: 800px;
+  position: relative;
+  flex: 0 0 auto;
+  overflow: hidden;
+  background: var(--surface-neutral-lowest-default);
+  box-shadow: 0 12px 44px rgb(28 28 33 / 18%);
+}
+
+.srp-device {
+  width: 360px;
+  height: 800px;
+  position: relative;
+  overflow: hidden;
+  color: #1c1c1c;
+  background: var(--surface-neutral-lowest-default);
+  transform: scale(var(--srp-review-scale));
+  transform-origin: left top;
+  isolation: isolate;
+}
+
+.srp-status-space {
+  height: 49px;
+  background: var(--surface-neutral-lowest-default);
+}
+
+/* GEMS DroidTopNavigation: 360 x 64, date trailing, regular. */
+.gems-droid-top-nav {
+  width: 360px;
+  height: 64px;
+  min-height: 64px;
+  gap: 4px;
+  padding: 0 11px 0 2px;
+  border-bottom-color: #e3e3e3;
+}
+
+.gems-droid-top-nav .srp-back {
+  width: 44px;
+  min-width: 44px;
+  height: 44px;
+  transform: translateY(4px);
+}
+
+.gems-droid-top-nav .srp-back .c-icon {
+  width: 28px;
+  height: 28px;
+  stroke-width: 1.9;
+}
+
+.srp-route-copy {
+  align-self: flex-end;
+  padding: 0 0 2px;
+}
+
+.srp-route-line,
+.srp-route-destination {
+  overflow: hidden;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 15px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.srp-route-line {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.srp-route-line .c-icon {
+  width: 16px;
+  height: 16px;
+  color: #aaaab0;
+  stroke-width: 1.5;
+}
+
+.srp-route-destination {
+  max-width: 246px;
+}
+
+.gems-droid-top-nav .c-top-nav__subtitle {
+  margin-top: 1px;
+  color: #69696f;
+  font-size: 12px;
+  line-height: 15px;
+}
+
+.srp-date-control {
+  width: 48px;
+  min-width: 48px;
+  height: 58px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2px;
+  padding: 0;
+  color: #1d1d21;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+}
+
+.srp-date-pill {
+  min-width: 38px;
+  height: 26px;
+  display: inline-grid;
+  place-items: center;
+  padding: 0 7px;
+  background: #ffe9ea;
+  border-radius: var(--radius-full);
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 16px;
+}
+
+.srp-day-label {
+  color: #6f6f74;
+  font-size: 11px;
+  line-height: 14px;
+}
+
+/* Internal Android GEMS Top tabs / Short production composition. */
+.gems-top-tabs {
+  width: 360px;
+  height: 43.5px;
+  min-height: 43.5px;
+  border-bottom-color: #bfc0c4;
+}
+
+.gems-top-tabs .c-tab {
+  height: 43.5px;
+  min-height: 43.5px;
+  padding: 0;
+  color: #17171a;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 43.5px;
+}
+
+.gems-top-tabs .c-tab[aria-selected="true"] {
+  color: #17171a;
+}
+
+.gems-top-tabs .c-tab[aria-selected="true"]::after {
+  height: 3px;
+  right: 0;
+  left: 0;
+  border-radius: 0;
+}
+
+.srp-scroll {
+  width: 360px;
+  height: 643.5px;
+  position: relative;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior-y: contain;
+  background: var(--srp-results-surface);
+  scrollbar-width: none;
+  scroll-behavior: smooth;
+}
+
+/* Opt-in PM iterations mount only through these flow-preserving anchors. */
+.kit-iteration-slot { display: contents; }
+.kit-iteration-slot:empty { display: none; }
+
+.srp-scroll::-webkit-scrollbar,
+.gems-filter-scroll::-webkit-scrollbar,
+.srp-previous-rail::-webkit-scrollbar,
+.srp-calendar-scroll::-webkit-scrollbar,
+.srp-ray-sheet__conversation::-webkit-scrollbar {
+  display: none;
+}
+
+/* Screenshot-calibrated SRP result loaders. They intentionally cover the
+   Buses/Trains tabs: both supplied Android loader captures move directly from
+   the route header into the loading anatomy. */
+.srp-results-loader {
+  position: absolute;
+  z-index: 28;
+  top: 113px;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: none;
+  overflow: hidden;
+  color: var(--content-neutral-high-default);
+  background: var(--srp-results-surface);
+  pointer-events: auto;
+}
+
+.srp-results-loader[data-open="true"] { display: block; }
+
+.srp-loader-announcement {
+  width: 1px;
+  height: 1px;
+  position: absolute;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.srp-loader-base,
+.srp-loader-context { background: var(--surface-neutral-lowest-default); }
+
+.srp-results-loader[data-variant="base"] .srp-loader-context,
+.srp-results-loader[data-variant="contextual"] .srp-loader-base { display: none; }
+
+.srp-loader-promo-rail {
+  height: 132px;
+  display: flex;
+  gap: 8px;
+  padding: 14px 14px 12px;
+  overflow: hidden;
+}
+
+.srp-loader-promo {
+  width: 132px;
+  min-width: 132px;
+  height: 105px;
+  border-radius: var(--radius-2xl);
+}
+
+.srp-loader-promo--rose { background: var(--surface-brand-low-default); }
+.srp-loader-promo--blue { background: var(--surface-info-low-default); }
+.srp-loader-promo--mint { background: var(--surface-success-low-default); }
+
+.srp-loader-chip-rail {
+  height: 48px;
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  padding: 0 24px;
+  overflow: hidden;
+  border-bottom: 1px solid var(--border-neutral-low-default);
+}
+
+.srp-loader-chip-rail span {
+  width: 91px;
+  min-width: 91px;
+  height: 28px;
+  background: var(--border-neutral-low-default);
+  border-radius: var(--radius-md);
+}
+
+.srp-loader-context .srp-loader-chip-rail {
+  height: 44px;
+  gap: 20px;
+  padding: 0 24px;
+  border-bottom: 0;
+}
+
+.srp-loader-context .srp-loader-chip-rail span {
+  width: 91px;
+  min-width: 91px;
+  height: 27px;
+}
+
+.srp-loader-ai { padding: 0 14px 10px; }
+
+.srp-loader-ai small {
+  display: block;
+  margin-bottom: 5px;
+  color: var(--content-brand-high-default);
+  font-size: 11px;
+  line-height: 16px;
+}
+
+.srp-loader-ai > div {
+  height: 43px;
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  padding: 0 14px;
+  background: var(--surface-neutral-lowest-default);
+  border: 1.5px solid transparent;
+  border-radius: var(--radius-lg);
+  background-image:
+    linear-gradient(var(--surface-neutral-lowest-default), var(--surface-neutral-lowest-default)),
+    linear-gradient(100deg, var(--srp-ray-start), var(--srp-ray-end));
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+}
+
+.srp-loader-ai .ray-sparkle { width: 24px; height: 24px; flex: 0 0 24px; }
+
+.srp-loader-ai strong {
+  overflow: hidden;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 20px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.srp-loader-context > p {
+  height: 44px;
+  margin: 0;
+  padding: 9px 14px 0;
+  background: var(--srp-results-surface);
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 22px;
+}
+
+.srp-loader-results {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 16px 14px 64px;
+  background: var(--srp-results-surface);
+}
+
+.srp-loader-previous,
+.srp-loader-card {
+  position: relative;
+  background: var(--surface-neutral-lowest-default);
+  border-radius: var(--radius-2xl);
+}
+
+.srp-loader-previous {
+  height: 77px;
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding: 14px;
+}
+
+.srp-loader-thumb {
+  width: 42px;
+  height: 49px;
+  flex: 0 0 42px;
+  border-radius: var(--radius-lg);
+}
+
+.srp-loader-copy { display: grid; gap: 7px; }
+.srp-loader-copy i,
+.srp-loader-card i { display: block; background: var(--border-neutral-low-default); border-radius: var(--radius-xs); }
+.srp-loader-copy i:first-child { width: 115px; height: 20px; }
+.srp-loader-copy i:last-child { width: 69px; height: 15px; }
+
+.srp-loader-card { height: 128px; padding: 14px; }
+.srp-loader-title { width: 100px; height: 20px; }
+.srp-loader-price { width: 49px; height: 20px; position: absolute; top: 14px; right: 14px; }
+.srp-loader-line { width: 155px; height: 18px; position: absolute; top: 56px; left: 14px; }
+.srp-loader-card .srp-loader-rating { width: 39px; height: 34px; position: absolute; top: 48px; right: 14px; border-radius: var(--radius-lg); }
+.srp-loader-card > span { position: absolute; right: 14px; bottom: 13px; left: 14px; display: flex; gap: 6px; }
+.srp-loader-card > span i { width: 65px; height: 21px; border-radius: var(--radius-md); }
+.srp-loader-results .srp-loader-tone--rose { background: var(--surface-brand-low-default); }
+.srp-loader-results .srp-loader-tone--mint { background: var(--surface-success-low-default); }
+.srp-loader-results .srp-loader-tone--peach { background: var(--surface-warning-low-default); }
+
+.srp-results-loader[data-open="true"] .srp-loader-chip-rail span,
+.srp-results-loader[data-open="true"] .srp-loader-copy i,
+.srp-results-loader[data-open="true"] .srp-loader-card i:not(.srp-loader-rating) {
+  animation: srp-skeleton-pulse 900ms ease-in-out infinite alternate;
+}
+
+.srp-device[data-results-loading="true"] .srp-scroll { pointer-events: none; }
+.srp-device[data-results-loading="true"][data-loader-variant="base"] .srp-ray-fab { opacity: 0; pointer-events: none; }
+
+@keyframes srp-skeleton-pulse {
+  from { opacity: 0.72; }
+  to { opacity: 1; }
+}
+
+/* GEMS Feature Cards anatomy. Artwork is a screenshot-sourced product asset. */
+.gems-feature-rail {
+  width: 360px;
+  height: 131.5px;
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 13.5px 16px 13px;
+  overflow-x: auto;
+  background: var(--surface-neutral-lowest-default);
+  border-bottom: 1px solid #e8e8e8;
+  scrollbar-width: none;
+}
+
+.gems-feature-card {
+  width: 130px;
+  min-width: 130px;
+  height: 105px;
+  padding: 0;
+  overflow: hidden;
+  background-color: #fff;
+  background-image: url("../../pm-prototype-kit/India bus screenshots/SearchSRP.jpeg");
+  background-repeat: no-repeat;
+  background-size: 356px 800px;
+  border: 0;
+  border-radius: 14px;
+  cursor: pointer;
+}
+
+.gems-feature-card--primo {
+  background-position: -14px -170px;
+}
+
+.gems-feature-card--exclusive {
+  background-position: -152px -170px;
+}
+
+/* GEMS Top Filter / DroidFilterChip production-size override. */
+.gems-top-filter {
+  width: 360px;
+  height: 50px;
+  position: sticky;
+  z-index: 20;
+  top: 0;
+  overflow: hidden;
+  background: var(--surface-neutral-lowest-default);
+  border-top: 1px solid #efefef;
+  border-bottom: 1px solid #eeeeef;
+}
+
+.gems-filter-scroll {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 0 16px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: none;
+}
+
+.gems-top-filter .c-chip {
+  height: 29px;
+  min-height: 29px;
+  flex: 0 0 auto;
+  gap: 7px;
+  padding: 0 11px;
+  color: #222226;
+  background: #fff;
+  border-color: #a9a9ad;
+  border-radius: 7px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 18px;
+}
+
+.gems-filter-and-sort {
+  width: 118px;
+  position: relative;
+  justify-content: center;
+}
+
+.gems-filter-chip[data-filter-chip="deals"] { width: 77px; }
+.gems-filter-chip[data-filter-chip="ac"] { width: 64px; }
+.gems-filter-chip[data-filter-chip="free"] { width: 132px; }
+.gems-filter-chip[data-filter-chip="sleeper"] { width: 93px; }
+
+.gems-filter-chip[data-filter-chip="free"] {
+  display: none;
+}
+
+.srp-device[data-scenario="scrolled"] .gems-filter-chip[data-filter-chip="ac"] {
+  display: none;
+}
+
+.srp-device[data-scenario="scrolled"] .gems-filter-chip[data-filter-chip="free"] {
+  display: inline-flex;
+}
+
+.gems-top-filter .c-chip[aria-pressed="true"] {
+  color: #fff;
+  background: var(--srp-brand-red);
+  border-color: var(--srp-brand-red);
+}
+
+.srp-chip-close {
+  display: none;
+  margin-right: -5px;
+}
+
+.gems-filter-chip[aria-pressed="true"] .srp-chip-close {
+  display: block;
+}
+
+.srp-filter-badge {
+  width: 15px;
+  height: 15px;
+  position: absolute;
+  top: -5px;
+  left: 14px;
+  display: grid;
+  place-items: center;
+  color: #fff;
+  background: var(--srp-brand-red);
+  border-radius: 50%;
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.srp-percent-icon {
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1;
+}
+
+.srp-ac-icon {
+  width: 21px;
+  height: 13px;
+  position: relative;
+  display: inline-block;
+  border: 1.4px solid currentColor;
+  border-radius: 2px;
+}
+
+.srp-ac-icon::before,
+.srp-ac-icon::after,
+.srp-ac-icon i::after {
+  content: "";
+  width: 3px;
+  height: 4px;
+  position: absolute;
+  bottom: -6px;
+  border-left: 1px solid currentColor;
+  border-radius: 50%;
+}
+
+.srp-ac-icon::before { left: 4px; }
+.srp-ac-icon::after { left: 9px; }
+.srp-ac-icon i::after { left: 14px; }
+
+.srp-sleeper-icon {
+  width: 19px;
+  height: 17px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
+  padding: 2px;
+  border: 1px solid currentColor;
+}
+
+.srp-sleeper-icon i {
+  display: block;
+  border: 1px solid currentColor;
+}
+
+.srp-shield-icon {
+  width: 20px;
+  height: 22px;
+  display: inline-grid;
+  place-items: center;
+  color: #fff;
+  background: #171719;
+  clip-path: polygon(50% 0, 92% 16%, 84% 74%, 50% 100%, 16% 74%, 8% 16%);
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 700;
+}
+
+/* Screenshot-derived AI Smart Filter composition, built from Crystal field/action primitives. */
+.india-ai-filter {
+  width: 360px;
+  height: 73.5px;
+  padding: 4px 16px 6px;
+  overflow: hidden;
+  background: var(--surface-neutral-lowest-default);
+  transition: height var(--motion-duration-standard) var(--motion-easing-standard);
+}
+
+.india-ai-filter__label {
+  display: block;
+  margin-bottom: 1.5px;
+  color: #c93655;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 16px;
+}
+
+.india-ai-filter__field {
+  height: 42px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 8px 0 13px;
+  background:
+    linear-gradient(#fff, #fff) padding-box,
+    linear-gradient(105deg, #df4053 0%, #ca3e70 52%, #7644ef 100%) border-box;
+  border: 1px solid transparent;
+  border-radius: 9px;
+}
+
+.india-ai-filter__field input {
+  min-width: 0;
+  flex: 1;
+  padding: 0;
+  color: #242428;
+  background: transparent;
+  border: 0;
+  outline: 0;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.india-ai-filter__field input::placeholder {
+  color: #73737a;
+  opacity: 1;
+}
+
+.ray-sparkle {
+  width: 24px;
+  height: 24px;
+  position: relative;
+  display: inline-block;
+  flex: 0 0 24px;
+  background-image: url("../../pm-prototype-kit/India bus screenshots/SearchSRP.jpeg");
+  background-repeat: no-repeat;
+  background-position: -27px -369px;
+  background-size: 356px 800px;
+}
+
+.ray-sparkle--field {
+  width: 25px;
+  height: 25px;
+  flex: 0 0 25px;
+}
+
+.india-ai-filter__mic,
+.india-ai-filter__clear {
+  width: 30px;
+  min-width: 30px;
+  height: 34px;
+}
+
+.india-ai-filter__clear,
+.india-ai-filter__spinner,
+.india-ai-filter__submit,
+.india-ai-filter__support {
+  display: none;
+}
+
+.srp-mic-icon {
+  width: 18px;
+  height: 23px;
+  position: relative;
+  display: inline-block;
+}
+
+.srp-mic-icon::before {
+  content: "";
+  width: 8px;
+  height: 13px;
+  position: absolute;
+  top: 0;
+  left: 5px;
+  border: 1.7px solid currentColor;
+  border-radius: 7px;
+}
+
+.srp-mic-icon::after {
+  content: "";
+  width: 15px;
+  height: 10px;
+  position: absolute;
+  top: 7px;
+  left: 1.5px;
+  border: 1.7px solid currentColor;
+  border-top: 0;
+  border-radius: 0 0 10px 10px;
+}
+
+.srp-mic-icon i::before,
+.srp-mic-icon i::after {
+  content: "";
+  position: absolute;
+  background: currentColor;
+}
+
+.srp-mic-icon i::before { width: 1.7px; height: 5px; top: 16px; left: 8px; }
+.srp-mic-icon i::after { width: 8px; height: 1.7px; top: 21px; left: 5px; border-radius: 2px; }
+
+.srp-device[data-ai-state="filled"] .india-ai-filter {
+  height: 134px;
+}
+
+.srp-device[data-ai-state="filled"] .india-ai-filter__field {
+  height: 48px;
+}
+
+.srp-device[data-ai-state="filled"] .india-ai-filter__mic,
+.srp-device[data-ai-state="applied"] .india-ai-filter__mic,
+.srp-device[data-ai-state="loading"] .india-ai-filter__mic {
+  display: none;
+}
+
+.srp-device[data-ai-state="filled"] .india-ai-filter__clear,
+.srp-device[data-ai-state="applied"] .india-ai-filter__clear {
+  display: inline-grid;
+}
+
+.srp-device[data-ai-state="filled"] .india-ai-filter__submit {
+  height: 42px;
+  min-height: 42px;
+  display: inline-flex;
+  margin-top: 12px;
+  color: #1e1e22;
+  background: #ffdada;
+  border-radius: var(--radius-full);
+  font-size: 14px;
+}
+
+.srp-device[data-ai-state="loading"] .india-ai-filter {
+  height: 105px;
+}
+
+.srp-device[data-ai-state="loading"] .india-ai-filter__clear {
+  display: none;
+}
+
+.srp-device[data-ai-state="loading"] .india-ai-filter__spinner {
+  width: 24px;
+  height: 24px;
+  display: block;
+  border: 2px solid #ececf0;
+  border-top-color: var(--srp-brand-red);
+  border-right-color: var(--srp-brand-red);
+  border-radius: 50%;
+  animation: srp-spin 800ms linear infinite;
+}
+
+.srp-device[data-ai-state="loading"] .india-ai-filter__support {
+  display: block;
+  margin: 9px 0 0;
+  color: #333338;
+  font-size: 12px;
+  line-height: 16px;
+}
+
+@keyframes srp-spin { to { transform: rotate(360deg); } }
+
+/* DroidTupple-India slot composition. */
+.srp-results {
+  min-height: 760px;
+  background: var(--srp-results-surface);
+}
+
+.srp-result-list {
+  display: grid;
+  gap: 7px;
+  padding: 10px 16px 92px;
+}
+
+.gems-bus-tuple {
+  width: 328px;
+  height: 176px;
+  position: relative;
+  overflow: hidden;
+  padding: 14px;
+  color: #1e1e22;
+  background: #fff;
+  border: 1px solid #eeeeef;
+  border-radius: 14px;
+  box-shadow:
+    0 2px 5px rgb(28 28 33 / 8%),
+    0 5px 10px rgb(28 28 33 / 6%);
+  cursor: pointer;
+}
+
+.gems-bus-tuple:active {
+  transform: scale(0.997);
+}
+
+.srp-primo-logo {
+  width: 60px;
+  height: 26px;
+  position: absolute;
+  top: 16px;
+  left: 13px;
+  background-image: url("../../pm-prototype-kit/India bus screenshots/SearchSRP.jpeg");
+  background-repeat: no-repeat;
+  background-position: -27px -438px;
+  background-size: 356px 800px;
+}
+
+.gems-bus-tuple__journey {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-top: 34px;
+}
+
+.gems-bus-tuple--primo .gems-bus-tuple__journey {
+  margin-top: 39px;
+}
+
+.srp-more-result .gems-bus-tuple__journey {
+  margin-top: 8px;
+}
+
+.gems-bus-tuple__journey > div:first-child {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  color: #333338;
+  font-size: 16px;
+  line-height: 20px;
+}
+
+.gems-bus-tuple__journey > div:first-child > strong {
+  color: #17171a;
+  font-weight: 700;
+}
+
+.srp-time-dash {
+  width: 11px;
+  height: 1px;
+  display: inline-block;
+  margin: 0 3px;
+  background: #dedee2;
+}
+
+.gems-bus-tuple__journey small,
+.gems-bus-tuple__fare small {
+  width: 100%;
+  display: block;
+  color: #717177;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
+}
+
+.gems-bus-tuple__journey em {
+  color: #bb5c15;
+  font-style: normal;
+}
+
+.gems-bus-tuple__fare {
+  min-width: 78px;
+  color: #25252a;
+  font-size: 13px;
+  line-height: 20px;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.gems-bus-tuple__fare strong {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.srp-old-fare {
+  margin-right: 4px;
+  color: #6e6e74;
+  text-decoration: line-through;
+}
+
+.gems-bus-tuple__operator {
+  max-width: 270px;
+  position: relative;
+  margin-top: 10px;
+  padding-right: 34px;
+  font-size: 14px;
+  line-height: 18px;
+}
+
+.gems-bus-tuple__operator > strong,
+.gems-bus-tuple__operator > small {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.gems-bus-tuple__operator > strong {
+  font-weight: 700;
+}
+
+.gems-bus-tuple__operator > small {
+  color: #74747a;
+  font-size: 12px;
+  line-height: 16px;
+}
+
+.srp-bus-detail-trigger {
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  display: flex;
+  padding: 0;
+  color: #77777d;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+}
+
+.srp-bus-detail-trigger .c-icon + .c-icon {
+  width: 13px;
+  margin-left: -6px;
+}
+
+.gems-rating {
+  width: 38px;
+  position: absolute;
+  top: 95px;
+  right: 14px;
+  overflow: hidden;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.gems-rating .c-rating-tag {
+  width: 38px;
+  min-height: 18px;
+  justify-content: center;
+  padding: 2px 3px;
+  border-radius: 5px 5px 0 0;
+  font-size: 11px;
+  line-height: 14px;
+}
+
+.gems-rating .c-rating-tag .c-icon {
+  width: 10px;
+  height: 10px;
+  fill: currentColor;
+  stroke-width: 1.4;
+}
+
+.gems-rating > small {
+  height: 14px;
+  display: block;
+  color: #2b4534;
+  background: #e7f5eb;
+  font-size: 10px;
+  line-height: 14px;
+}
+
+.gems-rating--mid .c-rating-tag {
+  background: #cc8b00;
+}
+
+.gems-rating--mid > small {
+  color: #634500;
+  background: #fff1d7;
+}
+
+.gems-bus-tuple__tags {
+  position: absolute;
+  bottom: 15px;
+  left: 14px;
+  display: flex;
+  gap: 6px;
+}
+
+.gems-bus-tuple__tags > span {
+  min-height: 22px;
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 8px;
+  color: #27272b;
+  background: #eaf1ff;
+  border-radius: 6px;
+  font-size: 12px;
+  line-height: 16px;
+}
+
+.gems-offer-ribbon {
+  min-width: 116px;
+  height: 22px;
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 12px;
+  color: #242428;
+  background: linear-gradient(95deg, #ffe18a, #fff6d4 48%, #ffdb70);
+  border-radius: 4px;
+  font-size: 12px;
+  line-height: 16px;
+}
+
+.gems-offer-ribbon::before,
+.gems-offer-ribbon::after {
+  content: "";
+  width: 7px;
+  height: 7px;
+  position: absolute;
+  top: 7px;
+  background: #fff;
+  border-radius: 50%;
+}
+
+.gems-offer-ribbon::before { left: -4px; }
+.gems-offer-ribbon::after { right: -4px; }
+
+.gems-tuple-offer {
+  min-height: 23px;
+  position: absolute;
+  right: 14px;
+  bottom: 14px;
+  left: 14px;
+  padding: 3px 8px;
+  color: #27272c;
+  background: #eee9ff;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
+}
+
+.srp-applied-summary {
+  height: 35px;
+  display: none;
+  align-items: center;
+  margin: 0;
+  padding: 0 16px;
+  color: #242429;
+  background: var(--srp-results-surface);
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.srp-device[data-ai-state="filled"] .gems-bus-tuple--primo,
+.srp-device[data-ai-state="applied"] .gems-bus-tuple--primo {
+  display: none;
+}
+
+.srp-device[data-ai-state="applied"] .srp-applied-summary {
+  display: flex;
+}
+
+.srp-device[data-ai-state="applied"] .srp-result-list {
+  padding-top: 0;
+}
+
+.srp-previously-viewed,
+.srp-free-cancel-card {
+  display: none;
+}
+
+.srp-device[data-scenario="scrolled"] .srp-previously-viewed {
+  height: 232px;
+  display: block;
+  padding: 14px 0 8px;
+  background: #fff;
+}
+
+.srp-previously-viewed h2 {
+  margin: 0 16px 12px;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 22px;
+}
+
+.srp-previous-rail {
+  display: flex;
+  gap: 10px;
+  padding: 0 16px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.gems-bus-tuple--previous {
+  width: 256px;
+  min-width: 256px;
+  background:
+    linear-gradient(135deg, rgb(167 255 193 / 54%), transparent 38%),
+    #fff;
+}
+
+.gems-bus-tuple--previous .gems-bus-tuple__journey {
+  margin-top: 35px;
+}
+
+.gems-bus-tuple--previous .gems-bus-tuple__operator {
+  max-width: 220px;
+  padding-right: 30px;
+}
+
+.srp-device[data-scenario="scrolled"] .srp-result-list {
+  gap: 0;
+  padding: 6px 16px 7px;
+}
+
+.srp-device[data-scenario="scrolled"] .srp-result-list .gems-bus-tuple:not(.srp-more-result) {
+  display: none;
+}
+
+.srp-device[data-scenario="scrolled"] .srp-more-result {
+  height: 150px;
+}
+
+.srp-device[data-scenario="scrolled"] .srp-free-cancel-card {
+  height: 170px;
+  display: block;
+  padding: 17px 14px;
+  background:
+    radial-gradient(circle at 85% 40%, rgb(210 50 94 / 8%) 0 2px, transparent 3px),
+    #fff;
+}
+
+.srp-free-cancel-card__title {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-size: 18px;
+  line-height: 24px;
+}
+
+.srp-free-cancel-card__title .srp-shield-icon {
+  width: 34px;
+  height: 38px;
+  background: #b0004e;
+  font-size: 18px;
+}
+
+.srp-free-cancel-card__switch {
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 12px;
+  padding: 8px 12px;
+  border: 1px solid #c62a65;
+  border-radius: 14px;
+}
+
+.srp-free-cancel-card__switch strong,
+.srp-free-cancel-card__switch small {
+  display: block;
+}
+
+.srp-free-cancel-card__switch strong { font-size: 13px; line-height: 18px; }
+.srp-free-cancel-card__switch small { color: #74747a; font-size: 12px; line-height: 16px; }
+.srp-free-cancel-card__switch em { color: #c22d5d; font-style: normal; }
+
+.srp-free-cancel-card__switch [role="switch"] {
+  width: 46px;
+  height: 28px;
+  position: relative;
+  padding: 0;
+  background: #efeff2;
+  border: 2px solid #57575c;
+  border-radius: 16px;
+}
+
+.srp-free-cancel-card__switch [role="switch"] i {
+  width: 18px;
+  height: 18px;
+  position: absolute;
+  top: 3px;
+  left: 4px;
+  background: #57575c;
+  border-radius: 50%;
+  transition: left var(--motion-duration-fast), background var(--motion-duration-fast);
+}
+
+.srp-free-cancel-card__switch [role="switch"][aria-checked="true"] {
+  background: var(--surface-brand-low-default);
+  border-color: var(--srp-brand-red);
+}
+
+.srp-free-cancel-card__switch [role="switch"][aria-checked="true"] i {
+  left: 20px;
+  background: var(--srp-brand-red);
+}
+
+.srp-end-state {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 28px 28px 160px;
+  color: #37373c;
+  font-size: 13px;
+  text-align: center;
+}
+
+.srp-end-state span {
+  height: 1px;
+  flex: 1;
+  background: #e4e4e8;
+}
+
+.srp-device[data-scenario="scrolled"] .srp-end-state {
+  display: none;
+}
+
+/* Screenshot-derived RAY entry stays viewport-anchored. */
+.srp-ray-fab {
+  width: 108px;
+  height: 42px;
+  position: absolute;
+  z-index: 30;
+  right: 126px;
+  bottom: 62px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 0;
+  color: #fff;
+  background: linear-gradient(100deg, var(--srp-ray-start), var(--srp-ray-end));
+  border: 1px solid rgb(255 255 255 / 42%);
+  border-radius: var(--radius-full);
+  box-shadow: 0 3px 8px rgb(84 25 126 / 24%);
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 22px;
+  cursor: pointer;
+}
+
+.srp-ray-fab .ray-sparkle {
+  width: 24px;
+  height: 24px;
+}
+
+.srp-ray-fab .ray-sparkle {
+  background-position: -136px -700px;
+}
+
+.srp-bottom-safe {
+  height: 40px;
+  position: absolute;
+  z-index: 25;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: #fff;
+}
+
+/* Crystal overlay/bottom-sheet primitives with screenshot-verified dimensions. */
+.srp-overlay {
+  position: absolute;
+  z-index: 60;
+  inset: 0;
+  padding: 0;
+}
+
+.srp-overlay .srp-sheet {
+  width: 360px;
+  max-width: none;
+  max-height: none;
+  padding: 0;
+  overflow: hidden;
+  border-radius: 18px 18px 0 0;
+}
+
+.srp-sheet-header {
+  min-height: 63px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 14px;
+  background: #fff;
+  border-bottom: 1px solid #e4e4e7;
+  touch-action: none;
+}
+
+.srp-sheet-header h2 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 28px;
+}
+
+.srp-sheet-header p {
+  margin: 2px 0 0;
+  color: #707076;
+  font-size: 12px;
+  line-height: 16px;
+}
+
+.srp-filter-sheet {
+  height: 766px;
+  display: grid;
+  grid-template-rows: 63px minmax(0, 1fr) 109px;
+}
+
+.srp-filter-workspace {
+  min-height: 0;
+  display: grid;
+  grid-template-columns: 120px minmax(0, 1fr);
+}
+
+.srp-filter-categories {
+  min-height: 0;
+  overflow: hidden;
+  background: #f4f3f8;
+}
+
+.srp-filter-categories button {
+  width: 120px;
+  height: 49px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 14px;
+  color: #27272c;
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid #e6e5ea;
+  font-size: 11px;
+  line-height: 14px;
+  text-align: left;
+}
+
+.srp-filter-categories button:first-child { height: 49px; }
+.srp-filter-categories button:nth-child(3),
+.srp-filter-categories button:nth-child(5),
+.srp-filter-categories button:last-child { height: 53px; }
+
+.srp-filter-categories button[aria-selected="true"] {
+  color: #cc3555;
+  background: #fff;
+}
+
+.srp-filter-categories button[aria-selected="true"]::before {
+  content: "";
+  width: 2px;
+  position: absolute;
+  inset: 0 auto 0 0;
+  background: var(--srp-brand-red);
+}
+
+.srp-filter-categories .ray-sparkle {
+  width: 20px;
+  height: 20px;
+  flex-basis: 20px;
+}
+
+.srp-filter-categories .ray-sparkle {
+  background-image: url("../../pm-prototype-kit/India bus screenshots/Sort & filter.jpeg");
+  background-position: -13px -113px;
+}
+
+.srp-filter-options {
+  min-width: 0;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 10px 14px;
+  background: #fff;
+}
+
+.srp-filter-options section {
+  display: none;
+}
+
+.srp-filter-options section[data-active="true"] {
+  display: grid;
+  gap: 12px;
+}
+
+.srp-filter-options textarea {
+  width: 210px;
+  height: 105px;
+  padding: 12px 10px;
+  resize: none;
+  background:
+    linear-gradient(#fff, #fff) padding-box,
+    linear-gradient(120deg, #315ddd, #8d42e5, #d7305b) border-box;
+  border: 1px solid transparent;
+  border-radius: 13px;
+  outline: 0;
+  font-size: 14px;
+}
+
+.srp-filter-options textarea::placeholder {
+  color: #6f6f75;
+  opacity: 1;
+}
+
+.srp-visually-hidden {
+  width: 1px;
+  height: 1px;
+  position: absolute;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.srp-filter-options h3 {
+  margin: 8px 0 4px;
+  font-size: 16px;
+}
+
+.srp-filter-options section:not([data-filter-panel="ai"]) label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 40px;
+  padding: 7px 0;
+  border-bottom: 1px solid #efeff1;
+  font-size: 13px;
+  line-height: 18px;
+}
+
+.srp-filter-options input { width: 18px; height: 18px; }
+
+.srp-filter-actions {
+  display: grid;
+  grid-template-columns: 95px 1fr;
+  gap: 8px;
+  padding: 13px 14px 54px;
+  background: #fff;
+  border-top: 1px solid #ececef;
+}
+
+.srp-filter-actions .c-button {
+  height: 42px;
+  min-height: 42px;
+  border-radius: var(--radius-full);
+  font-size: 15px;
+}
+
+.srp-filter-actions .c-button--secondary {
+  color: #1d1d21;
+  border-color: #1d1d21;
+}
+
+.srp-ray-sheet {
+  height: 679px;
+  display: grid;
+  grid-template-rows: 66px minmax(0, 1fr) 108px;
+  border-radius: 20px 20px 0 0 !important;
+}
+
+.srp-ray-sheet__header {
+  display: grid;
+  grid-template-columns: 34px 1fr 44px;
+  align-items: center;
+  gap: 1px;
+  padding: 0 8px 0 15px;
+  background: #fff;
+  border-bottom: 1px solid #e7e7e9;
+  touch-action: none;
+}
+
+.srp-ray-sheet__header .ray-sparkle { width: 27px; height: 27px; }
+.srp-ray-sheet__header .ray-sparkle {
+  background-image: url("../../pm-prototype-kit/India bus screenshots/Ray open on fab icon click.jpeg");
+  background-position: -16px -143px;
+}
+.srp-ray-sheet__header h2 { margin: 0; font-size: 16px; line-height: 21px; }
+.srp-ray-sheet__header p { margin: 1px 0 0; color: #707076; font-size: 13px; line-height: 17px; }
+
+.srp-ray-sheet__conversation {
+  min-height: 0;
+  overflow-y: auto;
+  padding: 14px 14px 26px;
+  background: #fff;
+  scrollbar-width: none;
+}
+
+.srp-ray-intro {
+  margin: 0;
+  font-size: 14px;
+  line-height: 21px;
+}
+
+.srp-ray-context {
+  display: grid;
+  grid-template-columns: 1fr 190px 1fr;
+  align-items: center;
+  gap: 7px;
+  margin: 22px 0;
+}
+
+.srp-ray-context span {
+  height: 1px;
+  background: #e2e2e5;
+}
+
+.srp-ray-context p {
+  margin: 0;
+  padding: 7px 6px;
+  color: #707077;
+  background: #f4f3f8;
+  border-radius: 5px;
+  font-size: 11px;
+  line-height: 15px;
+  text-align: center;
+}
+
+.srp-ray-sheet__conversation h3 {
+  margin: 0 0 23px;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 21px;
+}
+
+.srp-ray-prompts {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.srp-ray-prompts button {
+  min-height: 40px;
+  padding: 8px 10px;
+  color: #222226;
+  background:
+    linear-gradient(#fff, #fff) padding-box,
+    linear-gradient(110deg, #df4053, #8e42e4) border-box;
+  border: 1px solid transparent;
+  border-radius: 11px;
+  font-size: 13px;
+  line-height: 18px;
+  text-align: left;
+}
+
+.srp-ray-response {
+  margin-top: 22px;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.srp-ray-response .srp-ray-user-bubble {
+  width: fit-content;
+  max-width: 88%;
+  margin-left: auto;
+  padding: 10px;
+  color: #fff;
+  background: #4a4a4d;
+  border-radius: 14px 14px 2px 14px;
+}
+
+.srp-ray-response .srp-ray-answer {
+  margin-top: 22px;
+}
+
+.srp-ray-response .gems-bus-tuple {
+  width: 100%;
+  margin-top: 10px;
+}
+
+.srp-ray-composer {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 40px 40px;
+  align-items: center;
+  gap: 6px;
+  padding: 11px 14px 55px;
+  background: #fff;
+  border-top: 8px solid #f3f5ff;
+}
+
+.srp-ray-composer input {
+  width: 100%;
+  height: 42px;
+  padding: 0 14px;
+  color: #303035;
+  background: #fff;
+  border: 1px solid #e0e0e3;
+  border-radius: var(--radius-full);
+  outline: 0;
+  font-size: 13px;
+}
+
+.srp-ray-composer .c-icon-button {
+  width: 40px;
+  min-width: 40px;
+  height: 40px;
+  border: 1px solid #e0e0e3;
+}
+
+.srp-audio-icon {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+}
+
+.srp-audio-icon i {
+  width: 2px;
+  height: 9px;
+  display: block;
+  background: currentColor;
+  border-radius: 2px;
+}
+
+.srp-audio-icon i:nth-child(2) { height: 17px; }
+.srp-audio-icon i:nth-child(3) { height: 13px; }
+.srp-audio-icon i:nth-child(4) { height: 7px; }
+
+.srp-calendar-sheet {
+  height: 647px;
+  position: relative;
+  display: grid;
+  grid-template-rows: 64px 54px minmax(0, 1fr);
+  border-radius: 0 !important;
+}
+
+.srp-calendar-sheet::after {
+  content: "";
+  height: 41px;
+  position: absolute;
+  z-index: 4;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: #3d3f3f;
+}
+
+.srp-calendar-week,
+.srp-calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+}
+
+.srp-calendar-week {
+  align-items: center;
+  padding: 0 8px;
+  color: #77777d;
+  border-bottom: 1px solid #e3e3e6;
+  font-size: 12px;
+  text-align: center;
+}
+
+.srp-calendar-scroll {
+  overflow-y: auto;
+  padding: 18px 10px 44px;
+  scrollbar-width: none;
+}
+
+.srp-calendar-scroll h3 {
+  margin: 0 0 24px;
+  font-size: 15px;
+  line-height: 20px;
+}
+
+.srp-calendar-scroll h3:not(:first-child) {
+  margin-top: 36px;
+}
+
+.srp-calendar-grid {
+  row-gap: 11px;
+}
+
+.srp-calendar-grid button,
+.srp-calendar-grid span {
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  justify-self: center;
+  padding: 0;
+  color: #222226;
+  background: transparent;
+  border: 0;
+  border-radius: 50%;
+  font-size: 14px;
+}
+
+.srp-calendar-grid button:disabled {
+  color: #99999f;
+  text-decoration: line-through;
+}
+
+.srp-calendar-grid button.weekend { color: #d23e4a; }
+
+.srp-calendar-grid button[aria-selected="true"] {
+  color: #fff;
+  background: #1f1f21;
+}
+
+.srp-details-sheet {
+  height: 620px;
+  padding-top: 8px !important;
+}
+
+.srp-details-sheet .c-bottom-sheet__handle { margin-bottom: 4px; }
+.srp-details-sheet .srp-sheet-header { min-height: 60px; padding-top: 3px; }
+.srp-details-tabs .c-tab { flex: 1; padding: 8px; font-size: 12px; }
+
+.srp-details-scroll {
+  height: 489px;
+  overflow-y: auto;
+  padding: 16px;
+}
+
+.srp-details-scroll section { display: none; }
+.srp-details-scroll section[data-active="true"] { display: block; }
+.srp-details-scroll h3 { margin: 22px 0 10px; font-size: 16px; }
+.srp-details-scroll p { font-size: 13px; line-height: 20px; }
+
+.srp-detail-hero {
+  height: 120px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  color: #0a3970;
+  background: linear-gradient(135deg, #ffe19b, #fff5d1 58%, #dae9ff);
+  border-radius: 14px;
+}
+
+.srp-detail-hero span { font-size: 27px; font-style: italic; font-weight: 800; }
+.srp-detail-hero strong { color: #303035; font-size: 13px; }
+
+.srp-toast {
+  min-width: 180px;
+  max-width: 300px;
+  position: absolute;
+  z-index: 90;
+  right: 30px;
+  bottom: 20px;
+  left: 30px;
+  padding: 10px 14px;
+  color: #fff;
+  background: #29292d;
+  border-radius: 9px;
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity var(--motion-duration-standard), transform var(--motion-duration-standard);
+  font-size: 12px;
+  line-height: 17px;
+  text-align: center;
+  pointer-events: none;
+}
+
+.srp-toast[data-open="true"] {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.srp-golden-overlay {
+  width: 356px;
+  height: 800px;
+  position: absolute;
+  z-index: 100;
+  inset: 0 auto 0 2px;
+  display: none;
+  object-fit: fill;
+  opacity: var(--srp-golden-opacity);
+  pointer-events: none;
+}
+
+.srp-device[data-golden="true"] .srp-golden-overlay {
+  display: block;
+}
+
+.srp-review-tools {
+  width: 260px;
+  max-height: calc(100vh - 40px);
+  position: fixed;
+  z-index: 110;
+  top: 20px;
+  right: 20px;
+  display: none;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 18px;
+  color: #f7f7f9;
+  background: rgb(28 28 33 / 94%);
+  border-radius: 16px;
+  box-shadow: var(--elevation-level-3);
+}
+
+.srp-review-tools h1 { margin: 0; font-size: 18px; line-height: 24px; }
+.srp-review-tools p { margin: 6px 0 14px; color: #cfcfd5; font-size: 12px; line-height: 17px; }
+
+.srp-review-tools__states {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+}
+
+.srp-review-tools__states button {
+  min-height: 34px;
+  padding: 6px 8px;
+  color: #f7f7f9;
+  background: #3a3a42;
+  border: 1px solid #55555f;
+  border-radius: 8px;
+  font-size: 12px;
+}
+
+.srp-review-tools__states button[aria-pressed="true"] {
+  background: var(--srp-brand-red);
+  border-color: var(--srp-brand-red);
+}
+
+.srp-golden-toggle,
+.srp-opacity-control,
+.srp-scale-control {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 14px;
+  font-size: 12px;
+}
+
+.srp-opacity-control { align-items: flex-start; flex-direction: column; }
+.srp-opacity-control input { width: 100%; }
+.srp-golden-toggle input { width: 16px; height: 16px; }
+.srp-scale-control { justify-content: space-between; }
+.srp-scale-control select {
+  height: 32px;
+  padding: 0 7px;
+  color: #f7f7f9;
+  background: #3a3a42;
+  border: 1px solid #62626b;
+  border-radius: 7px;
+  font: inherit;
+}
+.srp-review-tools kbd { margin-left: auto; padding: 1px 5px; color: #222; background: #fff; border-radius: 4px; }
+.srp-review-tools a { color: #ff9ca1; font-size: 12px; }
+
+@media (min-width: 1040px) {
+  .srp-review { padding-right: 300px; }
+  .srp-review-tools { display: block; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .srp-scroll { scroll-behavior: auto; }
+  .srp-results-loader * { animation: none !important; }
+}

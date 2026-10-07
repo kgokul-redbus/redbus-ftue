@@ -1,0 +1,173 @@
+/*
+ * Corrections the React binding ships on top of the kit's protected CSS.
+ *
+ * The kit's components.css is hash-validated by scripts/validate-base.js, so it
+ * is never edited. Each rule below fixes anatomy that the kit's own gallery
+ * also renders incorrectly; keep this file minimal and justify every rule.
+ */
+
+/*
+ * `.c-list__title` / `.c-list__support` are inline spans (a <button> row can
+ * only contain phrasing content), so their intended two-line stack collapses
+ * onto one line and the support text's truncation rules never apply.
+ */
+.c-list__title,
+.c-list__support {
+  display: block;
+}
+
+/*
+ * Same cause in the chip's large anatomy: the supporting line is a span inside
+ * a column flex container, which works, but it must not inherit the chip's
+ * label weight.
+ */
+.c-chip__supporting {
+  display: block;
+  font-weight: 400;
+}
+
+/*
+ * `.c-title-block` is a flex row whose trailing action inherits the default
+ * `flex-shrink: 1`, so a long supporting line squeezes the action and wraps its
+ * label mid-phrase ("View" / "all"). The action is never the thing that should
+ * give way.
+ */
+.c-title-block > .c-button {
+  flex: 0 0 auto;
+}
+
+/*
+ * `.c-snackbar` centres itself with `right: 50%` and no `left`. With only one inline offset set, a
+ * fixed box shrink-to-fits within the remaining half of the canvas — 180px on the
+ * kit's own 360dp phone — so its declared `max-width: min(380px, 100vw - 32px)`
+ * can never apply and every message wraps to four or five lines. Pinning both
+ * offsets and centring with auto margins frees the full width; the translate is
+ * reduced to its Y axis, preserving the slide-up transition in both states.
+ */
+.c-snackbar {
+  right: 0;
+  left: 0;
+  width: fit-content;
+  margin-inline: auto;
+  transform: translateY(calc(100% + 48px));
+}
+
+.c-snackbar[data-open="true"] {
+  transform: translateY(0);
+}
+
+/*
+ * `.gems-bus-tuple__operator` is capped at 270px and the bus-details trigger is
+ * pinned to its right edge, while `.gems-rating` is pinned 14px from the card's
+ * right edge. On the 328dp card those boxes overlap by ~11px, so on any tuple
+ * with both a details trigger and a rating the icons sit under the rating pill
+ * (visible on the kit's own Primo tuple). 256px clears the pill with a 3px gap
+ * and still fits the calibrated operator names on one line.
+ */
+.gems-bus-tuple__operator {
+  max-width: 256px;
+}
+
+/*
+ * srp-system.js tags tuples embedded in Ask Ray answers with
+ * `.srp-ray-result-card`, but srp-system.css never styles that class. The
+ * embedded card therefore keeps the result list's fixed 176px height and the
+ * 34px top band reserved for a ribbon/Primo mark it never shows, leaving an
+ * empty strip at the top of every Ray result. Styling the kit's own hook lets
+ * the embedded card size to its content.
+ */
+.gems-bus-tuple.srp-ray-result-card {
+  height: auto;
+}
+
+.srp-ray-result-card .gems-bus-tuple__journey {
+  margin-top: 0;
+}
+
+/* Tags and rating are pinned against the fixed 176px layout; once the card
+   sizes to content, tags return to normal flow and the rating moves up by the
+   34px band that was removed. */
+.srp-ray-result-card .gems-bus-tuple__tags {
+  position: static;
+  margin-top: 10px;
+}
+
+.srp-ray-result-card .gems-rating {
+  top: 61px;
+}
+
+/*
+ * Pattern classes set `display` (e.g. `.srp-filter-badge { display: grid }`,
+ * `.ff-journey__label { display: block }`), which beats the UA's `[hidden]`
+ * rule. The kit's JS toggles `hidden` on these, so the Filter & Sort badge
+ * showed "0" with nothing applied and empty journey rows showed their label
+ * above the placeholder. Restores `hidden` for the pattern layer only.
+ */
+:is([class^="ff-"], [class*=" ff-"], [class^="srp-"], [class*=" srp-"], [class^="gems-"], [class*=" gems-"], [class^="india-"], [class*=" india-"])[hidden] {
+  display: none !important;
+}
+
+/*
+ * The filter rail's chips are fixed-width to screenshot measurements taken with
+ * the production Android font. With any other font "Filter & Sort" wraps to two
+ * lines, and a selected chip has no room for its close glyph, so flex squeezes
+ * the drawn AC/sleeper glyphs into thin bars. Chips keep their measured width
+ * as a minimum and grow instead of wrapping or squeezing.
+ */
+.gems-filter-and-sort {
+  width: auto;
+  min-width: 118px;
+  white-space: nowrap;
+}
+
+.gems-filter-chip[aria-pressed="true"] {
+  width: auto;
+  white-space: nowrap;
+}
+
+.srp-percent-icon,
+.srp-ac-icon,
+.srp-shield-icon,
+.srp-sleeper-icon {
+  flex-shrink: 0;
+}
+
+/*
+ * `.gems-offer-ribbon` is inline-flex, so the space between "Exclusive" and the
+ * emphasised value collapses: the kit renders "Exclusive5% OFF".
+ */
+.gems-offer-ribbon {
+  gap: 0.25em;
+}
+
+/*
+ * `.srp-date-control` is fixed at 48px, which only fits single-digit dates:
+ * "16 Aug" wraps inside the pill and collides with the weekday.
+ */
+.srp-date-control {
+  width: auto;
+}
+
+.srp-date-pill {
+  white-space: nowrap;
+}
+
+/*
+ * `.ff-highlight` is fixed at 49px, clipping a two-line highlight such as
+ * "Bus age / 12 months old".
+ */
+.ff-highlight {
+  height: auto;
+  min-height: 49px;
+}
+
+/*
+ * These labels are `<strong>` and the kit never sets their weight, so they take
+ * the UA's bold. Production (Boarding points page, Customer info page, Home
+ * Page) shows them at regular weight; only the selected point tab is bold.
+ */
+.ff-point-tab[aria-selected="false"] strong,
+.ff-passenger strong,
+.ff-women strong {
+  font-weight: 400;
+}

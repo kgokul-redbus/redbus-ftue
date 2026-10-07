@@ -1,0 +1,25 @@
+/*
+ * The pattern layer sets control typography only on its prototype pages:
+ * `.ff-page button, .ff-page input` and `.srp-calibration-page button, input,
+ * textarea` get the Android family, and `.ff-device button` gets
+ * `color: inherit`. A component rendered outside those pages falls back to the
+ * browser's button font and colour, so these rules re-apply the kit's own
+ * declarations to any control inside (or itself carrying) a pattern-layer class.
+ *
+ * Specificity and ORDER both matter. `:is()` takes its argument's specificity,
+ * so each selector is (0,1,1), the same as the kit's page-scoped rules. And
+ * build-css.mjs emits this file BEFORE the pattern stylesheets, where the kit's
+ * originals sit, so later kit rules of equal specificity still win — e.g.
+ * `.ff-bottom-nav button { color: #66666d }` beating the inherit. Appending
+ * these rules last (the first attempt) inverted that and turned the Home bottom
+ * nav near-black.
+ */
+:is([class^="ff-"], [class*=" ff-"], [class^="srp-"], [class*=" srp-"], [class^="gems-"], [class*=" gems-"], [class^="india-"], [class*=" india-"]) :is(button, input, textarea),
+:is(button, input, textarea):is([class^="ff-"], [class*=" ff-"], [class^="srp-"], [class*=" srp-"], [class^="gems-"], [class*=" gems-"], [class^="india-"], [class*=" india-"]) {
+  font-family: var(--font-family-android);
+}
+
+:is([class^="ff-"], [class*=" ff-"]) button,
+button:is([class^="ff-"], [class*=" ff-"]) {
+  color: inherit;
+}

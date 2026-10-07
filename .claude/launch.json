@@ -1,0 +1,6 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    { "name": "ftue-proto", "runtimeExecutable": "node", "runtimeArgs": ["/Users/k.gokul/Documents/design-system/ftue-prototype/serve.js"], "port": 8123 }
+  ]
+}
