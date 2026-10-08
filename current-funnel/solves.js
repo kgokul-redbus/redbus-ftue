@@ -16,6 +16,13 @@
     ],
   });
 
+  /* Language picker with a delight factor (sol-lang.js): a rich 3D icon and a greeting in each language's own script */
+  window.PROPOSED.add('lang', {
+    sols: [],
+    note: 'Each language has a rich icon (globe, Shivaji Maharaj, Taj Mahal, Thiruvalluvar, Charminar, Hampi chariot) and a greeting in its script.',
+    render: (p) => h(window.SOLLANG.LanguageRich, p),
+  });
+
   /* SOL-36 · USP slides separated from login (sol-usp.js, ref. Mindtrip). One idea per slide:
      redBus is a travel app (bus, train, hotels, metro) → help at every step → 20 years of happy journeys.
      Login is its own step after the slides, so each gets full attention. */
