@@ -83,6 +83,9 @@
 .u3-slide.on .u-badge-ic{animation:uIcon .6s var(--u-spring) both;animation-delay:calc(var(--d) + 120ms)}
 .u3-slide.on .u-badge-t{animation:uFadeX .35s var(--u-ease) both;animation-delay:calc(var(--d) + 80ms)}
 /* chat choreography */
+/* the chat leads at a larger size, then settles back as the three promises arrive */
+.u-chat-wrap{position:absolute;inset:0;transform:translateY(18px) scale(1.12);transform-origin:50% 40%;transition:transform .6s var(--u-ease)}
+.u-chat-wrap.settled{transform:none}
 .u3-slide.on .u-chat{animation:uCard .55s var(--u-spring) both}
 .u3-slide.on .u-msg--me{animation:uMsgR .4s var(--u-spring) both;animation-delay:.28s}
 .u-msg--bot{animation:uMsgL .45s var(--u-spring) both}
