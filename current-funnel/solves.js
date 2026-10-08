@@ -21,8 +21,10 @@
      Login is its own step after the slides, so each gets full attention. */
   window.PROPOSED.add('slides', {
     sols: ['SOL-36'],
-    note: 'Three USP slides with no login sheet: travel app → help at every step → 20 years. Next / Skip, swipe; the last slide leads to login.',
-    render: (p) => h(window.SOLUSP.SlidesUSP, p),
+    options: [
+      { key: 'A', label: 'Three slides', note: 'Three USP slides with no login sheet: travel app → help at every step → 20 years. Next / Skip, swipe; the last slide leads to login.', render: (p) => h(window.SOLUSP.SlidesUSP, p) },
+      { key: 'B', label: 'One animated screen', note: 'One screen; the visual and the line in the middle cycle through the three USPs on their own. Get started leads to login.', render: (p) => h(window.SOLUSP.SlidesUSPOne, p) },
+    ],
   });
 
   /* SOL-24 · contextualise permission requests (sol-onb.js): location explains its value before the system dialog;

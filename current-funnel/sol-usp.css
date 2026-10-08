@@ -94,6 +94,30 @@
 .u-stars .c-icon{width:14px;height:14px;fill:currentColor}
 .u-story p{margin:0;font-size:var(--type-label-size);line-height:var(--type-label-line);color:var(--content-neutral-high-default)}
 
+/* ---- Option B · one animated screen ---- */
+.u1{background:#fff}
+.u1-bg{position:absolute;inset:0;opacity:0;transition:opacity .9s var(--u-ease)}
+.u1-bg.on{opacity:1}
+.u1-bg--lob{background:radial-gradient(120% 70% at 80% 0%,#fff1e4 0%,transparent 60%),linear-gradient(180deg,#ffe0cf 0%,#ffc4c0 52%,#fff 88%)}
+.u1-bg--help{background:radial-gradient(120% 70% at 15% 0%,#f0fffb 0%,transparent 60%),linear-gradient(180deg,#d6f6ee 0%,#aee8dc 52%,#fff 88%)}
+.u1-bg--years{background:radial-gradient(120% 70% at 85% 0%,#fffaf0 0%,transparent 60%),linear-gradient(180deg,#fff0c4 0%,#ffdc8c 52%,#fff 88%)}
+.u1-scene{position:absolute!important;left:0;top:0;height:540px!important;opacity:0;transform:scale(.97);transition:opacity .45s var(--u-ease),transform .6s var(--u-ease);pointer-events:none}
+.u1-scene.on{opacity:1;transform:none;transition-delay:.12s}
+.u1-scene.was{transform:scale(1.02)}
+.u1-copy{position:absolute;left:var(--spacing-3xl);right:var(--spacing-3xl);top:566px;height:130px}
+.u1-line{position:absolute;inset:0;text-align:center;opacity:0;transform:translateY(22px);filter:blur(4px);transition:opacity .45s var(--u-ease),transform .6s var(--u-ease),filter .45s var(--u-ease)}
+.u1-line.on{opacity:1;transform:none;filter:none;transition-delay:.15s}
+.u1-line.was{transform:translateY(-22px)}
+.u1-line h2{margin:0;font-size:var(--type-large-title-size);line-height:var(--type-large-title-line);font-weight:700;letter-spacing:-.4px;text-wrap:balance}
+.u1-line p{margin:var(--spacing-md) auto 0;max-width:320px;font-size:var(--type-body-size);line-height:var(--type-body-line);color:var(--content-neutral-medium-default)}
+.u1-bars{position:absolute;left:0;right:0;top:716px;display:flex;justify-content:center;gap:6px}
+.u1-bars button{position:relative;width:36px;height:4px;padding:0;border-radius:var(--radius-full);background:rgb(0 0 0 / 10%);overflow:hidden}
+.u1-bars button::after{content:"";position:absolute;inset:-10px 0}
+.u1-bars i{position:absolute;inset:0;border-radius:inherit;background:var(--content-neutral-high-default);transform-origin:0 50%;transform:scaleX(0)}
+.u1-bars .done i{transform:none}
+.u1-bars .on i{animation:uFill 4.2s linear forwards}
+.u1-cta{left:var(--spacing-3xl);right:var(--spacing-3xl);top:800px}
+@keyframes uFill{to{transform:none}}
 @keyframes uRise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
 @keyframes uRiseTilt{from{opacity:0;transform:translateY(22px) rotate(0deg) scale(.96)}to{opacity:1;transform:rotate(var(--r))}}
 @keyframes uPop{from{opacity:0;transform:scale(.8)}to{opacity:1;transform:none}}

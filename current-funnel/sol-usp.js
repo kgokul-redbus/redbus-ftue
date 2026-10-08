@@ -115,5 +115,30 @@
       h('i', { className: 'pd-gesture' }));
   }
 
-  window.SOLUSP = { SlidesUSP };
+  /* ---- Option B · one animated screen: the visual and the line in the middle cycle through the USPs ---- */
+  const ONE = [
+    { key: 'lob', title: 'One app for your travel needs', sub: 'Buses, trains, hotels and metro tickets.' },
+    { key: 'help', title: 'Help at every step, 24×7', sub: 'Before you book, on the road and after you arrive.' },
+    { key: 'years', title: '20 years of happy journeys', sub: 'Trusted by 56 million+ travellers.' },
+  ];
+  function SlidesUSPOne({ go }) {
+    const [i, setI] = useState(0);
+    const [prev, setPrev] = useState(-1);
+    const to = (k) => { setPrev(i); setI(((k % 3) + 3) % 3); };
+    const cls = (k) => (k === i ? ' on' : k === prev ? ' was' : '');
+    return h('div', { className: 'pd u3 u1' },
+      ONE.map((u, k) => h('i', { key: 'bg' + k, className: 'u1-bg u1-bg--' + u.key + (k === i ? ' on' : '') })),
+      ONE.map((u, k) => h('div', { key: u.key, className: 'u1-scene u3-slide' + cls(k), 'aria-hidden': k !== i }, h(ART[u.key], { on: k === i }))),
+      h(window.ONB.parts.Status),
+      h('img', { className: 'u3-logo', src: window.ONB.parts.A + 'logo-redbus.png', alt: 'redBus' }),
+      h('div', { className: 'u1-copy', 'aria-live': 'polite' },
+        ONE.map((u, k) => h('div', { key: u.key, className: 'u1-line' + cls(k) }, h('h2', null, u.title), h('p', null, u.sub)))),
+      h('div', { className: 'u1-bars', role: 'tablist', 'aria-label': 'Highlights' },
+        ONE.map((u, k) => h('button', { key: u.key, className: k === i ? 'on' : k < i ? 'done' : '', 'aria-label': u.title, 'aria-selected': k === i, onClick: () => to(k) },
+          h('i', { key: k === i ? 'run' + i : 'idle', onAnimationEnd: () => to(i + 1) })))),
+      h('button', { className: 'u3-btn u3-btn--primary u1-cta', onClick: () => go('login', { slide: 0 }) }, 'Get started'),
+      h('i', { className: 'pd-gesture' }));
+  }
+
+  window.SOLUSP = { SlidesUSP, SlidesUSPOne };
 })();
