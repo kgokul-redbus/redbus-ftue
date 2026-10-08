@@ -26,16 +26,14 @@
 .u3-dots{position:absolute;left:0;right:0;top:calc(var(--u-hero) - 22px);display:flex;justify-content:center;gap:6px;z-index:6}
 .u3-dots button{width:7px;height:7px;padding:0;border-radius:var(--radius-full);background:rgb(255 255 255 / 60%);box-shadow:0 0 0 .5px rgb(0 0 0 / 6%);transition:width .35s var(--u-ease),background .35s}
 .u3-dots button.on{width:22px;background:#fff}
-.u3-foot{position:absolute;left:var(--spacing-3xl);right:var(--spacing-3xl);top:752px;height:124px}
+.u3-foot{position:absolute;left:var(--spacing-3xl);right:var(--spacing-3xl);top:820px;height:56px}
+.u3-skip{position:absolute;right:var(--spacing-xl);top:62px;height:32px;padding:0 var(--spacing-md);border-radius:var(--radius-full);font-size:var(--type-label-size);line-height:32px;font-weight:600;color:var(--content-neutral-medium-default);z-index:7;transition:opacity .3s var(--u-ease),color .15s}
+.u3-skip:hover{color:var(--content-neutral-high-default)}
+.u3--last .u3-skip{opacity:0;pointer-events:none}
 .u3-btn{position:absolute;left:0;right:0;height:56px;border-radius:var(--radius-full);font-size:var(--type-body-size);font-weight:600;display:grid;place-items:center;transition:transform .45s var(--u-ease),opacity .3s var(--u-ease),background .15s}
 .u3-btn--primary{top:0;background:var(--action-primary-surface-default);color:var(--action-primary-content-default);box-shadow:0 6px 18px color-mix(in srgb,var(--action-primary-surface-default) 28%,transparent);z-index:1}
 .u3-btn--primary:active{background:var(--action-primary-surface-pressed);transform:scale(.98)}
 .u3-btn--primary span{animation:uLabel .35s var(--u-ease) both}
-.u3-btn--ghost{top:68px;background:var(--surface-neutral-medium-default);color:var(--content-neutral-high-default)}
-.u3-btn--ghost:active{transform:scale(.98)}
-.u3--last .u3-btn--primary{transform:translateY(68px)}
-.u3--last .u3-btn--primary:active{transform:translateY(68px) scale(.98)}
-.u3--last .u3-btn--ghost{opacity:0;transform:scale(.96);pointer-events:none}
 
 /* entrance: each piece of art rises in when its slide becomes active */
 .u3-slide .u-a{opacity:0}

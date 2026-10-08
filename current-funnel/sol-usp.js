@@ -114,10 +114,11 @@
             h('div', { className: 'u3-copy' }, h('h2', null, sl.title), h('p', null, sl.sub)))))),
       h(window.ONB.parts.Status),
       h('img', { className: 'u3-logo', src: window.ONB.parts.A + 'logo-redbus.png', alt: 'redBus' }),
+      h('button', { className: 'u3-skip', onClick: login, tabIndex: last ? -1 : 0, 'aria-hidden': last }, 'Skip'),
       h('div', { className: 'u3-dots', role: 'tablist', 'aria-label': 'Slides' }, SLIDES.map((sl, k) => h('button', { key: k, className: k === i ? 'on' : '', 'aria-label': 'Slide ' + (k + 1), 'aria-selected': k === i, onClick: () => to(k) }))),
       h('div', { className: 'u3-foot' },
         h('button', { className: 'u3-btn u3-btn--primary', onClick: next }, h('span', { key: last ? 'l' : 'n' }, last ? 'Log in or sign up' : 'Next')),
-        h('button', { className: 'u3-btn u3-btn--ghost', onClick: login, tabIndex: last ? -1 : 0, 'aria-hidden': last }, 'Skip')),
+),
       h('i', { className: 'pd-gesture' }));
   }
 
