@@ -28,14 +28,12 @@
 .u3-hero .u-tile-img img{width:100%;max-width:140px;height:96px}
 .u3-hero .u-tile:first-child .u-tile-img img{max-width:128px;height:88px}
 
-/* slide 3 · slightly smaller review cards with room between them */
-.u-years .u-story{width:292px;padding:var(--spacing-lg) 14px}
+/* slide 3 · review cards a touch under full size, with room between them */
+.u-years .u-story{width:308px;padding:14px var(--spacing-xl)}
 .u-years .u-story-hd{margin-bottom:6px}
-.u-years .u-sav{width:32px;height:32px;font-size:11px}
-.u-years .u-story-hd b{font-size:13px;line-height:17px}
-.u-years .u-story-hd small{font-size:11px;line-height:15px}
-.u-years .u-stars .c-icon{width:12px;height:12px}
-.u-years .u-story p{font-size:13px;line-height:18px}
+.u-years .u-sav{width:34px;height:34px}
+.u-years .u-stars .c-icon{width:13px;height:13px}
+.u-years .u-story p{font-size:13.5px;line-height:19px}
 
 /* fixed chrome */
 .u3-logo{position:absolute;left:50%;top:58px;height:40px;transform:translateX(-50%);mix-blend-mode:multiply;pointer-events:none;z-index:6}
