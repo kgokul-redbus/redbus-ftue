@@ -22,7 +22,7 @@
 .u3-slide.on .u3-copy{opacity:1;transform:none;transition-delay:.12s}
 
 /* Option A's taller hero: art sits lower and the tiles grow, so the copy lands closer to the CTA */
-.u3-hero .u-help,.u3-hero .u-years{top:30px;bottom:-30px}
+.u3-hero .u-help{top:30px;bottom:-30px}
 .u3-hero .u-lob{top:160px;gap:16px}
 .u3-hero .u-tile{height:184px}
 .u3-hero .u-tile-img img{width:100%;max-width:140px;height:96px}
@@ -104,9 +104,9 @@
 
 /* slide 3 · 20 years + stories */
 .u-years{position:absolute;inset:0}
-.u-20{position:absolute;left:0;right:0;top:94px;margin:0;text-align:center;font-size:150px;line-height:150px;font-weight:800;letter-spacing:-8px;color:rgb(255 255 255 / 72%);text-shadow:0 2px 0 rgb(255 255 255 / 40%)}
+.u-20{position:absolute;left:0;right:0;top:100px;margin:0;text-align:center;font-size:124px;line-height:124px;font-weight:800;letter-spacing:-6px;color:#fff;text-shadow:0 2px 0 rgb(255 255 255 / 50%),0 10px 30px rgb(165 101 10 / 22%)}
 .u-20 small{display:block;margin-top:-14px;font-size:14px;line-height:20px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:#a5650a}
-.u-since{position:absolute;right:74px;top:118px;padding:4px var(--spacing-lg);border-radius:var(--radius-full);background:#fff;box-shadow:var(--u-e1);font-size:var(--type-caption-size);line-height:var(--type-caption-line);font-weight:700;color:#a5650a;transform:rotate(6deg)}
+.u-since{position:absolute;right:92px;top:108px;padding:4px var(--spacing-lg);border-radius:var(--radius-full);background:#fff;box-shadow:var(--u-e1);font-size:var(--type-caption-size);line-height:var(--type-caption-line);font-weight:700;color:#a5650a;transform:rotate(6deg)}
 .u3-slide.on .u-since{animation:uPopTilt .5s var(--u-spring) both;animation-delay:var(--d)}
 .u-story{position:absolute;width:320px;padding:var(--spacing-xl);border-radius:var(--radius-3xl);background:var(--surface-neutral-lowest-default);box-shadow:var(--u-e2);transform:rotate(var(--r))}
 .u3-slide.on .u-story{animation:uRiseTilt .65s var(--u-spring) both,uBob 6s ease-in-out infinite;animation-delay:var(--d),calc(var(--b) + 1s)}
@@ -127,6 +127,7 @@
 .u1-bg--help{background:radial-gradient(120% 70% at 15% 0%,#f0fffb 0%,transparent 60%),linear-gradient(180deg,#d6f6ee 0%,#aee8dc 52%,#fff 88%)}
 .u1-bg--years{background:radial-gradient(120% 70% at 85% 0%,#fffaf0 0%,transparent 60%),linear-gradient(180deg,#fff0c4 0%,#ffdc8c 52%,#fff 88%)}
 .u1-scene{position:absolute!important;left:0;top:0;height:540px!important;opacity:0;transform:scale(.97);transition:opacity .45s var(--u-ease),transform .6s var(--u-ease);pointer-events:none}
+.u1-scene .u-years{transform:scale(.9);transform-origin:50% 0} /* Option B has a shorter art area */
 .u1-scene.on{opacity:1;transform:none;transition-delay:.12s}
 .u1-scene.was{transform:scale(1.02)}
 .u1-copy{position:absolute;left:var(--spacing-3xl);right:var(--spacing-3xl);top:566px;height:130px}

@@ -67,7 +67,7 @@
     { n: 'Arjun M', i: 'AM', c: '#e0773b', route: 'Pune → Goa', q: 'My trip got cancelled and the refund was back in the next few minutes.' },
     { n: 'Rahul K', i: 'RK', c: '#2f80c9', route: 'Delhi → Jaipur', q: 'I compare prices every time, and redBus has the lowest fare. Every single time.' },
   ];
-  const STORY_POS = [{ top: 186, left: 24, r: -3 }, { top: 302, left: 68, r: 2.5 }, { top: 418, left: 30, r: -2 }];
+  const STORY_POS = [{ top: 236, left: 24, r: -3 }, { top: 346, left: 68, r: 2.5 }, { top: 456, left: 30, r: -2 }];
   const Stars = () => h('span', { className: 'u-stars', 'aria-label': '5 stars' }, [0, 1, 2, 3, 4].map((k) => h('span', { key: k }, I('ion-star', 'sm'))));
   const ArtYears = () => h('div', { className: 'u-years' },
     h('p', { className: 'u-20 u-a', style: { '--d': '40ms' } }, '20'),
