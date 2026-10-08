@@ -107,7 +107,7 @@ details.src summary{font-size:11px;font-weight:600;letter-spacing:.06em}
 .src-quote{font-style:normal;color:var(--ink)}
 
 /* by-pages view */
-.pv-nav{gap:8px;margin-bottom:32px}
+.pv-nav{display:none!important}
 .pv-nav button{height:30px;padding:0 12px;border-radius:999px;font-size:12px;font-weight:600;color:var(--ink);background:var(--panel);border:1px solid var(--line);transition:background .15s var(--t-ease)}
 .pv-nav button:hover{filter:none;background:var(--panel-2)}
 .pv-nav button .n{color:var(--ink-faint);opacity:1}
