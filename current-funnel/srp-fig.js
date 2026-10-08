@@ -13,9 +13,9 @@
     { v: 1, primo: true, deals: [['Last min.  ', '20% OFF']], dep: '20:15', arr: '09:00', dur: '7h 30m', seats: '11 Seats', single: '(2 Single)', price: '₹450', loc: true, type: ['ev', 'Volvo multi axle A/C sleeper (2+1)'], tags: ['Comfort score: 9.3/10', '8 women travelling', 'Highly rated by women'], prev: true },
     { v: 1, via: 'Via Chittor, Rajasthan', dep: '20:15', arr: '09:00', dur: '7h 30m', seats: '11 Seats', single: '(2 Single)', price: '₹450', loc: true, type: ['primo', 'Volvo multi axle A/C sleeper (2+1)'], tags: ['In-bus toilet', '88% on-time'], prev: true },
     { v: 1, primo: true, deals: [null], dep: '20:15', arr: '09:00', dur: '7h 30m', seats: '11 Seats', single: '(2 Single)', price: '₹450', loc: true, type: ['primo', 'Volvo multi axle A/C sleeper (2+1)'], tags: ['In-bus toilet', 'Comfort score of 8.5/10'], stops: true },
-    { v: 2, primo: true, deals: [['Group', '15% OFF', 'group'], ['Last min.', '10% off']], label: 'Women’s choice', props: ['In-bus toilet', '8 women travelling', 'Highly rated by women'] },
+    { v: 2, primo: true, deals: [['Group', '15% OFF', 'group'], ['Last min.', '10% off']], props: ['In-bus toilet', '8 women travelling', 'Highly rated by women'] },
     { v: 2, props: ['In-bus toilet', 'In-bus toilet'] },
-    { v: 2, primo: true, deals: [['Group', '15% OFF', 'group'], ['Last min.', '10% off']], label: 'Value pick', props: ['In-bus toilet', 'Comfort score of 8.5/10'] },
+    { v: 2, primo: true, deals: [['Group', '15% OFF', 'group'], ['Last min.', '10% off']], props: ['In-bus toilet', 'Comfort score of 8.5/10'] },
     { v: 2, primo: true, props: ['88% on-time'] },
   ];
 
@@ -59,9 +59,7 @@
       h('div', { className: 'sf-bo' },
         h('div', { className: 'l' }, h('p', { className: 'nm' }, 'Sri Krishna Travels'), h('p', { className: 'ty' }, 'Volvo 9600 Multi-Axle A/C Sleeper (2+1)')),
         h(Rate)),
-      h('div', { className: 'sf-rtb' },
-        t.label && h('p', null, t.label),
-        h('div', { className: 'props' }, t.props.map((x, i) => h('span', { key: i }, x)))));
+      h('div', { className: 'sf-tags' }, t.props.map((x, i) => h('span', { key: i, className: 'sf-tag' }, x))));
   }
 
   function SrpFig({ s, set, go }) {

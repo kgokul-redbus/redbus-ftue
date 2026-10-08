@@ -106,12 +106,9 @@
 .sf-t--v2 .sf-rate b{width:42px;min-width:0;height:18px;border-radius:6px 6px 4px 4px;background:#007b28;font-weight:500}
 .sf-t--v2 .sf-rate span{font-size:11px;line-height:14px;font-weight:400;letter-spacing:.05px}
 .sf-tags{display:flex;flex-wrap:wrap;gap:6px;width:296px}
+.sf-t--v2 .sf-tags{width:304px}
 .sf-tag{height:24px;display:flex;align-items:center;padding:0 8px;border-radius:8px;background:#e9eaf7;font-size:12px;line-height:16px;font-weight:500;letter-spacing:.01px;white-space:nowrap}
 .sf-tag--ok{background:#dbf4d7;padding:0 8px 0 2px;gap:4px}
 .sf-tag--ok img{width:16px;height:16px}
 .sf-call{display:flex;gap:4px;align-items:flex-start;padding:8px;border-radius:8px;background:#dbf4d7;font-size:12px;line-height:16px;letter-spacing:.01px;height:32px;overflow:hidden;white-space:nowrap}
 .sf-call img{width:16px;height:16px;flex:none}
-.sf-rtb{display:flex;flex-direction:column;gap:4px}
-.sf-rtb>p{font-size:12px;line-height:16px;letter-spacing:.01px;color:#298639}
-.sf-rtb .props{display:flex;flex-wrap:wrap;gap:4px}
-.sf-rtb .props span{height:20px;display:flex;align-items:center;padding:0 6px;border-radius:6px;background:#dbf4d7;font-size:12px;line-height:16px;letter-spacing:.01px;white-space:nowrap}
