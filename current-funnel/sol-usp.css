@@ -106,7 +106,7 @@
 .u-years{position:absolute;inset:0}
 .u-20{position:absolute;left:0;right:0;top:94px;margin:0;text-align:center;font-size:150px;line-height:150px;font-weight:800;letter-spacing:-8px;color:rgb(255 255 255 / 72%);text-shadow:0 2px 0 rgb(255 255 255 / 40%)}
 .u-20 small{display:block;margin-top:-14px;font-size:14px;line-height:20px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:#a5650a}
-.u-since{position:absolute;right:30px;top:120px;padding:4px var(--spacing-lg);border-radius:var(--radius-full);background:#fff;box-shadow:var(--u-e1);font-size:var(--type-caption-size);line-height:var(--type-caption-line);font-weight:700;color:#a5650a;transform:rotate(6deg)}
+.u-since{position:absolute;right:74px;top:118px;padding:4px var(--spacing-lg);border-radius:var(--radius-full);background:#fff;box-shadow:var(--u-e1);font-size:var(--type-caption-size);line-height:var(--type-caption-line);font-weight:700;color:#a5650a;transform:rotate(6deg)}
 .u3-slide.on .u-since{animation:uPopTilt .5s var(--u-spring) both;animation-delay:var(--d)}
 .u-story{position:absolute;width:320px;padding:var(--spacing-xl);border-radius:var(--radius-3xl);background:var(--surface-neutral-lowest-default);box-shadow:var(--u-e2);transform:rotate(var(--r))}
 .u3-slide.on .u-story{animation:uRiseTilt .65s var(--u-spring) both,uBob 6s ease-in-out infinite;animation-delay:var(--d),calc(var(--b) + 1s)}
