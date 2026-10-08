@@ -79,7 +79,14 @@ h2{font-size:20px;line-height:28px;font-weight:700;letter-spacing:-.01em}
 .save-btn,.confirm-btn,.cancel-btn{font-size:12px!important;font-weight:600;height:30px;padding:0 12px!important;border-radius:999px!important}
 .title-edit-row .save-btn,.new-section-foot .save-btn,.rte-foot .save-btn,.solve-edit-row .save-btn,.solve-input-row .save-btn{background:var(--ink);color:#fff}
 .cancel-btn{background:var(--panel-2)!important;color:var(--ink-soft)!important}
-.solve-remove-row .confirm-btn{background:var(--accent)!important;color:#fff}
+/* inline remove confirm: same 26px boxed controls as the solve row */
+.solve-remove-row{gap:8px}
+.solve-remove-row span{font-size:14px;line-height:22px;font-style:normal;color:var(--ink);margin-right:4px}
+.solve-remove-row button,.solve-edit-row button{box-sizing:border-box;height:26px!important;padding:0 12px!important;border-radius:8px!important;font-size:12px!important;font-weight:600;line-height:1;transition:background .15s var(--t-ease),border-color .15s var(--t-ease)}
+.solve-remove-row .confirm-btn{background:var(--accent)!important;color:#fff;border:1px solid var(--accent)}
+.solve-remove-row .confirm-btn:hover{background:var(--accent-ink)!important;border-color:var(--accent-ink)}
+.solve-remove-row .cancel-btn,.solve-edit-row .cancel-btn{background:var(--panel)!important;color:var(--ink-soft)!important;border:1px solid var(--line)}
+.solve-remove-row .cancel-btn:hover,.solve-edit-row .cancel-btn:hover{border-color:#d6d6de;color:var(--ink)!important}
 
 /* inputs & rich-text editor */
 .title-edit-row input,.new-section input,.new-section textarea,.solve-edit-row input,.solve-input-row input{border-radius:10px;border-color:var(--line);background:var(--panel);font-size:14px}
