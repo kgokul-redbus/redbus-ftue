@@ -9,7 +9,7 @@
   const W = 411.43;
 
   const SLIDES = [
-    { key: 'lob', title: 'One app for every journey', sub: 'Book buses, trains, hotels and metro tickets, all in one place.' },
+    { key: 'lob', title: 'One app for your travel needs', sub: 'Book buses, trains, hotels and metro tickets, all in one place.' },
     { key: 'help', title: 'Help at every step', sub: 'Before you book, on the road and after you arrive, we’re here for you 24×7.' },
     { key: 'years', title: '20 years of happy journeys', sub: 'Trusted by 56 million+ travellers and reviewed by 23 lakh+.' },
   ];

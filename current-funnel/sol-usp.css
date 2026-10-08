@@ -16,7 +16,7 @@
 .u3-slide--help .u3-hero{background:radial-gradient(120% 80% at 15% 0%,#f0fffb 0%,transparent 60%),linear-gradient(165deg,#d6f6ee 0%,#aee8dc 60%,#8fdccd 100%)}
 .u3-slide--years .u3-hero{background:radial-gradient(120% 80% at 85% 0%,#fffaf0 0%,transparent 60%),linear-gradient(165deg,#fff0c4 0%,#ffdc8c 62%,#ffc96a 100%)}
 .u3-copy{position:absolute;left:var(--spacing-3xl);right:var(--spacing-3xl);top:calc(var(--u-hero) + 34px);text-align:center}
-.u3-copy h2{margin:0;font-size:var(--type-large-title-size);line-height:var(--type-large-title-line);font-weight:700;letter-spacing:-.4px}
+.u3-copy h2{margin:0;font-size:var(--type-large-title-size);line-height:var(--type-large-title-line);font-weight:700;letter-spacing:-.4px;text-wrap:balance}
 .u3-copy p{margin:var(--spacing-md) auto 0;max-width:330px;font-size:var(--type-body-size);line-height:var(--type-body-line);color:var(--content-neutral-medium-default)}
 .u3-slide .u3-copy{opacity:.0;transform:translateY(8px);transition:opacity .4s var(--u-ease),transform .5s var(--u-ease)}
 .u3-slide.on .u3-copy{opacity:1;transform:none;transition-delay:.12s}
