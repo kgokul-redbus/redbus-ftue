@@ -34,6 +34,13 @@
     ],
   });
 
+  /* Login as its own focused page after the USP slides (sol-login.js, ref. Airbnb): one field, Continue, then Google; Skip top-right */
+  window.PROPOSED.add('login', {
+    sols: ['SOL-36'],
+    note: 'Full-page login: phone field, Continue, or Google. Skip sits top-right; X goes back to the slides.',
+    render: (p) => h(window.SOLLOGIN.LoginPage, p),
+  });
+
   /* SOL-24 · contextualise permission requests (sol-onb.js): location explains its value before the system dialog;
      no notification / review prompts on a first home visit */
   window.PROPOSED.add('location', {

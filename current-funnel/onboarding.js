@@ -196,5 +196,5 @@
           h('i', { className: 'pd-gesture', style: { top: 342.6 } }))));
   }
 
-  window.ONB = { Splash, Language, Slides, Login, Otp, Location, HomePrompts, SLIDES, parts: { Status, Gesture, Txt, Pager, LoginSheet, A } };
+  window.ONB = { Splash, Language, Slides, Login, Otp, Location, HomePrompts, SLIDES, parts: { Status, Gesture, Txt, Pager, LoginSheet, Keyboard, A } };
 })();
