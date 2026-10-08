@@ -169,7 +169,7 @@
           cal && h(Fragment, null,
             h('div', { className: 'sx-week' }, ['M', 'T', 'W', 'T', 'F', 'S', 'S'].map((d, i) => h('span', { key: i }, d))),
             h('div', { className: 'sx-scroll' }, h(Calendar, { value: s.dateKey, onPick: pickDate })))), null, step === 'when' && !cal ? 'fit' : null),
-        h('div', { key: 'w', className: 'sx-card' + (step === 'review' ? ' nudge' : ''), style: { '--i': 3, '--b': '100px' } },
+        h('div', { key: 'w', className: 'sx-card', style: { '--i': 3, '--b': '100px' } },
           h('div', { className: 'sx-row sx-women' },
             h('img', { className: 'sx-rich', src: 'assets/sol/ic-women-mode.svg', alt: '' }),
             h('div', { className: 't' }, h('span', null, 'Women mode'), h('small', null, 'Experience tailored for women travellers'), h('a', { href: '#', onClick: (e) => e.preventDefault() }, 'Know more')),
