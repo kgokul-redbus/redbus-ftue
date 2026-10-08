@@ -18,7 +18,7 @@
   const LOB = [['Bus', 'lob-bus.png'], ['Train', 'lob-train.png'], ['Hotels', 'lob-hotel.png'], ['Metro', 'lob-metro.png']];
   const ArtLob = () => h('div', { className: 'u-lob' },
     LOB.map(([l, img], k) => h('div', { key: l, className: 'u-tile u-a', style: { '--d': (120 + k * 90) + 'ms', '--r': [-3, 2.5, 2, -2.5][k] + 'deg', '--b': (k * 0.7) + 's' } },
-      h('span', { className: 'u-tile-img' }, h('img', { src: 'assets/home/' + img, alt: '' })),
+      h('span', { className: 'u-tile-img' }, h('img', { src: 'assets/sol/usp/' + img, alt: '' })),
       h('b', null, l))));
 
   /* ---- slide 2 · support at every step ---- */
@@ -30,29 +30,35 @@
     h('circle', { cx: 12, cy: 12, r: 8.5, fill: 'none', stroke: 'currentColor', strokeWidth: 1.8 }),
     h('path', { d: 'M12 7.5V12l3 2', fill: 'none', stroke: 'currentColor', strokeWidth: 1.8, strokeLinecap: 'round' }));
 
+  /* Orchestrated entry: card → header → question → typing → answer + live bar → quick replies → the three promises */
+  const T_HELP = [1000, 1800, 2350]; /* typing, answer, quick replies (ms) */
+  const BADGES = [
+    { t: '24×7 support', sub: 'Chat or call, any time', tone: 'info', ic: () => h(Clock), pos: { left: 14, top: 106 }, d: 2650, from: 'l' },
+    { t: 'Instant refunds', sub: 'Back to your account', tone: 'ok', ic: () => I('ion-check-circle', 'sm'), pos: { right: 12, top: 398 }, d: 2900, from: 'r' },
+    { t: 'Helpline for women', sub: 'Dedicated, round the clock', tone: 'brand', ic: () => h(Shield), pos: { left: 14, top: 460 }, d: 3150, from: 'l' },
+  ];
   function ArtHelp({ on }) {
     const [step, setStep] = useState(0);
     useEffect(() => {
       if (!on) { setStep(0); return; }
-      const t = [setTimeout(() => setStep(1), 900), setTimeout(() => setStep(2), 2000)];
+      const t = T_HELP.map((ms, k) => setTimeout(() => setStep(k + 1), ms));
       return () => t.forEach(clearTimeout);
     }, [on]);
     return h('div', { className: 'u-help' },
-      h('div', { className: 'u-chat u-a', style: { '--d': '80ms' } },
-        h('div', { className: 'u-chat-hd' },
+      h('div', { className: 'u-chat u-a', style: { '--d': '0ms' } },
+        h('div', { className: 'u-chat-hd u-a', style: { '--d': '220ms' } },
           h('span', { className: 'u-av' }, 'rB'),
           h('span', null, h('b', null, 'redBuddy'), h('small', null, h('i'), 'Online · replies in seconds'))),
         h('div', { className: 'u-chat-body' },
           h('p', { className: 'u-msg u-msg--me' }, 'My bus is running late. Where is it?'),
-          step === 0
-            ? h('p', { className: 'u-msg u-dots', 'aria-label': 'redBuddy is typing' }, h('i'), h('i'), h('i'))
-            : h('div', { className: 'u-msg u-msg--bot' },
-              h('span', null, 'It’s 12 min away from your boarding point.'),
-              h('span', { className: 'u-track' }, h('i', { style: { width: step === 2 ? '72%' : '58%' } }), h('b'))),
-          step === 2 && h('div', { className: 'u-replies' }, ['Track live', 'Call us'].map((r) => h('span', { key: r }, r))))),
-      h('span', { className: 'u-badge u-a', style: { '--d': '380ms', left: 20, top: 116 } }, h('span', { className: 'u-badge-ic u-ic--info' }, h(Clock)), '24×7 support'),
-      h('span', { className: 'u-badge u-a', style: { '--d': '520ms', right: 16, top: 392 } }, h('span', { className: 'u-badge-ic u-ic--ok' }, I('ion-check-circle', 'sm')), 'Instant refunds'),
-      h('span', { className: 'u-badge u-a', style: { '--d': '660ms', left: 22, top: 446 } }, h('span', { className: 'u-badge-ic u-ic--brand' }, h(Shield)), 'Helpline for women'));
+          step === 1 && h('p', { className: 'u-msg u-dots', 'aria-label': 'redBuddy is typing' }, h('i'), h('i'), h('i')),
+          step >= 2 && h('div', { className: 'u-msg u-msg--bot' },
+            h('span', null, 'It’s 12 min away from your boarding point.'),
+            h('span', { className: 'u-track' }, h('i'), h('b'))),
+          step >= 3 && h('div', { className: 'u-replies' }, ['Track live', 'Call us'].map((r, k) => h('span', { key: r, style: { animationDelay: k * 90 + 'ms' } }, r))))),
+      BADGES.map((b) => h('span', { key: b.t, className: 'u-badge u-badge--' + b.from + ' u-a', style: Object.assign({ '--d': b.d + 'ms' }, b.pos) },
+        h('span', { className: 'u-badge-ic u-ic--' + b.tone }, b.ic()),
+        h('span', { className: 'u-badge-t' }, h('b', null, b.t), h('small', null, b.sub)))));
   }
 
   /* ---- slide 3 · 20 years + customer stories (sample stories) ---- */

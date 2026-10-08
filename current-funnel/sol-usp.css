@@ -46,7 +46,8 @@
 .u-tile{height:160px;border-radius:var(--radius-3xl);background:rgb(255 255 255 / 58%);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border:1px solid rgb(255 255 255 / 75%);box-shadow:var(--u-e1);display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding:0 0 var(--spacing-xl);transform:rotate(var(--r))}
 .u3-slide.on .u-tile{animation:uRiseTilt .65s var(--u-spring) both,uBob 5s ease-in-out infinite;animation-delay:var(--d),calc(var(--b) + .8s)}
 .u-tile-img{flex:1;width:100%;display:grid;place-items:center;padding:var(--spacing-xl) var(--spacing-lg) 0}
-.u-tile-img img{max-width:100%;max-height:92px;object-fit:contain;filter:drop-shadow(0 8px 10px rgba(80,20,20,.16))}
+.u-tile-img img{width:132px;height:88px;object-fit:contain;filter:drop-shadow(0 8px 10px rgba(80,20,20,.16))}
+.u-tile:first-child .u-tile-img img{width:122px;height:80px} /* the bus reads heavier than the others at the same box */
 .u-tile b{font-size:var(--type-label-size);line-height:var(--type-label-line);font-weight:600}
 
 /* slide 2 · support */
@@ -69,13 +70,29 @@
 .u-track b{position:absolute;right:-2px;top:50%;width:12px;height:12px;margin-top:-6px;border-radius:50%;background:#fff;box-shadow:0 0 0 3px var(--content-success-high-default)}
 .u-replies{display:flex;gap:var(--spacing-sm);flex-wrap:wrap;animation:uFade .4s var(--u-ease) both}
 .u-replies span{padding:6px var(--spacing-lg);border-radius:var(--radius-full);border:1px solid var(--border-neutral-medium-default,#dcdce2);font-size:var(--type-caption-size);line-height:var(--type-caption-line);font-weight:600}
-.u-badge{position:absolute;display:flex;align-items:center;gap:var(--spacing-md);padding:var(--spacing-sm) var(--spacing-lg) var(--spacing-sm) var(--spacing-sm);border-radius:var(--radius-full);background:var(--surface-neutral-lowest-default);box-shadow:var(--u-e1);font-size:var(--type-label-size);line-height:var(--type-label-line);font-weight:600;white-space:nowrap}
-.u3-slide.on .u-badge{animation:uPop .5s var(--u-spring) both,uBob 5s ease-in-out infinite;animation-delay:var(--d),calc(var(--d) + .7s)}
-.u-badge-ic{width:30px;height:30px;border-radius:var(--radius-full);display:grid;place-items:center}
-.u-badge-ic .c-icon{width:18px;height:18px}
-.u-ic--info{background:var(--surface-info-low-default);color:var(--content-info-high-default)}
-.u-ic--ok{background:var(--surface-success-low-default);color:var(--content-success-high-default)}
-.u-ic--brand{background:var(--surface-brand-low-default);color:var(--content-brand-high-default)}
+.u-badge{position:absolute;display:flex;align-items:center;gap:var(--spacing-lg);padding:var(--spacing-md) var(--spacing-xl) var(--spacing-md) var(--spacing-md);border-radius:var(--radius-full);background:var(--surface-neutral-lowest-default);box-shadow:0 1px 2px rgba(20,40,40,.08),0 12px 32px rgba(20,60,60,.18);white-space:nowrap}
+.u-badge-t b{display:block;font-size:15px;line-height:20px;font-weight:700;letter-spacing:-.1px}
+.u-badge-t small{display:block;font-size:var(--type-caption-size);line-height:var(--type-caption-line);color:var(--content-neutral-medium-default)}
+.u-badge-ic{width:40px;height:40px;flex:none;border-radius:var(--radius-full);display:grid;place-items:center;color:#fff}
+.u-badge-ic svg,.u-badge-ic .c-icon{width:22px;height:22px}
+.u-ic--info{background:linear-gradient(145deg,#6f8dff,#3b5bdb);box-shadow:0 4px 10px rgba(59,91,219,.35),inset 0 1px 0 rgba(255,255,255,.35)}
+.u-ic--ok{background:linear-gradient(145deg,#4fc77a,#1f8f4e);box-shadow:0 4px 10px rgba(31,143,78,.35),inset 0 1px 0 rgba(255,255,255,.35)}
+.u-ic--brand{background:linear-gradient(145deg,#ff7d84,#d63941);box-shadow:0 4px 10px rgba(214,57,65,.35),inset 0 1px 0 rgba(255,255,255,.35)}
+.u-ic--brand svg path:first-child{opacity:.28;fill:#fff}
+.u-ic--ok .c-icon{stroke:#fff}
+.u3-slide.on .u-badge{animation:uBadgeL .7s var(--u-spring) both,uBob 5s ease-in-out infinite;animation-delay:var(--d),calc(var(--d) + .9s)}
+.u3-slide.on .u-badge--r{animation-name:uBadgeR,uBob}
+.u3-slide.on .u-badge-ic{animation:uIcon .6s var(--u-spring) both;animation-delay:calc(var(--d) + 180ms)}
+.u3-slide.on .u-badge-t{animation:uFadeX .45s var(--u-ease) both;animation-delay:calc(var(--d) + 120ms)}
+/* chat choreography */
+.u3-slide.on .u-chat{animation:uCard .7s var(--u-spring) both}
+.u3-slide.on .u-msg--me{animation:uMsgR .45s var(--u-spring) both;animation-delay:.5s}
+.u-msg--bot{animation:uMsgL .45s var(--u-spring) both}
+.u-dots{animation:uMsgL .3s var(--u-ease) both}
+.u-msg--bot .u-track i{width:72%;animation:uGrow 1.3s var(--u-ease) .25s both}
+.u-msg--bot .u-track b{animation:uDotIn .4s var(--u-spring) .1s both}
+.u-replies{animation:none}
+.u-replies span{animation:uPop .4s var(--u-spring) both}
 
 /* slide 3 · 20 years + stories */
 .u-years{position:absolute;inset:0}
@@ -118,6 +135,15 @@
 .u1-bars .on i{animation:uFill 4.2s linear forwards}
 .u1-cta{left:var(--spacing-3xl);right:var(--spacing-3xl);top:800px}
 @keyframes uFill{to{transform:none}}
+@keyframes uBadgeL{from{opacity:0;transform:translateX(-28px) scale(.85)}to{opacity:1;transform:none}}
+@keyframes uBadgeR{from{opacity:0;transform:translateX(28px) scale(.85)}to{opacity:1;transform:none}}
+@keyframes uIcon{from{opacity:0;transform:scale(.3) rotate(-25deg)}to{opacity:1;transform:none}}
+@keyframes uFadeX{from{opacity:0;transform:translateX(-6px)}to{opacity:1;transform:none}}
+@keyframes uCard{from{opacity:0;transform:translateY(26px) scale(.92)}to{opacity:1;transform:none}}
+@keyframes uMsgR{from{opacity:0;transform:translate(14px,8px) scale(.85);transform-origin:100% 100%}to{opacity:1;transform:none}}
+@keyframes uMsgL{from{opacity:0;transform:translate(-14px,8px) scale(.85);transform-origin:0 100%}to{opacity:1;transform:none}}
+@keyframes uGrow{from{width:0}}
+@keyframes uDotIn{from{opacity:0;transform:scale(0)}to{opacity:1;transform:none}}
 @keyframes uRise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
 @keyframes uRiseTilt{from{opacity:0;transform:translateY(22px) rotate(0deg) scale(.96)}to{opacity:1;transform:rotate(var(--r))}}
 @keyframes uPop{from{opacity:0;transform:scale(.8)}to{opacity:1;transform:none}}
