@@ -80,16 +80,16 @@
 .u-ic--brand{background:linear-gradient(145deg,#ff7d84,#d63941);box-shadow:0 4px 10px rgba(214,57,65,.35),inset 0 1px 0 rgba(255,255,255,.35)}
 .u-ic--brand svg path:first-child{opacity:.28;fill:#fff}
 .u-ic--ok .c-icon{stroke:#fff}
-.u3-slide.on .u-badge{animation:uBadgeL .7s var(--u-spring) both,uBob 5s ease-in-out infinite;animation-delay:var(--d),calc(var(--d) + .9s)}
+.u3-slide.on .u-badge{animation:uBadgeL .55s var(--u-spring) both,uBob 5s ease-in-out infinite;animation-delay:var(--d),calc(var(--d) + .7s)}
 .u3-slide.on .u-badge--r{animation-name:uBadgeR,uBob}
-.u3-slide.on .u-badge-ic{animation:uIcon .6s var(--u-spring) both;animation-delay:calc(var(--d) + 180ms)}
-.u3-slide.on .u-badge-t{animation:uFadeX .45s var(--u-ease) both;animation-delay:calc(var(--d) + 120ms)}
+.u3-slide.on .u-badge-ic{animation:uIcon .6s var(--u-spring) both;animation-delay:calc(var(--d) + 120ms)}
+.u3-slide.on .u-badge-t{animation:uFadeX .35s var(--u-ease) both;animation-delay:calc(var(--d) + 80ms)}
 /* chat choreography */
-.u3-slide.on .u-chat{animation:uCard .7s var(--u-spring) both}
-.u3-slide.on .u-msg--me{animation:uMsgR .45s var(--u-spring) both;animation-delay:.5s}
+.u3-slide.on .u-chat{animation:uCard .55s var(--u-spring) both}
+.u3-slide.on .u-msg--me{animation:uMsgR .4s var(--u-spring) both;animation-delay:.28s}
 .u-msg--bot{animation:uMsgL .45s var(--u-spring) both}
 .u-dots{animation:uMsgL .3s var(--u-ease) both}
-.u-msg--bot .u-track i{width:72%;animation:uGrow 1.3s var(--u-ease) .25s both}
+.u-msg--bot .u-track i{width:72%;animation:uGrow .9s var(--u-ease) .15s both}
 .u-msg--bot .u-track b{animation:uDotIn .4s var(--u-spring) .1s both}
 .u-replies{animation:none}
 .u-replies span{animation:uPop .4s var(--u-spring) both}

@@ -31,11 +31,11 @@
     h('path', { d: 'M12 7.5V12l3 2', fill: 'none', stroke: 'currentColor', strokeWidth: 1.8, strokeLinecap: 'round' }));
 
   /* Orchestrated entry: card → header → question → typing → answer + live bar → quick replies → the three promises */
-  const T_HELP = [1000, 1800, 2350]; /* typing, answer, quick replies (ms) */
+  const T_HELP = [550, 1050, 1350]; /* typing, answer, quick replies (ms) */
   const BADGES = [
-    { t: '24×7 support', sub: 'Chat or call, any time', tone: 'info', ic: () => h(Clock), pos: { left: 14, top: 106 }, d: 2650, from: 'l' },
-    { t: 'Instant refunds', sub: 'Back to your account', tone: 'ok', ic: () => I('ion-check-circle', 'sm'), pos: { right: 12, top: 398 }, d: 2900, from: 'r' },
-    { t: 'Helpline for women', sub: 'Dedicated, round the clock', tone: 'brand', ic: () => h(Shield), pos: { left: 14, top: 460 }, d: 3150, from: 'l' },
+    { t: '24×7 support', sub: 'Chat or call, any time', tone: 'info', ic: () => h(Clock), pos: { left: 14, top: 106 }, d: 1450, from: 'l' },
+    { t: 'Instant refunds', sub: 'Back to your account', tone: 'ok', ic: () => I('ion-check-circle', 'sm'), pos: { right: 12, top: 398 }, d: 1600, from: 'r' },
+    { t: 'Helpline for women', sub: 'Dedicated, round the clock', tone: 'brand', ic: () => h(Shield), pos: { left: 14, top: 460 }, d: 1750, from: 'l' },
   ];
   function ArtHelp({ on }) {
     const [step, setStep] = useState(0);
@@ -46,7 +46,7 @@
     }, [on]);
     return h('div', { className: 'u-help' },
       h('div', { className: 'u-chat u-a', style: { '--d': '0ms' } },
-        h('div', { className: 'u-chat-hd u-a', style: { '--d': '220ms' } },
+        h('div', { className: 'u-chat-hd u-a', style: { '--d': '140ms' } },
           h('span', { className: 'u-av' }, 'rB'),
           h('span', null, h('b', null, 'redBuddy'), h('small', null, h('i'), 'Online · replies in seconds'))),
         h('div', { className: 'u-chat-body' },
@@ -55,7 +55,7 @@
           step >= 2 && h('div', { className: 'u-msg u-msg--bot' },
             h('span', null, 'It’s 12 min away from your boarding point.'),
             h('span', { className: 'u-track' }, h('i'), h('b'))),
-          step >= 3 && h('div', { className: 'u-replies' }, ['Track live', 'Call us'].map((r, k) => h('span', { key: r, style: { animationDelay: k * 90 + 'ms' } }, r))))),
+          step >= 3 && h('div', { className: 'u-replies' }, ['Track live', 'Call us'].map((r, k) => h('span', { key: r, style: { animationDelay: k * 70 + 'ms' } }, r))))),
       BADGES.map((b) => h('span', { key: b.t, className: 'u-badge u-badge--' + b.from + ' u-a', style: Object.assign({ '--d': b.d + 'ms' }, b.pos) },
         h('span', { className: 'u-badge-ic u-ic--' + b.tone }, b.ic()),
         h('span', { className: 'u-badge-t' }, h('b', null, b.t), h('small', null, b.sub)))));
