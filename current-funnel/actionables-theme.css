@@ -63,8 +63,14 @@ h2{font-size:20px;line-height:28px;font-weight:700;letter-spacing:-.01em}
 .solve-stage{height:26px;font-size:12px;font-weight:500;color:var(--ink-soft);background-color:var(--panel);border:1px solid var(--line);border-radius:8px;padding:0 24px 0 9px;max-width:156px}
 .solve-stage:hover{border-color:#d6d6de}
 .solve-stage.unset{border-radius:8px}
-.solve-actions button,.inline-edit-btn{font-size:12px;border-radius:6px;padding:3px 6px;color:var(--ink-faint)}
-.solve-actions button:hover,.inline-edit-btn:hover{background:var(--panel-2);color:var(--ink)}
+.inline-edit-btn{font-size:12px;border-radius:6px;padding:3px 6px;color:var(--ink-faint)}
+.inline-edit-btn:hover{background:var(--panel-2);color:var(--ink)}
+/* edit / remove: boxed like the stage dropdown, same height, same gap as the row */
+.solve-actions{gap:10px;align-self:flex-start;margin-top:-2px}
+.solve-actions button{box-sizing:border-box;width:26px;height:26px;padding:0;display:grid;place-items:center;font-size:12px;line-height:1;color:var(--ink-soft);background:var(--panel);border:1px solid var(--line);border-radius:8px;transition:border-color .15s var(--t-ease),color .15s var(--t-ease)}
+.solve-actions button:hover{background:var(--panel);border-color:#d6d6de;color:var(--ink)}
+.solve-actions .remove-solve-btn:hover{color:var(--accent-ink)}
+.solve-stage{align-self:flex-start;margin-top:-2px}
 
 /* buttons */
 .add-solve-btn{margin-top:12px;height:30px;padding:0 12px;border-radius:999px;font-size:12px;font-weight:600;color:var(--accent-ink);background:var(--accent-soft)}
