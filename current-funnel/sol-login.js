@@ -1,10 +1,9 @@
 /* Login as its own focused page (ref. Airbnb "Log in or sign up"), following the USP slides.
-   One field, one primary action, alternatives below; Skip sits top-right as a quiet link.
+   Big title like production, one field, one primary action, alternatives below; Skip sits top-right as a quiet link.
    Native 411.43 dp space inside .pd; reuses the production numeric keyboard. Styles in sol-login.css. */
 (function () {
   const h = React.createElement;
   const { useState, useRef, useEffect } = React;
-  const I = (name) => h(window.IndiaBusDS.Icon, { name });
 
   function LoginPage({ s, set, go }) {
     const P = window.ONB.parts;
@@ -25,10 +24,8 @@
     const pretty = num.length > 5 ? num.slice(0, 5) + ' ' + num.slice(5) : num;
     return h('div', { className: 'pd lp' },
       h(P.Status),
-      h('header', { className: 'lp-bar' },
-        h('button', { className: 'lp-x', 'aria-label': 'Close', onClick: () => go('slides') }, I('ion-close')),
-        h('p', null, 'Log in or sign up'),
-        h('button', { className: 'lp-skip', onClick: () => go('location') }, 'Skip')),
+      h('button', { className: 'lp-skip', onClick: () => go('location') }, 'Skip'),
+      h('h1', { className: 'lp-title' }, 'Log in or sign up'),
       h('div', { className: 'lp-body' },
         h('label', { key: 'f' + shake, className: 'lp-field' + (num ? ' filled' : '') + (shake ? ' shake' : '') },
           h('span', { className: 'lp-cc' }, '+91'),

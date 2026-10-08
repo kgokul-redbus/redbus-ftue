@@ -37,7 +37,7 @@
   /* Login as its own focused page after the USP slides (sol-login.js, ref. Airbnb): one field, Continue, then Google; Skip top-right */
   window.PROPOSED.add('login', {
     sols: ['SOL-36'],
-    note: 'Full-page login: phone field, Continue, or Google. Skip sits top-right; X goes back to the slides.',
+    note: 'Full-page login with a big title: phone field, Continue, or Google. Skip sits top-right.',
     render: (p) => h(window.SOLLOGIN.LoginPage, p),
   });
 

@@ -2,15 +2,11 @@
 .lp{--lp-ease:cubic-bezier(.2,0,0,1);font-family:Inter,system-ui,sans-serif;color:var(--content-neutral-high-default);background:var(--surface-neutral-lowest-default)}
 .lp .c-icon{display:block}
 
-.lp-bar{position:absolute;left:0;right:0;top:45.71px;height:60px;display:flex;align-items:center;justify-content:center;border-bottom:1px solid var(--border-neutral-low-default,#ececf0)}
-.lp-bar p{margin:0;font-size:var(--type-title-3-size);line-height:var(--type-title-3-line);font-weight:700;letter-spacing:-.2px}
-.lp-x{position:absolute;left:var(--spacing-md);top:8px;width:44px;height:44px;border-radius:var(--radius-full);display:grid;place-items:center;transition:background .15s}
-.lp-x:active{background:var(--surface-neutral-medium-default)}
-.lp-x .c-icon{width:24px;height:24px}
-.lp-skip{position:absolute;right:var(--spacing-xl);top:14px;height:32px;padding:0 var(--spacing-md);border-radius:var(--radius-full);font-size:var(--type-label-size);font-weight:600;color:var(--content-neutral-medium-default)}
+.lp-skip{position:absolute;right:var(--spacing-xl);top:58px;height:32px;padding:0 var(--spacing-md);border-radius:var(--radius-full);font-size:var(--type-label-size);font-weight:600;color:var(--content-neutral-medium-default);z-index:2}
 .lp-skip:active{background:var(--surface-neutral-medium-default)}
+.lp-title{position:absolute;left:var(--spacing-3xl);right:var(--spacing-3xl);top:104px;margin:0;font-size:var(--type-large-title-size);line-height:var(--type-large-title-line);font-weight:700;letter-spacing:-.4px}
 
-.lp-body{position:absolute;left:var(--spacing-3xl);right:var(--spacing-3xl);top:134px}
+.lp-body{position:absolute;left:var(--spacing-3xl);right:var(--spacing-3xl);top:164px}
 .lp-field{display:flex;align-items:stretch;height:64px;border:1.5px solid var(--border-neutral-medium-default,#cfcfd6);border-radius:var(--radius-xl);background:var(--surface-neutral-lowest-default);cursor:text;transition:border-color .2s var(--lp-ease),box-shadow .2s var(--lp-ease)}
 .lp-field:focus-within{border-color:var(--content-neutral-high-default);box-shadow:0 0 0 4px rgb(28 28 33 / 6%)}
 .lp-field.shake{animation:lpShake .4s var(--lp-ease)}
