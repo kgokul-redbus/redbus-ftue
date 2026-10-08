@@ -65,12 +65,14 @@
   const STORIES = [
     { n: 'Priya S', i: 'PS', c: '#7b5cd6', route: 'Chennai → Bengaluru', q: 'Booked for my parents in two minutes and tracked their bus live all night.' },
     { n: 'Arjun M', i: 'AM', c: '#e0773b', route: 'Pune → Goa', q: 'My trip got cancelled and the refund was back in the next few minutes.' },
+    { n: 'Rahul K', i: 'RK', c: '#2f80c9', route: 'Delhi → Jaipur', q: 'I compare prices every time, and redBus has the lowest fare. Every single time.' },
   ];
+  const STORY_POS = [{ top: 186, left: 24, r: -3 }, { top: 302, left: 68, r: 2.5 }, { top: 418, left: 30, r: -2 }];
   const Stars = () => h('span', { className: 'u-stars', 'aria-label': '5 stars' }, [0, 1, 2, 3, 4].map((k) => h('span', { key: k }, I('ion-star', 'sm'))));
   const ArtYears = () => h('div', { className: 'u-years' },
     h('p', { className: 'u-20 u-a', style: { '--d': '40ms' } }, '20'),
     h('span', { className: 'u-since u-a', style: { '--d': '220ms' } }, 'years'),
-    STORIES.map((s, k) => h('div', { key: s.n, className: 'u-story u-a', style: { '--d': (300 + k * 180) + 'ms', '--r': (k ? 2.5 : -3) + 'deg', top: k ? 356 : 218, left: k ? 66 : 26, '--b': (k * 0.9) + 's' } },
+    STORIES.map((s, k) => h('div', { key: s.n, className: 'u-story u-a', style: { '--d': (300 + k * 160) + 'ms', '--r': STORY_POS[k].r + 'deg', top: STORY_POS[k].top, left: STORY_POS[k].left, '--b': (k * 0.9) + 's' } },
       h('div', { className: 'u-story-hd' },
         h('span', { className: 'u-sav', style: { background: s.c } }, s.i),
         h('span', null, h('b', null, s.n), h('small', null, s.route)),
