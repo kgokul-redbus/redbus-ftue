@@ -280,15 +280,21 @@
   /* ------------------------------------------------------------ presentation sections
      Add a section by appending to SECTIONS: [id, label, { src: 'page.html' } | { render: Component }]. */
   const SECTIONS = [
-    ['actionables', 'Actionables', { src: 'actionables.html', zoom: 1.25 }],
+    ['actionables', 'Actionables', { src: 'actionables.html', zoom: 1.25, css: ['fonts.css', 'actionables-theme.css'] }],
     ['design', 'Design', { render: App }],
   ];
   /* same-origin page in a frame, optionally zoomed (applied to its root so the page reflows at that scale) */
-  function Frame({ src, title, zoom }) {
+  function Frame({ src, title, zoom, css }) {
     const ref = useRef(null);
     useEffect(() => {
       const el = ref.current;
-      const apply = () => { try { const d = el.contentDocument; if (!d || !d.documentElement) return; if (zoom) d.documentElement.style.zoom = zoom; } catch (e) {} };
+      /* zoom + deck theme (same-origin page): the page's own file stays untouched */
+      const apply = () => { try {
+        const d = el.contentDocument; if (!d || !d.documentElement || d.URL === 'about:blank') return;
+        if (zoom) d.documentElement.style.zoom = zoom;
+        d.documentElement.setAttribute('data-theme', 'light');
+        (css || []).forEach((href) => { if (!d.querySelector('link[data-deck="' + href + '"]')) { const l = d.createElement('link'); l.rel = 'stylesheet'; l.href = href; l.dataset.deck = href; (d.body || d.head).appendChild(l); } });
+      } catch (e) {} };
       el.addEventListener('load', apply); apply();
       return () => el.removeEventListener('load', apply);
     }, [zoom]);
@@ -302,10 +308,10 @@
     useEffect(() => { document.body.dataset.section = sec; }, [sec]);
     return h(Fragment, null,
       h('header', { className: 'deck-bar' },
-        h('b', { className: 'deck-title' }, 'redBus FTUE'),
+        h('div', { className: 'deck-brand' }, h('img', { src: 'assets/onb/logo-redbus.png', alt: 'redBus' }), h('span', null, 'FTUE')),
         h('nav', { className: 'deck-tabs', role: 'tablist' }, SECTIONS.map(([id, label]) => h('button', { key: id, role: 'tab', 'aria-selected': sec === id, className: sec === id ? 'on' : '', onClick: () => setSec(id) }, label)))),
       SECTIONS.map(([id, , spec]) => h('section', { key: id, className: 'deck-sec deck-sec--' + (spec.src ? 'frame' : 'app'), hidden: sec !== id },
-        spec.src ? h(Frame, { src: spec.src, title: id, zoom: spec.zoom }) : h(spec.render))));
+        spec.src ? h(Frame, { src: spec.src, title: id, zoom: spec.zoom, css: spec.css }) : h(spec.render))));
   }
 
   ReactDOM.createRoot(document.getElementById('app')).render(h(Deck));

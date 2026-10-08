@@ -1,0 +1,108 @@
+/* Actionables · deck theme. Injected into actionables.html by the deck (funnel.js) so the page matches the
+   Design tab: Inter on the Ions type scale, Ions neutrals, redBus red as the single accent, one radius and
+   shadow system. The page's own markup and behaviour are untouched. */
+html:root{
+  --ground:#f6f6f9; --panel:#fff; --panel-2:#f1f1f5; --line:#e6e6ec;
+  --ink:#1c1c21; --ink-soft:#5d5d66; --ink-faint:#8a8a94;
+  --accent:#d84e55; --accent-soft:#fdeeee; --accent-ink:#b4333a;
+  --blank-bg:#fff8ec; --blank-line:#efcf98; --blank-ink:#8a5a12;
+  --t-font:Inter,"Inter Variable",system-ui,-apple-system,sans-serif;
+  --t-shadow:0 1px 2px rgba(28,28,33,.04),0 6px 20px rgba(28,28,33,.05);
+  --t-ease:cubic-bezier(.2,0,0,1);
+  color-scheme:light;
+}
+html body, html body *{font-family:var(--t-font)!important}
+body{background:var(--ground);-webkit-font-smoothing:antialiased;font-feature-settings:"cv11","ss01"}
+.wrap{max-width:880px;padding:48px 32px 120px}
+
+/* header */
+.eyebrow{font-size:11px;line-height:16px;font-weight:600;letter-spacing:.06em;padding:4px 10px;border-radius:999px;color:var(--accent-ink);background:var(--accent-soft);margin-bottom:16px}
+h1{font-size:36px;line-height:44px;font-weight:700;letter-spacing:-.02em;margin:0 0 16px}
+.lede{font-size:16px;line-height:26px;color:var(--ink-soft);margin-bottom:24px}
+.meta-row{font-size:13px;line-height:20px;gap:24px;padding:14px 0;border-color:var(--line)}
+.meta-row b{font-weight:600;color:var(--ink)}
+
+/* view switch + fold controls → the deck's segmented control */
+.view-bar{margin-bottom:32px}
+.view-switch{gap:2px;padding:3px;background:var(--panel);border:1px solid var(--line);border-radius:999px;box-shadow:0 1px 2px rgba(28,28,33,.04)}
+.view-switch button{height:30px;padding:0 14px;border-radius:999px;font-size:13px;font-weight:600;line-height:30px;color:var(--ink-soft);transition:background .18s var(--t-ease),color .18s var(--t-ease)}
+.view-switch button[aria-selected="true"]{background:var(--ink);color:#fff;box-shadow:none}
+.fold-all{gap:6px}
+.fold-all button{height:32px;padding:0 14px;border-radius:999px;background:var(--panel);border:1px solid var(--line);font-size:12px;font-weight:600;color:var(--ink-soft);transition:background .15s var(--t-ease),color .15s}
+.fold-all button:hover{background:var(--panel-2);color:var(--ink)}
+
+/* theme / page groups */
+.theme-block,.page-block{margin-bottom:40px}
+.theme-head{border-top:0;padding-top:0;margin-bottom:16px;align-items:center;gap:12px}
+.theme-num{font-size:12px;line-height:20px;font-weight:600;font-variant-numeric:tabular-nums;padding:0 8px;border-radius:6px;color:var(--accent-ink);background:var(--accent-soft)}
+h2{font-size:20px;line-height:28px;font-weight:700;letter-spacing:-.01em}
+.theme-head .head-count,.page-count{font-size:12px;font-weight:500;color:var(--ink-faint)}
+.theme-head .chev{color:var(--ink-faint)}
+.theme-head.fold:hover h2{color:var(--ink)}
+.theme-block.is-collapsed,.page-block.is-collapsed{margin-bottom:12px}
+.is-collapsed>.theme-head{padding:14px 16px;margin:0;background:var(--panel);border:1px solid var(--line);border-radius:16px}
+
+/* problem cards */
+.item{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:20px 24px;margin-bottom:12px;box-shadow:var(--t-shadow);transition:box-shadow .2s var(--t-ease)}
+.item:hover{box-shadow:0 1px 2px rgba(28,28,33,.05),0 10px 28px rgba(28,28,33,.08)}
+.item.flash{box-shadow:0 0 0 2px var(--accent),var(--t-shadow)}
+.item-title{font-size:16px;line-height:24px;font-weight:600;margin-bottom:12px;align-items:center}
+.item-num{font-size:12px;font-weight:500;font-variant-numeric:tabular-nums;color:var(--ink-faint)}
+.pv-crumb,.field-label{font-size:11px;line-height:16px;font-weight:600;letter-spacing:.06em;color:var(--ink-faint);margin-bottom:6px}
+.field{margin-bottom:16px}
+.field-body{font-size:14px;line-height:22px;color:var(--ink-soft)}
+.field-body.blank{border-radius:10px;font-size:13px;font-style:normal}
+.src-tag{font-size:11px;color:var(--ink-faint)}
+
+/* solves */
+.solve-list{gap:10px}
+.solve-list li{font-size:14px;line-height:22px;color:var(--ink-soft);gap:10px;align-items:baseline}
+.solve-id{font-size:11px;line-height:18px;font-weight:700;font-variant-numeric:tabular-nums;letter-spacing:.01em;padding:0 7px;border-radius:6px;color:var(--accent-ink);background:var(--accent-soft)}
+.solve-text b,.solve-text strong{font-weight:600}
+.solve-stage{height:26px;font-size:12px;font-weight:500;color:var(--ink-soft);background-color:var(--panel);border:1px solid var(--line);border-radius:8px;padding:0 24px 0 9px;max-width:156px}
+.solve-stage:hover{border-color:#d6d6de}
+.solve-stage.unset{border-radius:8px}
+.solve-actions button,.inline-edit-btn{font-size:12px;border-radius:6px;padding:3px 6px;color:var(--ink-faint)}
+.solve-actions button:hover,.inline-edit-btn:hover{background:var(--panel-2);color:var(--ink)}
+
+/* buttons */
+.add-solve-btn{margin-top:12px;height:30px;padding:0 12px;border-radius:999px;font-size:12px;font-weight:600;color:var(--accent-ink);background:var(--accent-soft)}
+.add-section-btn{padding:14px;border-radius:16px;font-size:13px;font-weight:600;color:var(--ink-soft);border-color:#d6d6de;background:transparent}
+.add-section-btn:hover{color:var(--accent-ink);border-color:var(--accent);background:var(--accent-soft)}
+.save-btn,.confirm-btn,.cancel-btn{font-size:12px!important;font-weight:600;height:30px;padding:0 12px!important;border-radius:999px!important}
+.title-edit-row .save-btn,.new-section-foot .save-btn,.rte-foot .save-btn,.solve-edit-row .save-btn,.solve-input-row .save-btn{background:var(--ink);color:#fff}
+.cancel-btn{background:var(--panel-2)!important;color:var(--ink-soft)!important}
+.solve-remove-row .confirm-btn{background:var(--accent)!important;color:#fff}
+
+/* inputs & rich-text editor */
+.title-edit-row input,.new-section input,.new-section textarea,.solve-edit-row input,.solve-input-row input{border-radius:10px;border-color:var(--line);background:var(--panel);font-size:14px}
+.title-edit-row input:focus,.new-section input:focus,.new-section textarea:focus,.rte:focus-within{border-color:var(--ink);box-shadow:0 0 0 3px rgba(28,28,33,.06)}
+.new-section label{font-size:11px;font-weight:600;letter-spacing:.06em}
+.rte{border-radius:12px;background:var(--panel)}
+.rte-bar{background:var(--panel-2);border-color:var(--line)}
+.rte-bar button{border-radius:6px}
+.rte-bar button.on{background:var(--ink);color:#fff}
+.rte-hint{font-size:11px}
+
+/* research source */
+details.src{border-color:var(--line);margin-top:16px;padding-top:12px}
+details.src summary{font-size:11px;font-weight:600;letter-spacing:.06em}
+.src-body{background:var(--panel-2);border-radius:12px;padding:14px 16px;gap:12px}
+.src-item{font-size:13px;line-height:20px}
+.src-origin{font-size:11px;font-weight:600;letter-spacing:.02em}
+.src-quote{font-style:normal;color:var(--ink)}
+
+/* by-pages view */
+.pv-nav{gap:8px;margin-bottom:32px}
+.pv-nav button{height:30px;padding:0 12px;border-radius:999px;font-size:12px;font-weight:600;color:var(--ink);background:var(--panel);border:1px solid var(--line);transition:background .15s var(--t-ease)}
+.pv-nav button:hover{filter:none;background:var(--panel-2)}
+.pv-nav button .n{color:var(--ink-faint);opacity:1}
+.pv-nav button.untagged{outline:0;border-style:dashed;border-color:var(--blank-line)}
+.pv-title{font-size:16px;font-weight:600}
+.pv-title .pv-jump{font-size:12px;font-weight:500}
+.pv-problem{font-size:13px;line-height:20px}
+
+.scope-note{border-color:var(--line)}
+.scope-note h3{font-size:16px;font-weight:700}
+.scope-note ul{font-size:13px;line-height:22px}
+@media (prefers-reduced-motion:reduce){*{transition-duration:1ms!important}}
