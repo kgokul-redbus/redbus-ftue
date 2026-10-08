@@ -61,31 +61,21 @@
         h('span', { className: 'u-badge-t' }, h('b', null, b.t), h('small', null, b.sub)))));
   }
 
-  /* ---- slide 3 · 20 years + a wall of customer stories drifting past (SAMPLE stories, replace with real ones) ---- */
+  /* ---- slide 3 · 20 years + customer stories (sample stories) ---- */
   const STORIES = [
     { n: 'Priya S', i: 'PS', c: '#7b5cd6', route: 'Chennai → Bengaluru', q: 'Booked for my parents in two minutes and tracked their bus live all night.' },
     { n: 'Arjun M', i: 'AM', c: '#e0773b', route: 'Pune → Goa', q: 'My trip got cancelled and the refund was back the same day.' },
-    { n: 'Meena R', i: 'MR', c: '#d6457a', route: 'Hyderabad → Vijayawada', q: 'Picked a bus other women rated highly. Felt safe the whole way.' },
-    { n: 'Rahul K', i: 'RK', c: '#2f80c9', route: 'Delhi → Jaipur', q: 'Saw my exact boarding point on the map. No last-minute calls.' },
-    { n: 'Ananya P', i: 'AP', c: '#1f9a6a', route: 'Bengaluru → Mysuru', q: 'Changed my travel date in the app without any hassle.' },
-    { n: 'Vikram T', i: 'VT', c: '#8a5a12', route: 'Mumbai → Shirdi', q: 'Reviews helped me pick a clean bus with a toilet. Worth it.' },
-    { n: 'Kavya N', i: 'KN', c: '#5157e3', route: 'Kochi → Bengaluru', q: 'Chat support sorted my query in minutes, at 2 am.' },
-    { n: 'Suresh B', i: 'SB', c: '#c0392b', route: 'Madurai → Chennai', q: 'Ten years of booking with redBus and never missed a bus.' },
   ];
   const Stars = () => h('span', { className: 'u-stars', 'aria-label': '5 stars' }, [0, 1, 2, 3, 4].map((k) => h('span', { key: k }, I('ion-star', 'sm'))));
-  const Story = ({ s }) => h('div', { className: 'u-story' },
-    h('div', { className: 'u-story-hd' },
-      h('span', { className: 'u-sav', style: { background: s.c } }, s.i),
-      h('span', null, h('b', null, s.n, h(Stars)), h('small', null, s.route))),
-    h('p', null, '“' + s.q + '”'));
-  /* each row is its list twice, so a -50% translate loops seamlessly */
-  const Row = ({ list, rev, top, d }) => h('div', { className: 'u-row u-a', style: { top, '--d': d } },
-    h('div', { className: 'u-row-track' + (rev ? ' u-row-track--rev' : '') }, list.concat(list).map((s, k) => h(Story, { key: k, s }))));
   const ArtYears = () => h('div', { className: 'u-years' },
     h('p', { className: 'u-20 u-a', style: { '--d': '40ms' } }, '20', h('small', null, 'years')),
     h('span', { className: 'u-since u-a', style: { '--d': '220ms' } }, 'Since 2006'),
-    h(Row, { list: STORIES.filter((_, k) => k % 2 === 0), top: 252, d: '280ms' }),
-    h(Row, { list: STORIES.filter((_, k) => k % 2 === 1), top: 382, d: '420ms', rev: true }));
+    STORIES.map((s, k) => h('div', { key: s.n, className: 'u-story u-a', style: { '--d': (300 + k * 180) + 'ms', '--r': (k ? 2.5 : -3) + 'deg', top: k ? 356 : 218, left: k ? 66 : 26, '--b': (k * 0.9) + 's' } },
+      h('div', { className: 'u-story-hd' },
+        h('span', { className: 'u-sav', style: { background: s.c } }, s.i),
+        h('span', null, h('b', null, s.n), h('small', null, s.route)),
+        h(Stars)),
+      h('p', null, '“' + s.q + '”'))));
 
   const ART = { lob: ArtLob, help: ArtHelp, years: ArtYears };
 
