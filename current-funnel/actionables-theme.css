@@ -50,7 +50,17 @@ h2{font-size:20px;line-height:28px;font-weight:700;letter-spacing:-.01em}
 .item-num{font-size:12px;font-weight:500;font-variant-numeric:tabular-nums;color:var(--ink-faint)}
 .pv-crumb,.field-label{font-size:11px;line-height:16px;font-weight:600;letter-spacing:.06em;color:var(--ink-faint);margin-bottom:6px}
 .field-label{color:var(--ink)}
-.field{margin-bottom:16px}
+.field{margin:0;padding:16px 0;border-top:1px solid var(--line)}
+.field:last-of-type{padding-bottom:4px}
+/* collapsible sub-theme cards */
+.item-title{margin:0 0 16px;cursor:pointer;user-select:none;gap:8px}
+.item-title:focus-visible{outline:2px solid var(--accent);outline-offset:4px;border-radius:6px}
+.item-chev{display:inline-flex;flex:none;width:16px;justify-content:center;margin-left:-4px;color:var(--ink-faint);transform:rotate(90deg);transition:transform .2s var(--t-ease),color .15s}
+.item-title:hover .item-chev{color:var(--ink)}
+.item.is-folded .item-chev{transform:rotate(0deg)}
+.item.is-folded>.item-title{margin-bottom:0}
+.item.is-folded>:not(.item-title){display:none!important}
+.item.is-folded{padding-top:16px;padding-bottom:16px}
 .field-body{font-size:14px;line-height:22px;color:var(--ink-soft)}
 .field-body.blank{border-radius:10px;font-size:13px;font-style:normal}
 .src-tag{font-size:11px;color:var(--ink-faint)}
