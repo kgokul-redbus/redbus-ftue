@@ -41,6 +41,12 @@
     render: (p) => h(window.SOLLOGIN.LoginPage, p),
   });
 
+  window.PROPOSED.add('otp', {
+    sols: ['SOL-36'],
+    note: 'OTP matches the login page: big title, number with Edit, six rounded boxes, auto-verifies when complete.',
+    render: (p) => h(window.SOLLOGIN.OtpPage, p),
+  });
+
   /* SOL-24 · contextualise permission requests (sol-onb.js): location explains its value before the system dialog;
      no notification / review prompts on a first home visit */
   window.PROPOSED.add('location', {

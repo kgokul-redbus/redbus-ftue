@@ -45,5 +45,46 @@
       h(P.Gesture));
   }
 
-  window.SOLLOGIN = { LoginPage };
+  /* OTP in the same language as the login page: big title, the number with Edit, six rounded boxes, one pill CTA.
+     A complete code verifies on its own; the boxes turn green for a beat before moving on. */
+  function OtpPage({ s, go }) {
+    const P = window.ONB.parts;
+    const [code, setCode] = useState('');
+    const [sec, setSec] = useState(30);
+    const [done, setDone] = useState(false);
+    const phone = s.phone && s.phone.length === 10 ? s.phone : '9876543210';
+    useEffect(() => { const t = setInterval(() => setSec((x) => Math.max(0, x - 1)), 1000); return () => clearInterval(t); }, []);
+    useEffect(() => {
+      const f = (e) => { if (/^\d$/.test(e.key)) setCode((c) => (c + e.key).slice(0, 6)); if (e.key === 'Backspace') setCode((c) => c.slice(0, -1)); };
+      window.addEventListener('keydown', f); return () => window.removeEventListener('keydown', f);
+    }, []);
+    useEffect(() => {
+      if (code.length < 6) { setDone(false); return; }
+      setDone(true);
+      const t = setTimeout(() => go('location'), 650);
+      return () => clearTimeout(t);
+    }, [code]);
+    const key = (k) => {
+      if (done) return;
+      if (k === 'del') setCode((c) => c.slice(0, -1));
+      else if (/\d/.test(k)) setCode((c) => (c + k).slice(0, 6));
+    };
+    return h('div', { className: 'pd lp' },
+      h(P.Status),
+      h('button', { className: 'lp-skip', onClick: () => go('location') }, 'Skip'),
+      h('h1', { className: 'lp-title' }, 'Enter the OTP'),
+      h('div', { className: 'lp-body' },
+        h('p', { className: 'lp-sent' }, 'Sent to ', h('b', null, '+91 ' + phone.slice(0, 5) + ' ' + phone.slice(5)),
+          h('button', { onClick: () => go('login') }, 'Edit')),
+        h('div', { className: 'lp-otp' + (done ? ' done' : ''), role: 'group', 'aria-label': 'One-time password' },
+          [0, 1, 2, 3, 4, 5].map((k) => h('span', { key: k, className: (k === Math.min(code.length, 5) && !done ? 'on' : '') + (code[k] ? ' filled' : ''), style: { '--k': k } }, code[k] || ''))),
+        h('p', { className: 'lp-hint' }, sec > 0
+          ? ['Didn’t get it? Resend in ', h('b', { key: 't' }, '0:' + String(sec).padStart(2, '0'))]
+          : ['Didn’t get it? ', h('button', { key: 'r', className: 'lp-link', onClick: () => setSec(30) }, 'Resend OTP')]),
+        h('button', { className: 'lp-cta' + (code.length === 6 ? ' ready' : ''), onClick: () => code.length === 6 && go('location') }, done ? 'Verified' : 'Verify')),
+      h(P.Keyboard, { onKey: key }),
+      h(P.Gesture));
+  }
+
+  window.SOLLOGIN = { LoginPage, OtpPage };
 })();
