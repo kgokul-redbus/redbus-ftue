@@ -49,6 +49,7 @@ h2{font-size:20px;line-height:28px;font-weight:700;letter-spacing:-.01em}
 .item-title{font-size:16px;line-height:24px;font-weight:600;margin-bottom:12px;align-items:center}
 .item-num{font-size:12px;font-weight:500;font-variant-numeric:tabular-nums;color:var(--ink-faint)}
 .pv-crumb,.field-label{font-size:11px;line-height:16px;font-weight:600;letter-spacing:.06em;color:var(--ink-faint);margin-bottom:6px}
+.field-label{color:var(--ink)}
 .field{margin-bottom:16px}
 .field-body{font-size:14px;line-height:22px;color:var(--ink-soft)}
 .field-body.blank{border-radius:10px;font-size:13px;font-style:normal}
