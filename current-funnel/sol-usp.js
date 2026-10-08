@@ -68,8 +68,8 @@
   ];
   const Stars = () => h('span', { className: 'u-stars', 'aria-label': '5 stars' }, [0, 1, 2, 3, 4].map((k) => h('span', { key: k }, I('ion-star', 'sm'))));
   const ArtYears = () => h('div', { className: 'u-years' },
-    h('p', { className: 'u-20 u-a', style: { '--d': '40ms' } }, '20', h('small', null, 'years')),
-    h('span', { className: 'u-since u-a', style: { '--d': '220ms' } }, 'Since 2006'),
+    h('p', { className: 'u-20 u-a', style: { '--d': '40ms' } }, '20'),
+    h('span', { className: 'u-since u-a', style: { '--d': '220ms' } }, 'years'),
     STORIES.map((s, k) => h('div', { key: s.n, className: 'u-story u-a', style: { '--d': (300 + k * 180) + 'ms', '--r': (k ? 2.5 : -3) + 'deg', top: k ? 356 : 218, left: k ? 66 : 26, '--b': (k * 0.9) + 's' } },
       h('div', { className: 'u-story-hd' },
         h('span', { className: 'u-sav', style: { background: s.c } }, s.i),
