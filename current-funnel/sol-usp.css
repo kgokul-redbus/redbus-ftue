@@ -25,8 +25,8 @@
 .u3-hero .u-help,.u3-hero .u-years{top:30px;bottom:-30px}
 .u3-hero .u-lob{top:160px;gap:16px}
 .u3-hero .u-tile{height:184px}
-.u3-hero .u-tile-img img{width:148px;height:98px}
-.u3-hero .u-tile:first-child .u-tile-img img{width:136px;height:90px}
+.u3-hero .u-tile-img img{width:100%;max-width:140px;height:96px}
+.u3-hero .u-tile:first-child .u-tile-img img{max-width:128px;height:88px}
 
 /* fixed chrome */
 .u3-logo{position:absolute;left:50%;top:58px;height:40px;transform:translateX(-50%);mix-blend-mode:multiply;pointer-events:none;z-index:6}
@@ -47,7 +47,7 @@
 .u3-slide.on .u-a{animation:uRise .6s var(--u-ease) both;animation-delay:var(--d,0ms)}
 
 /* slide 1 · lines of business */
-.u-lob{position:absolute;left:34px;right:34px;top:136px;display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.u-lob{position:absolute;left:34px;right:34px;top:136px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
 .u-tile{height:160px;border-radius:var(--radius-3xl);background:rgb(255 255 255 / 58%);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border:1px solid rgb(255 255 255 / 75%);box-shadow:var(--u-e1);display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding:0 0 var(--spacing-xl);transform:rotate(var(--r))}
 .u3-slide.on .u-tile{animation:uRiseTilt .65s var(--u-spring) both,uBob 5s ease-in-out infinite;animation-delay:var(--d),calc(var(--b) + .8s)}
 .u-tile-img{flex:1;width:100%;display:grid;place-items:center;padding:var(--spacing-xl) var(--spacing-lg) 0}
