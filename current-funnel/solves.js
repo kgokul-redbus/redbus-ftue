@@ -16,11 +16,13 @@
     ],
   });
 
-  /* SOL-36 · post-booking support as part of onboarding (sol-onb.js) */
+  /* SOL-36 · USP slides separated from login (sol-usp.js, ref. Mindtrip). One idea per slide:
+     redBus is a travel app (bus, train, hotels, metro) → help at every step → 20 years of happy journeys.
+     Login is its own step after the slides, so each gets full attention. */
   window.PROPOSED.add('slides', {
     sols: ['SOL-36'],
-    note: 'Slide 2 shows what help looks like after booking: chat 24×7, free bus change, cancel & refund, on a ticket.',
-    render: (p) => h(window.SOLONB.SlidesSol36, p),
+    note: 'Three USP slides with no login sheet: travel app → help at every step → 20 years. Next / Skip, swipe; the last slide leads to login.',
+    render: (p) => h(window.SOLUSP.SlidesUSP, p),
   });
 
   /* SOL-24 · contextualise permission requests (sol-onb.js): location explains its value before the system dialog;

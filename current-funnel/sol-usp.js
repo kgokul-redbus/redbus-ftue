@@ -1,0 +1,119 @@
+/* SOL-36 (and beyond) · USP slides separated from login. Reference: Mindtrip onboarding.
+   Three focused slides, one idea each: redBus is a travel app (bus, train, hotels, metro) → help at every step
+   of the trip → 20 years of happy journeys. Login is its own step after the last slide.
+   Native 411.43 dp space inside .pd, like the production onboarding. Rubicon Ions tokens; styles in sol-usp.css. */
+(function () {
+  const h = React.createElement;
+  const { useState, useEffect, useRef } = React;
+  const I = (name, size) => h(window.IndiaBusDS.Icon, { name, size });
+  const W = 411.43;
+
+  const SLIDES = [
+    { key: 'lob', title: 'One app for every journey', sub: 'Book buses, trains, hotels and metro tickets, all in one place.' },
+    { key: 'help', title: 'Help at every step', sub: 'Before you book, on the road and after you arrive, we’re here for you 24×7.' },
+    { key: 'years', title: '20 years of happy journeys', sub: 'Trusted by 56 million+ travellers and reviewed by 23 lakh+.' },
+  ];
+
+  /* ---- slide 1 · lines of business ---- */
+  const LOB = [['Bus', 'lob-bus.png'], ['Train', 'lob-train.png'], ['Hotels', 'lob-hotel.png'], ['Metro', 'lob-metro.png']];
+  const ArtLob = () => h('div', { className: 'u-lob' },
+    LOB.map(([l, img], k) => h('div', { key: l, className: 'u-tile u-a', style: { '--d': (120 + k * 90) + 'ms', '--r': [-3, 2.5, 2, -2.5][k] + 'deg', '--b': (k * 0.7) + 's' } },
+      h('span', { className: 'u-tile-img' }, h('img', { src: 'assets/home/' + img, alt: '' })),
+      h('b', null, l))));
+
+  /* ---- slide 2 · support at every step ---- */
+  const Shield = () => h('svg', { viewBox: '0 0 24 24', width: 18, height: 18, 'aria-hidden': true },
+    h('path', { d: 'M12 2.5 4.5 5.3v6c0 4.6 3.1 8.7 7.5 10.2 4.4-1.5 7.5-5.6 7.5-10.2v-6L12 2.5z', fill: 'currentColor', opacity: '.18' }),
+    h('path', { d: 'M12 2.5 4.5 5.3v6c0 4.6 3.1 8.7 7.5 10.2 4.4-1.5 7.5-5.6 7.5-10.2v-6L12 2.5z', fill: 'none', stroke: 'currentColor', strokeWidth: 1.8, strokeLinejoin: 'round' }),
+    h('path', { d: 'm8.8 12 2.2 2.2 4.2-4.4', fill: 'none', stroke: 'currentColor', strokeWidth: 1.8, strokeLinecap: 'round', strokeLinejoin: 'round' }));
+  const Clock = () => h('svg', { viewBox: '0 0 24 24', width: 18, height: 18, 'aria-hidden': true },
+    h('circle', { cx: 12, cy: 12, r: 8.5, fill: 'none', stroke: 'currentColor', strokeWidth: 1.8 }),
+    h('path', { d: 'M12 7.5V12l3 2', fill: 'none', stroke: 'currentColor', strokeWidth: 1.8, strokeLinecap: 'round' }));
+
+  function ArtHelp({ on }) {
+    const [step, setStep] = useState(0);
+    useEffect(() => {
+      if (!on) { setStep(0); return; }
+      const t = [setTimeout(() => setStep(1), 900), setTimeout(() => setStep(2), 2000)];
+      return () => t.forEach(clearTimeout);
+    }, [on]);
+    return h('div', { className: 'u-help' },
+      h('div', { className: 'u-chat u-a', style: { '--d': '80ms' } },
+        h('div', { className: 'u-chat-hd' },
+          h('span', { className: 'u-av' }, 'rB'),
+          h('span', null, h('b', null, 'redBuddy'), h('small', null, h('i'), 'Online · replies in seconds'))),
+        h('div', { className: 'u-chat-body' },
+          h('p', { className: 'u-msg u-msg--me' }, 'My bus is running late. Where is it?'),
+          step === 0
+            ? h('p', { className: 'u-msg u-dots', 'aria-label': 'redBuddy is typing' }, h('i'), h('i'), h('i'))
+            : h('div', { className: 'u-msg u-msg--bot' },
+              h('span', null, 'It’s 12 min away from your boarding point.'),
+              h('span', { className: 'u-track' }, h('i', { style: { width: step === 2 ? '72%' : '58%' } }), h('b'))),
+          step === 2 && h('div', { className: 'u-replies' }, ['Track live', 'Call us'].map((r) => h('span', { key: r }, r))))),
+      h('span', { className: 'u-badge u-a', style: { '--d': '380ms', left: 20, top: 116 } }, h('span', { className: 'u-badge-ic u-ic--info' }, h(Clock)), '24×7 support'),
+      h('span', { className: 'u-badge u-a', style: { '--d': '520ms', right: 16, top: 392 } }, h('span', { className: 'u-badge-ic u-ic--ok' }, I('ion-check-circle', 'sm')), 'Instant refunds'),
+      h('span', { className: 'u-badge u-a', style: { '--d': '660ms', left: 22, top: 446 } }, h('span', { className: 'u-badge-ic u-ic--brand' }, h(Shield)), 'Helpline for women'));
+  }
+
+  /* ---- slide 3 · 20 years + customer stories (sample stories) ---- */
+  const STORIES = [
+    { n: 'Priya S', i: 'PS', c: '#7b5cd6', route: 'Chennai → Bengaluru', q: 'Booked for my parents in two minutes and tracked their bus live all night.' },
+    { n: 'Arjun M', i: 'AM', c: '#e0773b', route: 'Pune → Goa', q: 'My trip got cancelled and the refund was back the same day.' },
+  ];
+  const Stars = () => h('span', { className: 'u-stars', 'aria-label': '5 stars' }, [0, 1, 2, 3, 4].map((k) => h('span', { key: k }, I('ion-star', 'sm'))));
+  const ArtYears = () => h('div', { className: 'u-years' },
+    h('p', { className: 'u-20 u-a', style: { '--d': '40ms' } }, '20', h('small', null, 'years')),
+    h('span', { className: 'u-since u-a', style: { '--d': '220ms' } }, 'Since 2006'),
+    STORIES.map((s, k) => h('div', { key: s.n, className: 'u-story u-a', style: { '--d': (300 + k * 180) + 'ms', '--r': (k ? 2.5 : -3) + 'deg', top: k ? 356 : 218, left: k ? 66 : 26, '--b': (k * 0.9) + 's' } },
+      h('div', { className: 'u-story-hd' },
+        h('span', { className: 'u-sav', style: { background: s.c } }, s.i),
+        h('span', null, h('b', null, s.n), h('small', null, s.route)),
+        h(Stars)),
+      h('p', null, '“' + s.q + '”'))));
+
+  const ART = { lob: ArtLob, help: ArtHelp, years: ArtYears };
+
+  function SlidesUSP({ s, set, go }) {
+    const i = Math.min(s.slide || 0, 2);
+    const last = i === 2;
+    const [dx, setDx] = useState(0);
+    const drag = useRef(null);
+    const to = (k) => set({ slide: Math.max(0, Math.min(2, k)) });
+    const login = () => go('login', { slide: 0 });
+    const next = () => (last ? login() : to(i + 1));
+
+    const down = (e) => {
+      const r = e.currentTarget.getBoundingClientRect();
+      drag.current = { x: e.clientX, k: W / r.width, moved: false };
+      try { e.currentTarget.setPointerCapture(e.pointerId); } catch (err) {}
+    };
+    const move = (e) => {
+      const d = drag.current; if (!d) return;
+      let v = (e.clientX - d.x) * d.k;
+      if ((i === 0 && v > 0) || (last && v < 0)) v *= 0.3; /* rubber band at the ends */
+      if (Math.abs(v) > 4) d.moved = true;
+      setDx(v);
+    };
+    const up = () => {
+      const d = drag.current; drag.current = null; if (!d) return;
+      if (dx < -70) to(i + 1); else if (dx > 70) to(i - 1);
+      setDx(0);
+    };
+
+    return h('div', { className: 'pd u3' + (last ? ' u3--last' : '') },
+      h('div', { className: 'u3-stage', onPointerDown: down, onPointerMove: move, onPointerUp: up, onPointerCancel: up },
+        h('div', { className: 'u3-track' + (dx ? ' u3-track--drag' : ''), style: { transform: 'translateX(' + (-i * W + dx) + 'px)' } },
+          SLIDES.map((sl, k) => h('section', { key: sl.key, className: 'u3-slide u3-slide--' + sl.key + (k === i ? ' on' : ''), 'aria-hidden': k !== i },
+            h('div', { className: 'u3-hero' }, h(ART[sl.key], { on: k === i })),
+            h('div', { className: 'u3-copy' }, h('h2', null, sl.title), h('p', null, sl.sub)))))),
+      h(window.ONB.parts.Status),
+      h('img', { className: 'u3-logo', src: window.ONB.parts.A + 'logo-redbus.png', alt: 'redBus' }),
+      h('div', { className: 'u3-dots', role: 'tablist', 'aria-label': 'Slides' }, SLIDES.map((sl, k) => h('button', { key: k, className: k === i ? 'on' : '', 'aria-label': 'Slide ' + (k + 1), 'aria-selected': k === i, onClick: () => to(k) }))),
+      h('div', { className: 'u3-foot' },
+        h('button', { className: 'u3-btn u3-btn--primary', onClick: next }, h('span', { key: last ? 'l' : 'n' }, last ? 'Log in or sign up' : 'Next')),
+        h('button', { className: 'u3-btn u3-btn--ghost', onClick: login, tabIndex: last ? -1 : 0, 'aria-hidden': last }, 'Skip')),
+      h('i', { className: 'pd-gesture' }));
+  }
+
+  window.SOLUSP = { SlidesUSP };
+})();
