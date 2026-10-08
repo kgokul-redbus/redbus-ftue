@@ -64,7 +64,7 @@
   /* ---- slide 3 · 20 years + customer stories (sample stories) ---- */
   const STORIES = [
     { n: 'Priya S', i: 'PS', c: '#7b5cd6', route: 'Chennai → Bengaluru', q: 'Booked for my parents in two minutes and tracked their bus live all night.' },
-    { n: 'Arjun M', i: 'AM', c: '#e0773b', route: 'Pune → Goa', q: 'My trip got cancelled and the refund was back the same day.' },
+    { n: 'Arjun M', i: 'AM', c: '#e0773b', route: 'Pune → Goa', q: 'My trip got cancelled and the refund was back in the next few minutes.' },
   ];
   const Stars = () => h('span', { className: 'u-stars', 'aria-label': '5 stars' }, [0, 1, 2, 3, 4].map((k) => h('span', { key: k }, I('ion-star', 'sm'))));
   const ArtYears = () => h('div', { className: 'u-years' },
