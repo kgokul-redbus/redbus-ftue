@@ -50,3 +50,7 @@
 /* bottom Search bar (shared button style with Option A) */
 .sb .sb-foot{z-index:4;background:linear-gradient(180deg,transparent,var(--surface-neutral-lowest-default) 30%)}
 .sb-list,.sb-when{padding-bottom:92px}
+
+/* women mode card under the date row (same card as Option A) */
+.sb-when .sb-wcard{margin:0 var(--spacing-xl);flex:0 0 100px;animation-delay:.12s}
+.sb-cal{margin-top:var(--spacing-lg)}

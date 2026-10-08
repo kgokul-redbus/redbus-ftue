@@ -80,6 +80,12 @@
           ? h('div', { className: 'sb-when', key: 'date' },
             h('p', { className: 'sb-h' }, 'When are you travelling?'),
             h(P.DateStrip, { value: s.dateKey, onPick: pickDate, cal, onMore: () => setCal(!cal) }),
+            /* women mode arrives with the date, so it is seen before Search */
+            h('div', { className: 'sx-card sb-wcard', style: { '--i': 2, '--b': '100px' } },
+              h('div', { className: 'sx-row sx-women' },
+                h('img', { className: 'sx-rich', src: 'assets/sol/ic-women-mode.svg', alt: '' }),
+                h('div', { className: 't' }, h('span', null, 'Women mode'), h('small', null, 'Experience tailored for women travellers'), h('a', { href: '#', onClick: (e) => e.preventDefault() }, 'Know more')),
+                h('button', { className: 'sx-sw' + (s.women ? ' on' : ''), role: 'switch', 'aria-checked': !!s.women, 'aria-label': 'Women mode', onClick: () => set({ women: !s.women }) }, h('i')))),
             cal && h('div', { className: 'sb-cal' },
               h('div', { className: 'sx-week' }, ['M', 'T', 'W', 'T', 'F', 'S', 'S'].map((d, i) => h('span', { key: i }, d))),
               h('div', { className: 'sx-scroll' }, h(P.Calendar, { value: s.dateKey, onPick: pickDate }))))
