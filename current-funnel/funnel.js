@@ -369,7 +369,7 @@
     const cur = list.find((p) => p.id === proj);
     return h('div', { className: 'deck-proj', ref },
       h('button', { className: 'deck-proj-btn' + (open ? ' open' : ''), 'aria-haspopup': 'listbox', 'aria-expanded': open, onClick: () => setOpen((o) => !o) },
-        h('b', null, cur.name),
+        h('small', null, 'Project'), h('b', null, cur.name),
         h('svg', { viewBox: '0 0 16 16', width: 14, height: 14, 'aria-hidden': true }, h('path', { d: 'M4 6l4 4 4-4', fill: 'none', stroke: 'currentColor', strokeWidth: 1.8, strokeLinecap: 'round', strokeLinejoin: 'round' }))),
       open && h('ul', { className: 'deck-proj-menu', role: 'listbox', 'aria-label': 'Project' }, list.map((p) => h('li', { key: p.id },
         h('button', { role: 'option', 'aria-selected': p.id === proj, className: p.id === proj ? 'on' : '', onClick: () => { setOpen(false); onPick(p.id); } },
