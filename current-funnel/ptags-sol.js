@@ -88,6 +88,44 @@
         h('div', { className: 'px-rtb' }, cols.map((col, i) => h('ul', { key: i }, col.map((k) => h('li', { key: k }, h('img', { src: X + 'ic-check.svg', alt: '' }), h('span', null, label(k, b.sc)))))))));
   }
 
+  /* Option 3 · three distinct manifestations, one per tier (proposed tags):
+     Comparators → loud filled metric pills, number first (UGC tinted blue, On Time tinted green as performance)
+     Features → medium icon + label inline under the bus type
+     Reassurance → quiet green text line with a check, no container */
+  const svg = (paths) => h('svg', { viewBox: '0 0 16 16', width: 14, height: 14, 'aria-hidden': true, className: 'p3-ic' },
+    paths.map((d, k) => typeof d === 'string' ? h('path', { key: k, d, fill: 'none', stroke: 'currentColor', strokeWidth: 1.5, strokeLinecap: 'round', strokeLinejoin: 'round' }) : React.cloneElement(d, { key: k })));
+  const ring = (r) => h('circle', { cx: 8, cy: 8, r, fill: 'none', stroke: 'currentColor', strokeWidth: 1.5 });
+  const IC = {
+    comfort: () => svg(['M4.5 9V4.2a1.7 1.7 0 0 1 1.7-1.7h3.6a1.7 1.7 0 0 1 1.7 1.7V9', 'M3 7.5v3a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-3', 'M5 11.5V13.5M11 11.5V13.5']),
+    clean: () => svg(['M8 2.2l1.1 2.9 2.9 1.1-2.9 1.1L8 10.2 6.9 7.3 4 6.2l2.9-1.1z', 'M12.3 9.6l.5 1.3 1.3.5-1.3.5-.5 1.3-.5-1.3-1.3-.5 1.3-.5z']),
+    staff: () => svg([h('circle', { cx: 8, cy: 5.3, r: 2.6, fill: 'none', stroke: 'currentColor', strokeWidth: 1.5 }), 'M3.2 13.6c.6-2.4 2.5-3.8 4.8-3.8s4.2 1.4 4.8 3.8']),
+    onTime: () => svg([ring(5.8), 'M8 5v3.2l2 1.3']),
+    toilet: () => svg(['M3.5 2.8h4v4.5a2 2 0 0 1-4 0z', 'M5.5 9.3v3.9M3.8 13.2h3.4', 'M11.2 2.6v10.6', 'M9.6 6.2h3.2']),
+    new: () => svg(['M8 1.8l1.6 1.2 2-.1.6 1.9 1.6 1.2-.6 1.9.6 1.9-1.6 1.2-.6 1.9-2-.1L8 14.2l-1.6-1.2-2 .1-.6-1.9-1.6-1.2.6-1.9-.6-1.9 1.6-1.2.6-1.9 2 .1z', 'M6 8.1l1.4 1.4L10.2 6.7']),
+    fdc: () => svg(['M3.2 8.4l3 3 6.6-6.8']),
+  };
+  const METRIC = { comfort: ['Comfort', (sc) => one(sc.comfort)], clean: ['Clean', (sc) => one(sc.clean)], staff: ['Staff', (sc) => one(sc.staff)], onTime: ['On time', (sc) => Math.round(sc.onTime) + '%'] };
+  const FEAT = { toilet: 'Toilet', new: 'New bus' };
+  function Card3({ b, go }) {
+    const t = b.proposed;
+    const comps = t.filter((k) => METRIC[k]), feats = t.filter((k) => FEAT[k]);
+    return h('div', { className: 'px-card', role: 'button', tabIndex: 0, onClick: () => go('seats') },
+      h('div', { className: 'px-body' },
+        h('div', { className: 'px-svc' },
+          h('div', null,
+            h('p', { className: 'px-time' }, h('b', null, b.dep), h('i', { className: 'px-sep' }), b.arr),
+            h('p', { className: 'px-sub' }, b.dur, h('i', { className: 'px-dot' }), h('span', null, b.seats), h('span', { className: 'px-warn' }, b.single))),
+          h('div', { className: 'px-price' }, h('b', null, b.price), h('small', null, 'Onwards'))),
+        h('div', { className: 'px-bo' },
+          h('div', { className: 'px-bo-l' },
+            h('p', { className: 'px-nm' }, h('span', null, b.op)),
+            h('p', { className: 'px-ty' }, b.ev && h('img', { src: X + 'ic-ev.svg', alt: '' }), h('span', null, b.type)),
+            feats.length > 0 && h('p', { className: 'p3-feat' }, feats.map((k) => h('span', { key: k }, IC[k](), FEAT[k])))),
+          h('div', { className: 'px-rate', 'aria-label': 'Rated ' + b.rating }, h('b', null, h(Star), one(b.rating)), h('span', null, '0000'))),
+        comps.length > 0 && h('div', { className: 'p3-comp' }, comps.map((k) => h('span', { key: k, className: 'p3-pill' + (k === 'onTime' ? ' p3-pill--perf' : '') }, IC[k](), h('b', null, METRIC[k][1](b.sc)), METRIC[k][0]))),
+        t.includes('fdc') && h('p', { className: 'p3-re' }, IC.fdc(), 'Free date change')));
+  }
+
   /* lists by tag set: 'shown' (Current tabs) or 'proposed' (Proposed options) */
   const ProdList = (set) => ({ go }) => h('div', { className: 'sf-list', style: { marginTop: 2 } }, BUSES.map((b) => h(ProdCard, { key: b.rank, b, go, set })));
   const ExpList = (set) => ({ go }) => h('div', { className: 'px-list' }, BUSES.map((b) => h(ExpCard, { key: b.rank, b, go, set })));
@@ -99,6 +137,7 @@
     options: [
       { key: 'A', label: 'Production design · proposed tags', render: srp(ProdList('proposed')) },
       { key: 'B', label: 'Experiment design · proposed tags', render: srp(ExpList('proposed')) },
+      { key: 'C', label: 'Distinct tiers · proposed tags', render: srp(({ go }) => h('div', { className: 'px-list' }, BUSES.map((b) => h(Card3, { key: b.rank, b, go })))) },
     ],
   });
 })();
