@@ -53,7 +53,7 @@
 /* Persuasion tags · Proposed Option 3 (ptags-sol.js Card3). Tag component (crystals) for comparators + features. */
 .p3-ic{flex:none;display:block}
 /* operator block: name + bus type pair vertically centred on the rating, features right below */
-.p3-op{display:flex;flex-direction:column;gap:6px}
+.p3-op{display:flex;flex-direction:column;gap:0}
 .p3-card .px-bo{align-items:center}
 /* features · icon + text, medium weight */
 .p3-feat{display:flex;flex-wrap:wrap;gap:2px 12px}
