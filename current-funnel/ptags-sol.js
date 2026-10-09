@@ -90,7 +90,7 @@
 
   /* Option 3 · as directed (2026-10-09), proposed tags:
      Comparators → the most important tier: tags like today's, built on the Tag component (crystals)
-     Features → mini tags right below the operator block; the operator + bus type pair lines up with the rating
+     Features → icon + text right below the operator block; the operator + bus type pair lines up with the rating
      Reassurance → a ✓ list in the secondary text colour */
   const Tag = (p, ...c) => h(window.IndiaBusDS.Tag, p, ...c);
   const svg = (paths) => h('svg', { viewBox: '0 0 16 16', width: 12, height: 12, 'aria-hidden': true, className: 'p3-ic' },
@@ -117,7 +117,7 @@
               h('p', { className: 'px-nm' }, h('span', null, b.op)),
               h('p', { className: 'px-ty' }, b.ev && h('img', { src: X + 'ic-ev.svg', alt: '' }), h('span', null, b.type))),
             h('div', { className: 'px-rate', 'aria-label': 'Rated ' + b.rating }, h('b', null, h(Star), one(b.rating)), h('span', null, '0000'))),
-          feats.length > 0 && h('div', { className: 'p3-mini' }, feats.map((k) => Tag({ key: k, className: 'p3-mini-tag', icon: IC[k]() }, label(k, b.sc))))),
+          feats.length > 0 && h('div', { className: 'p3-feat' }, feats.map((k) => h('span', { key: k }, IC[k](), label(k, b.sc))))),
         comps.length > 0 && h('div', { className: 'p3-comp' }, comps.map((k) => Tag({ key: k, className: 'p3-tag' }, label(k, b.sc)))),
         re.length > 0 && h('ul', { className: 'p3-re' }, re.map((k) => h('li', { key: k }, IC.check(), label(k, b.sc))))));
   }
@@ -133,7 +133,7 @@
     options: [
       { key: 'A', label: 'Production design · proposed tags', render: srp(ProdList('proposed')) },
       { key: 'B', label: 'Experiment design · proposed tags', render: srp(ExpList('proposed')) },
-      { key: 'C', label: 'Comparator tags · feature mini tags · reassurance list', render: srp(({ go }) => h('div', { className: 'px-list' }, BUSES.map((b) => h(Card3, { key: b.rank, b, go })))) },
+      { key: 'C', label: 'Comparator tags · feature icon + text · reassurance list', render: srp(({ go }) => h('div', { className: 'px-list' }, BUSES.map((b) => h(Card3, { key: b.rank, b, go })))) },
     ],
   });
 })();

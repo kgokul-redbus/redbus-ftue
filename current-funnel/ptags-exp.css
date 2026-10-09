@@ -52,14 +52,16 @@
 
 /* Persuasion tags · Proposed Option 3 (ptags-sol.js Card3). Tag component (crystals) for comparators + features. */
 .p3-ic{flex:none;display:block}
-/* operator block: name + bus type pair vertically centred on the rating, mini feature tags right below */
+/* operator block: name + bus type pair vertically centred on the rating, features right below */
 .p3-op{display:flex;flex-direction:column;gap:6px}
 .p3-card .px-bo{align-items:center}
-.p3-mini{display:flex;flex-wrap:wrap;gap:4px}
-.p3-card .c-tag.p3-mini-tag{min-height:18px;gap:2px;padding:1px 5px 1px 4px;border-radius:var(--radius-xs);font-size:11px;line-height:14px;font-weight:500;letter-spacing:.05px;color:var(--content-neutral-high-default);background:var(--surface-neutral-high-default)}
-/* comparators · tags like today's (24 px, lavender), the loudest tier */
-.p3-comp{display:flex;flex-wrap:wrap;gap:6px}
-.p3-card .c-tag.p3-tag{min-height:24px;padding:0 var(--spacing-md);border-radius:var(--radius-md);font-size:12px;line-height:16px;font-weight:500;letter-spacing:.01px;color:#1d1d1d;background:#e9eaf7;white-space:nowrap}
+/* features · icon + text, medium weight */
+.p3-feat{display:flex;flex-wrap:wrap;gap:2px 12px}
+.p3-feat span{display:flex;align-items:center;gap:4px;font-size:12px;line-height:16px;font-weight:500;letter-spacing:.01px;color:var(--content-neutral-high-default)}
+.p3-feat .p3-ic{width:14px;height:14px;color:var(--content-neutral-medium-default)}
+/* comparators · medium tag (crystals DroidTag M: 20 px, 4 px padding, radius 6, 12/16), lavender, the loudest tier */
+.p3-comp{display:flex;flex-wrap:wrap;gap:6px 4px}
+.p3-card .c-tag.p3-tag{min-height:20px;height:20px;gap:4px;padding:0 var(--spacing-xs);border-radius:var(--radius-sm);font-size:12px;line-height:16px;font-weight:400;letter-spacing:.01px;color:#1d1d1d;background:#e9eaf7;white-space:nowrap}
 /* reassurance · ✓ list in the Ions secondary text colour */
 .p3-re{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:2px}
 .p3-re li{display:flex;align-items:center;gap:2px;font-size:12px;line-height:16px;letter-spacing:.01px;color:var(--content-neutral-medium-default)}
