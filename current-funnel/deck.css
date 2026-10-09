@@ -42,6 +42,8 @@ body{margin:0;background:var(--d-canvas);color:var(--d-ink);font:14px/1.5 var(--
 /* Design: rail + stage */
 .shell{display:grid;grid-template-columns:288px 1fr;min-height:calc(100vh - var(--bar))}
 .rail{background:var(--d-surface);border-right:1px solid var(--d-line);padding:24px 16px 20px;position:sticky;top:var(--bar);height:calc(100vh - var(--bar));overflow:auto;scrollbar-width:thin}
+.rail .switch.flow{display:flex;margin:0 0 20px}
+.rail .switch.flow button{flex:1}
 .rail h1{margin:0 8px 12px;font-size:12px;line-height:16px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--d-ink-3)}
 .rail ol{list-style:none;margin:0;padding:0;display:grid;gap:2px}
 .rail ol button{all:unset;box-sizing:border-box;width:100%;min-height:40px;display:flex;align-items:center;gap:12px;padding:8px 10px;border-radius:var(--d-r-md);cursor:pointer;font:500 13.5px/18px var(--d-font);color:var(--d-ink);transition:background .15s var(--d-ease)}
@@ -52,6 +54,7 @@ body{margin:0;background:var(--d-canvas);color:var(--d-ink);font:14px/1.5 var(--
 .rail .tag{margin-left:auto;flex:none;font:600 10px/16px var(--d-font);letter-spacing:.05em;padding:0 7px;border-radius:6px}
 .rail .tag.prod{background:var(--d-green-bg);color:var(--d-green)}
 .rail .tag.fig{background:var(--d-violet-bg);color:var(--d-violet)}
+.rail .tag.new{background:var(--d-accent-soft);color:var(--d-accent-ink)}
 .rail .tag.ds,.rail .tag.ap{background:var(--d-sunken);color:var(--d-ink-2)}
 .rail ol button.on .tag{background:rgba(255,255,255,.14);color:#fff}
 .has-prop{width:6px;height:6px;border-radius:50%;background:var(--d-accent);flex:none;margin-left:-4px}

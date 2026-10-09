@@ -217,29 +217,51 @@
   };
   const INIT = { screen: 'splash', origin: 'Bengaluru', dest: 'Chennai', dateKey: '3-7', bus: BUSES[0], seats: [], bp: null, dp: null, pax: [], sheet: null };
 
+  /* Two flows sit at the top of the hierarchy. Current = SCREENS. Proposed = the same pages, where a page with a
+     registered proposal renders it (and may be renamed), plus pages a proposal inserts (`after`) or drops
+     (PROPOSED.drop). Each flow keeps its own journey, so flow changes never fight the other flow's state. */
+  const TAGS = { ap: 'APPROX', ds: 'DS', fig: 'FIGMA', prod: 'PROD', new: 'NEW' };
+  const currentFlow = () => SCREENS.map(([id, label, tag, render, bg]) => ({ id, label, tag, render, bg }));
+  function proposedFlow() {
+    const P = window.PROPOSED, dropped = P.dropped || {};
+    const list = currentFlow().filter((x) => !dropped[x.id]).map((x) => {
+      const spec = P.get(x.id);
+      return spec ? Object.assign({}, x, { label: spec.label || x.label, spec }) : x;
+    });
+    Object.keys(P.screens).forEach((id) => {
+      const spec = P.screens[id];
+      if (list.some((x) => x.id === id) || !spec.after) return;
+      const at = list.findIndex((x) => x.id === spec.after);
+      list.splice(at < 0 ? list.length : at + 1, 0, { id, label: spec.label || id, tag: 'new', bg: spec.bg || '#fff', render: () => null, spec });
+    });
+    return list;
+  }
+
   function App() {
-    const [s, setS] = useState(INIT);
+    const [mode, setModeRaw] = useState(() => { try { return localStorage.getItem('ftue-funnel-mode') === 'proposed' ? 'proposed' : 'current'; } catch (e) { return 'current'; } });
+    const setMode = (m) => { setModeRaw(m); try { localStorage.setItem('ftue-funnel-mode', m); } catch (e) {} };
+    const [states, setStates] = useState({ current: INIT, proposed: INIT });
+    const s = states[mode];
     const [zoom, setZoom] = useState(1);
     const [overlay, setOverlay] = useState(false);
     useEffect(() => { document.documentElement.style.setProperty('--z', zoom); }, [zoom]);
-    const set = (p) => setS((x) => Object.assign({}, x, p));
-    const go = (screen, p) => setS((x) => {
+    const update = (fn) => setStates((all) => Object.assign({}, all, { [mode]: fn(all[mode]) }));
+    const set = (p) => update((x) => Object.assign({}, x, p));
+    const go = (screen, p) => update((x) => {
       const n = Object.assign({}, x, { screen, sheet: null, bd: false }, p);
       if (['points', 'custinfo', 'payment', 'ticket'].includes(screen) && !n.seats.length) n.seats = ['L1'];
       if (['custinfo', 'payment', 'ticket'].includes(screen)) { n.bp = n.bp || { name: 'Kalasipalayam', time: '21:45' }; n.dp = n.dp || { name: 'Panimalar College', time: '05:55' }; n.bpN = n.bpN || n.bp.name; n.dpN = n.dpN || n.dp.name; if (!n.pax.length) n.pax = ['Shubham Sharma']; }
       return n;
     });
-    const cur = SCREENS.find((x) => x[0] === s.screen);
-    const Screen = cur[3];
-    const spec = window.PROPOSED.get(s.screen);
+    const flow = mode === 'proposed' ? proposedFlow() : currentFlow();
+    /* a page outside this flow (e.g. one the proposal dropped) still renders its current version */
+    const page = flow.find((x) => x.id === s.screen) || currentFlow().find((x) => x.id === s.screen);
+    const spec = mode === 'proposed' ? page.spec : null;
     /* a solve can carry several options (spec.options); the chosen one is remembered per screen */
     const [optPick, setOptPick] = useState(() => { try { return JSON.parse(localStorage.getItem('ftue-options') || '{}'); } catch (e) { return {}; } });
     const opts = spec ? (spec.options || [{ key: 'A', render: spec.render, note: spec.note }]) : [];
     const opt = opts.find((o) => o.key === optPick[s.screen]) || opts[0];
     const pickOpt = (k) => setOptPick((x) => { const n = Object.assign({}, x, { [s.screen]: k }); try { localStorage.setItem('ftue-options', JSON.stringify(n)); } catch (e) {} return n; });
-    const prop = spec && Object.assign({}, spec, { render: opt.render, note: opt.note || spec.note });
-    const [mode, setModeRaw] = useState(() => { try { return localStorage.getItem('ftue-funnel-mode') === 'proposed' ? 'proposed' : 'current'; } catch (e) { return 'current'; } });
-    const setMode = (m) => { setModeRaw(m); try { localStorage.setItem('ftue-funnel-mode', m); } catch (e) {} };
     useEffect(() => {
       const f = (e) => { if ((e.key === 't' || e.key === 'T') && document.body.dataset.section === 'design' && !/INPUT|TEXTAREA/.test(document.activeElement.tagName)) setModeRaw((m) => { const n = m === 'current' ? 'proposed' : 'current'; try { localStorage.setItem('ftue-funnel-mode', n); } catch (x) {} return n; }); };
       window.addEventListener('keydown', f); return () => window.removeEventListener('keydown', f);
@@ -247,32 +269,32 @@
     const sheets = () => h(Fragment, null,
       s.screen === 'srp' && h(D.FilterSheet, { open: s.sheet === 'filter', onClose: () => set({ sheet: null }), onApply: () => set({ sheet: null }), onClear: () => set({ sheet: null }) }),
       s.screen === 'srp' && h(D.RaySheet, { open: s.sheet === 'ray', onClose: () => set({ sheet: null }) }));
-    const Current = () => h(Screen, { s, set, go });
-    const frame = (which) => {
-      const isProp = which === 'proposed';
-      const body = isProp && prop ? prop.render({ s, set, go, Current }) : Current();
-      return h('div', { className: 'col', key: which },
-        h('div', { className: 'col-h' },
-          h('div', { className: 'switch', role: 'tablist', 'aria-label': 'View' }, [['current', 'Current'], ['proposed', 'Proposed']].map(([m, l]) => h('button', { key: m, role: 'tab', 'aria-selected': mode === m, className: mode === m ? 'on ' + m : '', onClick: () => setMode(m) }, l))),
-          isProp && !prop && h('span', { className: 'none' }, 'No changes yet'),
-          isProp && opts.length > 1 && h('div', { className: 'opts', role: 'tablist', 'aria-label': 'Option' }, opts.map((o) => h('button', { key: o.key, role: 'tab', 'aria-selected': o === opt, className: o === opt ? 'on' : '', title: o.label || '', onClick: () => pickOpt(o.key) }, 'Option ' + o.key)))),
-        h('div', { className: 'pw' },
-          h('div', { className: 'pframe' }, h(D.IonsRoot, { device: true, style: { height: 800, minHeight: 0, background: cur[4], position: 'relative' } }, body, sheets()),
-            !isProp && overlay && REF[s.screen] && h('img', { className: 'ref', src: REF[s.screen](s), alt: '' }))));
-    };
+    const Current = () => h(page.render, { s, set, go });
+    const body = opt ? opt.render({ s, set, go, Current }) : Current();
+    const visible = flow.filter((x) => !x.id.startsWith('loc-'));
+    const onPage = (x) => s.screen === x.id || (x.id === 'home' && s.screen.startsWith('loc-'));
     return h('div', { className: 'shell' },
       h('aside', { className: 'rail' },
-        h('h1', null, 'FTUE funnel'),
-        h('ol', null, SCREENS.filter((x) => !x[0].startsWith('loc-')).map((x, i) => h('li', { key: x[0] },
-          h('button', { className: s.screen === x[0] || (x[0] === 'home' && s.screen.startsWith('loc-')) ? 'on' : '', onClick: () => go(x[0]) }, h('span', { className: 'n' }, String(i + 1).padStart(2, '0')), x[1],
-            window.PROPOSED.get(x[0]) && h('i', { className: 'has-prop', title: 'Has proposed changes' }),
-            h('span', { className: 'tag ' + x[2] }, { ap: 'APPROX', ds: 'DS', fig: 'FIGMA', prod: 'PROD' }[x[2]]))))),
+        h('div', { className: 'switch flow', role: 'tablist', 'aria-label': 'Flow' }, [['current', 'Current'], ['proposed', 'Proposed']].map(([m, l]) =>
+          h('button', { key: m, role: 'tab', 'aria-selected': mode === m, className: mode === m ? 'on' : '', onClick: () => setMode(m) }, l))),
+        h('h1', null, mode === 'proposed' ? 'Proposed flow' : 'Current flow'),
+        h('ol', null, visible.map((x, i) => h('li', { key: x.id },
+          h('button', { className: onPage(x) ? 'on' : '', onClick: () => go(x.id) }, h('span', { className: 'n' }, String(i + 1).padStart(2, '0')), x.label,
+            mode === 'proposed' && x.spec && x.tag !== 'new' && h('i', { className: 'has-prop', title: 'Changed in the proposed flow' }),
+            h('span', { className: 'tag ' + x.tag }, TAGS[x.tag]))))),
         h('div', { className: 'tools' },
-          h('button', { onClick: () => setS(INIT) }, 'Restart from splash'),
+          h('button', { onClick: () => update(() => INIT) }, 'Restart from splash'),
           mode === 'current' && REF[s.screen] && h('button', { className: overlay ? 'on' : '', onClick: () => setOverlay(!overlay) }, overlay ? 'Hide reference overlay' : 'Overlay reference (50%)'),
           h('div', { className: 'z' }, [['S', .8], ['M', 1], ['L', 1.15]].map(([l, z]) => h('button', { key: l, className: zoom === z ? 'on' : '', onClick: () => setZoom(z) }, l)))),
-        h('p', { className: 'note' }, 'Use the Current / Proposed switch above the phone, or press T, to flip views. Your place in the journey is kept. PROD = rebuilt from production screenshots. FIGMA = built from Figma (Common HP revamp; SRP from FTUE current funnel). A red dot marks screens with proposed changes.')),
-      h('main', { className: 'stage' }, frame(mode)));
+        h('p', { className: 'note' }, 'Pick a flow at the top (or press T); each flow keeps its own place in the journey. In the proposed flow a red dot marks a changed page and NEW a page that only exists there. PROD = rebuilt from production screenshots. FIGMA = built from Figma.')),
+      h('main', { className: 'stage' },
+        h('div', { className: 'col', key: mode },
+          h('div', { className: 'col-h' },
+            mode === 'proposed' && !spec && h('span', { className: 'none' }, 'Unchanged from current'),
+            opts.length > 1 && h('div', { className: 'opts', role: 'tablist', 'aria-label': 'Option' }, opts.map((o) => h('button', { key: o.key, role: 'tab', 'aria-selected': o === opt, className: o === opt ? 'on' : '', title: o.label || '', onClick: () => pickOpt(o.key) }, 'Option ' + o.key)))),
+          h('div', { className: 'pw' },
+            h('div', { className: 'pframe' }, h(D.IonsRoot, { device: true, style: { height: 800, minHeight: 0, background: page.bg, position: 'relative' } }, body, sheets()),
+              mode === 'current' && overlay && REF[s.screen] && h('img', { className: 'ref', src: REF[s.screen](s), alt: '' }))))));
   }
 
   window.FUNNEL = { Home, HA };
