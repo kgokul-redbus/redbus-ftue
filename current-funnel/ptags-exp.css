@@ -50,17 +50,16 @@
 .px-tag img{width:16px;height:16px}
 
 
-/* Persuasion tags · Proposed Option 3 (ptags-sol.js Card3): one manifestation per tier */
+/* Persuasion tags · Proposed Option 3 (ptags-sol.js Card3). Tag component (crystals) for comparators + features. */
 .p3-ic{flex:none;display:block}
-/* comparators · loud: filled metric pills, number first */
+/* operator block: name + bus type pair vertically centred on the rating, mini feature tags right below */
+.p3-op{display:flex;flex-direction:column;gap:6px}
+.p3-card .px-bo{align-items:center}
+.p3-mini{display:flex;flex-wrap:wrap;gap:4px}
+.p3-card .c-tag.p3-mini-tag{min-height:18px;gap:2px;padding:1px 5px 1px 4px;border-radius:var(--radius-xs);font-size:11px;line-height:14px;font-weight:500;letter-spacing:.05px;color:var(--content-neutral-high-default);background:var(--surface-neutral-high-default)}
+/* comparators · tags like today's (24 px, lavender), the loudest tier */
 .p3-comp{display:flex;flex-wrap:wrap;gap:6px}
-.p3-pill{display:flex;align-items:center;gap:4px;height:26px;padding:0 9px 0 7px;border-radius:999px;background:#eef1ff;color:#2f3f9e;font-size:12px;line-height:16px;font-weight:500;letter-spacing:.01px}
-.p3-pill b{font-size:13px;font-weight:700;color:#1d1d1d}
-.p3-pill--perf{background:#e8f6ec;color:#1f6b3a}
-/* features · medium: icon + label inline, under the bus type */
-.p3-feat{display:flex;flex-wrap:wrap;gap:2px 12px;margin:4px 0 0}
-.p3-feat span{display:flex;align-items:center;gap:4px;font-size:12px;line-height:16px;font-weight:500;color:#1d1d1d}
-.p3-feat .p3-ic{color:#6d6d6d}
-/* reassurance · quiet: plain green line with a check */
-.p3-re{display:flex;align-items:center;gap:3px;margin:-4px 0 0;font-size:11px;line-height:14px;letter-spacing:.05px;color:#1f7a3d}
-.p3-re .p3-ic{width:12px;height:12px}
+.p3-card .c-tag.p3-tag{min-height:24px;padding:0 var(--spacing-md);border-radius:var(--radius-md);font-size:12px;line-height:16px;font-weight:500;letter-spacing:.01px;color:#1d1d1d;background:#e9eaf7;white-space:nowrap}
+/* reassurance · ✓ list in the Ions secondary text colour */
+.p3-re{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:2px}
+.p3-re li{display:flex;align-items:center;gap:2px;font-size:12px;line-height:16px;letter-spacing:.01px;color:var(--content-neutral-medium-default)}
