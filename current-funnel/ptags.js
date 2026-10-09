@@ -28,10 +28,12 @@
         screens: F.BASE_SCREENS.filter((x) => x[0] === 'srp'),
         registry: () => PROPOSED,
         init: Object.assign({}, F.INIT, { screen: 'srp' }),
-        keys: { mode: 'ptags-flow-mode', opts: 'ptags-options' },
+        keys: { mode: 'ptags-flow-mode', opts: 'ptags-options', variant: 'ptags-variant' },
+        /* Current has two live versions of the SRP: what is in production, and the layout being tried next */
+        variants: () => ({ srp: [{ key: 'prod', label: 'Production' }, { key: 'exp', label: 'Experiment', render: (p) => h(window.PTAGS_EXP.SrpExperiment, p) }] }),
         section: 'ptags-solves',
         restart: 'Reset page',
-        note: 'Pick a flow at the top (or press T). The listing page (SRP) is the current production SRP from Figma; proposals for persuasion tags show under Proposed, with Option 1 / 2 when there are several directions.',
+        note: 'Pick a flow at the top (or press T). Current has two versions of the SRP: Production (live today) and Experiment (the layout being tried next, from the SRP - Cleanup Figma). Proposals for persuasion tags show under Proposed, with Option 1 / 2 when there are several directions.',
       });
     }
     return h(Flow);

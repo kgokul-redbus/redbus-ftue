@@ -1,0 +1,51 @@
+/* Persuasion tags · Current › Experiment cards (ptags-exp.js). Values from Figma "SRP - Cleanup", 360 px frame. */
+.px-list{display:flex;flex-direction:column;gap:8px;padding:8px 16px 32px}
+.px-card{width:328px;background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 2px 4px rgba(0,0,0,.08),0 4px 8px rgba(0,0,0,.08);cursor:pointer;transition:transform .15s}
+.px-card:active{transform:scale(.99)}
+.px-body{display:flex;flex-direction:column;gap:12px;padding:12px}
+.px-hd{display:flex;align-items:flex-start;height:24px}
+.px-primo{width:72px;height:24px}
+.px-deals{flex:1;display:flex;justify-content:flex-end;align-items:center;gap:4px;height:24px}
+.px-deal{height:20px;display:flex;align-items:center;padding:0 10px;font-size:11px;line-height:14px;letter-spacing:.05px;white-space:pre;color:#1d1d1d;background:linear-gradient(90deg,#e7dcf9 0,#f6f1fd 70%,#e7dcf9 100%);-webkit-mask:radial-gradient(circle at 0 50%,transparent 3.6px,#000 4px) left/51% 100% no-repeat,radial-gradient(circle at 100% 50%,transparent 3.6px,#000 4px) right/51% 100% no-repeat;mask:radial-gradient(circle at 0 50%,transparent 3.6px,#000 4px) left/51% 100% no-repeat,radial-gradient(circle at 100% 50%,transparent 3.6px,#000 4px) right/51% 100% no-repeat;border-radius:4px}
+.px-deal b{font-weight:700}
+.px-deal--empty{width:20px;padding:0;background:linear-gradient(90deg,#f7dfaf,#fdf3df)}
+.px-via{align-self:flex-start;padding:0 4px;border-radius:4px;background:linear-gradient(90deg,#dbe0fa,#fff);font-size:11px;line-height:14px;font-weight:500;letter-spacing:.05px;color:#1d1d1d}
+.px-svc{display:flex;align-items:flex-end}
+.px-svc>div:first-child{flex:1;min-width:0}
+.px-time{display:flex;align-items:center;gap:4px;margin:0;font-size:16px;line-height:22px;letter-spacing:-.18px;color:#1d1d1d}
+.px-time b{font-weight:700}
+.px-sep{width:12px;height:2px;border-radius:1px;background:#e6e6e6}
+.px-next{margin-left:-2px;padding:0 4px;border-radius:4px;background:#4b4b4b;color:#fff;font-size:11px;line-height:14px;letter-spacing:.05px}
+.px-lay{display:flex;align-items:center;gap:1px}
+.px-lay i{width:6px;height:2px;border-radius:1px;background:#e6e6e6}
+.px-lay em{width:16px;height:16px;border-radius:20px;background:#6d6d6d;display:grid;place-items:center}
+.px-lay img{width:12px;height:12px}
+.px-sub{display:flex;align-items:center;gap:6px;margin:0;font-size:12px;line-height:16px;letter-spacing:.01px;color:rgba(29,29,29,.69)}
+.px-sub span+span{margin-left:-2px}
+.px-dot{width:2px;height:2px;border-radius:50%;background:rgba(29,29,29,.69)}
+.px-warn{color:#b05219}
+.px-med{font-weight:500}
+.px-price{display:flex;flex-direction:column;align-items:flex-end;text-align:right}
+.px-price b{font-size:16px;line-height:22px;font-weight:700;letter-spacing:-.18px}
+.px-price small{font-size:11px;line-height:14px;letter-spacing:.05px;color:rgba(29,29,29,.49)}
+.px-bo{display:flex;align-items:center;gap:12px}
+.px-bo-l{flex:1;min-width:0}
+.px-nm{display:flex;align-items:center;gap:2px;margin:0;font-size:14px;line-height:20px;font-weight:700;letter-spacing:-.09px;color:#1d1d1d}
+.px-nm span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;letter-spacing:-.12px}
+.px-award{width:16px;height:16px;flex:none;object-fit:contain}
+.px-ad{flex:none;height:16px;padding:0 2px;border-radius:4px;background:#e6e6e6;font-size:11px;line-height:14px;font-weight:500;letter-spacing:.05px;color:rgba(29,29,29,.69);display:flex;align-items:center}
+.px-ty{display:flex;align-items:center;gap:2px;margin:0;font-size:12px;line-height:16px;letter-spacing:.01px;color:rgba(29,29,29,.69)}
+.px-ty img{width:16px;height:16px;flex:none}
+.px-ty:not(:has(img)){display:block}
+.px-rate{flex:none;width:42px;height:32px;display:flex;flex-direction:column;align-items:center;border-radius:6px;background:#dbf4d7}
+.px-rate b{width:42px;height:18px;display:flex;align-items:center;justify-content:center;gap:2px;border-radius:6px 6px 4px 4px;background:#007b28;color:#fdfdfd;font-size:12px;line-height:16px;font-weight:500}
+.px-rate svg{width:12px;height:12px}
+.px-rate span{font-size:11px;line-height:14px;letter-spacing:.05px;color:#1d1d1d}
+.px-rtb{display:flex;gap:8px}
+.px-rtb ul{flex:1;min-width:0;margin:0;padding:0;list-style:none}
+.px-rtb li{display:flex;align-items:center;gap:2px;font-size:12px;line-height:16px;letter-spacing:.01px;color:rgba(29,29,29,.69)}
+.px-rtb li img{width:16px;height:16px;flex:none}
+.px-rtb li span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.px-tag{align-self:flex-start;height:20px;display:flex;align-items:center;gap:4px;padding:0 4px;border-radius:6px;background:#dbf4d7;font-size:12px;line-height:16px;letter-spacing:.01px;color:#1d1d1d;white-space:nowrap}
+.px-tag img{width:16px;height:16px}
+.px-reward{display:block;width:320px;height:24px;margin:0 4px 4px}

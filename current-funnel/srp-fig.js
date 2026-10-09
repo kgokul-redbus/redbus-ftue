@@ -72,7 +72,8 @@
       h('div', { className: 'sf-tags' }, t.props.map((x, i) => h('span', { key: i, className: 'sf-tag' }, x))));
   }
 
-  function SrpFig({ s, set, go, noAds }) {
+  /* list: optional render override for the listings (e.g. the persuasion-tag experiment cards) */
+  function SrpFig({ s, set, go, noAds, list }) {
     const [on, setOn] = useState({});
     const [m, d] = (s.dateKey || '3-8').split('-').map(Number);
     const dt = new Date(2026, 6 + m, d);
@@ -112,9 +113,9 @@
               h('div', { className: 'l' }, h('img', { src: A + 'lg-ksrtc.png', alt: 'KSRTC' }),
                 h('div', null, h('div', { className: 'n' }, h('b', null, 'KSRTC'), h('small', null, '(108 Buses)')), h('p', { className: 'kn' }, 'ಕರ್ನಾಟಕ ರಾಜ್ಯ ರಸ್ತೆ ಸಾರಿಗೆ ಸಂಸ್ಥೆ'), h('p', { className: 'fr' }, 'From ₹800'))),
               h(window.IndiaBusDS.Icon, { name: 'ion-chevron-down', style: { transform: 'rotate(-90deg)' } })))),
-        h('div', { className: 'sf-list', style: { marginTop: 2 } }, TUPLES.map((t, i) => h(Tuple, { key: i, t, go })))),
+        list ? list({ s, set, go }) : h('div', { className: 'sf-list', style: { marginTop: 2 } }, TUPLES.map((t, i) => h(Tuple, { key: i, t, go })))),
       s.sheet === 'date' && h(window.SEARCH.DateSheet, { s, set }));
   }
 
-  window.SRPFIG = { SrpFig };
+  window.SRPFIG = { SrpFig, parts: { Deal, Rate, A } };
 })();

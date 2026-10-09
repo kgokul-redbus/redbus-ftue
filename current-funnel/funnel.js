@@ -274,8 +274,13 @@
     const sheets = () => h(Fragment, null,
       s.screen === 'srp' && h(D.FilterSheet, { open: s.sheet === 'filter', onClose: () => set({ sheet: null }), onApply: () => set({ sheet: null }), onClear: () => set({ sheet: null }) }),
       s.screen === 'srp' && h(D.RaySheet, { open: s.sheet === 'ray', onClose: () => set({ sheet: null }) }));
+    /* Current can hold several live versions of a page (e.g. Production / Experiment): cfg.variants[screen] */
+    const vars = mode === 'current' && cfg.variants ? (cfg.variants()[s.screen] || []) : [];
+    const [varPick, setVarPick] = useState(() => { try { return JSON.parse(localStorage.getItem(cfg.keys.variant || '_') || '{}'); } catch (e) { return {}; } });
+    const variant = vars.find((v) => v.key === varPick[s.screen]) || vars[0];
+    const pickVar = (k) => setVarPick((x) => { const n = Object.assign({}, x, { [s.screen]: k }); try { localStorage.setItem(cfg.keys.variant, JSON.stringify(n)); } catch (e) {} return n; });
     const Current = () => h(page.render, { s, set, go });
-    const body = opt ? opt.render({ s, set, go, Current }) : Current();
+    const body = opt ? opt.render({ s, set, go, Current }) : variant && variant.render ? variant.render({ s, set, go, Current }) : Current();
     const visible = flow.filter((x) => !x.id.startsWith('loc-'));
     const onPage = (x) => s.screen === x.id || (x.id === 'home' && s.screen.startsWith('loc-'));
     return h('div', { className: 'shell' },
@@ -295,6 +300,7 @@
       h('main', { className: 'stage' },
         h('div', { className: 'col', key: mode },
           h('div', { className: 'col-h' },
+            vars.length > 1 && h('div', { className: 'opts', role: 'tablist', 'aria-label': 'Version' }, vars.map((v) => h('button', { key: v.key, role: 'tab', 'aria-selected': v === variant, className: v === variant ? 'on' : '', onClick: () => pickVar(v.key) }, v.label))),
             opts.length > 1 && h('div', { className: 'opts', role: 'tablist', 'aria-label': 'Option' }, opts.map((o, i) => h('button', { key: o.key, role: 'tab', 'aria-selected': o === opt, className: o === opt ? 'on' : '', title: o.label || '', onClick: () => pickOpt(o.key) }, 'Option ' + (i + 1))))),
           h('div', { className: 'pw' },
             h('div', { className: 'pframe' }, h(D.IonsRoot, { device: true, style: { height: 800, minHeight: 0, background: page.bg, position: 'relative' } }, body, sheets()),
