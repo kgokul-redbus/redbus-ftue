@@ -14,7 +14,7 @@ Designers work on this repo through Claude Code. Claude does all git, server and
 
 ## Design rules
 - Build only the solves the designer asks for. Don't invent solves.
-- A screen's Current and Proposed versions are compared with the switch, not side by side. Several directions for one solve go under Option A/B.
+- A screen's Current and Proposed versions are compared with the switch, not side by side. Several directions for one solve go under Option 1/2 (keys A, B in `solves.js`).
 - Use Rubicon Ions tokens: colours, type roles, `--radius-*`, `--spacing-*` and Ions icons (`IndiaBusDS.Icon`, `ion-*`). The font is Inter. Prefer soft custom shadows over the Ions elevation levels.
 - Leave the **current** screens untouched. Proposals live in `current-funnel/sol-*.js/.css` and are registered in `current-funnel/solves.js`.
 - Respect `prefers-reduced-motion`.

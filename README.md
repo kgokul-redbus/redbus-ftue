@@ -5,7 +5,7 @@ interventions to stakeholders. It opens as one presentation with top-level tabs:
 
 - **Actionables** — the research-backed problems and solves (`current-funnel/actionables.html`).
 - **Design** — the funnel on a phone. Every screen has a **Current / Proposed** switch; solves with several
-  directions show an **Option A / B** switch.
+  directions show an **Option 1 / 2** switch.
 
 > Internal material (production screenshots, research, unreleased designs). Keep the repo and the hosted
 > previews private to redBus.
