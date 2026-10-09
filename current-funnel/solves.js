@@ -48,6 +48,13 @@
     render: (p) => h(window.SOLLOGIN.OtpPage, p),
   });
 
+  /* SOL-14 · remove the offer and collection cards above the filters so the filters get the first fold */
+  window.PROPOSED.add('srp', {
+    sols: ['SOL-14'],
+    note: 'No offer / collection carousel; filters and the AI smart filter sit right under the header.',
+    render: (p) => h(window.SRPFIG.SrpFig, Object.assign({}, p, { noAds: true })),
+  });
+
   /* SOL-24 · contextualise permission requests (sol-onb.js): location explains its value before the system dialog;
      no notification / review prompts on a first home visit */
   window.PROPOSED.add('location', {

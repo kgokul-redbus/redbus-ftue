@@ -5,6 +5,16 @@
   const { useState, useEffect } = React;
   const A = 'assets/srpf/';
 
+  /* offer & collection carousel, as in production (SOL-14 removes it in the proposed flow) */
+  const ADS = [
+    { img: 'ad-nuego.png', w: 128 },
+    { full: 'ad-lastmin.png' },
+    { bg: '#e2ecec', tag: 'Try -new', text: 'Up to ₹150 off with new operator', ill: 'c3-ill.png', clip: true, s: { left: -5.02, top: -5.29, width: 59, height: 56, transform: 'rotate(7.72deg)' } },
+    { bg: '#e4ecfd', tag: 'Early buy', text: 'Buy early to get special prices', ill: 'c4-ill.png', box: { left: 5, top: 2, width: 40, height: 46 }, s: { left: 0, top: '-5.5%', width: '100%', height: '115.77%' } },
+    { bg: '#fde6e5', tag: 'Return trip', text: 'Get discount on  return trip', ill: 'c5-ill.png', box: { left: 2, top: 5, width: 45, height: 40 }, s: { left: '-5.91%', top: '-13.77%', width: '111.83%', height: '126.95%' } },
+    { bg: '#ebdbff', tag: 'Exclusive', text: ['Hand picked', 'deals for you'], ill: 'c6-ill-a.png', s: { left: 13.93, top: -0.78, width: 36, height: 66, transform: 'rotate(-15deg)' } },
+    { bg: '#fed7e7', tag: 'Women deal', text: 'Exclusive deals for women', ill: 'c7-ill.png', s: { left: -3, top: 0, width: 57, height: 54, transform: 'scaleX(-1)' } },
+  ];
   const ROW1 = [['Filter & Sort', 'tune'], ['Primo bus'], ['Special price'], ['Free Cancellation'], ['AC'], ['Sleeper'], ['Single seat'], ['Seater'], ['Non AC'], ['18:00 – 00:00']];
   const ROW2 = ['Discover Bharat Sale', 'Early Buy upto 10%'];
 
@@ -62,7 +72,7 @@
       h('div', { className: 'sf-tags' }, t.props.map((x, i) => h('span', { key: i, className: 'sf-tag' }, x))));
   }
 
-  function SrpFig({ s, set, go }) {
+  function SrpFig({ s, set, go, noAds }) {
     const [on, setOn] = useState({});
     const [m, d] = (s.dateKey || '3-8').split('-').map(Number);
     const dt = new Date(2026, 6 + m, d);
@@ -77,6 +87,15 @@
             h('button', { 'aria-label': 'Back', onClick: () => go('home') }, h('img', { src: A + 'ic-back.png', alt: '' })),
             h('div', { className: 't' }, h('b', null, (s.origin || 'Bengaluru') + ' → ' + (s.dest || 'Chennai')), h('span', null, '237 Buses')),
             h('button', { className: 'sf-date', 'aria-label': 'Change date', onClick: () => set({ sheet: 'date' }) }, h('b', null, dt.getDate() + ' ' + dt.toLocaleDateString('en-GB', { month: 'short' })), h('small', null, dt.toLocaleDateString('en-GB', { weekday: 'short' }))))),
+        !noAds && h('div', { className: 'sf-ads sf-x' }, ADS.map((a, i) => a.img
+          ? h('div', { key: i, className: 'sf-ad sf-ad--img' }, h('img', { src: A + a.img, alt: '' }))
+          : a.full
+            ? h('div', { key: i, className: 'sf-ad sf-ad--full' }, h('img', { src: A + a.full, alt: 'Last min. Limited time steal deals' }))
+            : h('div', { key: i, className: 'sf-ad', style: { background: a.bg } },
+              h('span', { className: 'sf-tkt' }, a.tag),
+              h('p', null, Array.isArray(a.text) ? [a.text[0], h('br', { key: 'b' }), a.text[1]] : a.text),
+              h('div', { className: 'ill', style: a.clip ? { overflow: 'hidden' } : null },
+                a.box ? h('div', { style: Object.assign({ position: 'absolute', overflow: 'hidden' }, a.box) }, h('img', { src: A + a.ill, alt: '', style: a.s })) : h('img', { src: A + a.ill, alt: '', style: a.s }))))),
         h('div', { className: 'sf-filters' },
           h('div', { className: 'sf-chips sf-x' },
             h('div', { className: 'row' }, ROW1.map(([l, ic]) => chip(l, ic))),
