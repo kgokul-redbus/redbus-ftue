@@ -25,7 +25,7 @@ body{margin:0;background:var(--d-canvas);color:var(--d-ink);font:14px/1.5 var(--
 .seg button.on,.switch button.on,.col-h .opts button.on{background:var(--d-ink);color:#fff}
 
 /* top bar */
-.deck-bar{position:sticky;top:0;z-index:100;height:var(--bar);display:flex;align-items:center;gap:32px;padding:0 24px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:saturate(1.4) blur(12px);backdrop-filter:saturate(1.4) blur(12px);border-bottom:1px solid var(--d-line)}
+.deck-bar{position:sticky;top:0;z-index:100;height:var(--bar);display:flex;align-items:center;gap:32px;padding:0 24px 0 16px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:saturate(1.4) blur(12px);backdrop-filter:saturate(1.4) blur(12px);border-bottom:1px solid var(--d-line)}
 .deck-brand{display:flex;align-items:center;gap:10px;flex:none}
 .deck-brand img{height:22px;width:auto;display:block}
 .deck-tabs{display:flex;gap:4px;height:100%}

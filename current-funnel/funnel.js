@@ -296,7 +296,7 @@
           h('button', { onClick: () => update(() => INIT) }, cfg.restart),
           mode === 'current' && REF[s.screen] && h('button', { className: overlay ? 'on' : '', onClick: () => setOverlay(!overlay) }, overlay ? 'Hide reference overlay' : 'Overlay reference (50%)'),
           h('div', { className: 'z' }, [['S', .8], ['M', 1], ['L', 1.15]].map(([l, z]) => h('button', { key: l, className: zoom === z ? 'on' : '', onClick: () => setZoom(z) }, l)))),
-        h('p', { className: 'note' }, cfg.note)),
+        cfg.note && h('p', { className: 'note' }, cfg.note)),
       h('main', { className: 'stage' },
         h('div', { className: 'col', key: mode },
           h('div', { className: 'col-h' },

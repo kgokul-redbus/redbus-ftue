@@ -33,7 +33,6 @@
         variants: () => ({ srp: [{ key: 'prod', label: 'Production' }, { key: 'exp', label: 'Experiment', render: (p) => h(window.PTAGS_EXP.SrpExperiment, p) }] }),
         section: 'ptags-solves',
         restart: 'Reset page',
-        note: 'Pick a flow at the top (or press T). Current has two versions of the SRP: Production (live today) and Experiment (the layout being tried next, from the SRP - Cleanup Figma). Proposals for persuasion tags show under Proposed, with Option 1 / 2 when there are several directions.',
       });
     }
     return h(Flow);
