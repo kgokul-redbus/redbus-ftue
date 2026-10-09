@@ -55,6 +55,7 @@
 /* operator block: name + bus type pair vertically centred on the rating, features right below */
 .p3-op{display:flex;flex-direction:column;gap:var(--spacing-2xs)}
 .p3-card .px-bo{align-items:center}
+.p3-card .px-ty{color:var(--content-neutral-high-default)}
 /* features · icon + text, medium weight */
 .p3-feat{display:flex;flex-wrap:wrap;gap:2px 12px}
 .p3-feat span{display:flex;align-items:center;gap:4px;font-size:12px;line-height:16px;font-weight:500;letter-spacing:.01px;color:var(--content-neutral-high-default)}
