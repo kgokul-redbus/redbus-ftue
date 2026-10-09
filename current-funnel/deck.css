@@ -36,8 +36,9 @@ body{margin:0;background:var(--d-canvas);color:var(--d-ink);font:14px/1.5 var(--
 .deck-tabs button:focus-visible{outline:2px solid var(--d-accent);outline-offset:-8px;border-radius:10px}
 /* project switcher beside the logo */
 .deck-proj{position:relative;flex:none}
-.deck-proj-btn{all:unset;box-sizing:border-box;display:flex;align-items:center;gap:8px;height:36px;padding:0 10px 0 14px;border:1px solid var(--d-line);border-radius:999px;background:var(--d-surface);cursor:pointer;font:600 13px/1 var(--d-font);color:var(--d-ink);transition:border-color .15s var(--d-ease),background .15s var(--d-ease)}
-.deck-proj-btn small{font:500 12px/1 var(--d-font);color:var(--d-ink-3)}
+.deck-proj-btn{all:unset;box-sizing:border-box;display:flex;align-items:center;gap:8px;height:36px;padding:0 10px 0 12px;border:1px solid var(--d-line);border-radius:999px;background:var(--d-surface);cursor:pointer;font:600 13px/1 var(--d-font);color:var(--d-ink);transition:border-color .15s var(--d-ease),background .15s var(--d-ease)}
+.deck-proj-btn img{height:20px;width:auto;display:block;mix-blend-mode:multiply}
+.deck-proj-btn b{padding-left:10px;border-left:1px solid var(--d-line);line-height:20px}
 .deck-proj-btn svg{color:var(--d-ink-3);transition:transform .2s var(--d-ease)}
 .deck-proj-btn:hover,.deck-proj-btn.open{border-color:var(--d-line-2)}
 .deck-proj-btn.open svg{transform:rotate(180deg)}
@@ -50,7 +51,7 @@ body{margin:0;background:var(--d-canvas);color:var(--d-ink);font:14px/1.5 var(--
 @keyframes deckMenu{from{opacity:0;transform:translateY(-4px)}}
 .deck-sec[hidden]{display:none}
 .deck-sec--frame iframe{display:block;width:100%;height:calc(100vh - var(--bar));border:0;background:var(--d-canvas)}
-@media (max-width:700px){.deck-bar{gap:12px;padding:0 12px}.deck-proj-btn small{display:none}}
+@media (max-width:700px){.deck-bar{gap:12px;padding:0 12px}}
 
 /* Design: rail + stage */
 .shell{display:grid;grid-template-columns:288px 1fr;min-height:calc(100vh - var(--bar))}
