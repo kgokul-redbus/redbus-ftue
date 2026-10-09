@@ -322,18 +322,60 @@
     }, [zoom]);
     return h('iframe', { ref, src, title });
   }
+  /* Projects share one host and one shell. Each has its own top tabs; the switcher sits at the top right.
+     Another project registers its tabs in its own file (e.g. ptags.js sets window.PTAGS = { sections }). */
+  const PROJECTS = () => [
+    { id: 'ftue', name: 'FTUE', title: 'redBus FTUE', sections: SECTIONS },
+    { id: 'ptags', name: 'Persuasion tags', title: 'redBus Persuasion tags', sections: (window.PTAGS && window.PTAGS.sections) || [] },
+  ];
+  const store = { get: (k) => { try { return localStorage.getItem(k); } catch (e) { return null; } }, set: (k, v) => { try { localStorage.setItem(k, v); } catch (e) {} } };
+  /* hash: #section (FTUE, kept for old links) or #project/section */
+  function readHash(list) {
+    const [a, b] = location.hash.slice(1).split('/');
+    const byId = list.find((p) => p.id === a);
+    if (byId) return { proj: byId.id, sec: byId.sections.some((x) => x[0] === b) ? b : null };
+    if (list[0].sections.some((x) => x[0] === a)) return { proj: 'ftue', sec: a };
+    return null;
+  }
+
+  function ProjectMenu({ list, proj, onPick }) {
+    const [open, setOpen] = useState(false);
+    const ref = useRef(null);
+    useEffect(() => {
+      if (!open) return;
+      const off = (e) => { if (!ref.current.contains(e.target)) setOpen(false); };
+      const esc = (e) => { if (e.key === 'Escape') setOpen(false); };
+      document.addEventListener('pointerdown', off); document.addEventListener('keydown', esc);
+      return () => { document.removeEventListener('pointerdown', off); document.removeEventListener('keydown', esc); };
+    }, [open]);
+    const cur = list.find((p) => p.id === proj);
+    return h('div', { className: 'deck-proj', ref },
+      h('button', { className: 'deck-proj-btn' + (open ? ' open' : ''), 'aria-haspopup': 'listbox', 'aria-expanded': open, onClick: () => setOpen((o) => !o) },
+        h('small', null, 'Project'), h('b', null, cur.name),
+        h('svg', { viewBox: '0 0 16 16', width: 14, height: 14, 'aria-hidden': true }, h('path', { d: 'M4 6l4 4 4-4', fill: 'none', stroke: 'currentColor', strokeWidth: 1.8, strokeLinecap: 'round', strokeLinejoin: 'round' }))),
+      open && h('ul', { className: 'deck-proj-menu', role: 'listbox', 'aria-label': 'Project' }, list.map((p) => h('li', { key: p.id },
+        h('button', { role: 'option', 'aria-selected': p.id === proj, className: p.id === proj ? 'on' : '', onClick: () => { setOpen(false); onPick(p.id); } },
+          h('span', null, p.name),
+          p.id === proj && h('svg', { viewBox: '0 0 16 16', width: 14, height: 14, 'aria-hidden': true }, h('path', { d: 'M3.5 8.5l3 3 6-7', fill: 'none', stroke: 'currentColor', strokeWidth: 1.8, strokeLinecap: 'round', strokeLinejoin: 'round' })))))));
+  }
+
   function Deck() {
-    const initial = () => { const k = location.hash.slice(1); if (SECTIONS.some((x) => x[0] === k)) return k; try { return localStorage.getItem('ftue-section') || SECTIONS[0][0]; } catch (e) { return SECTIONS[0][0]; } };
-    const [sec, setSecRaw] = useState(initial);
-    const setSec = (k) => { setSecRaw(k); try { localStorage.setItem('ftue-section', k); } catch (e) {} history.replaceState(null, '', '#' + k); };
-    useEffect(() => { const f = () => { const k = location.hash.slice(1); if (SECTIONS.some((x) => x[0] === k)) setSecRaw(k); }; window.addEventListener('hashchange', f); return () => window.removeEventListener('hashchange', f); }, []);
-    useEffect(() => { document.body.dataset.section = sec; }, [sec]);
+    const list = PROJECTS();
+    const firstSec = (pid) => { const p = list.find((x) => x.id === pid); const saved = store.get('deck-section-' + pid) || (pid === 'ftue' ? store.get('ftue-section') : null); return p.sections.some((x) => x[0] === saved) ? saved : (p.sections[0] || [''])[0]; };
+    const init = () => { const r = readHash(list); const pid = r ? r.proj : (list.some((p) => p.id === store.get('deck-project')) ? store.get('deck-project') : 'ftue'); return { proj: pid, sec: (r && r.sec) || firstSec(pid) }; };
+    const [view, setView] = useState(init);
+    const write = (v) => { store.set('deck-project', v.proj); store.set('deck-section-' + v.proj, v.sec); history.replaceState(null, '', '#' + v.proj + '/' + v.sec); };
+    const go = (v) => { setView(v); write(v); };
+    useEffect(() => { const f = () => { const r = readHash(list); if (r) setView({ proj: r.proj, sec: r.sec || firstSec(r.proj) }); }; window.addEventListener('hashchange', f); return () => window.removeEventListener('hashchange', f); }, []);
+    const project = list.find((p) => p.id === view.proj);
+    useEffect(() => { document.body.dataset.section = view.proj === 'ftue' ? view.sec : view.proj + '-' + view.sec; document.title = project.title; }, [view]);
     return h(Fragment, null,
       h('header', { className: 'deck-bar' },
-        h('div', { className: 'deck-brand' }, h('img', { src: 'assets/onb/logo-redbus.png', alt: 'redBus' }), h('span', null, 'FTUE')),
-        h('nav', { className: 'deck-tabs', role: 'tablist' }, SECTIONS.map(([id, label]) => h('button', { key: id, role: 'tab', 'aria-selected': sec === id, className: sec === id ? 'on' : '', onClick: () => setSec(id) }, label)))),
-      SECTIONS.map(([id, , spec]) => h('section', { key: id, className: 'deck-sec deck-sec--' + (spec.src ? 'frame' : 'app'), hidden: sec !== id },
-        spec.src ? h(Frame, { src: spec.src, title: id, zoom: spec.zoom, css: spec.css, js: spec.js }) : h(spec.render))));
+        h('div', { className: 'deck-brand' }, h('img', { src: 'assets/onb/logo-redbus.png', alt: 'redBus' }), h('span', null, project.name)),
+        h('nav', { className: 'deck-tabs', role: 'tablist' }, project.sections.map(([id, label]) => h('button', { key: id, role: 'tab', 'aria-selected': view.sec === id, className: view.sec === id ? 'on' : '', onClick: () => go({ proj: view.proj, sec: id }) }, label))),
+        h(ProjectMenu, { list, proj: view.proj, onPick: (pid) => pid !== view.proj && go({ proj: pid, sec: firstSec(pid) }) })),
+      list.map((p) => h(Fragment, { key: p.id }, p.sections.map(([id, , spec]) => h('section', { key: p.id + id, className: 'deck-sec deck-sec--' + (spec.src ? 'frame' : 'app'), hidden: p.id !== view.proj || view.sec !== id },
+        spec.src ? h(Frame, { src: spec.src, title: id, zoom: spec.zoom, css: spec.css, js: spec.js }) : h(spec.render))))));
   }
 
   ReactDOM.createRoot(document.getElementById('app')).render(h(Deck));
