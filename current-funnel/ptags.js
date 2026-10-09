@@ -29,8 +29,8 @@
         registry: () => PROPOSED,
         init: Object.assign({}, F.INIT, { screen: 'srp' }),
         keys: { mode: 'ptags-flow-mode', opts: 'ptags-options', variant: 'ptags-variant' },
-        /* Current has two live versions of the SRP: what is in production, and the layout being tried next */
-        variants: () => ({ srp: [{ key: 'prod', label: 'Production' }, { key: 'exp', label: 'Experiment', render: (p) => h(window.PTAGS_EXP.SrpExperiment, p) }] }),
+        /* Current has two live versions of the SRP (production, and the layout being tried next), both with today's shown tags */
+        variants: () => ({ srp: [{ key: 'prod', label: 'Production', render: (p) => h(window.PTAGS_SRP.prodShown, p) }, { key: 'exp', label: 'Experiment', render: (p) => h(window.PTAGS_SRP.expShown, p) }] }),
         section: 'ptags-solves',
         restart: 'Reset page',
       });

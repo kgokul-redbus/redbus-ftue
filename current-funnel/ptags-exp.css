@@ -43,9 +43,9 @@
 .px-rate span{font-size:11px;line-height:14px;letter-spacing:.05px;color:#1d1d1d}
 .px-rtb{display:flex;gap:8px}
 .px-rtb ul{flex:1;min-width:0;margin:0;padding:0;list-style:none}
-.px-rtb li{display:flex;align-items:center;gap:2px;font-size:12px;line-height:16px;letter-spacing:.01px;color:rgba(29,29,29,.69)}
+.px-rtb li{display:flex;align-items:flex-start;gap:2px;font-size:12px;line-height:16px;letter-spacing:.01px;color:rgba(29,29,29,.69)}
 .px-rtb li img{width:16px;height:16px;flex:none}
-.px-rtb li span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.px-rtb li span{min-width:0}
 .px-tag{align-self:flex-start;height:20px;display:flex;align-items:center;gap:4px;padding:0 4px;border-radius:6px;background:#dbf4d7;font-size:12px;line-height:16px;letter-spacing:.01px;color:#1d1d1d;white-space:nowrap}
 .px-tag img{width:16px;height:16px}
 
