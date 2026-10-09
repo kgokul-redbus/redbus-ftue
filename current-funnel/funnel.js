@@ -221,9 +221,13 @@
      registered proposal renders it (and may be renamed), plus pages a proposal inserts (`after`) or drops
      (PROPOSED.drop). Each flow keeps its own journey, so flow changes never fight the other flow's state. */
   const TAGS = { ap: 'APPROX', ds: 'DS', fig: 'FIGMA', prod: 'PROD', new: 'NEW' };
+  /* makeFlow builds the flow viewer for one project: cfg = { screens, registry: () => PROPOSED-like, init, ref,
+     keys: { mode, opts }, section (body data-section where T flips flows), restart, note } */
+  function makeFlow(cfg) {
+  const SCREENS = cfg.screens, INIT = cfg.init, REF = cfg.ref || {};
   const currentFlow = () => SCREENS.map(([id, label, tag, render, bg]) => ({ id, label, tag, render, bg }));
   function proposedFlow() {
-    const P = window.PROPOSED, dropped = P.dropped || {};
+    const P = cfg.registry(), dropped = P.dropped || {};
     const list = currentFlow().filter((x) => !dropped[x.id]).map((x) => {
       const spec = P.get(x.id);
       return spec ? Object.assign({}, x, { label: spec.label || x.label, spec }) : x;
@@ -237,9 +241,9 @@
     return list;
   }
 
-  function App() {
-    const [mode, setModeRaw] = useState(() => { try { return localStorage.getItem('ftue-funnel-mode') === 'proposed' ? 'proposed' : 'current'; } catch (e) { return 'current'; } });
-    const setMode = (m) => { setModeRaw(m); try { localStorage.setItem('ftue-funnel-mode', m); } catch (e) {} };
+  return function FlowApp() {
+    const [mode, setModeRaw] = useState(() => { try { return localStorage.getItem(cfg.keys.mode) === 'proposed' ? 'proposed' : 'current'; } catch (e) { return 'current'; } });
+    const setMode = (m) => { setModeRaw(m); try { localStorage.setItem(cfg.keys.mode, m); } catch (e) {} };
     const [states, setStates] = useState({ current: INIT, proposed: INIT });
     const s = states[mode];
     const [zoom, setZoom] = useState(1);
@@ -247,7 +251,8 @@
     useEffect(() => { document.documentElement.style.setProperty('--z', zoom); }, [zoom]);
     const update = (fn) => setStates((all) => Object.assign({}, all, { [mode]: fn(all[mode]) }));
     const set = (p) => update((x) => Object.assign({}, x, p));
-    const go = (screen, p) => update((x) => {
+    /* links to pages outside this project's flow (e.g. a tuple tap on a single-page project) are ignored */
+    const go = (screen, p) => SCREENS.some((x) => x[0] === screen) && update((x) => {
       const n = Object.assign({}, x, { screen, sheet: null, bd: false }, p);
       if (['points', 'custinfo', 'payment', 'ticket'].includes(screen) && !n.seats.length) n.seats = ['L1'];
       if (['custinfo', 'payment', 'ticket'].includes(screen)) { n.bp = n.bp || { name: 'Kalasipalayam', time: '21:45' }; n.dp = n.dp || { name: 'Panimalar College', time: '05:55' }; n.bpN = n.bpN || n.bp.name; n.dpN = n.dpN || n.dp.name; if (!n.pax.length) n.pax = ['Shubham Sharma']; }
@@ -258,12 +263,12 @@
     const page = flow.find((x) => x.id === s.screen) || currentFlow().find((x) => x.id === s.screen);
     const spec = mode === 'proposed' ? page.spec : null;
     /* a solve can carry several options (spec.options); the chosen one is remembered per screen */
-    const [optPick, setOptPick] = useState(() => { try { return JSON.parse(localStorage.getItem('ftue-options') || '{}'); } catch (e) { return {}; } });
+    const [optPick, setOptPick] = useState(() => { try { return JSON.parse(localStorage.getItem(cfg.keys.opts) || '{}'); } catch (e) { return {}; } });
     const opts = spec ? (spec.options || [{ key: 'A', render: spec.render, note: spec.note }]) : [];
     const opt = opts.find((o) => o.key === optPick[s.screen]) || opts[0];
-    const pickOpt = (k) => setOptPick((x) => { const n = Object.assign({}, x, { [s.screen]: k }); try { localStorage.setItem('ftue-options', JSON.stringify(n)); } catch (e) {} return n; });
+    const pickOpt = (k) => setOptPick((x) => { const n = Object.assign({}, x, { [s.screen]: k }); try { localStorage.setItem(cfg.keys.opts, JSON.stringify(n)); } catch (e) {} return n; });
     useEffect(() => {
-      const f = (e) => { if ((e.key === 't' || e.key === 'T') && document.body.dataset.section === 'design' && !/INPUT|TEXTAREA/.test(document.activeElement.tagName)) setModeRaw((m) => { const n = m === 'current' ? 'proposed' : 'current'; try { localStorage.setItem('ftue-funnel-mode', n); } catch (x) {} return n; }); };
+      const f = (e) => { if ((e.key === 't' || e.key === 'T') && document.body.dataset.section === cfg.section && !/INPUT|TEXTAREA/.test(document.activeElement.tagName)) setModeRaw((m) => { const n = m === 'current' ? 'proposed' : 'current'; try { localStorage.setItem(cfg.keys.mode, n); } catch (x) {} return n; }); };
       window.addEventListener('keydown', f); return () => window.removeEventListener('keydown', f);
     }, []);
     const sheets = () => h(Fragment, null,
@@ -283,10 +288,10 @@
             mode === 'proposed' && x.spec && x.tag !== 'new' && h('i', { className: 'has-prop', title: 'Changed in the proposed flow' }),
             h('span', { className: 'tag ' + x.tag }, TAGS[x.tag]))))),
         h('div', { className: 'tools' },
-          h('button', { onClick: () => update(() => INIT) }, 'Restart from splash'),
+          h('button', { onClick: () => update(() => INIT) }, cfg.restart),
           mode === 'current' && REF[s.screen] && h('button', { className: overlay ? 'on' : '', onClick: () => setOverlay(!overlay) }, overlay ? 'Hide reference overlay' : 'Overlay reference (50%)'),
           h('div', { className: 'z' }, [['S', .8], ['M', 1], ['L', 1.15]].map(([l, z]) => h('button', { key: l, className: zoom === z ? 'on' : '', onClick: () => setZoom(z) }, l)))),
-        h('p', { className: 'note' }, 'Pick a flow at the top (or press T); each flow keeps its own place in the journey. In the proposed flow a red dot marks a changed page and NEW a page that only exists there. PROD = rebuilt from production screenshots. FIGMA = built from Figma.')),
+        h('p', { className: 'note' }, cfg.note)),
       h('main', { className: 'stage' },
         h('div', { className: 'col', key: mode },
           h('div', { className: 'col-h' },
@@ -294,9 +299,16 @@
           h('div', { className: 'pw' },
             h('div', { className: 'pframe' }, h(D.IonsRoot, { device: true, style: { height: 800, minHeight: 0, background: page.bg, position: 'relative' } }, body, sheets()),
               mode === 'current' && overlay && REF[s.screen] && h('img', { className: 'ref', src: REF[s.screen](s), alt: '' }))))));
+  };
   }
 
-  window.FUNNEL = { Home, HA };
+  const App = makeFlow({
+    screens: SCREENS, registry: () => window.PROPOSED, init: INIT, ref: REF,
+    keys: { mode: 'ftue-funnel-mode', opts: 'ftue-options' }, section: 'design', restart: 'Restart from splash',
+    note: 'Pick a flow at the top (or press T); each flow keeps its own place in the journey. In the proposed flow a red dot marks a changed page and NEW a page that only exists there. PROD = rebuilt from production screenshots. FIGMA = built from Figma.',
+  });
+
+  window.FUNNEL = { Home, HA, makeFlow, INIT, BASE_SCREENS: SCREENS };
 
   /* ------------------------------------------------------------ presentation sections
      Add a section by appending to SECTIONS: [id, label, { src: 'page.html' } | { render: Component }]. */
