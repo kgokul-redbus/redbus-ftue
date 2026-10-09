@@ -28,22 +28,21 @@ body{margin:0;background:var(--d-canvas);color:var(--d-ink);font:14px/1.5 var(--
 .deck-bar{position:sticky;top:0;z-index:100;height:var(--bar);display:flex;align-items:center;gap:32px;padding:0 24px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:saturate(1.4) blur(12px);backdrop-filter:saturate(1.4) blur(12px);border-bottom:1px solid var(--d-line)}
 .deck-brand{display:flex;align-items:center;gap:10px;flex:none}
 .deck-brand img{height:22px;width:auto;display:block}
-.deck-brand span{font-size:12px;line-height:20px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--d-ink-2);padding:0 8px;border-radius:999px;background:var(--d-sunken)}
 .deck-tabs{display:flex;gap:4px;height:100%}
 .deck-tabs button{all:unset;position:relative;display:flex;align-items:center;padding:0 12px;font:600 14px/1 var(--d-font);color:var(--d-ink-3);cursor:pointer;transition:color .18s var(--d-ease)}
 .deck-tabs button:hover{color:var(--d-ink)}
 .deck-tabs button.on{color:var(--d-ink)}
 .deck-tabs button.on::after{content:"";position:absolute;left:12px;right:12px;bottom:-1px;height:2px;border-radius:2px;background:var(--d-accent)}
 .deck-tabs button:focus-visible{outline:2px solid var(--d-accent);outline-offset:-8px;border-radius:10px}
-/* project switcher (top right) */
-.deck-proj{position:relative;margin-left:auto;flex:none}
-.deck-proj-btn{all:unset;box-sizing:border-box;display:flex;align-items:center;gap:8px;height:36px;padding:0 10px 0 14px;border:1px solid var(--d-line);border-radius:999px;background:var(--d-surface);cursor:pointer;font:600 13px/1 var(--d-font);color:var(--d-ink);transition:border-color .15s var(--d-ease),background .15s var(--d-ease)}
-.deck-proj-btn small{font:500 12px/1 var(--d-font);color:var(--d-ink-3)}
+/* project switcher: the pill beside the logo */
+.deck-proj{position:relative;flex:none}
+.deck-proj-btn{all:unset;box-sizing:border-box;display:flex;align-items:center;gap:6px;height:24px;padding:0 6px 0 9px;border-radius:999px;background:var(--d-sunken);cursor:pointer;font:600 12px/1 var(--d-font);letter-spacing:.06em;text-transform:uppercase;color:var(--d-ink-2);transition:background .15s var(--d-ease),color .15s var(--d-ease)}
+.deck-proj-btn b{font-weight:600}
 .deck-proj-btn svg{color:var(--d-ink-3);transition:transform .2s var(--d-ease)}
-.deck-proj-btn:hover{border-color:var(--d-line-2)}
+.deck-proj-btn:hover,.deck-proj-btn.open{background:var(--d-line);color:var(--d-ink)}
 .deck-proj-btn.open svg{transform:rotate(180deg)}
 .deck-proj-btn:focus-visible{outline:2px solid var(--d-accent);outline-offset:2px}
-.deck-proj-menu{position:absolute;right:0;top:calc(100% + 8px);min-width:220px;margin:0;padding:6px;list-style:none;background:var(--d-surface);border:1px solid var(--d-line);border-radius:var(--d-r-md);box-shadow:0 2px 6px rgba(28,28,33,.06),0 16px 40px rgba(28,28,33,.12);animation:deckMenu .16s var(--d-ease)}
+.deck-proj-menu{position:absolute;left:0;top:calc(100% + 10px);min-width:220px;margin:0;padding:6px;list-style:none;background:var(--d-surface);border:1px solid var(--d-line);border-radius:var(--d-r-md);box-shadow:0 2px 6px rgba(28,28,33,.06),0 16px 40px rgba(28,28,33,.12);animation:deckMenu .16s var(--d-ease);z-index:110}
 .deck-proj-menu button{all:unset;box-sizing:border-box;width:100%;display:flex;align-items:center;justify-content:space-between;gap:12px;height:38px;padding:0 12px;border-radius:var(--d-r-sm);font:500 14px/1 var(--d-font);color:var(--d-ink);cursor:pointer}
 .deck-proj-menu button:hover{background:var(--d-sunken)}
 .deck-proj-menu button.on{font-weight:600}
@@ -51,7 +50,7 @@ body{margin:0;background:var(--d-canvas);color:var(--d-ink);font:14px/1.5 var(--
 @keyframes deckMenu{from{opacity:0;transform:translateY(-4px)}}
 .deck-sec[hidden]{display:none}
 .deck-sec--frame iframe{display:block;width:100%;height:calc(100vh - var(--bar));border:0;background:var(--d-canvas)}
-@media (max-width:700px){.deck-bar{gap:12px;padding:0 12px}.deck-brand span{display:none}.deck-proj-btn small{display:none}}
+@media (max-width:700px){.deck-bar{gap:12px;padding:0 12px}.deck-proj-btn b{max-width:96px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}}
 
 /* Design: rail + stage */
 .shell{display:grid;grid-template-columns:288px 1fr;min-height:calc(100vh - var(--bar))}

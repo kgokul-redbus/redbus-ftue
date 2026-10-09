@@ -340,7 +340,7 @@
     }, [zoom]);
     return h('iframe', { ref, src, title });
   }
-  /* Projects share one host and one shell. Each has its own top tabs; the switcher sits at the top right.
+  /* Projects share one host and one shell. Each has its own top tabs; the project pill beside the logo switches them.
      Another project registers its tabs in its own file (e.g. ptags.js sets window.PTAGS = { sections }). */
   const PROJECTS = () => [
     { id: 'ftue', name: 'FTUE', title: 'redBus FTUE', sections: SECTIONS },
@@ -369,7 +369,7 @@
     const cur = list.find((p) => p.id === proj);
     return h('div', { className: 'deck-proj', ref },
       h('button', { className: 'deck-proj-btn' + (open ? ' open' : ''), 'aria-haspopup': 'listbox', 'aria-expanded': open, onClick: () => setOpen((o) => !o) },
-        h('small', null, 'Project'), h('b', null, cur.name),
+        h('b', null, cur.name),
         h('svg', { viewBox: '0 0 16 16', width: 14, height: 14, 'aria-hidden': true }, h('path', { d: 'M4 6l4 4 4-4', fill: 'none', stroke: 'currentColor', strokeWidth: 1.8, strokeLinecap: 'round', strokeLinejoin: 'round' }))),
       open && h('ul', { className: 'deck-proj-menu', role: 'listbox', 'aria-label': 'Project' }, list.map((p) => h('li', { key: p.id },
         h('button', { role: 'option', 'aria-selected': p.id === proj, className: p.id === proj ? 'on' : '', onClick: () => { setOpen(false); onPick(p.id); } },
@@ -389,9 +389,9 @@
     useEffect(() => { document.body.dataset.section = view.proj === 'ftue' ? view.sec : view.proj + '-' + view.sec; document.title = project.title; }, [view]);
     return h(Fragment, null,
       h('header', { className: 'deck-bar' },
-        h('div', { className: 'deck-brand' }, h('img', { src: 'assets/onb/logo-redbus.png', alt: 'redBus' }), h('span', null, project.name)),
-        h('nav', { className: 'deck-tabs', role: 'tablist' }, project.sections.map(([id, label]) => h('button', { key: id, role: 'tab', 'aria-selected': view.sec === id, className: view.sec === id ? 'on' : '', onClick: () => go({ proj: view.proj, sec: id }) }, label))),
-        h(ProjectMenu, { list, proj: view.proj, onPick: (pid) => pid !== view.proj && go({ proj: pid, sec: firstSec(pid) }) })),
+        h('div', { className: 'deck-brand' }, h('img', { src: 'assets/onb/logo-redbus.png', alt: 'redBus' }),
+          h(ProjectMenu, { list, proj: view.proj, onPick: (pid) => pid !== view.proj && go({ proj: pid, sec: firstSec(pid) }) })),
+        h('nav', { className: 'deck-tabs', role: 'tablist' }, project.sections.map(([id, label]) => h('button', { key: id, role: 'tab', 'aria-selected': view.sec === id, className: view.sec === id ? 'on' : '', onClick: () => go({ proj: view.proj, sec: id }) }, label)))),
       list.map((p) => h(Fragment, { key: p.id }, p.sections.map(([id, , spec]) => h('section', { key: p.id + id, className: 'deck-sec deck-sec--' + (spec.src ? 'frame' : 'app'), hidden: p.id !== view.proj || view.sec !== id },
         spec.src ? h(Frame, { src: spec.src, title: id, zoom: spec.zoom, css: spec.css, js: spec.js }) : h(spec.render))))));
   }

@@ -48,4 +48,3 @@
 .px-rtb li span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .px-tag{align-self:flex-start;height:20px;display:flex;align-items:center;gap:4px;padding:0 4px;border-radius:6px;background:#dbf4d7;font-size:12px;line-height:16px;letter-spacing:.01px;color:#1d1d1d;white-space:nowrap}
 .px-tag img{width:16px;height:16px}
-.px-reward{display:block;width:320px;height:24px;margin:0 4px 4px}

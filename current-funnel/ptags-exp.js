@@ -1,6 +1,6 @@
 /* Persuasion tags · Current › Experiment. The SRP layout being tried for the next release, from Figma
    "SRP - Cleanup" (S3E7gVBws88gViJh6zGClr, node 36956:20519). Same page as production; the bus cards change:
-   Primo "On Time Guarantee", a two-column ✓ list of persuasion tags, one highlight tag, a tripReward footer.
+   Primo "On Time Guarantee", a two-column ✓ list of persuasion tags and one highlight tag (tripReward footer left out).
    Listing data is the Figma data, as is. Styles in ptags-exp.css; logos / icons in assets/srpx/. */
 (function () {
   const h = React.createElement;
@@ -8,8 +8,8 @@
 
   const PROPS = [['Comfort score: 9.3/10', '90% On Time', 'Clean Bus'], ['Toilet', 'Free date change', 'Direct bus']];
   const CARDS = [
-    { primo: true, via: 'Via Chittor, Rajasthan', seats: '4 Seats', single: '(1 Single)', seatsWarn: true, type: ['ev', 'A/C sleeper (2+1)'], award: true, ad: true, reward: true },
-    { primo: true, via: 'Via Chittor, Rajasthan', nextDay: true, layover: '2h Layover at Delhi', buses: ['Bus 1 : Sleeper (2+2)', 'Bus 2 : Sleeper (2+2)'], award: true, reward: true },
+    { primo: true, via: 'Via Chittor, Rajasthan', seats: '4 Seats', single: '(1 Single)', seatsWarn: true, type: ['ev', 'A/C sleeper (2+1)'], award: true, ad: true },
+    { primo: true, via: 'Via Chittor, Rajasthan', nextDay: true, layover: '2h Layover at Delhi', buses: ['Bus 1 : Sleeper (2+2)', 'Bus 2 : Sleeper (2+2)'], award: true },
     { seats: '11 Seats', single: '(2 Single)', type: ['premium', 'Volvo A/C sleeper (2+1)'] },
   ];
 
@@ -44,8 +44,7 @@
               : h('p', { className: 'px-ty' }, h('img', { src: X + (c.type[0] === 'ev' ? 'ic-ev.svg' : 'ic-premium.svg'), alt: '' }), h('span', null, c.type[1]))),
           h(Rate)),
         h('div', { className: 'px-rtb' }, PROPS.map((col, k) => h('ul', { key: k }, col.map(Prop)))),
-        h('span', { className: 'px-tag' }, h('img', { src: X + 'ic-star-tag.png', alt: '' }), 'Stops at Aanad Rao Circle & Kanchipuram')),
-      c.reward && h('img', { className: 'px-reward', src: X + 'footer-tripreward.png', alt: 'tripReward: Take 5 trips to get a free ticket' }));
+        h('span', { className: 'px-tag' }, h('img', { src: X + 'ic-star-tag.png', alt: '' }), 'Stops at Aanad Rao Circle & Kanchipuram')));
   }
 
   const List = ({ go }) => h('div', { className: 'px-list' }, CARDS.map((c, i) => h(Card, { key: i, c, go })));
