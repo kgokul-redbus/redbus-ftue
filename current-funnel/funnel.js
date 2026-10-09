@@ -290,7 +290,7 @@
       h('main', { className: 'stage' },
         h('div', { className: 'col', key: mode },
           h('div', { className: 'col-h' },
-            opts.length > 1 && h('div', { className: 'opts', role: 'tablist', 'aria-label': 'Option' }, opts.map((o) => h('button', { key: o.key, role: 'tab', 'aria-selected': o === opt, className: o === opt ? 'on' : '', title: o.label || '', onClick: () => pickOpt(o.key) }, 'Option ' + o.key)))),
+            opts.length > 1 && h('div', { className: 'opts', role: 'tablist', 'aria-label': 'Option' }, opts.map((o, i) => h('button', { key: o.key, role: 'tab', 'aria-selected': o === opt, className: o === opt ? 'on' : '', title: o.label || '', onClick: () => pickOpt(o.key) }, 'Option ' + (i + 1))))),
           h('div', { className: 'pw' },
             h('div', { className: 'pframe' }, h(D.IonsRoot, { device: true, style: { height: 800, minHeight: 0, background: page.bg, position: 'relative' } }, body, sheets()),
               mode === 'current' && overlay && REF[s.screen] && h('img', { className: 'ref', src: REF[s.screen](s), alt: '' }))))));
