@@ -36,7 +36,7 @@ reload always picks up your edits.
 
 ## Contributing a solve
 
-1. Branch from `main` (`git switch -c sol-XX-short-name`).
+1. Pull the latest `main` first (`git pull --rebase origin main`). There are no branches; everyone works on `main`.
 2. Build the solve in its own files, `current-funnel/sol-XX.js` (+ `.css`), and load them in
    `current-funnel/index.html` **before** `solves.js`.
 3. Register it in `current-funnel/solves.js`:
@@ -57,7 +57,7 @@ reload always picks up your edits.
      (`IndiaBusDS.Icon`, `ion-*`). Soft custom shadows are preferred over the Ions elevation levels.
    - Leave the **current** screens untouched; proposals live only in `sol-*` files.
    - Respect `prefers-reduced-motion`.
-5. Open a pull request. Each PR gets its own preview link to review on a phone before merging.
+5. Commit and push to `main`. The live site updates in about a minute. If you work through Claude Code, `CLAUDE.md` gives it these rules.
 
 ## Hosting
 
