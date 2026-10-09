@@ -1,101 +1,91 @@
-/* Persuasion tags · Proposed SRP. Directed by Gokul (2026-10-09):
-   - every tag a bus qualifies for is shown (a service is never penalised for being too good)
-   - comparators read as raw numbers
-   - three tiers, per the readout's MECE boxes: Comparators (loud: UGC Comfort / Cleanliness / Staff, performance On Time)
-     → Features (medium: Toilet, New Bus) → Reassurance (quiet: Free date change). Women tags and unclear amenities: out of scope.
-   Option 1 · Clear hierarchy: a score strip for comparators, icon + label features, one muted reassurance line.
-   Option 2 · Comparator in rating: UGC comparators sit inside the rating band as its reasons; On time and
-   features follow as chips; the same quiet reassurance line.
-   Listings: real Bengaluru → Chennai rows (Android, NON_LMB, top ranks) from Taag Summary_v3.xlsx: operator,
-   departure, bus type, rating, scores and the proposed tag set. Arrival, price and seats are illustrative. */
+/* Persuasion tags · Proposed SRP, as directed (2026-10-09): the two current designs, filled with real data.
+   Option 1 = the production card design, Option 2 = the experiment card design (SRP - Cleanup Figma).
+   Listings: the top 25 Bengaluru → Chennai tuples from Taag Summary_v3.xlsx (Android, NON_LMB, ranks 1–25):
+   operator, departure, bus type (translated to English), rating, scores and the PROPOSED tag set.
+   Tag order follows the readout's MECE boxes: comparators (UGC, then On Time) → features → reassurance.
+   Arrival, duration, price and seats are not in the sheet; they are illustrative. */
 (function () {
   const h = React.createElement;
+  const A = 'assets/srpf/', X = 'assets/srpx/';
 
-  const BUSES = [
-    { op: 'SABARI TRAVELS', dep: '22:45', arr: '05:10', dur: '6h 25m', type: 'Bharat Benz A/C Sleeper (2+1)', rating: 4.7, n: '2.1k', price: '₹1,299', seats: '9 Seats', single: '(2 Single)',
-      comfort: 9.4, onTime: 93, clean: 9.7, staff: 9.6, feat: ['new'] },
-    { op: 'V Bus Holidays', dep: '21:10', arr: '03:40', dur: '6h 30m', type: 'Bharat Benz A/C Sleeper (2+1)', rating: 4.9, n: '860', price: '₹1,450', seats: '6 Seats', single: '(1 Single)',
-      comfort: 9.7, onTime: 88, clean: 9.9, staff: 9.8, feat: ['new', 'toilet'] },
-    { op: 'ANT KING', dep: '21:50', arr: '04:35', dur: '6h 45m', type: 'Volvo B11R Multi-Axle A/C Sleeper (2+1)', rating: 4.5, n: '1.4k', price: '₹1,099', seats: '14 Seats', single: '(4 Single)',
-      clean: 8.9, staff: 8.5, feat: [] },
-    { op: 'ACLS Navigator', dep: '22:15', arr: '04:50', dur: '6h 35m', type: 'Bharat Benz A/C Sleeper (2+1)', rating: 4.4, n: '540', price: '₹999', seats: '18 Seats', single: '(3 Single)',
-      onTime: 80, clean: 9.0, staff: 9.1, feat: ['toilet'] },
-    { op: 'MMK Travels', dep: '21:00', arr: '03:20', dur: '6h 20m', type: 'Bharat Benz A/C Sleeper (2+1)', rating: 4.8, n: '3.2k', price: '₹1,350', seats: '7 Seats', single: '(2 Single)',
-      comfort: 9.2, clean: 9.5, staff: 9.5, feat: ['new'] },
-    { op: 'zingbus plus', dep: '21:45', arr: '04:00', dur: '6h 15m', type: 'A/C Semi Sleeper / Sleeper (2+1)', rating: 4.7, n: '4.8k', price: '₹1,149', seats: '11 Seats', single: '(2 Single)',
-      onTime: 89, clean: 9.3, staff: 9.1, feat: ['new', 'toilet'] },
-  ];
+  /* [rank, operator, departure, bus type, rating, proposed tags, scores] */
+  const ROWS = [[1, "SABARI TRAVELS", "22:45", "Bharat Benz A/C Sleeper (2+1)", 4.7, ["comfort", "onTime", "clean", "staff", "new", "fdc"], {"comfort": 9.4, "onTime": 93.0, "clean": 9.67, "staff": 9.56}], [2, "SRI SAI TRAVELS", "21:45", "A/C Seater / Sleeper (2+1)", 4.9, ["comfort", "onTime", "clean", "staff", "new", "fdc"], {"comfort": 9.2, "onTime": 88.0, "clean": 9.69, "staff": 9.49}], [3, "V Bus Holidays", "21:10", "Bharat Benz A/C Sleeper (2+1)", 4.9, ["comfort", "onTime", "clean", "staff", "new", "toilet", "fdc"], {"comfort": 9.7, "onTime": 88.0, "clean": 9.86, "staff": 9.81}], [4, "ANT KING", "21:50", "Volvo B11R Multi-Axle A/C Sleeper (2+1)", 4.5, ["clean", "staff", "fdc"], {"comfort": 8.2, "onTime": 77.0, "clean": 8.85, "staff": 8.54}], [5, "SST Limoliner", "20:45", "Bharat Benz A/C Sleeper (2+1)", 4.7, ["comfort", "onTime", "clean", "staff", "fdc"], {"comfort": 9.4, "onTime": 80.0, "clean": 9.67, "staff": 9.65}], [6, "ACLS Navigator", "22:15", "Bharat Benz A/C Sleeper (2+1)", 4.4, ["onTime", "clean", "staff", "toilet", "fdc"], {"comfort": 8.4, "onTime": 80.0, "clean": 8.98, "staff": 9.08}], [7, "MMK Travels", "21:00", "Bharat Benz A/C Sleeper (2+1)", 4.8, ["comfort", "clean", "staff", "new", "fdc"], {"comfort": 9.2, "onTime": 63.0, "clean": 9.48, "staff": 9.46}], [8, "ADITHIYA AIRBUS", "20:40", "Bharat Benz A/C Sleeper (2+1)", 4.7, ["comfort", "onTime", "clean", "staff", "fdc"], {"comfort": 9.6, "onTime": 88.0, "clean": 9.51, "staff": 9.65}], [9, "Jai Sai Baba Travels", "23:00", "A/C Sleeper (2+1)", 4.8, ["comfort", "onTime", "clean", "staff", "fdc"], {"comfort": 9.5, "onTime": 91.0, "clean": 9.64, "staff": 9.51}], [10, "zingbus plus", "21:45", "A/C Semi Sleeper / Sleeper (2+1)", 4.7, ["onTime", "clean", "staff", "new", "toilet", "fdc"], {"comfort": 8.5, "onTime": 89.0, "clean": 9.32, "staff": 9.14}], [11, "FRESHBUS", "18:00", "Electric A/C Seater / Sleeper (2+1)", 4.6, ["clean", "staff", "fdc"], {"comfort": 9.0, "onTime": 72.0, "clean": 9.22, "staff": 8.72}], [12, "GREEN CHANNEL EXPRESS", "20:00", "A/C Sleeper (2+1)", 4.8, ["comfort", "onTime", "clean", "staff", "new", "fdc"], {"comfort": 9.6, "onTime": 85.0, "clean": 9.65, "staff": 9.64}], [13, "SST Limoliner", "21:10", "Bharat Benz A/C Sleeper (2+1)", 4.8, ["comfort", "onTime", "clean", "staff", "toilet", "fdc"], {"comfort": 9.5, "onTime": 81.0, "clean": 9.42, "staff": 9.49}], [14, "KMRL kalaimakal Road Lines", "21:45", "A/C Seater / Sleeper (2+1)", 4.8, ["comfort", "onTime", "clean", "staff", "new", "toilet", "fdc"], {"comfort": 9.7, "onTime": 90.0, "clean": 9.6, "staff": 9.59}], [15, "KMRL kalaimakal Road Lines", "22:45", "A/C Seater / Sleeper (3+1)", 4.8, ["comfort", "onTime", "clean", "staff", "toilet", "fdc"], {"comfort": 9.2, "onTime": 96.0, "clean": 9.54, "staff": 9.41}], [16, "EASYRIDE SMART BUS", "20:00", "A/C Sleeper (2+1)", 4.8, ["clean", "staff", "toilet", "fdc"], {"comfort": 8.9, "onTime": 73.0, "clean": 9.07, "staff": 9.4}], [17, "KMRL Kalaimakal(sk)", "22:00", "A/C Seater / Sleeper (2+1)", 4.7, ["comfort", "clean", "staff", "fdc"], {"comfort": 9.4, "onTime": 43.0, "clean": 9.37, "staff": 9.39}], [18, "FRESHBUS", "19:30", "Electric A/C Seater / Sleeper (2+1)", 4.6, ["clean", "staff", "fdc"], {"comfort": 8.8, "onTime": 64.0, "clean": 9.11, "staff": 8.76}], [19, "FRESHBUS", "20:30", "Electric A/C Seater / Sleeper (2+1)", 4.6, ["clean", "staff", "fdc"], {"comfort": 9.0, "onTime": 75.0, "clean": 9.14, "staff": 8.97}], [20, "Shri Abinesh Roadways", "00:05", "Bharat Benz A/C Seater / Sleeper (2+1)", 4.7, ["comfort", "clean", "staff", "toilet", "fdc"], {"comfort": 9.3, "onTime": 30.0, "clean": 9.59, "staff": 9.34}], [21, "FlixBus", "20:45", "A/C Sleeper (2+1)", 4.6, ["onTime", "clean", "staff", "fdc"], {"comfort": 8.3, "onTime": 87.0, "clean": 9.24, "staff": 9.08}], [22, "Jabbar Travels", "21:15", "Volvo 9600 Multi-Axle A/C Sleeper (2+1)", 4.8, ["comfort", "onTime", "clean", "staff", "new", "fdc"], {"comfort": 9.1, "onTime": 95.0, "clean": 9.94, "staff": 9.35}], [23, "FlixBus", "20:10", "A/C Seater / Sleeper (2+1)", 4.6, ["onTime", "clean", "staff", "new", "fdc"], {"comfort": 8.8, "onTime": 82.0, "clean": 9.21, "staff": 9.12}], [24, "FlixBus", "21:20", "A/C Sleeper (2+1)", 4.6, ["clean", "staff", "fdc"], {"comfort": 8.7, "onTime": 72.0, "clean": 9.18, "staff": 9.19}], [25, "SRI SIDDHAN TRAVELS", "21:15", "A/C Sleeper (2+1)", 4.6, ["comfort", "onTime", "clean", "staff", "new", "toilet", "fdc"], {"comfort": 9.2, "onTime": 80.0, "clean": 9.5, "staff": 9.08}]];
 
-  /* 16 px line icons where Ions has none (same 1.6 stroke as Ions) */
-  const svg = (d) => h('svg', { viewBox: '0 0 16 16', width: 16, height: 16, 'aria-hidden': true, className: 'pt-ic' }, d);
-  const P = (d) => h('path', { d, fill: 'none', stroke: 'currentColor', strokeWidth: 1.5, strokeLinecap: 'round', strokeLinejoin: 'round' });
-  const ICON = {
-    comfort: () => svg([P('M4.5 9V4.2a1.7 1.7 0 0 1 1.7-1.7h3.6a1.7 1.7 0 0 1 1.7 1.7V9', ), P('M3 7.5v3a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-3'), P('M5 11.5V13.5M11 11.5V13.5')].map((x, k) => React.cloneElement(x, { key: k }))),
-    onTime: () => svg([h('circle', { key: 'c', cx: 8, cy: 8, r: 5.8, fill: 'none', stroke: 'currentColor', strokeWidth: 1.5 }), React.cloneElement(P('M8 5v3.2l2 1.3'), { key: 'h' })]),
-    clean: () => svg([P('M8 2.2l1.1 2.9 2.9 1.1-2.9 1.1L8 10.2 6.9 7.3 4 6.2l2.9-1.1z'), P('M12.3 9.6l.5 1.3 1.3.5-1.3.5-.5 1.3-.5-1.3-1.3-.5 1.3-.5z')].map((x, k) => React.cloneElement(x, { key: k }))),
-    staff: () => svg([h('circle', { key: 'c', cx: 8, cy: 5.3, r: 2.6, fill: 'none', stroke: 'currentColor', strokeWidth: 1.5 }), React.cloneElement(P('M3.2 13.6c.6-2.4 2.5-3.8 4.8-3.8s4.2 1.4 4.8 3.8'), { key: 'b' })]),
-    toilet: () => svg([P('M3.5 2.8h4v4.5a2 2 0 0 1-4 0z'), P('M5.5 9.3v3.9M3.8 13.2h3.4'), P('M11.2 2.6v10.6'), P('M9.6 6.2h3.2')].map((x, k) => React.cloneElement(x, { key: k }))),
-    new: () => svg([P('M8 1.8l1.6 1.2 2-.1.6 1.9 1.6 1.2-.6 1.9.6 1.9-1.6 1.2-.6 1.9-2-.1L8 14.2l-1.6-1.2-2 .1-.6-1.9-1.6-1.2.6-1.9-.6-1.9 1.6-1.2.6-1.9 2 .1z'), P('M6 8.1l1.4 1.4L10.2 6.7')].map((x, k) => React.cloneElement(x, { key: k }))),
-    fdc: () => svg([P('M3 4.5h10v8.7H3z'), P('M5.5 2.8v2.6M10.5 2.8v2.6M3 7.2h10'), P('M6.2 10.2h3.6M8.6 9l1.2 1.2-1.2 1.2')].map((x, k) => React.cloneElement(x, { key: k }))),
-  };
+  const ORDER = ['comfort', 'clean', 'staff', 'onTime', 'toilet', 'new', 'fdc'];
+  const one = (v) => (Math.round(v * 10) / 10).toFixed(1);
+  const label = (k, sc) => ({
+    comfort: 'Comfort score: ' + one(sc.comfort) + '/10',
+    clean: 'Cleanliness: ' + one(sc.clean) + '/10',
+    staff: 'Staff behaviour: ' + one(sc.staff) + '/10',
+    onTime: Math.round(sc.onTime) + '% On Time',
+    toilet: 'Toilet',
+    new: 'New bus',
+    fdc: 'Free date change',
+  })[k];
 
-  /* Comparators: UGC (Comfort, Cleanliness, Staff Behaviour) then performance (On Time), per the readout's MECE boxes */
-  const COMP = [['comfort', 'Comfort', (v) => v.toFixed(1)], ['clean', 'Clean', (v) => v.toFixed(1)], ['staff', 'Staff', (v) => v.toFixed(1)], ['onTime', 'On time', (v) => v + '%']];
-  const FEAT = { toilet: 'Toilet', new: 'New bus' };
-  /* Reassurance · policy: Free date change only (women tags and unclear amenities are out of scope) */
-  const reassure = () => [['fdc', 'Free date change']];
+  /* illustrative fields, stable per rank */
+  const pad = (n) => String(n).padStart(2, '0');
+  const BUSES = ROWS.map(([rank, op, dep, type, rating, tags, sc]) => {
+    const [hh, mm] = dep.split(':').map(Number);
+    const durM = 6 * 60 + 10 + (rank * 7) % 40;
+    const t = hh * 60 + mm + durM;
+    const seats = 4 + (rank * 5) % 17;
+    return {
+      rank, op, dep, type, rating, sc,
+      tags: ORDER.filter((k) => tags.includes(k)),
+      arr: pad(Math.floor(t / 60) % 24) + ':' + pad(t % 60),
+      dur: Math.floor(durM / 60) + 'h ' + (durM % 60) + 'm',
+      price: '₹' + (899 + (rank * 137) % 900).toLocaleString('en-IN'),
+      seats: seats + ' Seats', single: '(' + (1 + rank % 4) + ' Single)',
+      ev: /Electric/.test(type),
+    };
+  });
 
   const Star = () => h('svg', { viewBox: '0 0 12 12', 'aria-hidden': true }, h('path', { d: 'M6 .9l1.5 3.2 3.5.4-2.6 2.4.7 3.5L6 8.7 2.9 10.4l.7-3.5L1 4.5l3.5-.4z', fill: '#fff' }));
-  const Rate = ({ b }) => h('div', { className: 'px-rate', 'aria-label': 'Rated ' + b.rating }, h('b', null, h(Star), b.rating.toFixed(1)), h('span', null, b.n));
 
-  /* Shared top of the card: times, price, operator, bus type (rating optional) */
-  const Top = ({ b, rating }) => h(React.Fragment, null,
-    h('div', { className: 'px-svc' },
-      h('div', null,
-        h('p', { className: 'px-time' }, h('b', null, b.dep), h('i', { className: 'px-sep' }), b.arr),
-        h('p', { className: 'px-sub' }, b.dur, h('i', { className: 'px-dot' }), h('span', null, b.seats), h('span', { className: 'px-warn' }, b.single))),
-      h('div', { className: 'px-price' }, h('b', null, b.price), h('small', null, 'Onwards'))),
-    h('div', { className: 'px-bo' },
-      h('div', { className: 'px-bo-l' }, h('p', { className: 'px-nm' }, h('span', null, b.op)), h('p', { className: 'px-ty' }, h('span', null, b.type))),
-      rating && h(Rate, { b })));
-
-  const Reassure = ({ b }) => h('p', { className: 'pt-re' }, reassure(b).map(([ic, t], k) => h('span', { key: k }, ICON[ic](), t)));
-  const Features = ({ b }) => b.feat.length > 0 && h('div', { className: 'pt-feat' }, b.feat.map((f) => h('span', { key: f }, ICON[f](), FEAT[f])));
-
-  /* Option 1 · score strip (loud) → features (medium) → reassurance (quiet) */
-  function Card1({ b, go }) {
-    const comps = COMP.filter(([k]) => b[k] != null);
-    return h('div', { className: 'px-card pt-card', role: 'button', tabIndex: 0, onClick: () => go('seats') },
-      h('div', { className: 'px-body' },
-        h(Top, { b, rating: true }),
-        h('div', { className: 'pt-strip', style: { '--n': comps.length } }, comps.map(([k, label, fmt]) =>
-          h('div', { key: k, className: 'pt-cell' + (k === 'onTime' ? ' pt-cell--perf' : '') }, h('b', null, fmt(b[k]), k !== 'onTime' && h('small', null, '/10')), h('span', null, ICON[k](), label)))),
-        h(Features, { b }),
-        h(Reassure, { b })));
+  /* Option 1 · production card design */
+  function ProdCard({ b, go }) {
+    return h('div', { className: 'sf-t', role: 'button', tabIndex: 0, onClick: () => go('seats') },
+      h('div', { className: 'sf-tp' },
+        h('div', null,
+          h('p', { className: 'sf-time' }, h('b', null, b.dep), h('i'), b.arr),
+          h('p', { className: 'sf-sub' }, b.dur, h('i'), b.seats, h('em', null, b.single))),
+        h('div', { className: 'sf-price' }, h('b', null, b.price), h('small', null, 'onwards'))),
+      h('div', { className: 'sf-bo' },
+        h('div', null,
+          h('p', { className: 'nm' }, b.op),
+          b.ev ? h('p', { className: 'ty' }, h('img', { src: A + 'ic-ev.png', alt: '' }), b.type) : h('p', { className: 'ty' }, b.type)),
+        h('div', { className: 'sf-rate', 'aria-label': 'Rated ' + b.rating }, h('b', null, h(Star), one(b.rating)), h('span', null, '0000'))),
+      h('div', { className: 'sf-tags' }, b.tags.map((k) => h('span', { key: k, className: 'sf-tag' }, label(k, b.sc)))));
   }
 
-  /* Option 2 · the rating band carries the UGC comparators; On time + features as chips; reassurance quiet */
-  function Card2({ b, go }) {
-    const ugc = [['comfort', 'Comfort'], ['clean', 'Clean'], ['staff', 'Staff']].filter(([k]) => b[k] != null);
-    const chips = (b.onTime != null ? [['onTime', h('span', { key: 't' }, h('b', null, b.onTime + '%'), ' on time')]] : []).concat(b.feat.map((f) => [f, FEAT[f]]));
-    return h('div', { className: 'px-card pt-card', role: 'button', tabIndex: 0, onClick: () => go('seats') },
+  /* Option 2 · experiment card design: the tags as a two-column ✓ list */
+  function ExpCard({ b, go }) {
+    const half = Math.ceil(b.tags.length / 2);
+    const cols = [b.tags.slice(0, half), b.tags.slice(half)];
+    return h('div', { className: 'px-card', role: 'button', tabIndex: 0, onClick: () => go('seats') },
       h('div', { className: 'px-body' },
-        h(Top, { b, rating: false }),
-        h('div', { className: 'pt-band' },
-          h('span', { className: 'pt-band-r' }, h(Star), b.rating.toFixed(1)),
-          h('span', { className: 'pt-band-s' }, ugc.map(([k, l]) => h('span', { key: k }, l + ' ', h('b', null, b[k].toFixed(1)))))),
-        chips.length > 0 && h('div', { className: 'pt-chips' }, chips.map(([k, c]) => h('span', { key: k, className: k === 'onTime' ? 'pt-chip pt-chip--c' : 'pt-chip' }, ICON[k](), c))),
-        h(Reassure, { b })));
+        h('div', { className: 'px-svc' },
+          h('div', null,
+            h('p', { className: 'px-time' }, h('b', null, b.dep), h('i', { className: 'px-sep' }), b.arr),
+            h('p', { className: 'px-sub' }, b.dur, h('i', { className: 'px-dot' }), h('span', null, b.seats), h('span', { className: 'px-warn' }, b.single))),
+          h('div', { className: 'px-price' }, h('b', null, b.price), h('small', null, 'Onwards'))),
+        h('div', { className: 'px-bo' },
+          h('div', { className: 'px-bo-l' },
+            h('p', { className: 'px-nm' }, h('span', null, b.op)),
+            h('p', { className: 'px-ty' }, b.ev && h('img', { src: X + 'ic-ev.svg', alt: '' }), h('span', null, b.type))),
+          h('div', { className: 'px-rate', 'aria-label': 'Rated ' + b.rating }, h('b', null, h(Star), one(b.rating)), h('span', null, '0000'))),
+        h('div', { className: 'px-rtb' }, cols.map((col, i) => h('ul', { key: i }, col.map((k) => h('li', { key: k }, h('img', { src: X + 'ic-check.svg', alt: '' }), h('span', null, label(k, b.sc)))))))));
   }
 
-  const list = (Card) => ({ go }) => h('div', { className: 'px-list' }, BUSES.map((b, i) => h(Card, { key: i, b, go })));
-  const Srp = (Card) => (p) => h(window.SRPFIG.SrpFig, Object.assign({}, p, { list: list(Card) }));
+  const ProdList = ({ go }) => h('div', { className: 'sf-list', style: { marginTop: 2 } }, BUSES.map((b) => h(ProdCard, { key: b.rank, b, go })));
+  const ExpList = ({ go }) => h('div', { className: 'px-list' }, BUSES.map((b) => h(ExpCard, { key: b.rank, b, go })));
 
   window.PTAGS.PROPOSED.add('srp', {
     sols: ['PT'],
     options: [
-      { key: 'A', label: 'Clear hierarchy', note: 'Comparators as a score strip, features as icon + label, reassurance as one quiet line. All qualifying tags shown.', render: Srp(Card1) },
-      { key: 'B', label: 'Comparator in rating', note: 'Comfort, cleanliness and staff scores sit inside the rating band; on time and features follow as chips; reassurance quiet.', render: Srp(Card2) },
+      { key: 'A', label: 'Production design · proposed tags', render: (p) => h(window.SRPFIG.SrpFig, Object.assign({}, p, { list: ProdList })) },
+      { key: 'B', label: 'Experiment design · proposed tags', render: (p) => h(window.SRPFIG.SrpFig, Object.assign({}, p, { list: ExpList })) },
     ],
   });
 })();
