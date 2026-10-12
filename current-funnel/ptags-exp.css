@@ -144,5 +144,6 @@
 .deck-sec--ptags .sf-ads+.sf-filters{margin-top:0}
 /* filter chips: 40px tap rows instead of 48 */
 .deck-sec--ptags .sf-filters{height:auto}
-.deck-sec--ptags .sf-chips{height:auto;grid-template-rows:40px 40px}
+.deck-sec--ptags .sf-chips{height:auto;grid-template-rows:40px 40px;row-gap:2px}
+/* 2px + the 3px tap margin above and below each 34px pill = the 8px gap between chips */
 .deck-sec--ptags .sf-chip{height:40px}
