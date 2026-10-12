@@ -81,5 +81,5 @@
 .rail .pt-ugc p small{display:block;font:500 11px/14px var(--d-font,Inter);color:var(--d-ink-3,#8a8a94)}
 .rail .pt-ugc .z{flex:none;width:104px}
 .rail .pt-ugc--off{opacity:.55}
-.p4-list li .p3-ic{color:#2c5ef6} /* the check blue from Option 2 / Experiment (Figma ic-check) */
-.p4-card .c-tag.p4-badge{background:var(--fill-info-secondary,#dbe0fa)} /* Rubicon fill/info/secondary (Figma; not in this Ions build) */
+.p4-list li .p3-ic{color:var(--icon-information,#2c5ef6)} /* Rubicon Icon/information, the check blue in Option 2 / Experiment */
+.p4-card .c-tag.p4-badge{background:var(--fill-info-tertiary,#e4ecfd)} /* Rubicon Fill/Info/tertiary (IONS • Rubicon Figma library; not in this Ions build) */
