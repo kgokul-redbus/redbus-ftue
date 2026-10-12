@@ -152,20 +152,20 @@
 .deck-sec--ptags .sf-chip span{padding-left:12px;padding-right:12px}
 .deck-sec--ptags .sf-chip--icon span{padding-left:8px;padding-right:10px}
 
-/* ---- Option 4 only (the SRP that holds .p4-card) ---- */
+/* ---- Options 4 and 5 only (the SRP that holds .p4-card or .o5-card): the top section, header to RTC entry ---- */
 /* offer cards 88 tall instead of 100; full-bleed art keeps its proportions (cropped), illustrations sit on the new bottom edge */
-.sf:has(.p4-card) .sf-ad{height:88px}
-.sf:has(.p4-card) .sf-ad--img img,.sf:has(.p4-card) .sf-ad--full img{object-fit:cover}
-.sf:has(.p4-card) .sf-ad .ill{top:38px}
-.sf:has(.p4-card) .sf-ads{padding-bottom:4px}
+.sf:has(.p4-card,.o5-card) .sf-ad{height:88px}
+.sf:has(.p4-card,.o5-card) .sf-ad--img img,.sf:has(.p4-card,.o5-card) .sf-ad--full img{object-fit:cover}
+.sf:has(.p4-card,.o5-card) .sf-ad .ill{top:38px}
+.sf:has(.p4-card,.o5-card) .sf-ads{padding-bottom:4px}
 /* one top section: white through the filters and AI search, easing into the listing grey only at its foot,
    so there is no hard edge between the AI search and the first card. The gradient scrolls with the page (local). */
-.sf:has(.p4-card) .sf-scroll{background:linear-gradient(180deg,#fff 0,#fff 332px,#fcfcfe 344px,#f7f7fb 356px,#f4f4f9 366px,#f2f2f8 374px) 0 0/100% 374px no-repeat local}
-.sf:has(.p4-card) .sf-ads,.sf:has(.p4-card) .sf-filters{background:transparent}
-.sf:has(.p4-card) .sf-ai{padding-bottom:0}
+.sf:has(.p4-card,.o5-card) .sf-scroll{background:linear-gradient(180deg,#fff 0,#fff 332px,#fcfcfe 344px,#f7f7fb 356px,#f4f4f9 366px,#f2f2f8 374px) 0 0/100% 374px no-repeat local}
+.sf:has(.p4-card,.o5-card) .sf-ads,.sf:has(.p4-card,.o5-card) .sf-filters{background:transparent}
+.sf:has(.p4-card,.o5-card) .sf-ai{padding-bottom:0}
 /* every offer card 128 wide, like the first; illustrations stay on the bottom-right corner */
-.sf:has(.p4-card) .sf-ad{width:128px}
-.sf:has(.p4-card) .sf-ad .ill{left:78px}
+.sf:has(.p4-card,.o5-card) .sf-ad{width:128px}
+.sf:has(.p4-card,.o5-card) .sf-ad .ill{left:78px}
 
 /* ---- Option 5 · Figma "New approach" (36721:8339) ---- */
 .o5-wrap{display:flex;flex-direction:column;border-radius:var(--radius-2xl,16px);background:#fff;box-shadow:0 2px 2px rgba(0,0,0,.08),0 4px 4px rgba(0,0,0,.08);overflow:hidden}
