@@ -224,6 +224,11 @@
      Comparators → a ✓ list in the primary text colour, footnote size
      Reassurance → the same list, after the comparators, same style */
   const BADGE = { toilet: 'In-bus toilet', new: 'New bus' };
+  /* Option 4 time and seats, as Figma SRP - Cleanup 36754:32065: departure (bold) · duration between two hairlines ·
+     arrival (regular), spanning the column; seats and singles below in one secondary line */
+  const p4Time = (m, b) => h('p', { className: 'o5-time p4-time' }, h('b', null, b.dep), h('span', null, h('i'), b.dur, h('i')),
+    has(m, 'layover', b) && h('span', { className: 'px-next' }, 'Next day'), h('em', null, b.arr));
+  const p4Sub = (m, b) => h('p', { className: 'p4-sub' + (has(m, 'layover', b) ? ' px-warn' : '') }, has(m, 'layover', b) ? '2h Layover at Delhi' : b.seats + ' ' + b.single);
   function Card4({ b, go }) {
     const t = ugcFilter(b.proposed, useUgc()), m = useMaster(), women = useWomen();
     const feats = t.filter((k) => FEATS.includes(k));
@@ -237,7 +242,7 @@
       mTop(m, b),
       h('div', { className: 'px-body' },
         ...mPre(m, b),
-        h('div', { className: 'px-svc' }, h('div', null, mTime(m, b), mSub(m, b)), mPrice(m, b)),
+        h('div', { className: 'px-svc p4-svc' }, h('div', null, p4Time(m, b), p4Sub(m, b)), mPrice(m, b)),
         h('div', { className: 'p3-op' },
           h('div', { className: 'px-bo' },
             h('div', { className: 'px-bo-l' },
