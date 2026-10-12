@@ -150,3 +150,9 @@
 /* tighter chip side padding: 12 instead of 16 (icon chip 8 / 10) */
 .deck-sec--ptags .sf-chip span{padding-left:12px;padding-right:12px}
 .deck-sec--ptags .sf-chip--icon span{padding-left:8px;padding-right:10px}
+
+/* ---- Option 4 only (the SRP that holds .p4-card) ---- */
+/* offer cards 88 tall instead of 100; full-bleed art keeps its proportions (cropped), illustrations sit on the new bottom edge */
+.sf:has(.p4-card) .sf-ad{height:88px}
+.sf:has(.p4-card) .sf-ad--img img,.sf:has(.p4-card) .sf-ad--full img{object-fit:cover}
+.sf:has(.p4-card) .sf-ad .ill{top:38px}
