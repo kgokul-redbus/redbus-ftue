@@ -276,3 +276,7 @@
 .p4-time{width:176px;max-width:100%;margin:0} /* Figma 36754:32065 frame is 176 wide; the hairlines flex inside it */
 .p4-time .px-next{flex:none;margin:0 -4px 0 0}
 .p4-sub{margin:0;font-size:12px;line-height:16px;letter-spacing:.01px;color:rgba(29,29,29,.69)}
+/* Option 4 · Previously booked (Figma 36754:32115) */
+.p4-card--prev{background:var(--fill-success-primary,#298639)}
+.p4-prev{height:18px;box-sizing:border-box;margin:0;padding:2px var(--spacing-xs,4px);font-size:11px;line-height:14px;letter-spacing:.05px;color:var(--content-inverse-primary,#fff);text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.p4-main{background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 2px 4px rgba(0,0,0,.08),0 4px 8px rgba(0,0,0,.08)}

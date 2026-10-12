@@ -85,11 +85,12 @@
   const MASTER_EL = [
     ['seatlock', 'Book for ₹0 banner'], ['lmb', 'Live bus status'], ['nonstop', 'Non-stop'], ['rtc', 'RTC concession'],
     ['primo', 'Primo'], ['deals', 'Deals'], ['via', 'Via route'], ['layover', 'Next day + layover'], ['book0', 'Book for ₹0 price tag'],
-    ['award', 'Award'], ['ad', 'Ad'], ['highlight', 'BP/DP personalisation'], ['reward', 'tripReward'],
+    ['award', 'Award'], ['ad', 'Ad'], ['highlight', 'BP/DP personalisation'], ['reward', 'tripReward'], ['prev', 'Previously booked'],
   ];
   const RANKS = {
     seatlock: [1, 6, 14], lmb: [1, 9], nonstop: [1, 4, 12, 20], rtc: [1, 7, 18], primo: [1, 3, 5, 8, 12, 15, 22], deals: [1, 2, 3, 10, 15, 21],
     via: [1, 6, 11, 17], layover: [1, 13], book0: [1, 5, 9, 16, 23], award: [1, 2, 3, 7, 12, 22], ad: [1, 10], highlight: [1, 4, 8, 14, 19, 24], reward: [1, 5, 11, 20],
+    prev: [1, 9], /* at most two cards on the SRP; Option 4 only */
   };
   const MS = { on: (() => { try { return Object.assign(Object.fromEntries(MASTER_EL.map(([k]) => [k, true])), JSON.parse(localStorage.getItem('ptags-master') || '{}')); } catch (e) { return Object.fromEntries(MASTER_EL.map(([k]) => [k, true])); } })(), subs: new Set() };
   MS.set = (k, v) => { MS.on = Object.assign({}, MS.on, { [k]: v }); try { localStorage.setItem('ptags-master', JSON.stringify(MS.on)); } catch (e) {} MS.subs.forEach((f) => f(MS.on)); };
@@ -238,7 +239,13 @@
     const text = (k) => (k === 'womenT' ? (6 + (b.rank * 5) % 19) + ' women travelling' : label(k, b.sc));
     /* columns: 3 per column (max 6) normally; in women mode every item shows, split evenly over the two columns */
     const per = women ? Math.max(3, Math.ceil(list.length / 2)) : 3;
-    return h('div', { className: 'px-card p3-card p4-card' + (women ? ' p4-card--women' : ''), role: 'button', tabIndex: 0, onClick: () => go('seats') },
+    /* Previously booked (Figma 36754:32115): the card turns Fill/Success/primary and an 18-high strip of inverse caption
+       text sits above the untouched white content, which keeps its 16 radius over the green */
+    const prev = has(m, 'prev', b);
+    const card = (...kids) => h('div', { className: 'px-card p3-card p4-card' + (women ? ' p4-card--women' : '') + (prev ? ' p4-card--prev' : ''), role: 'button', tabIndex: 0, onClick: () => go('seats') },
+      prev && h('p', { className: 'p4-prev' }, 'You booked this previously on ' + (b.rank === 1 ? '7th Jul' : '22nd Aug')),
+      ...(prev ? [h('div', { key: 'main', className: 'p4-main' }, ...kids)] : kids));
+    return card(
       mTop(m, b),
       h('div', { className: 'px-body' },
         ...mPre(m, b),
