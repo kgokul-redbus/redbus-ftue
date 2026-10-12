@@ -147,3 +147,6 @@
 .deck-sec--ptags .sf-chips{height:auto;grid-template-rows:40px 40px;row-gap:2px}
 /* 2px + the 3px tap margin above and below each 34px pill = the 8px gap between chips */
 .deck-sec--ptags .sf-chip{height:40px}
+/* tighter chip side padding: 12 instead of 16 (icon chip 8 / 10) */
+.deck-sec--ptags .sf-chip span{padding-left:12px;padding-right:12px}
+.deck-sec--ptags .sf-chip--icon span{padding-left:8px;padding-right:10px}
