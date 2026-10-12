@@ -142,3 +142,7 @@
 /* Persuasion tags SRP: offers carousel sits flush under the header, no line or gap before the filters */
 .deck-sec--ptags .sf-ads{padding-top:0;padding-bottom:0;border-bottom:0}
 .deck-sec--ptags .sf-ads+.sf-filters{margin-top:0}
+/* filter chips: 40px tap rows instead of 48 */
+.deck-sec--ptags .sf-filters{height:auto}
+.deck-sec--ptags .sf-chips{height:auto;grid-template-rows:40px 40px}
+.deck-sec--ptags .sf-chip{height:40px}
