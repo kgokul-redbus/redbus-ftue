@@ -253,9 +253,9 @@
   }
 
   /* Option 5 · Figma SRP - Cleanup "New approach" (36721:8339): a two-part card. Left: times with the duration
-     between them, Primo logo over the operator, bus type, seats, then a "Value pick" heading over a green ✓ list of
+     between them, Primo logo over the operator, bus type, seats, then a green ✓ list of
      the bus's proposed tags (comparators → features → reassurance) and the highlight tag. Right, behind a hairline:
-     price on top, deal tickets stacked at the bottom. Heading rule (not in the data): shown when the list has 2+ items. */
+     price on top, deal tickets stacked at the bottom. The "Value pick" heading is left out (2026-10-12). */
   const L5 = (k, sc) => ({
     comfort: 'Comfort score of ' + one(sc.comfort) + '/10',
     clean: 'Cleanliness score of ' + one(sc.clean) + '/10',
@@ -283,7 +283,6 @@
               has(m, 'layover', b) && h('p', { className: 'px-warn' }, 'Next day · 2h Layover at Delhi')),
             h('div', { className: 'px-rate', 'aria-label': 'Rated ' + b.rating }, h('b', null, h(Star), one(b.rating)), h('span', null, '0000'))),
           list.length > 0 && h('div', { className: 'o5-rtb' },
-            list.length > 1 && h('p', { className: 'o5-ttl' }, 'Value pick'),
             h('ul', null, list.map((k) => h('li', { key: k }, h('img', { src: X + 'o5-check.svg', alt: '' }), h('span', null, L5(k, b.sc)))))),
           mPost(m, b)),
         h('div', { className: 'o5-r' },
@@ -307,7 +306,7 @@
       { key: 'B', label: 'Experiment design · proposed tags', render: srp(ExpList('proposed')) },
       { key: 'C', label: 'Comparator tags · feature icon + text · reassurance list', render: srp(({ go }) => h('div', { className: 'px-list' }, BUSES.map((b) => h(Card3, { key: b.rank, b, go })))) },
       { key: 'D', label: 'Feature badges · comparators + reassurance as one ✓ list', render: srp(({ go }) => h('div', { className: 'px-list' }, BUSES.map((b) => h(Card4, { key: b.rank, b, go })))) },
-      { key: 'E', label: 'Figma “New approach” · price column + Value pick list', render: srp(({ go }) => h('div', { className: 'px-list' }, BUSES.map((b) => h(Card5, { key: b.rank, b, go })))) },
+      { key: 'E', label: 'Figma “New approach” · price column + ✓ list', render: srp(({ go }) => h('div', { className: 'px-list' }, BUSES.map((b) => h(Card5, { key: b.rank, b, go })))) },
     ],
   });
 })();

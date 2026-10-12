@@ -186,7 +186,6 @@
 .o5-bo-l .px-warn{color:#c25400}
 .o5-primo{display:block;width:40px;height:20px}
 .o5-rtb{width:100%;display:flex;flex-direction:column;gap:2px}
-.o5-ttl{margin:0;font-size:12px;line-height:16px;font-weight:700;letter-spacing:.01px;color:#1d1d1d}
 .o5-rtb ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column}
 .o5-rtb li{display:flex;align-items:center;gap:2px;font-size:11px;line-height:14px;letter-spacing:.05px;color:rgba(29,29,29,.69);min-width:0}
 .o5-rtb li img{width:16px;height:16px;flex:none}
