@@ -90,7 +90,7 @@
   const RANKS = {
     seatlock: [1, 6, 14], lmb: [1, 9], nonstop: [1, 4, 12, 20], rtc: [1, 7, 18], primo: [1, 3, 5, 8, 12, 15, 22], deals: [1, 2, 3, 10, 15, 21],
     via: [1, 6, 11, 17], layover: [1, 13], book0: [1, 5, 9, 16, 23], award: [1, 2, 3, 7, 12, 22], ad: [1, 10], highlight: [1, 4, 8, 14, 19, 24], reward: [1, 5, 11, 20],
-    prev: [1, 9], /* at most two cards on the SRP; Option 4 only. Every previously booked bus also gets BP/DP personalisation (not the reverse) */
+    prev: [3, 9], /* at most two cards on the SRP (not the first); Option 4 only. Every previously booked bus also gets BP/DP personalisation (not the reverse) */
   };
   RANKS.prev.forEach((r) => { if (!RANKS.highlight.includes(r)) RANKS.highlight.push(r); });
   const MS = { on: (() => { try { return Object.assign(Object.fromEntries(MASTER_EL.map(([k]) => [k, true])), JSON.parse(localStorage.getItem('ptags-master') || '{}')); } catch (e) { return Object.fromEntries(MASTER_EL.map(([k]) => [k, true])); } })(), subs: new Set() };
@@ -244,7 +244,7 @@
        text sits above the untouched white content, which keeps its 16 radius over the green */
     const prev = has(m, 'prev', b);
     const card = (...kids) => h('div', { className: 'px-card p3-card p4-card' + (women ? ' p4-card--women' : '') + (prev ? ' p4-card--prev' : ''), role: 'button', tabIndex: 0, onClick: () => go('seats') },
-      prev && h('p', { className: 'p4-prev' }, 'You booked this previously on ' + (b.rank === 1 ? '7th Jul' : '22nd Aug')),
+      prev && h('p', { className: 'p4-prev' }, 'You booked this previously on ' + (b.rank === 3 ? '7th Jul' : '22nd Aug')),
       ...(prev ? [h('div', { key: 'main', className: 'p4-main' }, ...kids)] : kids));
     return card(
       mTop(m, b),
