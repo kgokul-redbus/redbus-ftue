@@ -70,7 +70,7 @@
 /* Persuasion tags · Proposed Option 4 (ptags-sol.js Card4) */
 /* features · badges (Rubicon mini tag): 18 px, radius 4, caption-M, icon + label */
 .p4-badges{display:flex;flex-wrap:wrap;gap:var(--spacing-xs)}
-.p4-card .c-tag.p4-badge{min-height:18px;height:18px;gap:var(--spacing-2xs);padding:0 var(--spacing-xs) 0 var(--spacing-2xs);border-radius:var(--radius-xs);font-size:11px;line-height:14px;font-weight:500;letter-spacing:.05px;color:var(--content-neutral-high-default);background:var(--surface-neutral-high-default)}
+.p4-card .c-tag.p4-badge,.o5-card .c-tag.p4-badge{min-height:18px;height:18px;gap:var(--spacing-2xs);padding:0 var(--spacing-xs) 0 var(--spacing-2xs);border-radius:var(--radius-xs);font-size:11px;line-height:14px;font-weight:500;letter-spacing:.05px;color:var(--content-neutral-high-default);background:var(--surface-neutral-high-default)}
 .p4-badge .p3-ic{width:14px;height:14px}
 /* comparators then reassurance · one ✓ list, primary text, footnote (12/16) */
 .p4-list{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:var(--spacing-2xs)}
@@ -88,7 +88,7 @@
 .rail .pt-ugc--off{opacity:.55}
 .p4-list li .p3-ic{color:var(--icon-information,#2c5ef6)}
 .p4-card--women .p4-list li .p3-ic{color:var(--fill-woman-primary,#c41685)} /* women mode: Rubicon Fill/Woman/primary */ /* Rubicon Icon/information, the check blue in Option 2 / Experiment */
-.p4-card .c-tag.p4-badge{background:var(--fill-info-tertiary,#e4ecfd)} /* Rubicon Fill/Info/tertiary (IONS • Rubicon Figma library; not in this Ions build) */
+.p4-card .c-tag.p4-badge,.o5-card .c-tag.p4-badge{background:var(--fill-info-tertiary,#e4ecfd)} /* Rubicon Fill/Info/tertiary (IONS • Rubicon Figma library; not in this Ions build) */
 
 /* Persuasion tags · master-card elements on Proposed cards (ptags-sol.js mTop / mPre / mPost / mFoot). Figma 36958:20941 */
 .mx-top{display:flex;flex-direction:column;gap:2px;padding:4px 4px 0}
@@ -201,3 +201,4 @@
   -webkit-mask:radial-gradient(circle at 0 50%,transparent 4.6px,#000 5px) left/51% 100% no-repeat,radial-gradient(circle at 100% 50%,transparent 4.6px,#000 5px) right/51% 100% no-repeat;
   mask:radial-gradient(circle at 0 50%,transparent 4.6px,#000 5px) left/51% 100% no-repeat,radial-gradient(circle at 100% 50%,transparent 4.6px,#000 5px) right/51% 100% no-repeat}
 .o5-deal--last{background:#fede92}
+.o5-badges{margin-top:var(--spacing-2xs,2px)} /* 2px under the seats line, as Option 4's badges sit under the bus type */

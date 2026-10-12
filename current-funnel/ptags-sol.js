@@ -265,7 +265,9 @@
   })[k] || label(k, sc);
   function Card5({ b, go }) {
     const t = ugcFilter(b.proposed, useUgc()), m = useMaster();
-    const list = t.filter((k) => COMPS.includes(k)).concat(t.filter((k) => FEATS.includes(k)), t.filter((k) => REASSURE.includes(k)));
+    /* features as Option 4's badges under the seats line; the ✓ list keeps comparators → reassurance */
+    const feats = t.filter((k) => FEATS.includes(k));
+    const list = t.filter((k) => COMPS.includes(k)).concat(t.filter((k) => REASSURE.includes(k)));
     const pre = mPre(m, b).filter((e) => e.key !== 'pd');
     const deals = has(m, 'deals', b);
     return h('div', { className: 'o5-wrap' },
@@ -280,7 +282,8 @@
               mName(m, b, 'px-nm o5-nm'),
               h('p', null, b.type),
               h('p', null, b.seats + ' ' + b.single),
-              has(m, 'layover', b) && h('p', { className: 'px-warn' }, 'Next day · 2h Layover at Delhi')),
+              has(m, 'layover', b) && h('p', { className: 'px-warn' }, 'Next day · 2h Layover at Delhi'),
+              feats.length > 0 && h('div', { className: 'p4-badges o5-badges' }, feats.map((k) => Tag({ key: k, className: 'p4-badge', icon: IC[k]() }, BADGE[k])))),
             h('div', { className: 'px-rate', 'aria-label': 'Rated ' + b.rating }, h('b', null, h(Star), one(b.rating)), h('span', null, '0000'))),
           list.length > 0 && h('div', { className: 'o5-rtb' },
             h('ul', null, list.map((k) => h('li', { key: k }, h('img', { src: X + 'o5-check.svg', alt: '' }), h('span', null, L5(k, b.sc)))))),
