@@ -130,3 +130,6 @@
 .px-hd .px-deals{min-width:0}
 .px-hd .px-deal{letter-spacing:0}
 .p4-card .px-ty{color:var(--content-neutral-medium-default)} /* Option 4: bus type in the Ions secondary text colour */
+.p4-cols{display:flex;gap:var(--spacing-md)}
+.p4-cols .p4-list{flex:1;min-width:0}
+.p4-cols .p4-list li{align-items:flex-start}

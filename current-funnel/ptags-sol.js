@@ -224,7 +224,9 @@
               h('p', { className: 'px-ty' }, b.ev && !m && h('img', { src: X + 'ic-ev.svg', alt: '' }), h('span', null, b.type))),
             h('div', { className: 'px-rate', 'aria-label': 'Rated ' + b.rating }, h('b', null, h(Star), one(b.rating)), h('span', null, '0000'))),
           feats.length > 0 && h('div', { className: 'p4-badges' }, feats.map((k) => Tag({ key: k, className: 'p4-badge', icon: IC[k]() }, BADGE[k])))),
-        list.length > 0 && h('ul', { className: 'p4-list' }, list.map((k) => h('li', { key: k }, IC.check(), label(k, b.sc)))),
+        /* two columns, filled column by column, at most 3 entries per column */
+        list.length > 0 && h('div', { className: 'p4-cols' }, [list.slice(0, 3), list.slice(3, 6)].filter((c) => c.length).map((col, i) =>
+          h('ul', { key: i, className: 'p4-list' }, col.map((k) => h('li', { key: k }, IC.check(), label(k, b.sc)))))),
         mPost(m, b)),
       mFoot(m, b));
   }
