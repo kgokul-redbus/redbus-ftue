@@ -129,3 +129,4 @@
 .px-deal--last{background:linear-gradient(90deg,#f7dfaf 0,#fdf3df 70%,#f7dfaf 100%)}
 .px-hd .px-deals{min-width:0}
 .px-hd .px-deal{letter-spacing:0}
+.p4-card .px-ty{color:var(--content-neutral-medium-default)} /* Option 4: bus type in the Ions secondary text colour */
