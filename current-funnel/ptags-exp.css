@@ -166,3 +166,39 @@
 /* every offer card 128 wide, like the first; illustrations stay on the bottom-right corner */
 .sf:has(.p4-card) .sf-ad{width:128px}
 .sf:has(.p4-card) .sf-ad .ill{left:78px}
+
+/* ---- Option 5 · Figma "New approach" (36721:8339) ---- */
+.o5-wrap{display:flex;flex-direction:column;border-radius:var(--radius-2xl,16px);background:#fff;box-shadow:0 2px 2px rgba(0,0,0,.08),0 4px 4px rgba(0,0,0,.08);overflow:hidden}
+.o5-wrap>.mx-top{border-radius:0}
+.o5-card{display:flex;align-items:stretch;background:#fff;cursor:pointer}
+.o5-l{flex:1;min-width:0;display:flex;flex-direction:column;align-items:flex-start;gap:var(--spacing-lg,12px);padding:var(--spacing-lg,12px)}
+.o5-l>*{margin:0}
+.o5-time{width:100%;display:flex;align-items:center;gap:8px;font-size:16px;line-height:22px;letter-spacing:-.18px;color:#1d1d1d}
+.o5-time b{font-weight:700}
+.o5-time em{font-style:normal;font-weight:400}
+.o5-time span{flex:1;min-width:0;display:flex;align-items:center;gap:4px;font-size:11px;line-height:14px;letter-spacing:.05px;color:rgba(29,29,29,.69);white-space:nowrap}
+.o5-time span i{flex:1;min-width:0;height:1.5px;border-radius:1px;background:#e6e6e6}
+.o5-bo{width:100%;display:flex;align-items:center;gap:8px}
+.o5-bo-l{flex:1;min-width:0;display:flex;flex-direction:column;align-items:flex-start}
+.o5-bo-l p{margin:0;width:100%;font-size:12px;line-height:16px;letter-spacing:.01px;color:rgba(29,29,29,.69);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.o5-bo-l .o5-nm{color:#1d1d1d;font-size:14px;line-height:20px;letter-spacing:-.09px}
+.o5-nm>span:first-child{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.o5-bo-l .px-warn{color:#c25400}
+.o5-primo{display:block;width:40px;height:20px}
+.o5-rtb{width:100%;display:flex;flex-direction:column;gap:2px}
+.o5-ttl{margin:0;font-size:12px;line-height:16px;font-weight:700;letter-spacing:.01px;color:#1d1d1d}
+.o5-rtb ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column}
+.o5-rtb li{display:flex;align-items:center;gap:2px;font-size:11px;line-height:14px;letter-spacing:.05px;color:rgba(29,29,29,.69);min-width:0}
+.o5-rtb li img{width:16px;height:16px;flex:none}
+.o5-rtb li span{min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.o5-r{flex:none;width:100px;box-sizing:border-box;display:flex;flex-direction:column;align-items:flex-end;justify-content:space-between;gap:12px;padding:var(--spacing-lg,12px);border-left:.5px solid #e6e6e6}
+.o5-price{display:flex;flex-direction:column;align-items:flex-end;text-align:right;white-space:nowrap}
+.o5-price b{font-size:16px;line-height:22px;font-weight:700;letter-spacing:-.18px;color:#000}
+.o5-price small{font-size:11px;line-height:14px;letter-spacing:.05px;color:rgba(29,29,29,.62)}
+.o5-price .mx-book0{margin-bottom:2px}
+.o5-offers{width:100%;display:flex;flex-direction:column;gap:8px}
+/* Figma AndroidSpecialPriceTag: a ticket with half-circle notches on both sides, two lines of caption text */
+.o5-deal{display:block;padding:1px 10px;border-radius:4px;text-align:center;font-size:11px;line-height:14px;letter-spacing:.05px;color:#1d1d1d;background:#e7dcf9;
+  -webkit-mask:radial-gradient(circle at 0 50%,transparent 4.6px,#000 5px) left/51% 100% no-repeat,radial-gradient(circle at 100% 50%,transparent 4.6px,#000 5px) right/51% 100% no-repeat;
+  mask:radial-gradient(circle at 0 50%,transparent 4.6px,#000 5px) left/51% 100% no-repeat,radial-gradient(circle at 100% 50%,transparent 4.6px,#000 5px) right/51% 100% no-repeat}
+.o5-deal--last{background:#fede92}
