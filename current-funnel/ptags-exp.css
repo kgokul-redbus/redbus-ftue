@@ -87,7 +87,8 @@
 @media (prefers-reduced-motion:reduce){.rail .pt-sw,.rail .pt-sw i{transition:none}}
 .rail .pt-ugc--off{opacity:.55}
 .p4-list li .p3-ic{color:var(--icon-information,#2c5ef6)} /* Rubicon Icon/information, the check blue in Option 2 / Experiment */
-.p4-card .c-tag.p4-badge{background:var(--fill-info-tertiary,#e4ecfd)} /* Rubicon Fill/Info/tertiary (IONS • Rubicon Figma library; not in this Ions build) */
+/* feature badges: no fill, mild Ions grey outline (Border/Neutral/low) */
+.p4-card .c-tag.p4-badge{box-sizing:border-box;background:transparent;border:1px solid var(--border-neutral-low-default)}
 
 /* Persuasion tags · master-card elements on Proposed cards (ptags-sol.js mTop / mPre / mPost / mFoot). Figma 36958:20941 */
 .mx-top{display:flex;flex-direction:column;gap:2px;padding:4px 4px 0}
