@@ -222,7 +222,7 @@
      (PROPOSED.drop). Each flow keeps its own journey, so flow changes never fight the other flow's state. */
   const TAGS = { ap: 'APPROX', ds: 'DS', fig: 'FIGMA', prod: 'PROD', new: 'NEW' };
   /* makeFlow builds the flow viewer for one project: cfg = { screens, registry: () => PROPOSED-like, init, ref,
-     keys: { mode, opts }, section (body data-section where T flips flows), restart, note } */
+     keys: { mode, opts }, section (body data-section where T flips flows), restart (optional button label), note } */
   function makeFlow(cfg) {
   const SCREENS = cfg.screens, INIT = cfg.init, REF = cfg.ref || {};
   const currentFlow = () => SCREENS.map(([id, label, tag, render, bg]) => ({ id, label, tag, render, bg }));
@@ -293,7 +293,7 @@
             mode === 'proposed' && x.spec && x.tag !== 'new' && h('i', { className: 'has-prop', title: 'Changed in the proposed flow' }),
             h('span', { className: 'tag ' + x.tag }, TAGS[x.tag]))))),
         h('div', { className: 'tools' },
-          h('button', { onClick: () => update(() => INIT) }, cfg.restart),
+          cfg.restart && h('button', { onClick: () => update(() => INIT) }, cfg.restart),
           mode === 'current' && REF[s.screen] && h('button', { className: overlay ? 'on' : '', onClick: () => setOverlay(!overlay) }, overlay ? 'Hide reference overlay' : 'Overlay reference (50%)'),
           cfg.railExtra && h(cfg.railExtra, { mode }),
           h('div', { className: 'z' }, [['S', .8], ['M', 1], ['L', 1.15]].map(([l, z]) => h('button', { key: l, className: zoom === z ? 'on' : '', onClick: () => setZoom(z) }, l)))),

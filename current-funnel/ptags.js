@@ -34,7 +34,6 @@
         /* rail switches: Cleanliness & Staff on/off, and every master-card element on/off, for all Proposed options */
         railExtra: (p) => h(window.PTAGS_UGC.Rail, p),
         section: 'ptags-solves',
-        restart: 'Reset page',
       });
     }
     return h(Flow);
