@@ -81,3 +81,4 @@
 .rail .pt-ugc p small{display:block;font:500 11px/14px var(--d-font,Inter);color:var(--d-ink-3,#8a8a94)}
 .rail .pt-ugc .z{flex:none;width:104px}
 .rail .pt-ugc--off{opacity:.55}
+.p4-list li .p3-ic{color:#2c5ef6} /* the check blue from Option 2 / Experiment (Figma ic-check) */
