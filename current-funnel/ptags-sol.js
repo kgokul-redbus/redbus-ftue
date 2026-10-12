@@ -99,7 +99,8 @@
     has(m, 'rtc', b) && h('div', { key: 'rtc', className: 'mx-rtc' }, h('img', { src: X + 'rtc-senior.png', alt: '' }), h('span', null, '25% concession for Senior citizens')),
     (has(m, 'primo', b) || has(m, 'deals', b)) && h('div', { key: 'pd', className: 'px-hd' },
       has(m, 'primo', b) && h('img', { className: 'px-primo', src: X + 'primo-otg.png', alt: 'Primo On Time Guarantee' }),
-      has(m, 'deals', b) && h('span', { className: 'px-deals' }, h('span', { className: 'px-deal' }, 'Group. ', h('b', null, '20% OFF')), h('span', { className: 'px-deal px-deal--last' }, 'Last min. ', h('b', null, '20% OFF')))),
+      /* for the presentation: the Group deal only shows on non-Primo buses, so Primo rows stay uncrowded */
+      has(m, 'deals', b) && h('span', { className: 'px-deals' }, !has(m, 'primo', b) && h('span', { className: 'px-deal' }, 'Group. ', h('b', null, '20% OFF')), h('span', { className: 'px-deal px-deal--last' }, 'Last min. ', h('b', null, '20% OFF')))),
     has(m, 'via', b) && h('span', { key: 'via', className: 'px-via' }, 'Via Chittor, Rajasthan'),
   ].filter(Boolean);
   /* service row pieces (px family) */
