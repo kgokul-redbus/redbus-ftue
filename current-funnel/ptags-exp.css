@@ -156,3 +156,4 @@
 .sf:has(.p4-card) .sf-ad{height:88px}
 .sf:has(.p4-card) .sf-ad--img img,.sf:has(.p4-card) .sf-ad--full img{object-fit:cover}
 .sf:has(.p4-card) .sf-ad .ill{top:38px}
+.sf:has(.p4-card) .sf-ads{padding-bottom:4px}
