@@ -82,3 +82,4 @@
 .rail .pt-ugc .z{flex:none;width:104px}
 .rail .pt-ugc--off{opacity:.55}
 .p4-list li .p3-ic{color:#2c5ef6} /* the check blue from Option 2 / Experiment (Figma ic-check) */
+.p4-card .c-tag.p4-badge{background:var(--fill-info-secondary,#dbe0fa)} /* Rubicon fill/info/secondary (Figma; not in this Ions build) */
