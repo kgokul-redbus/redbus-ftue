@@ -233,7 +233,7 @@
     const text = (k) => (k === 'womenT' ? (6 + (b.rank * 5) % 19) + ' women travelling' : label(k, b.sc));
     /* columns: 3 per column (max 6) normally; in women mode every item shows, split evenly over the two columns */
     const per = women ? Math.max(3, Math.ceil(list.length / 2)) : 3;
-    return h('div', { className: 'px-card p3-card p4-card', role: 'button', tabIndex: 0, onClick: () => go('seats') },
+    return h('div', { className: 'px-card p3-card p4-card' + (women ? ' p4-card--women' : ''), role: 'button', tabIndex: 0, onClick: () => go('seats') },
       mTop(m, b),
       h('div', { className: 'px-body' },
         ...mPre(m, b),
