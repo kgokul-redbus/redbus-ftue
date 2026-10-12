@@ -202,3 +202,15 @@
   mask:radial-gradient(circle at 0 50%,transparent 4.6px,#000 5px) left/51% 100% no-repeat,radial-gradient(circle at 100% 50%,transparent 4.6px,#000 5px) right/51% 100% no-repeat}
 .o5-deal--last{background:#fede92}
 .o5-badges{margin-top:var(--spacing-2xs,2px)} /* 2px under the seats line, as Option 4's badges sit under the bus type */
+
+/* ---- Option 6 (temporary) · women rating sealed into the rating ----
+   One object, three tiers, one silhouette: score (Success/primary) · reviews (Success/tertiary) · who loves it
+   (Woman/tertiary with the IONS women icon and "Top rated" in Text/woman). The chip widens just enough for the foot;
+   nothing floats beside it, so the endorsement reads as a property of the score rather than another tag. */
+.p6-seal{flex:none;display:flex;flex-direction:column;border-radius:6px;overflow:hidden}
+.p6-seal .px-rate{width:auto;height:auto;border-radius:0}
+.p6-seal .px-rate b{width:auto;border-radius:6px 6px 4px 4px}
+.p6-seal .px-rate span{padding-bottom:1px}
+.p6-seal-ft{display:flex;align-items:center;justify-content:center;gap:1px;height:16px;padding:0 4px 0 2px;background:var(--fill-woman-tertiary,#f7e7ec);font-size:10px;line-height:12px;font-weight:600;letter-spacing:.1px;color:var(--text-woman,#c41685);white-space:nowrap}
+.p6-seal-ft .p3-ic{width:12px;height:12px;color:var(--icon-woman,#c41685)}
+.p6-card .px-bo{align-items:flex-start}

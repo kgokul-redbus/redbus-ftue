@@ -194,6 +194,7 @@
   const IC = {
     /* IONS • Rubicon icons (Figma library: toilet, new_bus), 24 px artwork drawn in currentColor */
     toilet: () => ions([['M9.5 2C9.91421 2 10.25 2.33579 10.25 2.75V10.4893H20.5C20.9142 10.4893 21.2499 10.8251 21.25 11.2393V11.2891C21.25 12.9388 20.4002 14.3908 19.1143 15.2295L16.0645 17.3613C14.9275 18.1565 14.25 19.4573 14.25 20.8447V21.2393C14.25 21.6535 13.9142 21.9893 13.5 21.9893H6.5C6.26965 21.9891 6.05222 21.8835 5.91016 21.7021C5.76802 21.5205 5.71707 21.2834 5.77246 21.0596L6.69434 17.3369C6.89339 16.5327 6.57627 15.6933 5.90723 15.2197C5.87755 15.2004 5.84758 15.1811 5.81836 15.1611L5.79785 15.1484L5.79883 15.1475C4.75599 14.4252 4.0158 13.2956 3.80859 11.9893H3.5C3.08579 11.9893 2.75 11.6535 2.75 11.2393V2.75C2.75 2.33579 3.08579 2 3.5 2H9.5ZM8.14062 15.9756C8.28366 16.5268 8.29386 17.1176 8.15039 17.6973L7.45898 20.4893H12.7617C12.8693 18.7472 13.7643 17.1405 15.2051 16.1328L15.4092 15.9893H8.5L8.14062 15.9756ZM5.33691 11.9893C5.52423 12.7823 6.00256 13.4631 6.65234 13.9131C6.68233 13.9325 6.71197 13.9525 6.74121 13.9727C7.2482 14.2996 7.85189 14.4893 8.5 14.4893H16.5498C17.1872 14.4893 17.7815 14.3036 18.2803 13.9824L18.3809 13.9111C18.3956 13.9009 18.4106 13.8909 18.4258 13.8818C19.0471 13.4315 19.5001 12.7633 19.6729 11.9893H5.33691ZM4.25 10.4893H8.75V3.5H4.25V10.4893Z', 1], ['M20 9.25H11.5V7.75H20V9.25Z']]),
+    woman: () => ions([['M12.204 8.67505C13.0281 8.73867 13.7495 9.27277 14.0458 10.0549L16.704 17.0725C16.7912 17.3029 16.759 17.5612 16.619 17.7639C16.4791 17.9666 16.2491 18.088 16.0028 18.0881H14.7655V21.2571C14.7655 21.6713 14.4297 22.0071 14.0155 22.0071H9.99988C9.58567 22.0071 9.24988 21.6713 9.24988 21.2571V18.0881H7.99988C7.75224 18.0881 7.52052 17.9654 7.38074 17.761C7.24115 17.5566 7.21086 17.2963 7.30066 17.0657L10.038 10.0364C10.3591 9.21193 11.1532 8.66922 12.038 8.66919L12.204 8.67505ZM12.038 10.1692C11.7715 10.1692 11.5321 10.333 11.4354 10.5813L9.09656 16.5881H9.99988L10.077 16.592C10.455 16.6307 10.7499 16.95 10.7499 17.3381V20.5071H13.2655V17.3381C13.2655 16.924 13.6014 16.5883 14.0155 16.5881H14.9159L12.6425 10.5862C12.5592 10.3666 12.3647 10.2124 12.1376 10.177L12.038 10.1692Z', 1], ['M14.8768 7.30981C14.7156 6.66396 15.2863 6.13974 15.9686 6.42603C16.4106 6.61149 17.0533 7.37967 16.5995 8.64868C16.4457 7.7796 15.0629 8.05391 14.8768 7.30981Z'], ['M11.9999 1.99634C13.6476 1.99634 14.9832 3.33205 14.9833 4.97974C14.9833 6.62745 13.6476 7.96313 11.9999 7.96313C10.3522 7.96313 9.01648 6.62745 9.01648 4.97974C9.01651 3.33205 10.3522 1.99634 11.9999 1.99634ZM11.9999 3.49634C11.1806 3.49634 10.5165 4.16047 10.5165 4.97974C10.5165 5.79902 11.1806 6.46313 11.9999 6.46313C12.8192 6.46313 13.4833 5.79903 13.4833 4.97974C13.4832 4.16047 12.8191 3.49634 11.9999 3.49634Z', 1]]), /* IONS women_2 */
     new: () => ions([['M6.8335 14.8838C7.38578 14.8838 7.8335 15.3315 7.8335 15.8838C7.8335 16.4361 7.38578 16.8838 6.8335 16.8838C6.28121 16.8838 5.8335 16.4361 5.8335 15.8838C5.8335 15.3315 6.28121 14.8838 6.8335 14.8838Z'], ['M15.3335 14.8838C15.8858 14.8838 16.3335 15.3315 16.3335 15.8838C16.3335 16.4361 15.8858 16.8838 15.3335 16.8838C14.7812 16.8838 14.3335 16.4361 14.3335 15.8838C14.3335 15.3315 14.7812 14.8838 15.3335 14.8838Z'], ['M11.0835 2.63379C12.3134 2.63379 13.4 2.70698 14.3335 2.81445V4.32422C13.418 4.21211 12.3309 4.13379 11.0835 4.13379C8.97698 4.13379 7.32767 4.35843 6.18994 4.58887C5.4766 4.73336 4.95158 5.33816 4.85107 6.13379H14.3335V7.63379H4.8335V12.1338H17.3335V11.1338H18.8335V16.8838C18.8335 18.0498 18.1078 19.0463 17.0835 19.4463V20.8838C17.0835 21.4361 16.6358 21.8838 16.0835 21.8838C15.5312 21.8838 15.0835 21.4361 15.0835 20.8838V19.6338H7.0835V20.8838C7.0835 21.4361 6.63578 21.8838 6.0835 21.8838C5.53121 21.8838 5.0835 21.4361 5.0835 20.8838V19.4463C4.05916 19.0463 3.3335 18.0498 3.3335 16.8838V6.41504C3.3335 4.89348 4.28271 3.44513 5.89209 3.11914C7.12059 2.87031 8.86976 2.63379 11.0835 2.63379ZM4.8335 16.8838C4.8335 17.5741 5.39314 18.1338 6.0835 18.1338H16.0835C16.7739 18.1338 17.3335 17.5741 17.3335 16.8838V13.6338H4.8335V16.8838Z', 1], ['M18.4927 3.00391C18.6425 2.5435 19.2942 2.54338 19.4438 3.00391L19.8901 4.37891C19.9571 4.5849 20.1491 4.72459 20.3657 4.72461H21.812L21.8989 4.73145C22.3188 4.80054 22.4724 5.36199 22.105 5.62891L20.936 6.47852C20.7608 6.60584 20.6875 6.83207 20.7544 7.03809L21.2007 8.41309C21.3503 8.8737 20.823 9.25636 20.4312 8.97168L19.2622 8.12207C19.087 7.9948 18.8495 7.99489 18.6743 8.12207L17.5044 8.97168C17.1126 9.25634 16.5854 8.87365 16.7349 8.41309L17.1821 7.03809C17.2491 6.8321 17.1757 6.60585 17.0005 6.47852L15.8306 5.62891C15.4387 5.3442 15.6402 4.72461 16.1245 4.72461H17.5698C17.7864 4.72461 17.9785 4.58492 18.0454 4.37891L18.4927 3.00391Z']]),
     check: () => h('svg', { viewBox: '0 0 16 16', width: 16, height: 16, 'aria-hidden': true, className: 'p3-ic' }, h('path', { d: 'M3.5 8.4l3 3 6-6.6', fill: 'none', stroke: 'currentColor', strokeWidth: 1.5, strokeLinecap: 'round', strokeLinejoin: 'round' })),
   };
@@ -224,16 +225,25 @@
      Comparators → a ✓ list in the primary text colour, footnote size
      Reassurance → the same list, after the comparators, same style */
   const BADGE = { toilet: 'In-bus toilet', new: 'New bus' };
-  function Card4({ b, go }) {
-    const t = ugcFilter(b.proposed, useUgc()), m = useMaster(), women = useWomen();
+  /* Option 6 (temporary, women-mode iteration on Option 4): always the women-mode view. "Highly rated by women"
+     leaves the list and becomes part of the rating itself: the rating chip sits on a soft Woman/tertiary plate whose
+     foot carries the women icon and "Top rated" in Text/woman, so the endorsement reads as a property of the score. */
+  const Rate = ({ b, seal }) => seal
+    ? h('div', { className: 'p6-seal', 'aria-label': 'Rated ' + b.rating + ', highly rated by women' },
+        h('div', { className: 'px-rate', 'aria-hidden': true }, h('b', null, h(Star), one(b.rating)), h('span', null, '0000')),
+        h('span', { className: 'p6-seal-ft', 'aria-hidden': true }, IC.woman(), 'Top rated'))
+    : h('div', { className: 'px-rate', 'aria-label': 'Rated ' + b.rating }, h('b', null, h(Star), one(b.rating)), h('span', null, '0000'));
+  function Card4({ b, go, v6 }) {
+    const t = ugcFilter(b.proposed, useUgc()), m = useMaster(), women = useWomen() || !!v6;
     const feats = t.filter((k) => FEATS.includes(k));
-    /* women mode: the women items join the end of the reassurance list */
-    const wTags = women ? ['womenT', 'womenR'].filter((k) => b.shown.includes(k)) : [];
+    const seal = !!v6 && b.shown.includes('womenR');
+    /* women mode: the women items join the end of the reassurance list (Option 6: the women rating moves into the rating) */
+    const wTags = women ? ['womenT', 'womenR'].filter((k) => b.shown.includes(k) && !(k === 'womenR' && seal)) : [];
     const list = t.filter((k) => COMPS.includes(k)).concat(t.filter((k) => REASSURE.includes(k)), wTags);
     const text = (k) => (k === 'womenT' ? (6 + (b.rank * 5) % 19) + ' women travelling' : label(k, b.sc));
     /* columns: 3 per column (max 6) normally; in women mode every item shows, split evenly over the two columns */
     const per = women ? Math.max(3, Math.ceil(list.length / 2)) : 3;
-    return h('div', { className: 'px-card p3-card p4-card' + (women ? ' p4-card--women' : ''), role: 'button', tabIndex: 0, onClick: () => go('seats') },
+    return h('div', { className: 'px-card p3-card p4-card' + (women ? ' p4-card--women' : '') + (v6 ? ' p6-card' : ''), role: 'button', tabIndex: 0, onClick: () => go('seats') },
       mTop(m, b),
       h('div', { className: 'px-body' },
         ...mPre(m, b),
@@ -243,7 +253,7 @@
             h('div', { className: 'px-bo-l' },
               mName(m, b),
               h('p', { className: 'px-ty' }, b.ev && !m && h('img', { src: X + 'ic-ev.svg', alt: '' }), h('span', null, b.type))),
-            h('div', { className: 'px-rate', 'aria-label': 'Rated ' + b.rating }, h('b', null, h(Star), one(b.rating)), h('span', null, '0000'))),
+            h(Rate, { b, seal })),
           feats.length > 0 && h('div', { className: 'p4-badges' }, feats.map((k) => Tag({ key: k, className: 'p4-badge', icon: IC[k]() }, BADGE[k])))),
         /* two columns, filled column by column */
         list.length > 0 && h('div', { className: 'p4-cols' }, [list.slice(0, per), list.slice(per, 2 * per)].filter((c) => c.length).map((col, i) =>
@@ -310,6 +320,7 @@
       { key: 'C', label: 'Comparator tags · feature icon + text · reassurance list', render: srp(({ go }) => h('div', { className: 'px-list' }, BUSES.map((b) => h(Card3, { key: b.rank, b, go })))) },
       { key: 'D', label: 'Feature badges · comparators + reassurance as one ✓ list', render: srp(({ go }) => h('div', { className: 'px-list' }, BUSES.map((b) => h(Card4, { key: b.rank, b, go })))) },
       { key: 'E', label: 'Figma “New approach” · price column + ✓ list', render: srp(({ go }) => h('div', { className: 'px-list' }, BUSES.map((b) => h(Card5, { key: b.rank, b, go })))) },
+      { key: 'F', label: 'Temporary · Option 4 in women mode, women rating inside the rating', render: srp(({ go }) => h('div', { className: 'px-list' }, BUSES.map((b) => h(Card4, { key: b.rank, b, go, v6: true })))) },
     ],
   });
 })();
