@@ -25,7 +25,7 @@
     const on = useUgc();
     return h('div', { className: 'pt-ugc' + (mode === 'proposed' ? '' : ' pt-ugc--off') },
       h('p', null, 'Cleanliness & Staff', h('small', null, 'All proposed options')),
-      h('div', { className: 'z' }, [['On', true], ['Off', false]].map(([l, v]) => h('button', { key: l, className: on === v ? 'on' : '', onClick: () => UGC.set(v) }, l))));
+      h('button', { className: 'pt-sw' + (on ? ' on' : ''), role: 'switch', 'aria-checked': on, 'aria-label': 'Cleanliness & Staff', onClick: () => UGC.set(!on) }, h('i')));
   }
   window.PTAGS_UGC = { Toggle: UgcToggle };
 

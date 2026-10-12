@@ -79,7 +79,12 @@
 .rail .pt-ugc{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:8px 4px 0}
 .rail .pt-ugc p{margin:0;font:600 13px/16px var(--d-font,Inter);color:var(--d-ink,#1c1c21)}
 .rail .pt-ugc p small{display:block;font:500 11px/14px var(--d-font,Inter);color:var(--d-ink-3,#8a8a94)}
-.rail .pt-ugc .z{flex:none;width:104px}
+.rail .pt-sw{all:unset;flex:none;position:relative;width:36px;height:20px;border-radius:10px;background:var(--d-line,#e6e6ec);cursor:pointer;transition:background .2s}
+.rail .pt-sw i{position:absolute;top:2px;left:2px;width:16px;height:16px;border-radius:50%;background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.18);transition:transform .2s}
+.rail .pt-sw.on{background:var(--d-ink,#1c1c21)}
+.rail .pt-sw.on i{transform:translateX(16px)}
+.rail .pt-sw:focus-visible{outline:2px solid var(--d-ink,#1c1c21);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){.rail .pt-sw,.rail .pt-sw i{transition:none}}
 .rail .pt-ugc--off{opacity:.55}
 .p4-list li .p3-ic{color:var(--icon-information,#2c5ef6)} /* Rubicon Icon/information, the check blue in Option 2 / Experiment */
 .p4-card .c-tag.p4-badge{background:var(--fill-info-tertiary,#e4ecfd)} /* Rubicon Fill/Info/tertiary (IONS • Rubicon Figma library; not in this Ions build) */
