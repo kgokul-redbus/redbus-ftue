@@ -393,7 +393,7 @@
         h('div', { className: 'deck-brand' },
           h(ProjectMenu, { list, proj: view.proj, onPick: (pid) => pid !== view.proj && go({ proj: pid, sec: firstSec(pid) }) })),
         h('nav', { className: 'deck-tabs', role: 'tablist' }, project.sections.map(([id, label]) => h('button', { key: id, role: 'tab', 'aria-selected': view.sec === id, className: view.sec === id ? 'on' : '', onClick: () => go({ proj: view.proj, sec: id }) }, label)))),
-      list.map((p) => h(Fragment, { key: p.id }, p.sections.map(([id, , spec]) => h('section', { key: p.id + id, className: 'deck-sec deck-sec--' + (spec.src ? 'frame' : 'app'), hidden: p.id !== view.proj || view.sec !== id },
+      list.map((p) => h(Fragment, { key: p.id }, p.sections.map(([id, , spec]) => h('section', { key: p.id + id, className: 'deck-sec deck-sec--' + (spec.src ? 'frame' : 'app') + ' deck-sec--' + p.id, hidden: p.id !== view.proj || view.sec !== id },
         spec.src ? h(Frame, { src: spec.src, title: id, zoom: spec.zoom, css: spec.css, js: spec.js }) : h(spec.render))))));
   }
 

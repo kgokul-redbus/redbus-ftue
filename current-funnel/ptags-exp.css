@@ -138,3 +138,7 @@
 .p4-cols{display:flex;gap:var(--spacing-md)}
 .p4-cols .p4-list{flex:1;min-width:0}
 .p4-cols .p4-list li{align-items:flex-start}
+
+/* Persuasion tags SRP: offers carousel sits flush under the header, no line or gap before the filters */
+.deck-sec--ptags .sf-ads{padding-top:0;border-bottom:0}
+.deck-sec--ptags .sf-ads+.sf-filters{margin-top:0}
