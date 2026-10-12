@@ -162,3 +162,6 @@
 .sf:has(.p4-card) .sf-scroll{background:linear-gradient(180deg,#fff 0,#fff 332px,#fcfcfe 344px,#f7f7fb 356px,#f4f4f9 366px,#f2f2f8 374px) 0 0/100% 374px no-repeat local}
 .sf:has(.p4-card) .sf-ads,.sf:has(.p4-card) .sf-filters{background:transparent}
 .sf:has(.p4-card) .sf-ai{padding-bottom:0}
+/* every offer card 128 wide, like the first; illustrations stay on the bottom-right corner */
+.sf:has(.p4-card) .sf-ad{width:128px}
+.sf:has(.p4-card) .sf-ad .ill{left:78px}
