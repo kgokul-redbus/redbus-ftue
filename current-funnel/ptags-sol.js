@@ -72,7 +72,7 @@
   const MASTER_EL = [
     ['seatlock', 'Book for ₹0 banner'], ['lmb', 'Live bus status'], ['nonstop', 'Non-stop'], ['rtc', 'RTC concession'],
     ['primo', 'Primo'], ['deals', 'Deals'], ['via', 'Via route'], ['layover', 'Next day + layover'], ['book0', 'Book for ₹0 price tag'],
-    ['award', 'Award'], ['ad', 'Ad'], ['highlight', 'Highlight tag'], ['reward', 'tripReward'],
+    ['award', 'Award'], ['ad', 'Ad'], ['highlight', 'BP/DP personalisation'], ['reward', 'tripReward'],
   ];
   const RANKS = {
     seatlock: [1, 6, 14], lmb: [1, 9], nonstop: [1, 4, 12, 20], rtc: [1, 7, 18], primo: [1, 3, 5, 8, 12, 15, 22], deals: [1, 2, 3, 10, 15, 21],
