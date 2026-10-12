@@ -29,6 +29,18 @@
   }
   window.PTAGS_UGC = { Toggle: UgcToggle };
 
+  /* Women mode (Option 4 only): adds the women reassurance items. Which buses qualify comes from today's
+     shown_tag_names (Women Traveling / Highly rated by women); the sheet has no head-count, so the number is illustrative. */
+  const WM = { on: (() => { try { return localStorage.getItem('ptags-women') === 'on'; } catch (e) { return false; } })(), subs: new Set() };
+  WM.set = (v) => { WM.on = v; try { localStorage.setItem('ptags-women', v ? 'on' : 'off'); } catch (e) {} WM.subs.forEach((f) => f(v)); };
+  const useWomen = () => { const [v, setV] = React.useState(WM.on); React.useEffect(() => { WM.subs.add(setV); return () => WM.subs.delete(setV); }, []); return v; };
+  function WomenToggle({ mode }) {
+    const on = useWomen();
+    return h('div', { className: 'pt-ugc' + (mode === 'proposed' ? '' : ' pt-ugc--off') },
+      h('p', null, 'Women mode', h('small', null, 'Option 4')),
+      h('button', { className: 'pt-sw' + (on ? ' on' : ''), role: 'switch', 'aria-checked': on, 'aria-label': 'Women mode', onClick: () => WM.set(!on) }, h('i')));
+  }
+
   const ORDER = ['comfort', 'clean', 'staff', 'onTime', 'toilet', 'new', 'lounge', 'freeSnacks', 'snack', 'fdc', 'womenT', 'womenR'];
   const one = (v) => (Math.round(v * 10) / 10).toFixed(1);
   const label = (k, sc) => ({
@@ -124,7 +136,7 @@
       h('ul', null, MASTER_EL.map(([k, l]) => h('li', { key: k },
         h('label', null, h('input', { type: 'checkbox', checked: !!m[k], onChange: (e) => MS.set(k, e.target.checked) }), h('span', null, l))))));
   }
-  function RailExtra(p) { return h(React.Fragment, null, h(window.PTAGS_UGC.Toggle, p), h(MasterPanel, p)); }
+  function RailExtra(p) { return h(React.Fragment, null, h(window.PTAGS_UGC.Toggle, p), h(WomenToggle, p), h(MasterPanel, p)); }
   window.PTAGS_UGC.Rail = RailExtra;
 
   function ProdCard({ b, go, set: tags }) {
@@ -213,8 +225,14 @@
      Reassurance → the same list, after the comparators, same style */
   const BADGE = { toilet: 'In-bus toilet', new: 'New bus' };
   function Card4({ b, go }) {
-    const t = ugcFilter(b.proposed, useUgc()), m = useMaster();
-    const feats = t.filter((k) => FEATS.includes(k)), list = t.filter((k) => COMPS.includes(k)).concat(t.filter((k) => REASSURE.includes(k)));
+    const t = ugcFilter(b.proposed, useUgc()), m = useMaster(), women = useWomen();
+    const feats = t.filter((k) => FEATS.includes(k));
+    /* women mode: the women items join the end of the reassurance list */
+    const wTags = women ? ['womenT', 'womenR'].filter((k) => b.shown.includes(k)) : [];
+    const list = t.filter((k) => COMPS.includes(k)).concat(t.filter((k) => REASSURE.includes(k)), wTags);
+    const text = (k) => (k === 'womenT' ? (6 + (b.rank * 5) % 19) + ' women travelling' : label(k, b.sc));
+    /* columns: 3 per column (max 6) normally; in women mode every item shows, split evenly over the two columns */
+    const per = women ? Math.max(3, Math.ceil(list.length / 2)) : 3;
     return h('div', { className: 'px-card p3-card p4-card', role: 'button', tabIndex: 0, onClick: () => go('seats') },
       mTop(m, b),
       h('div', { className: 'px-body' },
@@ -227,9 +245,9 @@
               h('p', { className: 'px-ty' }, b.ev && !m && h('img', { src: X + 'ic-ev.svg', alt: '' }), h('span', null, b.type))),
             h('div', { className: 'px-rate', 'aria-label': 'Rated ' + b.rating }, h('b', null, h(Star), one(b.rating)), h('span', null, '0000'))),
           feats.length > 0 && h('div', { className: 'p4-badges' }, feats.map((k) => Tag({ key: k, className: 'p4-badge', icon: IC[k]() }, BADGE[k])))),
-        /* two columns, filled column by column, at most 3 entries per column */
-        list.length > 0 && h('div', { className: 'p4-cols' }, [list.slice(0, 3), list.slice(3, 6)].filter((c) => c.length).map((col, i) =>
-          h('ul', { key: i, className: 'p4-list' }, col.map((k) => h('li', { key: k }, IC.check(), label(k, b.sc)))))),
+        /* two columns, filled column by column */
+        list.length > 0 && h('div', { className: 'p4-cols' }, [list.slice(0, per), list.slice(per, 2 * per)].filter((c) => c.length).map((col, i) =>
+          h('ul', { key: i, className: 'p4-list' }, col.map((k) => h('li', { key: k }, IC.check(), text(k)))))),
         mPost(m, b)),
       mFoot(m, b));
   }
