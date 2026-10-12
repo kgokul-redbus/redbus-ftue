@@ -45,6 +45,7 @@
 
   /* illustrative fields, stable per rank */
   const pad = (n) => String(n).padStart(2, '0');
+  /* EV icon on the bus type: Current only (removed from all Proposed options, 2026-10-12) */
   const BUSES = ROWS.map(([rank, op, dep, type, rating, tags, sc]) => {
     const [hh, mm] = dep.split(':').map(Number);
     const durM = 6 * 60 + 10 + (rank * 7) % 40;
@@ -140,7 +141,7 @@
       h('div', { className: 'sf-bo' },
         h('div', null,
           m ? mName(m, b, 'nm mx-nm') : h('p', { className: 'nm' }, b.op),
-          b.ev ? h('p', { className: 'ty' }, h('img', { src: A + 'ic-ev.png', alt: '' }), b.type) : h('p', { className: 'ty' }, b.type)),
+          b.ev && !m ? h('p', { className: 'ty' }, h('img', { src: A + 'ic-ev.png', alt: '' }), b.type) : h('p', { className: 'ty' }, b.type)),
         h('div', { className: 'sf-rate', 'aria-label': 'Rated ' + b.rating }, h('b', null, h(Star), one(b.rating)), h('span', null, '0000'))),
       h('div', { className: 'sf-tags' }, tags.map((k) => h('span', { key: k, className: 'sf-tag' }, label(k, b.sc)))),
       m && mPost(m, b), foot);
@@ -161,7 +162,7 @@
         h('div', { className: 'px-bo' },
           h('div', { className: 'px-bo-l' },
             mName(m, b),
-            h('p', { className: 'px-ty' }, b.ev && h('img', { src: X + 'ic-ev.svg', alt: '' }), h('span', null, b.type))),
+            h('p', { className: 'px-ty' }, b.ev && !m && h('img', { src: X + 'ic-ev.svg', alt: '' }), h('span', null, b.type))),
           h('div', { className: 'px-rate', 'aria-label': 'Rated ' + b.rating }, h('b', null, h(Star), one(b.rating)), h('span', null, '0000'))),
         h('div', { className: 'px-rtb' }, cols.map((col, i) => h('ul', { key: i }, col.map((k) => h('li', { key: k }, h('img', { src: X + 'ic-check.svg', alt: '' }), h('span', null, label(k, b.sc))))))),
         mPost(m, b)),
@@ -193,7 +194,7 @@
           h('div', { className: 'px-bo' },
             h('div', { className: 'px-bo-l' },
               mName(m, b),
-              h('p', { className: 'px-ty' }, b.ev && h('img', { src: X + 'ic-ev.svg', alt: '' }), h('span', null, b.type))),
+              h('p', { className: 'px-ty' }, b.ev && !m && h('img', { src: X + 'ic-ev.svg', alt: '' }), h('span', null, b.type))),
             h('div', { className: 'px-rate', 'aria-label': 'Rated ' + b.rating }, h('b', null, h(Star), one(b.rating)), h('span', null, '0000'))),
           feats.length > 0 && h('div', { className: 'p3-feat' }, feats.map((k) => h('span', { key: k }, IC[k](), label(k, b.sc))))),
         comps.length > 0 && h('div', { className: 'p3-comp' }, comps.map((k) => Tag({ key: k, className: 'p3-tag' }, label(k, b.sc)))),
@@ -219,7 +220,7 @@
           h('div', { className: 'px-bo' },
             h('div', { className: 'px-bo-l' },
               mName(m, b),
-              h('p', { className: 'px-ty' }, b.ev && h('img', { src: X + 'ic-ev.svg', alt: '' }), h('span', null, b.type))),
+              h('p', { className: 'px-ty' }, b.ev && !m && h('img', { src: X + 'ic-ev.svg', alt: '' }), h('span', null, b.type))),
             h('div', { className: 'px-rate', 'aria-label': 'Rated ' + b.rating }, h('b', null, h(Star), one(b.rating)), h('span', null, '0000'))),
           feats.length > 0 && h('div', { className: 'p4-badges' }, feats.map((k) => Tag({ key: k, className: 'p4-badge', icon: IC[k]() }, BADGE[k])))),
         list.length > 0 && h('ul', { className: 'p4-list' }, list.map((k) => h('li', { key: k }, IC.check(), label(k, b.sc)))),
