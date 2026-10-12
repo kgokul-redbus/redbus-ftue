@@ -31,8 +31,8 @@
         keys: { mode: 'ptags-flow-mode', opts: 'ptags-options', variant: 'ptags-variant' },
         /* Current has two live versions of the SRP (production, and the layout being tried next), both with today's shown tags */
         variants: () => ({ srp: [{ key: 'prod', label: 'Production', render: (p) => h(window.PTAGS_SRP.prodShown, p) }, { key: 'exp', label: 'Experiment', render: (p) => h(window.PTAGS_SRP.expShown, p) }] }),
-        /* rail switch: show / hide Cleanliness and Staff behaviour in every Proposed option (still under discussion) */
-        railExtra: (p) => h(window.PTAGS_UGC.Toggle, p),
+        /* rail switches: Cleanliness & Staff on/off, and every master-card element on/off, for all Proposed options */
+        railExtra: (p) => h(window.PTAGS_UGC.Rail, p),
         section: 'ptags-solves',
         restart: 'Reset page',
       });

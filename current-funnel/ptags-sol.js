@@ -65,42 +65,107 @@
   const Star = () => h('svg', { viewBox: '0 0 12 12', 'aria-hidden': true }, h('path', { d: 'M6 .9l1.5 3.2 3.5.4-2.6 2.4.7 3.5L6 8.7 2.9 10.4l.7-3.5L1 4.5l3.5-.4z', fill: '#fff' }));
 
   /* Option 1 · production card design */
+  /* ---------- Master card (Figma SRP - Cleanup, AndroidTupple-India 36958:20941) · Proposed only ----------
+     Every element of the master card is in place on the Proposed cards, each with an on/off switch in the rail.
+     Bus 1 carries every element (the master); the rest carry them on a realistic spread of ranks. The tag
+     treatment of each option is untouched; these elements sit around it. Current never shows them. */
+  const MASTER_EL = [
+    ['seatlock', 'Book for ₹0 banner'], ['lmb', 'Live bus status'], ['nonstop', 'Non-stop'], ['rtc', 'RTC concession'],
+    ['primo', 'Primo'], ['deals', 'Deals'], ['via', 'Via route'], ['layover', 'Next day + layover'], ['book0', 'Book for ₹0 price tag'],
+    ['award', 'Award'], ['ad', 'Ad'], ['highlight', 'Highlight tag'], ['reward', 'tripReward'],
+  ];
+  const RANKS = {
+    seatlock: [1, 6, 14], lmb: [1, 9], nonstop: [1, 4, 12, 20], rtc: [1, 7, 18], primo: [1, 3, 5, 8, 12, 15, 22], deals: [1, 2, 3, 10, 15, 21],
+    via: [1, 6, 11, 17], layover: [1, 13], book0: [1, 5, 9, 16, 23], award: [1, 2, 3, 7, 12, 22], ad: [1, 10], highlight: [1, 4, 8, 14, 19, 24], reward: [1, 5, 11, 20],
+  };
+  const MS = { on: (() => { try { return Object.assign(Object.fromEntries(MASTER_EL.map(([k]) => [k, true])), JSON.parse(localStorage.getItem('ptags-master') || '{}')); } catch (e) { return Object.fromEntries(MASTER_EL.map(([k]) => [k, true])); } })(), subs: new Set() };
+  MS.set = (k, v) => { MS.on = Object.assign({}, MS.on, { [k]: v }); try { localStorage.setItem('ptags-master', JSON.stringify(MS.on)); } catch (e) {} MS.subs.forEach((f) => f(MS.on)); };
+  const useMaster = () => { const [v, setV] = React.useState(MS.on); React.useEffect(() => { MS.subs.add(setV); return () => MS.subs.delete(setV); }, []); return v; };
+  const has = (m, k, b) => !!(m && m[k] && RANKS[k].includes(b.rank));
+  const arrow = () => h('img', { className: 'mx-arw', src: X + 'ic-arrow-fwd.svg', alt: '' });
+
+  /* top section: Book-for-₹0 banner and live bus status */
+  const mTop = (m, b) => (has(m, 'seatlock', b) || has(m, 'lmb', b)) && h('div', { className: 'mx-top' },
+    has(m, 'seatlock', b) && h('div', { className: 'mx-seat' },
+      h('div', null, h('b', null, '₹0 માં બુક કરો — જો તમે મુસાફરી કરો તો ચૂકવણી કરો!'), h('small', null, 'Book for ₹0 — Pay later!')),
+      h('img', { src: X + 'ic-info.svg', alt: 'Info' })),
+    has(m, 'lmb', b) && h('div', { className: 'mx-lmb' },
+      h('p', { className: 'mx-lmb-st' }, h('span', { className: 'mx-plate' }, h('i'), 'KA 03 K 2345', h('i')), h('span', { className: 'mx-status' }, 'IS STARTING')),
+      h('p', { className: 'mx-lmb-bp' }, h('span', null, 'Next Up:'), h('span', { className: 'mx-bps' }, 'Electronic city', arrow(), 'Anand Rao circle', arrow(), 'Madiwala', arrow()), h('span', { className: 'mx-more' }, h('span', null, '+3 Stops')))));
+  /* pre-service rows: Non-stop, RTC concession, Primo + deals, via route */
+  const mPre = (m, b) => [
+    has(m, 'nonstop', b) && h('img', { key: 'ns', className: 'mx-nonstop', src: X + 'nonstop.png', alt: 'Non-stop' }),
+    has(m, 'rtc', b) && h('div', { key: 'rtc', className: 'mx-rtc' }, h('img', { src: X + 'rtc-senior.png', alt: '' }), h('span', null, '25% concession for Senior citizens')),
+    (has(m, 'primo', b) || has(m, 'deals', b)) && h('div', { key: 'pd', className: 'px-hd' },
+      has(m, 'primo', b) && h('img', { className: 'px-primo', src: X + 'primo-otg.png', alt: 'Primo On Time Guarantee' }),
+      has(m, 'deals', b) && h('span', { className: 'px-deals' }, h('span', { className: 'px-deal' }, 'Group. ', h('b', null, '20% OFF')), h('span', { className: 'px-deal px-deal--empty', 'aria-hidden': true }))),
+    has(m, 'via', b) && h('span', { key: 'via', className: 'px-via' }, 'Via Chittor, Rajasthan'),
+  ].filter(Boolean);
+  /* service row pieces (px family) */
+  const mTime = (m, b) => h('p', { className: 'px-time' }, h('b', null, b.dep),
+    has(m, 'layover', b) && h('span', { className: 'px-next' }, 'Next day'),
+    has(m, 'layover', b) ? h('span', { className: 'px-lay' }, h('i'), h('em', null, h('img', { src: X + 'ic-layover.svg', alt: 'Layover' })), h('i')) : h('i', { className: 'px-sep' }),
+    b.arr);
+  const mSub = (m, b) => h('p', { className: 'px-sub' }, b.dur, h('i', { className: 'px-dot' }),
+    has(m, 'layover', b) ? h('span', { className: 'px-warn px-med' }, '2h Layover at Delhi') : [h('span', { key: 's' }, b.seats), h('span', { key: 'g', className: 'px-warn' }, b.single)]);
+  const mPrice = (m, b, onw) => h('div', { className: 'px-price' }, has(m, 'book0', b) && h('span', { className: 'mx-book0' }, 'Book for ₹0'), h('b', null, b.price), h('small', null, onw || 'Onwards'));
+  const mName = (m, b, cls) => h('p', { className: cls || 'px-nm' }, h('span', null, b.op),
+    has(m, 'award', b) && h('img', { className: 'px-award', src: X + 'ic-award.png', alt: 'Award' }),
+    has(m, 'ad', b) && h('span', { className: 'px-ad' }, 'Ad'));
+  const mPost = (m, b) => has(m, 'highlight', b) && h('span', { key: 'hl', className: 'px-tag' }, h('img', { src: X + 'ic-star-tag.png', alt: '' }), 'Stops at Aanad Rao Circle & Kanchipuram');
+  const mFoot = (m, b) => has(m, 'reward', b) && h('img', { className: 'mx-reward', src: X + 'footer-tripreward.png', alt: 'tripReward: Take 5 trips to get a free ticket' });
+
+  function MasterPanel({ mode }) {
+    const m = useMaster();
+    return h('div', { className: 'pt-master' + (mode === 'proposed' ? '' : ' pt-ugc--off') },
+      h('p', null, 'Card elements', h('small', null, 'Master card · all proposed options')),
+      h('ul', null, MASTER_EL.map(([k, l]) => h('li', { key: k },
+        h('label', null, h('input', { type: 'checkbox', checked: !!m[k], onChange: (e) => MS.set(k, e.target.checked) }), h('span', null, l))))));
+  }
+  function RailExtra(p) { return h(React.Fragment, null, h(window.PTAGS_UGC.Toggle, p), h(MasterPanel, p)); }
+  window.PTAGS_UGC.Rail = RailExtra;
+
   function ProdCard({ b, go, set: tags }) {
     const ugc = useUgc();
+    const ms = useMaster(), m = tags === 'proposed' ? ms : null;
     tags = tags === 'proposed' ? ugcFilter(b.proposed, ugc) : b[tags];
-    return h('div', { className: 'sf-t', role: 'button', tabIndex: 0, onClick: () => go('seats') },
+    const pre = mPre(m, b), top = mTop(m, b), foot = mFoot(m, b);
+    return h('div', { className: 'sf-t' + (top ? ' mx-has-top' : '') + (foot ? ' mx-has-foot' : ''), role: 'button', tabIndex: 0, onClick: () => go('seats') },
+      top, ...pre,
       h('div', { className: 'sf-tp' },
         h('div', null,
-          h('p', { className: 'sf-time' }, h('b', null, b.dep), h('i'), b.arr),
-          h('p', { className: 'sf-sub' }, b.dur, h('i'), b.seats, h('em', null, b.single))),
-        h('div', { className: 'sf-price' }, h('b', null, b.price), h('small', null, 'onwards'))),
+          m && has(m, 'layover', b) ? mTime(m, b) : h('p', { className: 'sf-time' }, h('b', null, b.dep), h('i'), b.arr),
+          m && has(m, 'layover', b) ? mSub(m, b) : h('p', { className: 'sf-sub' }, b.dur, h('i'), b.seats, h('em', null, b.single))),
+        m && has(m, 'book0', b) ? mPrice(m, b, 'onwards') : h('div', { className: 'sf-price' }, h('b', null, b.price), h('small', null, 'onwards'))),
       h('div', { className: 'sf-bo' },
         h('div', null,
-          h('p', { className: 'nm' }, b.op),
+          m ? mName(m, b, 'nm mx-nm') : h('p', { className: 'nm' }, b.op),
           b.ev ? h('p', { className: 'ty' }, h('img', { src: A + 'ic-ev.png', alt: '' }), b.type) : h('p', { className: 'ty' }, b.type)),
         h('div', { className: 'sf-rate', 'aria-label': 'Rated ' + b.rating }, h('b', null, h(Star), one(b.rating)), h('span', null, '0000'))),
-      h('div', { className: 'sf-tags' }, tags.map((k) => h('span', { key: k, className: 'sf-tag' }, label(k, b.sc)))));
+      h('div', { className: 'sf-tags' }, tags.map((k) => h('span', { key: k, className: 'sf-tag' }, label(k, b.sc)))),
+      m && mPost(m, b), foot);
   }
 
   /* Option 2 · experiment card design: the tags as a two-column ✓ list */
   function ExpCard({ b, go, set: tags }) {
     const ugc = useUgc();
+    const ms = useMaster(), m = tags === 'proposed' ? ms : null;
     tags = tags === 'proposed' ? ugcFilter(b.proposed, ugc) : b[tags];
     const half = Math.ceil(tags.length / 2);
     const cols = [tags.slice(0, half), tags.slice(half)];
     return h('div', { className: 'px-card', role: 'button', tabIndex: 0, onClick: () => go('seats') },
+      mTop(m, b),
       h('div', { className: 'px-body' },
-        h('div', { className: 'px-svc' },
-          h('div', null,
-            h('p', { className: 'px-time' }, h('b', null, b.dep), h('i', { className: 'px-sep' }), b.arr),
-            h('p', { className: 'px-sub' }, b.dur, h('i', { className: 'px-dot' }), h('span', null, b.seats), h('span', { className: 'px-warn' }, b.single))),
-          h('div', { className: 'px-price' }, h('b', null, b.price), h('small', null, 'Onwards'))),
+        ...mPre(m, b),
+        h('div', { className: 'px-svc' }, h('div', null, mTime(m, b), mSub(m, b)), mPrice(m, b)),
         h('div', { className: 'px-bo' },
           h('div', { className: 'px-bo-l' },
-            h('p', { className: 'px-nm' }, h('span', null, b.op)),
+            mName(m, b),
             h('p', { className: 'px-ty' }, b.ev && h('img', { src: X + 'ic-ev.svg', alt: '' }), h('span', null, b.type))),
           h('div', { className: 'px-rate', 'aria-label': 'Rated ' + b.rating }, h('b', null, h(Star), one(b.rating)), h('span', null, '0000'))),
-        h('div', { className: 'px-rtb' }, cols.map((col, i) => h('ul', { key: i }, col.map((k) => h('li', { key: k }, h('img', { src: X + 'ic-check.svg', alt: '' }), h('span', null, label(k, b.sc)))))))));
+        h('div', { className: 'px-rtb' }, cols.map((col, i) => h('ul', { key: i }, col.map((k) => h('li', { key: k }, h('img', { src: X + 'ic-check.svg', alt: '' }), h('span', null, label(k, b.sc))))))),
+        mPost(m, b)),
+      mFoot(m, b));
   }
 
   /* Option 3 · as directed (2026-10-09), proposed tags:
@@ -117,24 +182,24 @@
   };
   const COMPS = ['comfort', 'clean', 'staff', 'onTime'], FEATS = ['toilet', 'new'], REASSURE = ['fdc'];
   function Card3({ b, go }) {
-    const t = ugcFilter(b.proposed, useUgc());
+    const t = ugcFilter(b.proposed, useUgc()), m = useMaster();
     const comps = t.filter((k) => COMPS.includes(k)), feats = t.filter((k) => FEATS.includes(k)), re = t.filter((k) => REASSURE.includes(k));
     return h('div', { className: 'px-card p3-card', role: 'button', tabIndex: 0, onClick: () => go('seats') },
+      mTop(m, b),
       h('div', { className: 'px-body' },
-        h('div', { className: 'px-svc' },
-          h('div', null,
-            h('p', { className: 'px-time' }, h('b', null, b.dep), h('i', { className: 'px-sep' }), b.arr),
-            h('p', { className: 'px-sub' }, b.dur, h('i', { className: 'px-dot' }), h('span', null, b.seats), h('span', { className: 'px-warn' }, b.single))),
-          h('div', { className: 'px-price' }, h('b', null, b.price), h('small', null, 'Onwards'))),
+        ...mPre(m, b),
+        h('div', { className: 'px-svc' }, h('div', null, mTime(m, b), mSub(m, b)), mPrice(m, b)),
         h('div', { className: 'p3-op' },
           h('div', { className: 'px-bo' },
             h('div', { className: 'px-bo-l' },
-              h('p', { className: 'px-nm' }, h('span', null, b.op)),
+              mName(m, b),
               h('p', { className: 'px-ty' }, b.ev && h('img', { src: X + 'ic-ev.svg', alt: '' }), h('span', null, b.type))),
             h('div', { className: 'px-rate', 'aria-label': 'Rated ' + b.rating }, h('b', null, h(Star), one(b.rating)), h('span', null, '0000'))),
           feats.length > 0 && h('div', { className: 'p3-feat' }, feats.map((k) => h('span', { key: k }, IC[k](), label(k, b.sc))))),
         comps.length > 0 && h('div', { className: 'p3-comp' }, comps.map((k) => Tag({ key: k, className: 'p3-tag' }, label(k, b.sc)))),
-        re.length > 0 && h('ul', { className: 'p3-re' }, re.map((k) => h('li', { key: k }, IC.check(), label(k, b.sc))))));
+        re.length > 0 && h('ul', { className: 'p3-re' }, re.map((k) => h('li', { key: k }, IC.check(), label(k, b.sc)))),
+        mPost(m, b)),
+      mFoot(m, b));
   }
 
   /* Option 4 · as directed (2026-10-12), proposed tags:
@@ -143,23 +208,23 @@
      Reassurance → the same list, after the comparators, same style */
   const BADGE = { toilet: 'In-bus toilet', new: 'New bus' };
   function Card4({ b, go }) {
-    const t = ugcFilter(b.proposed, useUgc());
+    const t = ugcFilter(b.proposed, useUgc()), m = useMaster();
     const feats = t.filter((k) => FEATS.includes(k)), list = t.filter((k) => COMPS.includes(k)).concat(t.filter((k) => REASSURE.includes(k)));
     return h('div', { className: 'px-card p3-card p4-card', role: 'button', tabIndex: 0, onClick: () => go('seats') },
+      mTop(m, b),
       h('div', { className: 'px-body' },
-        h('div', { className: 'px-svc' },
-          h('div', null,
-            h('p', { className: 'px-time' }, h('b', null, b.dep), h('i', { className: 'px-sep' }), b.arr),
-            h('p', { className: 'px-sub' }, b.dur, h('i', { className: 'px-dot' }), h('span', null, b.seats), h('span', { className: 'px-warn' }, b.single))),
-          h('div', { className: 'px-price' }, h('b', null, b.price), h('small', null, 'Onwards'))),
+        ...mPre(m, b),
+        h('div', { className: 'px-svc' }, h('div', null, mTime(m, b), mSub(m, b)), mPrice(m, b)),
         h('div', { className: 'p3-op' },
           h('div', { className: 'px-bo' },
             h('div', { className: 'px-bo-l' },
-              h('p', { className: 'px-nm' }, h('span', null, b.op)),
+              mName(m, b),
               h('p', { className: 'px-ty' }, b.ev && h('img', { src: X + 'ic-ev.svg', alt: '' }), h('span', null, b.type))),
             h('div', { className: 'px-rate', 'aria-label': 'Rated ' + b.rating }, h('b', null, h(Star), one(b.rating)), h('span', null, '0000'))),
           feats.length > 0 && h('div', { className: 'p4-badges' }, feats.map((k) => Tag({ key: k, className: 'p4-badge', icon: IC[k]() }, BADGE[k])))),
-        list.length > 0 && h('ul', { className: 'p4-list' }, list.map((k) => h('li', { key: k }, IC.check(), label(k, b.sc))))));
+        list.length > 0 && h('ul', { className: 'p4-list' }, list.map((k) => h('li', { key: k }, IC.check(), label(k, b.sc)))),
+        mPost(m, b)),
+      mFoot(m, b));
   }
 
   /* lists by tag set: 'shown' (Current tabs) or 'proposed' (Proposed options) */

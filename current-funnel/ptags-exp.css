@@ -83,3 +83,44 @@
 .rail .pt-ugc--off{opacity:.55}
 .p4-list li .p3-ic{color:var(--icon-information,#2c5ef6)} /* Rubicon Icon/information, the check blue in Option 2 / Experiment */
 .p4-card .c-tag.p4-badge{background:var(--fill-info-tertiary,#e4ecfd)} /* Rubicon Fill/Info/tertiary (IONS • Rubicon Figma library; not in this Ions build) */
+
+/* Persuasion tags · master-card elements on Proposed cards (ptags-sol.js mTop / mPre / mPost / mFoot). Figma 36958:20941 */
+.mx-top{display:flex;flex-direction:column;gap:2px;padding:4px 4px 0}
+.mx-seat{display:flex;align-items:center;gap:4px;padding:6px 12px;border-radius:12px 12px 2px 2px;background:#cce6f9}
+.mx-seat>div{flex:1;min-width:0;display:flex;flex-direction:column;align-items:flex-end;gap:2px;text-align:right}
+.mx-seat b{font-size:12px;line-height:16px;font-weight:700;letter-spacing:.01px;color:var(--content-neutral-high-default);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+.mx-seat small{font-size:11px;line-height:14px;letter-spacing:.05px;color:rgba(29,29,29,.69)}
+.mx-seat img{width:16px;height:16px;flex:none}
+.mx-lmb{display:flex;flex-direction:column;gap:2px;padding:4px 8px;border-radius:2px;background:#f2f2f8}
+.mx-seat+.mx-lmb{border-radius:2px}
+.mx-top>:first-child:not(.mx-seat){border-radius:12px 12px 2px 2px}
+.mx-lmb p{margin:0;display:flex;align-items:center;gap:4px}
+.mx-plate{display:flex;align-items:center;gap:2px;padding:0 4px;border:1px solid #1d1d1d;border-radius:4px;background:#f7dfaf;font-size:11px;line-height:14px;font-weight:700;letter-spacing:.05px}
+.mx-plate i{width:2px;height:2px;border-radius:50%;background:#1d1d1d}
+.mx-status{padding:0 4px;border-radius:4px;background:#dbe0fa;font-size:11px;line-height:14px;font-weight:500;letter-spacing:.05px}
+.mx-lmb-bp{position:relative;gap:6px!important;font-size:11px;line-height:14px;font-weight:500;letter-spacing:.05px;color:rgba(29,29,29,.69);white-space:nowrap;overflow:hidden}
+.mx-bps{display:flex;align-items:center;flex:1;min-width:0;overflow:hidden}
+.mx-arw{width:12px;height:12px;flex:none}
+.mx-more{position:absolute;right:0;top:0;width:78px;display:flex;justify-content:flex-end;background:linear-gradient(90deg,rgba(242,242,248,0),#f2f2f8 28%)}
+.mx-more span{padding:0 4px;border-radius:4px;background:#fff}
+.mx-nonstop{display:block;width:74px;height:16px;align-self:flex-start}
+.mx-rtc{display:flex;align-items:center;gap:8px;padding:2px 4px;border-radius:8px;background:#f7e7df;font-size:12px;line-height:16px;font-weight:500;letter-spacing:.01px;color:var(--content-neutral-high-default)}
+.mx-rtc img{width:20px;height:20px;border-radius:50%;flex:none}
+.mx-book0{align-self:flex-end;padding:0 4px;border-radius:4px;background:#cce6f9;font-size:11px;line-height:14px;font-weight:500;letter-spacing:.05px;color:var(--content-neutral-high-default)}
+.mx-reward{display:block;width:328px;height:24px;margin:0 4px 4px}
+/* production-design card (Option 1): the master pieces adapt to its 16 px padding */
+.sf-t.mx-has-top{padding-top:4px}
+.sf-t.mx-has-top .mx-top{margin:0 -12px}
+.sf-t.mx-has-foot{padding-bottom:4px}
+.sf-t .mx-reward{margin:0 -12px;width:320px}
+.sf-t .px-hd,.sf-t .px-via,.sf-t .mx-rtc,.sf-t .mx-nonstop,.sf-t .px-tag{margin:0}
+.sf-t .px-time,.sf-t .px-sub{margin:0}
+.mx-nm{display:flex;align-items:center;gap:2px}
+.mx-nm span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+/* rail: master element switches */
+.rail .pt-master{padding:12px 4px 0}
+.rail .pt-master>p{margin:0 0 6px;font:600 13px/16px var(--d-font,Inter);color:var(--d-ink,#1c1c21)}
+.rail .pt-master>p small{display:block;font:500 11px/14px var(--d-font,Inter);color:var(--d-ink-3,#8a8a94)}
+.rail .pt-master ul{margin:0;padding:0;list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:2px 8px}
+.rail .pt-master label{display:flex;align-items:center;gap:6px;min-height:24px;font:500 12px/16px var(--d-font,Inter);color:var(--d-ink-2,#5d5d66);cursor:pointer}
+.rail .pt-master input{width:14px;height:14px;margin:0;accent-color:#1c1c21}
