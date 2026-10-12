@@ -66,3 +66,18 @@
 /* reassurance · ✓ list in the Ions secondary text colour */
 .p3-re{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:2px}
 .p3-re li{display:flex;align-items:center;gap:2px;font-size:12px;line-height:16px;letter-spacing:.01px;color:var(--content-neutral-medium-default)}
+
+/* Persuasion tags · Proposed Option 4 (ptags-sol.js Card4) */
+/* features · badges (Rubicon mini tag): 18 px, radius 4, caption-M, icon + label */
+.p4-badges{display:flex;flex-wrap:wrap;gap:var(--spacing-xs)}
+.p4-card .c-tag.p4-badge{min-height:18px;height:18px;gap:var(--spacing-2xs);padding:0 var(--spacing-xs) 0 var(--spacing-2xs);border-radius:var(--radius-xs);font-size:11px;line-height:14px;font-weight:500;letter-spacing:.05px;color:var(--content-neutral-high-default);background:var(--surface-neutral-high-default)}
+.p4-badge .p3-ic{width:14px;height:14px}
+/* comparators then reassurance · one ✓ list, primary text, footnote (12/16) */
+.p4-list{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:var(--spacing-2xs)}
+.p4-list li{display:flex;align-items:center;gap:var(--spacing-2xs);font-size:12px;line-height:16px;letter-spacing:.01px;color:var(--content-neutral-high-default)}
+/* rail switch for Cleanliness & Staff */
+.rail .pt-ugc{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:8px 4px 0}
+.rail .pt-ugc p{margin:0;font:600 13px/16px var(--d-font,Inter);color:var(--d-ink,#1c1c21)}
+.rail .pt-ugc p small{display:block;font:500 11px/14px var(--d-font,Inter);color:var(--d-ink-3,#8a8a94)}
+.rail .pt-ugc .z{flex:none;width:104px}
+.rail .pt-ugc--off{opacity:.55}
