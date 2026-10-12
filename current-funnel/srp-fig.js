@@ -75,14 +75,16 @@
   /* list: optional render override for the listings (e.g. the persuasion-tag experiment cards) */
   function SrpFig({ s, set, go, noAds, list }) {
     const [on, setOn] = useState({});
+    /* header hairline only once the list has scrolled under it */
+    const [scrolled, setScrolled] = useState(false);
     const [m, d] = (s.dateKey || '3-8').split('-').map(Number);
     const dt = new Date(2026, 6 + m, d);
     const toggle = (k) => setOn((x) => Object.assign({}, x, { [k]: !x[k] }));
     const chip = (label, icon) => h('button', { key: label, className: 'sf-chip' + (icon ? ' sf-chip--icon' : '') + (on[label] ? ' on' : ''), onClick: () => (icon ? set({ sheet: 'filter' }) : toggle(label)) },
       h('span', null, icon && h('img', { src: A + 'ic-tune.png', alt: '' }), label));
     return h('div', { className: 'sf' },
-      h('div', { className: 'sf-scroll' },
-        h('div', { className: 'sf-top' },
+      h('div', { className: 'sf-scroll', onScroll: (e) => setScrolled(e.currentTarget.scrollTop > 0) },
+        h('div', { className: 'sf-top' + (scrolled ? ' sf-top--scrolled' : '') },
           h('img', { className: 'sf-status', src: A + 'statusbar.png', alt: '' }),
           h('div', { className: 'sf-nav' },
             h('button', { 'aria-label': 'Back', onClick: () => go('home') }, h('img', { src: A + 'ic-back.png', alt: '' })),

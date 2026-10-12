@@ -9,7 +9,10 @@
 .sf-x::-webkit-scrollbar{display:none}
 
 /* status + top navigation (104) */
-.sf-top{position:sticky;top:0;z-index:5;background:#fff}
+.sf-top{position:sticky;top:0;z-index:5;background:#fff;box-shadow:0 .5px 0 transparent;transition:box-shadow .2s}
+.sf-top--scrolled{box-shadow:0 .5px 0 #e6e6e6}
+/* no gap under the header at rest, so no stray line on load */
+.sf-top+*{margin-top:0!important}
 .sf-status{display:block;width:360px;height:40px}
 .sf-nav{display:flex;align-items:center;gap:4px;height:64px;padding:8px 4px}
 .sf-nav>button:first-child{width:48px;height:48px;display:grid;place-items:center;flex:none}
