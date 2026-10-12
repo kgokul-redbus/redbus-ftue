@@ -154,18 +154,18 @@
 
 /* ---- Options 4 and 5 only (the SRP that holds .p4-card or .o5-card): the top section, header to RTC entry ---- */
 /* offer cards 88 tall instead of 100; full-bleed art keeps its proportions (cropped), illustrations sit on the new bottom edge */
-.sf:has(.p4-card,.o5-card) .sf-ad{height:88px}
-.sf:has(.p4-card,.o5-card) .sf-ad--img img,.sf:has(.p4-card,.o5-card) .sf-ad--full img{object-fit:cover}
-.sf:has(.p4-card,.o5-card) .sf-ad .ill{top:38px}
-.sf:has(.p4-card,.o5-card) .sf-ads{padding-bottom:4px}
+.sf:has(.p4-card,.o5-card,.tn) .sf-ad{height:88px}
+.sf:has(.p4-card,.o5-card,.tn) .sf-ad--img img,.sf:has(.p4-card,.o5-card,.tn) .sf-ad--full img{object-fit:cover}
+.sf:has(.p4-card,.o5-card,.tn) .sf-ad .ill{top:38px}
+.sf:has(.p4-card,.o5-card,.tn) .sf-ads{padding-bottom:4px}
 /* one top section: white through the filters and AI search, easing into the listing grey only at its foot,
    so there is no hard edge between the AI search and the first card. The gradient scrolls with the page (local). */
-.sf:has(.p4-card,.o5-card) .sf-scroll{background:linear-gradient(180deg,#fff 0,#fff 332px,#fcfcfe 344px,#f7f7fb 356px,#f4f4f9 366px,#f2f2f8 374px) 0 0/100% 374px no-repeat local}
-.sf:has(.p4-card,.o5-card) .sf-ads,.sf:has(.p4-card,.o5-card) .sf-filters{background:transparent}
-.sf:has(.p4-card,.o5-card) .sf-ai{padding-bottom:0}
+.sf:has(.p4-card,.o5-card,.tn) .sf-scroll{background:linear-gradient(180deg,#fff 0,#fff 332px,#fcfcfe 344px,#f7f7fb 356px,#f4f4f9 366px,#f2f2f8 374px) 0 0/100% 374px no-repeat local}
+.sf:has(.p4-card,.o5-card,.tn) .sf-ads,.sf:has(.p4-card,.o5-card,.tn) .sf-filters{background:transparent}
+.sf:has(.p4-card,.o5-card,.tn) .sf-ai{padding-bottom:0}
 /* every offer card 128 wide, like the first; illustrations stay on the bottom-right corner */
-.sf:has(.p4-card,.o5-card) .sf-ad{width:128px}
-.sf:has(.p4-card,.o5-card) .sf-ad .ill{left:78px}
+.sf:has(.p4-card,.o5-card,.tn) .sf-ad{width:128px}
+.sf:has(.p4-card,.o5-card,.tn) .sf-ad .ill{left:78px}
 
 /* ---- Option 5 · Figma "New approach" (36721:8339) ---- */
 .o5-wrap{display:flex;flex-direction:column;border-radius:var(--radius-2xl,16px);background:#fff;box-shadow:0 2px 2px rgba(0,0,0,.08),0 4px 4px rgba(0,0,0,.08);overflow:hidden}
@@ -203,14 +203,71 @@
 .o5-deal--last{background:#fede92}
 .o5-badges{margin-top:var(--spacing-2xs,2px)} /* 2px under the seats line, as Option 4's badges sit under the bus type */
 
-/* ---- Option 6 (temporary) · women rating sealed into the rating ----
-   One object, three tiers, one silhouette: score (Success/primary) · reviews (Success/tertiary) · who loves it
-   (Woman/tertiary with the IONS women icon and "Top rated" in Text/woman). The chip widens just enough for the foot;
-   nothing floats beside it, so the endorsement reads as a property of the score rather than another tag. */
-.p6-seal{flex:none;display:flex;flex-direction:column;border-radius:6px;overflow:hidden}
-.p6-seal .px-rate{width:auto;height:auto;border-radius:0}
-.p6-seal .px-rate b{width:auto;border-radius:6px 6px 4px 4px}
-.p6-seal .px-rate span{padding-bottom:1px}
-.p6-seal-ft{display:flex;align-items:center;justify-content:center;gap:1px;height:16px;padding:0 4px 0 2px;background:var(--fill-woman-tertiary,#f7e7ec);font-size:10px;line-height:12px;font-weight:600;letter-spacing:.1px;color:var(--text-woman,#c41685);white-space:nowrap}
-.p6-seal-ft .p3-ic{width:12px;height:12px;color:var(--icon-woman,#c41685)}
-.p6-card .px-bo{align-items:flex-start}
+/* ---- Options 6–8 · tuple from scratch ---- */
+.tn{--tn-ink:#1d1d1d;--tn-2:rgba(29,29,29,.69);--tn-3:rgba(29,29,29,.62);--tn-line:#ececf0}
+.tn-body{display:flex;flex-direction:column;gap:var(--spacing-lg,12px);padding:var(--spacing-xl,16px)}
+.tn-body>*{margin:0}
+.tn-hd{display:flex;align-items:center;justify-content:space-between;height:24px}
+.tn-hd>i{flex:1}
+.tn-primo{display:block;width:72px;height:24px}
+.tn-row{display:flex;align-items:baseline;justify-content:space-between;gap:12px}
+.tn-j{display:flex;flex-direction:column;gap:2px}
+/* journey */
+.tn-time{flex:1;min-width:0;display:flex;align-items:center;gap:8px;margin:0;font-size:16px;line-height:22px;letter-spacing:-.18px;color:var(--tn-ink)}
+.tn-time b{font-weight:700}
+.tn-time b:last-child{font-weight:400}
+.tn-dur{flex:1;min-width:0;max-width:112px;display:flex;align-items:center;gap:6px;font-size:11px;line-height:14px;letter-spacing:.05px;color:var(--tn-2);white-space:nowrap}
+.tn-dur i{flex:1;height:1px;background:#d9d9de}
+.tn-seats{display:flex;align-items:center;gap:6px;margin:0;font-size:12px;line-height:16px;letter-spacing:.01px;color:var(--tn-2);white-space:nowrap}
+.tn-dot{width:3px;height:3px;border-radius:50%;background:currentColor;opacity:.6}
+.tn-price{margin:0;font-size:18px;line-height:22px;font-weight:700;letter-spacing:-.25px;color:var(--tn-ink);white-space:nowrap}
+.tn-onw{font-size:11px;line-height:14px;letter-spacing:.05px;color:var(--tn-3)}
+.tn-pr{display:flex;flex-direction:column;align-items:flex-end;justify-content:space-between;flex:none;height:36px;text-align:right}
+/* operator + rating: both 36 high, top- and bottom-aligned */
+.tn-opr{display:flex;align-items:stretch;justify-content:space-between;gap:12px;height:36px}
+.tn-op{flex:1;min-width:0;display:flex;flex-direction:column}
+.tn-nm{display:flex;align-items:center;gap:4px;margin:0;font-size:14px;line-height:20px;font-weight:700;letter-spacing:-.09px;color:var(--tn-ink);min-width:0}
+.tn-nm>span:first-child{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tn-ty{margin:0;font-size:12px;line-height:16px;letter-spacing:.01px;color:var(--tn-2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tn-rate{flex:none;width:44px;height:36px;box-sizing:border-box;display:flex;flex-direction:column;border-radius:8px;background:#dbf4d7;overflow:hidden}
+.tn-rate b{height:20px;display:flex;align-items:center;justify-content:center;gap:2px;border-radius:8px 8px 6px 6px;background:#007b28;color:#fdfdfd;font-size:12px;line-height:16px;font-weight:600}
+.tn-rate svg{width:12px;height:12px}
+.tn-rate span{flex:1;display:flex;align-items:center;justify-content:center;font-size:11px;line-height:14px;letter-spacing:.05px;color:var(--tn-ink)}
+/* comparators as stats: equal columns, value over label, numbers on one line across the list */
+.tn-stats{display:grid;grid-auto-flow:column;grid-auto-columns:1fr;margin:0;padding-top:var(--spacing-lg,12px);border-top:.5px solid var(--tn-line)}
+.tn-stats>div{display:flex;flex-direction:column-reverse;gap:0;min-width:0;padding-left:10px;border-left:.5px solid var(--tn-line)}
+.tn-stats>div:first-child{padding-left:0;border-left:0}
+.tn-stats dt{font-size:11px;line-height:14px;letter-spacing:.05px;color:var(--tn-2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tn-stats dd{margin:0;font-size:14px;line-height:20px;font-weight:600;letter-spacing:-.09px;color:var(--tn-ink);white-space:nowrap}
+.tn-stats dd small{font-size:11px;font-weight:400;letter-spacing:.05px;color:var(--tn-3)}
+/* quiet line: features + reassurance, icon + text, one line */
+.tn-quiet{display:flex;flex-wrap:wrap;gap:4px 14px;margin:0;padding:0;list-style:none}
+.tn-quiet li{display:flex;align-items:center;gap:4px;font-size:12px;line-height:16px;letter-spacing:.01px;color:var(--tn-2)}
+.tn-quiet .p3-ic{width:16px;height:16px;flex:none;color:var(--tn-2)}
+.tn .px-tag{margin:0}
+
+/* Option 7: operator ↔ price share two lines; times ↔ seats share a baseline; rating + comparators on one panel */
+.t7 .tn-row--j{align-items:center}
+.tn-panel{display:flex;align-items:stretch;gap:0;padding:10px 12px;border-radius:var(--radius-lg,12px);background:#f6f6f9}
+.tn-score{flex:none;display:flex;flex-direction:column;padding-right:10px;margin-right:10px;border-right:.5px solid #e2e2e7}
+.tn-score b{display:flex;align-items:center;gap:3px;font-size:14px;line-height:20px;font-weight:700;letter-spacing:-.09px;color:#007b28}
+.tn-score b svg{width:12px;height:12px}
+.tn-score b svg path{fill:#007b28}
+.tn-score span{font-size:11px;line-height:14px;letter-spacing:.05px;color:var(--tn-2);white-space:nowrap}
+.tn-panel .tn-stats--panel{flex:1;min-width:0;padding-top:0;border-top:0}
+.tn-panel .tn-stats--panel>div{padding-left:8px;border-left-color:#e2e2e7}
+.tn-panel .tn-stats--panel>div:first-child{padding-left:0}
+
+/* Option 8: price rail */
+.t8-split{display:flex;align-items:stretch}
+.t8-split>.tn-body{flex:1;min-width:0;padding-right:var(--spacing-lg,12px)}
+.t8-rail{flex:none;width:96px;box-sizing:border-box;display:flex;flex-direction:column;align-items:flex-end;gap:var(--spacing-lg,12px);padding:var(--spacing-xl,16px) var(--spacing-lg,12px);border-left:.5px solid var(--tn-line)}
+.t8-rail .tn-pr{height:36px}
+.t8-seats{margin:0;font-size:12px;line-height:16px;letter-spacing:.01px;color:var(--tn-2);text-align:right}
+.t8-deals{margin-top:auto;width:100%;display:flex;flex-direction:column;gap:8px}
+.tn-stats--grid{grid-auto-flow:row;grid-template-columns:1fr 1fr;row-gap:8px}
+.tn-stats--grid>div:nth-child(odd){padding-left:0;border-left:0}
+.t8 .tn-time{gap:6px}
+.t8 .tn-dur{max-width:none}
+.t8-hd{padding:var(--spacing-xl,16px) var(--spacing-xl,16px) 0}
+.t8-hd+.t8-split>.tn-body,.t8-hd+.t8-split>.t8-rail{padding-top:var(--spacing-lg,12px)}
