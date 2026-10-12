@@ -157,7 +157,7 @@
 .sf:has(.p4-card) .sf-ad--img img,.sf:has(.p4-card) .sf-ad--full img{object-fit:cover}
 .sf:has(.p4-card) .sf-ad .ill{top:38px}
 .sf:has(.p4-card) .sf-ads{padding-bottom:4px}
-/* one top section: white under the header and offers, easing into the listing grey through the filters,
+/* one top section: white through the filters and AI search, easing into the listing grey only at its foot,
    so there is no hard edge between the AI search and the first card. The gradient scrolls with the page (local). */
-.sf:has(.p4-card) .sf-scroll{background:linear-gradient(180deg,#fff 0,#fff 196px,#fcfcfe 250px,#f8f8fb 300px,#f4f4f9 344px,#f2f2f8 376px) 0 0/100% 376px no-repeat local}
+.sf:has(.p4-card) .sf-scroll{background:linear-gradient(180deg,#fff 0,#fff 316px,#fcfcfe 334px,#f7f7fb 352px,#f4f4f9 366px,#f2f2f8 380px) 0 0/100% 380px no-repeat local}
 .sf:has(.p4-card) .sf-ads,.sf:has(.p4-card) .sf-filters{background:transparent}
