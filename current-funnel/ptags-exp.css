@@ -299,7 +299,7 @@
 .sf:has(.p4-wbar) .sf-scroll{background:linear-gradient(180deg,#fff 0,#fff 404px,#fcfcfe 412px,#f7f7fb 420px,#f4f4f9 428px,#f2f2f8 436px) 0 0/100% 436px no-repeat local}
 /* women rating: the green chip stays; the star becomes the women icon */
 .p4-rate--w b{gap:1px}
-.p4-rate--w b .p3-ic{width:13px;height:13px;color:#fff}
+.p4-rate--w b .p4-wsolid{width:13px;height:13px;margin-bottom:1px;color:#fff}
 /* coach mark: a spotlight ring with a soft scrim around it, and a tip pointing up at the rating */
 .p4-coach{position:absolute;inset:0;z-index:20;pointer-events:none}
 .p4-coach.on{pointer-events:auto}
