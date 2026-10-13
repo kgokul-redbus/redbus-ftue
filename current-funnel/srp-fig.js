@@ -122,5 +122,5 @@
       overlay && h(overlay));
   }
 
-  window.SRPFIG = { SrpFig, parts: { Deal, Rate, A } };
+  window.SRPFIG = { SrpFig, Tuple, TUPLES, parts: { Deal, Rate, A } };
 })();
