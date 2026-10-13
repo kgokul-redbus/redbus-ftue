@@ -187,7 +187,7 @@
 .o5-primo{display:block;width:40px;height:20px}
 .o5-rtb{width:100%;display:flex;flex-direction:column;gap:2px}
 .o5-rtb ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column}
-.o5-rtb li{display:flex;align-items:center;gap:2px;font-size:11px;line-height:14px;letter-spacing:.05px;color:rgba(29,29,29,.69);min-width:0}
+.o5-rtb li{display:flex;align-items:center;gap:2px;font-size:11px;line-height:14px;letter-spacing:.05px;color:var(--text-primary,#1d1d1d);min-width:0} /* persuasions in Text/primary */
 .o5-rtb li img{width:16px;height:16px;flex:none}
 .o5-rtb li span{min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .o5-r{flex:none;width:100px;box-sizing:border-box;display:flex;flex-direction:column;align-items:flex-end;justify-content:space-between;gap:12px;padding:var(--spacing-lg,12px);border-left:.5px solid #e6e6e6}
