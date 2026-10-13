@@ -353,7 +353,7 @@
     const deals = has(m, 'deals', b);
     return h('div', { className: 'o5-wrap' },
       mTop(m, b),
-      h('div', { className: 'o5-card', role: 'button', tabIndex: 0, onClick: () => go('seats') },
+      h('div', { className: 'o5-card' + (women ? ' o5-card--women' : ''), role: 'button', tabIndex: 0, onClick: () => go('seats') },
         h('div', { className: 'o5-l' },
           ...pre,
           h('div', { className: 'o5-time' }, h('b', null, b.dep), h('span', null, h('i'), b.dur, h('i')), h('em', null, b.arr)),

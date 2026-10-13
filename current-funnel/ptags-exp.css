@@ -161,6 +161,9 @@
 /* one top section: white through the filters and AI search, easing into the listing grey only at its foot,
    so there is no hard edge between the AI search and the first card. The gradient scrolls with the page (local). */
 .sf:has(.p4-card,.o5-card,.tn) .sf-scroll{background:linear-gradient(180deg,#fff 0,#fff 332px,#fcfcfe 344px,#f7f7fb 356px,#f4f4f9 366px,#f2f2f8 374px) 0 0/100% 374px no-repeat local}
+/* women mode (Options 4 and 5): the listing ground and the fade into it use Fill/Woman/tertiary instead of the grey */
+.sf:has(.p4-card--women,.o5-card--women){background:var(--fill-woman-tertiary,#f7e7ec)}
+.sf:has(.p4-card--women,.o5-card--women) .sf-scroll{background:linear-gradient(180deg,#fff 0,#fff 332px,#fdf9fa 344px,#fbf3f6 356px,#f9edf1 366px,#f7e7ec 374px) 0 0/100% 374px no-repeat local}
 .sf:has(.p4-card,.o5-card,.tn) .sf-ads,.sf:has(.p4-card,.o5-card,.tn) .sf-filters{background:transparent}
 .sf:has(.p4-card,.o5-card,.tn) .sf-ai{padding-bottom:0}
 /* every offer card 128 wide, like the first; illustrations stay on the bottom-right corner */
