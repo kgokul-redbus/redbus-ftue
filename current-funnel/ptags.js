@@ -34,6 +34,9 @@
         /* rail switches: Cleanliness & Staff on/off, and every master-card element on/off, for all Proposed options */
         railExtra: (p) => h(window.PTAGS_UGC.Rail, p),
         section: 'ptags-solves',
+        /* back to a first landing: women mode on, the women-rating coach mark shows again (Option 4) */
+        restart: 'Reset page',
+        onRestart: () => window.PTAGS_UGC.reset && window.PTAGS_UGC.reset(),
       });
     }
     return h(Flow);

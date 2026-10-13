@@ -222,7 +222,7 @@
      (PROPOSED.drop). Each flow keeps its own journey, so flow changes never fight the other flow's state. */
   const TAGS = { ap: 'APPROX', ds: 'DS', fig: 'FIGMA', prod: 'PROD', new: 'NEW' };
   /* makeFlow builds the flow viewer for one project: cfg = { screens, registry: () => PROPOSED-like, init, ref,
-     keys: { mode, opts }, section (body data-section where T flips flows), restart (optional button label), note } */
+     keys: { mode, opts }, section (body data-section where T flips flows), restart (optional button label; the phone remounts), onRestart (optional), note } */
   function makeFlow(cfg) {
   const SCREENS = cfg.screens, INIT = cfg.init, REF = cfg.ref || {};
   const currentFlow = () => SCREENS.map(([id, label, tag, render, bg]) => ({ id, label, tag, render, bg }));
@@ -245,6 +245,7 @@
     const [mode, setModeRaw] = useState(() => { try { return localStorage.getItem(cfg.keys.mode) === 'proposed' ? 'proposed' : 'current'; } catch (e) { return 'current'; } });
     const setMode = (m) => { setModeRaw(m); try { localStorage.setItem(cfg.keys.mode, m); } catch (e) {} };
     const [states, setStates] = useState({ current: INIT, proposed: INIT });
+    const [resetN, setResetN] = useState(0);
     const s = states[mode];
     const [zoom, setZoom] = useState(1);
     const [overlay, setOverlay] = useState(false);
@@ -293,7 +294,7 @@
             mode === 'proposed' && x.spec && x.tag !== 'new' && h('i', { className: 'has-prop', title: 'Changed in the proposed flow' }),
             h('span', { className: 'tag ' + x.tag }, TAGS[x.tag]))))),
         h('div', { className: 'tools' },
-          cfg.restart && h('button', { onClick: () => update(() => INIT) }, cfg.restart),
+          cfg.restart && h('button', { onClick: () => { update(() => INIT); setResetN((n) => n + 1); if (cfg.onRestart) cfg.onRestart(); } }, cfg.restart),
           mode === 'current' && REF[s.screen] && h('button', { className: overlay ? 'on' : '', onClick: () => setOverlay(!overlay) }, overlay ? 'Hide reference overlay' : 'Overlay reference (50%)'),
           cfg.railExtra && h(cfg.railExtra, { mode }),
           h('div', { className: 'z' }, [['S', .8], ['M', 1], ['L', 1.15]].map(([l, z]) => h('button', { key: l, className: zoom === z ? 'on' : '', onClick: () => setZoom(z) }, l)))),
@@ -304,7 +305,7 @@
             vars.length > 1 && h('div', { className: 'opts', role: 'tablist', 'aria-label': 'Version' }, vars.map((v) => h('button', { key: v.key, role: 'tab', 'aria-selected': v === variant, className: v === variant ? 'on' : '', onClick: () => pickVar(v.key) }, v.label))),
             opts.length > 1 && h('div', { className: 'opts', role: 'tablist', 'aria-label': 'Option' }, opts.map((o, i) => h('button', { key: o.key, role: 'tab', 'aria-selected': o === opt, className: o === opt ? 'on' : '', title: o.label || '', onClick: () => pickOpt(o.key) }, 'Option ' + (i + 1))))),
           h('div', { className: 'pw' },
-            h('div', { className: 'pframe' }, h(D.IonsRoot, { device: true, style: { height: 800, minHeight: 0, background: page.bg, position: 'relative' } }, body, sheets()),
+            h('div', { className: 'pframe' }, h(D.IonsRoot, { key: resetN, device: true, style: { height: 800, minHeight: 0, background: page.bg, position: 'relative' } }, body, sheets()),
               mode === 'current' && overlay && REF[s.screen] && h('img', { className: 'ref', src: REF[s.screen](s), alt: '' }))))));
   };
   }

@@ -73,7 +73,8 @@
   }
 
   /* list: optional render override for the listings (e.g. the persuasion-tag experiment cards) */
-  function SrpFig({ s, set, go, noAds, list }) {
+  /* belowAi: optional block under the AI Smart filter; overlay: optional layer over the whole screen (e.g. a coach mark) */
+  function SrpFig({ s, set, go, noAds, list, belowAi, overlay }) {
     const [on, setOn] = useState({});
     /* header hairline only once the list has scrolled under it */
     const [scrolled, setScrolled] = useState(false);
@@ -107,7 +108,8 @@
             h('p', { className: 'lbl' }, 'AI Smart filter'),
             h('label', { className: 'fld' },
               h('div', null, h('img', { src: A + 'ic-ai.png', alt: '' }), h('input', { placeholder: 'Search ‘AC buses under ₹1000’', 'aria-label': 'AI Smart filter' })),
-              h('span', { className: 'mic' }, h('img', { src: A + 'ic-mic.png', alt: 'Voice search' }))))),
+              h('span', { className: 'mic' }, h('img', { src: A + 'ic-mic.png', alt: 'Voice search' })))),
+          belowAi && h(belowAi)),
         h('div', { className: 'sf-rtc', style: { marginTop: 2 } },
           h('div', { className: 'sf-rtc-stack' },
             h('i', { style: { top: 32, width: 288, opacity: .6 } }), h('i', { style: { top: 24, width: 312, opacity: .8 } }),
@@ -116,7 +118,8 @@
                 h('div', null, h('div', { className: 'n' }, h('b', null, 'KSRTC'), h('small', null, '(108 Buses)')), h('p', { className: 'kn' }, 'ಕರ್ನಾಟಕ ರಾಜ್ಯ ರಸ್ತೆ ಸಾರಿಗೆ ಸಂಸ್ಥೆ'), h('p', { className: 'fr' }, 'From ₹800'))),
               h(window.IndiaBusDS.Icon, { name: 'ion-chevron-down', style: { transform: 'rotate(-90deg)' } })))),
         list ? list({ s, set, go }) : h('div', { className: 'sf-list', style: { marginTop: 2 } }, TUPLES.map((t, i) => h(Tuple, { key: i, t, go })))),
-      s.sheet === 'date' && h(window.SEARCH.DateSheet, { s, set }));
+      s.sheet === 'date' && h(window.SEARCH.DateSheet, { s, set }),
+      overlay && h(overlay));
   }
 
   window.SRPFIG = { SrpFig, parts: { Deal, Rate, A } };
