@@ -13,9 +13,8 @@
 .fw .t-caption-r { font-size: 11px; line-height: 14px; letter-spacing: 0.05px; font-weight: 400; }
 .fw .t-caption-b { font-size: 11px; line-height: 14px; letter-spacing: 0.05px; font-weight: 700; }
 
-/* the docked widget replaces the inline AI Smart filter in the filters block */
-.rw .sf-ai{display:none}
-.rw .sf-filters{height:auto;padding-bottom:12px}
+/* the docked widget replaces the whole filters block (quick-filter chips and the inline AI Smart filter) */
+.rw .sf-filters{display:none}
 
 /* RAY result header, filtering skeletons, typing scrim */
 .rw-head{margin:0;padding:0 0 4px;font-size:13px;line-height:19px;letter-spacing:-.05px;color:#1d1d1d}
