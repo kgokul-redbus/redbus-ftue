@@ -1,17 +1,17 @@
 /* Ray on SRP unified · RAY widget docked on FTUE's current SRP (ray-widget.js).
    Widget + keyboard styles are the prototype's, as built against Figma 2883:2881. Its design tokens are scoped to
    .rw so they never leak into the deck's Ions tokens. */
-.rw{position:absolute;inset:0;font-family:Inter,system-ui,sans-serif;color:#1d1d1d;letter-spacing:-.18px;--fill-brand-primary: #d63941; --fill-brand-tertiary: #fde6e5; --fill-purple-primary: #7e3af1; --fill-purple-secondary: #ebdbff; --fill-component-primary: #ffffff; --fill-component-tertiary: #fafafb; --fill-component-disabled: #e6e6e6; --fill-success-primary: #007b28; --fill-success-tertiary: #dbf4d7; --fill-success-tertiary-2: #e2eee3; --fill-warning-secondary: #fedac8; --fill-electric-tertiary: #e2ecec; --fill-info-tertiary: #e4ecfd; --fill-woman-secondary: #fed7e7; --fill-reddeal-group: #e7dcf9; --fill-reddeal-regular: #f7dfaf; --text-primary: #1d1d1d; --text-secondary: rgba(29, 29, 29, 0.69); --text-tertiary: rgba(29, 29, 29, 0.62); --text-success: #298639; --text-inverse: #fdfdfd; --stroke-weak: #b0b0b0; --stroke-weaker: #e6e6e6; --stroke-inverse: #f4f4f4; --sp-none: 0px; --sp-2xs: 2px; --sp-xs: 4px; --sp-sm: 6px; --sp-md: 8px; --sp-lg: 12px; --sp-16: 16px; --sp-5xl: 48px; --elevation-2: 0px 2px 2px rgba(0, 0, 0, 0.08), 0px 4px 4px rgba(0, 0, 0, 0.08);}
-.rw button{font-family:inherit;cursor:pointer;border:none;background:none;padding:0;color:inherit}
-.rw .t-body-r { font-size: 16px; line-height: 22px; letter-spacing: -0.18px; font-weight: 400; }
-.rw .t-body-b { font-size: 16px; line-height: 22px; letter-spacing: -0.18px; font-weight: 700; }
-.rw .t-subhead-r { font-size: 14px; line-height: 20px; letter-spacing: -0.09px; font-weight: 400; }
-.rw .t-subhead-m { font-size: 14px; line-height: 20px; letter-spacing: -0.08px; font-weight: 500; }
-.rw .t-subhead-b { font-size: 14px; line-height: 20px; letter-spacing: -0.09px; font-weight: 700; }
-.rw .t-footnote-r { font-size: 12px; line-height: 16px; letter-spacing: 0.01px; font-weight: 400; }
-.rw .t-footnote-m { font-size: 12px; line-height: 16px; letter-spacing: 0.01px; font-weight: 500; }
-.rw .t-caption-r { font-size: 11px; line-height: 14px; letter-spacing: 0.05px; font-weight: 400; }
-.rw .t-caption-b { font-size: 11px; line-height: 14px; letter-spacing: 0.05px; font-weight: 700; }
+.rw{position:absolute;inset:0;font-family:Inter,system-ui,sans-serif;color:#1d1d1d;--fill-brand-primary: #d63941; --fill-brand-tertiary: #fde6e5; --fill-purple-primary: #7e3af1; --fill-purple-secondary: #ebdbff; --fill-component-primary: #ffffff; --fill-component-tertiary: #fafafb; --fill-component-disabled: #e6e6e6; --fill-success-primary: #007b28; --fill-success-tertiary: #dbf4d7; --fill-success-tertiary-2: #e2eee3; --fill-warning-secondary: #fedac8; --fill-electric-tertiary: #e2ecec; --fill-info-tertiary: #e4ecfd; --fill-woman-secondary: #fed7e7; --fill-reddeal-group: #e7dcf9; --fill-reddeal-regular: #f7dfaf; --text-primary: #1d1d1d; --text-secondary: rgba(29, 29, 29, 0.69); --text-tertiary: rgba(29, 29, 29, 0.62); --text-success: #298639; --text-inverse: #fdfdfd; --stroke-weak: #b0b0b0; --stroke-weaker: #e6e6e6; --stroke-inverse: #f4f4f4; --sp-none: 0px; --sp-2xs: 2px; --sp-xs: 4px; --sp-sm: 6px; --sp-md: 8px; --sp-lg: 12px; --sp-16: 16px; --sp-5xl: 48px; --elevation-2: 0px 2px 2px rgba(0, 0, 0, 0.08), 0px 4px 4px rgba(0, 0, 0, 0.08);}
+:where(.fw,.kb) button{font-family:inherit;cursor:pointer;border:none;background:none;padding:0;color:inherit}
+.fw .t-body-r, .rw-head .t-body-r { font-size: 16px; line-height: 22px; letter-spacing: -0.18px; font-weight: 400; }
+.fw .t-body-b { font-size: 16px; line-height: 22px; letter-spacing: -0.18px; font-weight: 700; }
+.fw .t-subhead-r { font-size: 14px; line-height: 20px; letter-spacing: -0.09px; font-weight: 400; }
+.fw .t-subhead-m { font-size: 14px; line-height: 20px; letter-spacing: -0.08px; font-weight: 500; }
+.fw .t-subhead-b { font-size: 14px; line-height: 20px; letter-spacing: -0.09px; font-weight: 700; }
+.fw .t-footnote-r { font-size: 12px; line-height: 16px; letter-spacing: 0.01px; font-weight: 400; }
+.fw .t-footnote-m { font-size: 12px; line-height: 16px; letter-spacing: 0.01px; font-weight: 500; }
+.fw .t-caption-r { font-size: 11px; line-height: 14px; letter-spacing: 0.05px; font-weight: 400; }
+.fw .t-caption-b { font-size: 11px; line-height: 14px; letter-spacing: 0.05px; font-weight: 700; }
 
 /* the docked widget replaces the inline AI Smart filter in the filters block */
 .rw .sf-ai{display:none}
@@ -33,6 +33,7 @@
    ============================================================ */
 
 .fw {
+  letter-spacing: -0.18px;
   position: absolute;
   left: 0;
   right: 0;
@@ -428,6 +429,7 @@
 
 /* iOS/Gboard-style simulated keyboard */
 .kb {
+  letter-spacing: -0.18px;
   position: absolute;
   left: 0;
   right: 0;
