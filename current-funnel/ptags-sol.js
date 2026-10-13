@@ -286,8 +286,9 @@
   function Card4({ b, go }) {
     const t = ugcFilter(b.proposed, useUgc()), m = useMaster(), women = useWomen();
     const feats = t.filter((k) => FEATS.includes(k));
-    /* women mode: the women items join the end of the reassurance list */
-    const wTags = women ? ['womenT', 'womenR'].filter((k) => b.shown.includes(k)) : [];
+    /* women mode: women travelling joins the end of the reassurance list ("Highly rated by women" now lives in the
+       rating graphic as the Women score, so it is not repeated here) */
+    const wTags = women ? ['womenT'].filter((k) => b.shown.includes(k)) : [];
     const list = t.filter((k) => COMPS.includes(k)).concat(t.filter((k) => REASSURE.includes(k)), wTags);
     const text = (k) => (k === 'womenT' ? (6 + (b.rank * 5) % 19) + ' women travelling' : label(k, b.sc));
     /* columns: 3 per column (max 6) normally; in women mode every item shows, split evenly over the two columns */
