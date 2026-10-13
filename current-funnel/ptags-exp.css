@@ -297,12 +297,12 @@
 .p4-sw:focus-visible{outline:2px solid var(--fill-woman-primary,#c41685);outline-offset:2px}
 /* the bar adds 64 under the AI filter, so the white-to-grey fade moves down with it */
 .sf:has(.p4-wbar) .sf-scroll{background:linear-gradient(180deg,#fff 0,#fff 404px,#fcfcfe 412px,#f7f7fb 420px,#f4f4f9 428px,#f2f2f8 436px) 0 0/100% 436px no-repeat local}
-/* women rating (Figma 37512:17216, updated): a Woman/tertiary plate (79 × 36, p2, r6) holding the overall score on a
+/* women rating (Figma 37512:17216, updated): a Woman/tertiary plate (79 × 36, p2, r8; inner lines r6) holding the overall score on a
    white 16-high line and "Women 4.6" in Text/woman under it */
-.p4-wr{flex:none;width:79px;height:36px;box-sizing:border-box;padding:2px;display:flex;flex-direction:column;align-items:center;gap:1px;border-radius:6px;background:var(--fill-woman-tertiary,#f7e7ec)}
+.p4-wr{flex:none;width:79px;height:36px;box-sizing:border-box;padding:2px;display:flex;flex-direction:column;align-items:center;gap:1px;border-radius:8px;background:var(--fill-woman-tertiary,#f7e7ec)}
 /* top line 75 × 16: green 41 (pl2 pr4: star frame 13 + gap 2 + score 20) · gap 2 · count 28 · pr 4 */
-.p4-wr-top{flex:none;width:75px;height:16px;box-sizing:border-box;display:flex;align-items:center;gap:2px;padding-right:4px;border-radius:4px;background:#fff}
-.p4-wr-top b{flex:none;width:41px;height:16px;box-sizing:border-box;display:flex;align-items:center;gap:2px;padding:0 4px 0 2px;border-radius:4px;background:var(--fill-success-primary,#007b28)}
+.p4-wr-top{flex:none;width:75px;height:16px;box-sizing:border-box;display:flex;align-items:center;gap:2px;padding-right:4px;border-radius:6px;background:#fff}
+.p4-wr-top b{flex:none;width:41px;height:16px;box-sizing:border-box;display:flex;align-items:center;gap:2px;padding:0 4px 0 2px;border-radius:6px;background:var(--fill-success-primary,#007b28)}
 .p4-wr-star{flex:none;width:13px;height:13px;box-sizing:border-box;padding:0 0 1px 1px;display:block}
 .p4-wr-star svg{display:block;width:12px;height:12px}
 .p4-wr-top em{flex:none;width:20px;font-style:normal;text-align:center;font-size:12px;line-height:16px;font-weight:500;letter-spacing:.01px;color:#fdfdfd}
