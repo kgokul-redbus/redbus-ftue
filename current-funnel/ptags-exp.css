@@ -315,3 +315,4 @@
 @keyframes p4TipIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
 @keyframes p4TipUp{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
 @media (prefers-reduced-motion:reduce){.p4-coach-hole,.p4-cm{animation:none}}
+.p5-rate--w b .p5-wsolid{width:13px;height:13px;margin-bottom:1px;color:#fff} /* Option 5 women mode: women icon in place of the star */
