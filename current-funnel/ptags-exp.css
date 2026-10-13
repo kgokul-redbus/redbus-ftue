@@ -201,7 +201,7 @@
   -webkit-mask:radial-gradient(circle at 0 50%,transparent 4.6px,#000 5px) left/51% 100% no-repeat,radial-gradient(circle at 100% 50%,transparent 4.6px,#000 5px) right/51% 100% no-repeat;
   mask:radial-gradient(circle at 0 50%,transparent 4.6px,#000 5px) left/51% 100% no-repeat,radial-gradient(circle at 100% 50%,transparent 4.6px,#000 5px) right/51% 100% no-repeat}
 .o5-deal--last{background:#fede92}
-.o5-badges{margin-top:var(--spacing-2xs,2px)} /* 2px under the seats line, as Option 4's badges sit under the bus type */
+.o5-badges{margin-top:calc(var(--spacing-2xs,2px) - var(--spacing-lg,12px))} /* 2px under the operator block (the column gap is 12), as in Option 4 */
 
 /* ---- Options 6–8 · tuple from scratch ---- */
 .tn{--tn-ink:#1d1d1d;--tn-2:rgba(29,29,29,.69);--tn-3:rgba(29,29,29,.62);--tn-line:#ececf0}

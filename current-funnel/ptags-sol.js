@@ -347,9 +347,10 @@
               mName(m, b, 'px-nm o5-nm'),
               h('p', null, b.type),
               h('p', null, b.seats + ' ' + b.single),
-              has(m, 'layover', b) && h('p', { className: 'px-warn' }, 'Next day · 2h Layover at Delhi'),
-              feats.length > 0 && h('div', { className: 'p4-badges o5-badges' }, feats.map((k) => Tag({ key: k, className: 'p4-badge', icon: IC[k]() }, BADGE[k])))),
+              has(m, 'layover', b) && h('p', { className: 'px-warn' }, 'Next day · 2h Layover at Delhi')),
             h('div', { className: 'px-rate', 'aria-label': 'Rated ' + b.rating }, h('b', null, h(Star), one(b.rating)), h('span', null, '0000'))),
+          /* badges use the column's full width (under the rating too), so they only wrap when they run out of room */
+          feats.length > 0 && h('div', { className: 'p4-badges o5-badges' }, feats.map((k) => Tag({ key: k, className: 'p4-badge', icon: IC[k]() }, BADGE[k]))),
           list.length > 0 && h('div', { className: 'o5-rtb' },
             h('ul', null, list.map((k) => h('li', { key: k }, h('img', { src: X + 'o5-check.svg', alt: '' }), h('span', null, L5(k, b.sc)))))),
           mPost(m, b)),
