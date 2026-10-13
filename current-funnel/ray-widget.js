@@ -86,10 +86,10 @@
 
   /* ---------- the filter widget ---------- */
   /* the field morphs into a taller box that asks one question: three choices and a free-text last row */
-  function AskPanel({ ask, picked, onPick, onOther, onClose, panelRef }) {
-    return h('div', { className: 'fw-ask', ref: panelRef, role: 'group', 'aria-label': ask.q },
+  function AskPanel({ ask, open, picked, onPick, onOther, onClose, panelRef }) {
+    return h('div', { className: 'fw-ask' + (open ? ' open' : ''), ref: panelRef, role: 'group', 'aria-label': ask.q, 'aria-hidden': !open },
       h('div', { className: 'fw-ask-hd' },
-        h(Sparkle, { size: 18 }), h('p', null, ask.q),
+        h('p', null, ask.q),
         h('button', { className: 'fw-ask-x', 'aria-label': 'Skip question', onClick: (e) => { e.stopPropagation(); onClose(); } }, h(Close))),
       h('div', { className: 'fw-ask-list' },
         ask.opts.map(([t, d], i) => h('button', { key: t, className: 'fw-opt' + (picked === i ? ' on' : ''), style: { '--i': i }, onClick: (e) => { e.stopPropagation(); onPick(i); } },
@@ -104,7 +104,14 @@
   function FilterWidget(p) {
     const panelRef = useRef(null);
     const [askH, setAskH] = useState(0);
-    useLayoutEffect(() => { setAskH(p.ask && panelRef.current ? panelRef.current.offsetHeight : 0); }, [p.ask]);
+    /* the panel stays mounted while the box collapses, so the content fades out before the pill closes */
+    const [shown, setShown] = useState(null);
+    useEffect(() => {
+      if (p.ask) { setShown(p.ask); return; }
+      const t = setTimeout(() => setShown(null), 520);
+      return () => clearTimeout(t);
+    }, [p.ask]);
+    useLayoutEffect(() => { setAskH(p.ask && panelRef.current ? panelRef.current.offsetHeight : 0); }, [p.ask, shown]);
     const draft = !p.typing && !p.applied && p.prompt.length > 0;
     const showSend = (p.typing && p.prompt.length > 0) || draft;
     const inUse = p.typing || draft;
@@ -123,7 +130,7 @@
         h('div', { className: 'fw-ai' },
           h('div', { className: 'fw-field-wrap' },
             h('div', { className: 'fw-field' + (asking ? ' fw-field--ask' : ''), style: asking && askH ? { height: askH } : null, onClick: asking ? undefined : p.onFieldClick },
-              p.ask && h(AskPanel, { ask: p.ask, picked: p.picked, onPick: p.onPick, onOther: p.onAskOther, onClose: p.onAskClose, panelRef }),
+              shown && !p.typing && h(AskPanel, { ask: p.ask || shown, open: asking && askH > 0, picked: p.picked, onPick: p.onPick, onOther: p.onAskOther, onClose: p.onAskClose, panelRef }),
               h('span', { className: 'fw-field-lead' },
                 h(Sparkle, { size: 24 }),
                 p.typing
@@ -136,7 +143,7 @@
                     ? h('span', { className: 'fw-field-value t-body-r' }, p.applied || p.prompt)
                     : h('span', { className: 'fw-field-placeholder t-body-r' }, p.placeholder, p.phTyping && h('span', { className: 'fw-caret fw-caret--ph' }))),
               trailing))),
-        !p.typing && !asking && h('div', { className: 'fw-chips' },
+        !p.typing && h('div', { className: 'fw-chips' },
           h('button', { className: 'fw-tap', onClick: p.onAllFilters, 'aria-label': 'All filters' }, h('span', { className: 'fw-pill fw-allbtn' }, h(FilterAlt))),
           CHIPS.filter((c) => c.id !== p.usedChipId).map((c) => h('button', { key: c.id, className: 'fw-tap', onClick: (e) => p.onChipClick(c, e) },
             h('span', { className: 'fw-pill fw-chip' }, c.icon === 'ai' ? h(Sparkle, { size: 16 }) : h(Plus), h('span', { className: 'fw-chip-label t-subhead-r' }, c.label)))))));

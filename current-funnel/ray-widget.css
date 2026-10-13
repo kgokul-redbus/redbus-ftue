@@ -518,18 +518,24 @@
   box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
 }
 
-/* ---- ask: the field morphs into a taller box with one question, three choices and a free-text row ---- */
-.fw-field > .fw-field-lead, .fw-field > .fw-mic, .fw-field > .fw-clear, .fw-field > .fw-send { transition: opacity 0.2s ease; }
-.fw-field--ask { overflow: hidden; align-items: flex-start; background: #fff; box-shadow: 0 2px 26px rgba(29, 29, 29, 0.28); }
-.fw-field--ask > .fw-field-lead, .fw-field--ask > .fw-mic, .fw-field--ask > .fw-clear, .fw-field--ask > .fw-send { opacity: 0; pointer-events: none; }
-.fw-ask { position: absolute; left: 0; right: 0; top: 0; z-index: 1; padding: 14px 10px 10px; animation: fwAskIn 0.3s ease 0.12s both; }
-.fw-ask-hd { display: flex; align-items: flex-start; gap: 8px; padding: 0 2px 10px 6px; }
-.fw-ask-hd svg { flex: none; margin-top: 1px; }
-.fw-ask-hd p { flex: 1; margin: 0; font-size: 15px; line-height: 20px; font-weight: 600; letter-spacing: -0.15px; color: var(--text-primary); }
-.fw-ask-x { flex: none; width: 28px; height: 28px; margin: -4px -2px 0 0; display: grid; place-items: center; border-radius: var(--radius-full); }
-.fw-ask-x:active { background: #f1f1f4; }
+/* ---- ask: the pill grows upward into a question box. The sparkle and the × keep their places on the top
+   edge, the applied text crossfades into the question, then the choices rise in. Closing runs it backwards. ---- */
+.fw-field { --ease-morph: cubic-bezier(0.32, 0.72, 0, 1); }
+.fw-field > .fw-field-lead, .fw-field > .fw-mic, .fw-field > .fw-clear, .fw-field > .fw-send { transition: opacity 0.18s ease; }
+.fw-field--ask { overflow: hidden; align-items: flex-start; background: #fff; box-shadow: 0 2px 26px rgba(29, 29, 29, 0.26); transition: height 0.5s var(--ease-morph), border-radius 0.5s var(--ease-morph), background-color 0.3s ease, box-shadow 0.3s ease; }
+.fw-field--ask > .fw-field-lead { height: 45px; flex: 0 0 auto; }
+.fw-field--ask .fw-field-value { opacity: 0; transition: opacity 0.15s ease; }
+.fw-field--ask > .fw-mic, .fw-field--ask > .fw-clear, .fw-field--ask > .fw-send { opacity: 0; pointer-events: none; }
+.fw-ask { position: absolute; left: 0; right: 0; top: 0; z-index: 1; padding: 12px 8px 10px; pointer-events: none; }
+.fw-ask.open { pointer-events: auto; }
+.fw-ask-hd { display: flex; align-items: flex-start; gap: 8px; padding: 0 0 8px 34px; min-height: 32px; }
+.fw-ask-hd p { flex: 1; margin: 0; padding-top: 1px; font-size: 15px; line-height: 20px; font-weight: 600; letter-spacing: -0.15px; color: var(--text-primary); opacity: 0; transform: translateY(4px); transition: opacity 0.22s ease, transform 0.35s var(--ease-morph); }
+.fw-ask.open .fw-ask-hd p { opacity: 1; transform: none; transition-delay: 0.16s; }
+.fw-ask-x { flex: none; width: 32px; height: 32px; margin-top: -6px; display: grid; place-items: center; border-radius: var(--radius-full); background: var(--fill-component-disabled); border: 1px solid var(--stroke-inverse); transition: background 0.2s ease; }
+.fw-ask-x:active { background: #e0e0e4; }
 .fw-ask-list { display: flex; flex-direction: column; gap: 2px; }
-.fw-opt { display: flex; align-items: center; gap: 12px; width: 100%; min-height: 52px; padding: 8px 10px; border-radius: 14px; text-align: left; transition: background 0.18s ease; animation: fwOptIn 0.35s cubic-bezier(0.2, 0.85, 0.25, 1) both; animation-delay: calc(0.18s + var(--i) * 45ms); }
+.fw-opt { display: flex; align-items: center; gap: 12px; width: 100%; min-height: 52px; padding: 8px 10px; border-radius: 14px; text-align: left; opacity: 0; transform: translateY(8px); transition: opacity 0.16s ease, transform 0.2s ease, background 0.18s ease; }
+.fw-ask.open .fw-opt { opacity: 1; transform: none; transition: opacity 0.3s ease, transform 0.45s var(--ease-morph), background 0.18s ease; transition-delay: calc(0.2s + var(--i) * 45ms), calc(0.2s + var(--i) * 45ms), 0s; }
 .fw-opt:hover { background: #f6f5fa; }
 .fw-opt:active { background: #efedf6; }
 .fw-opt.on { background: rgba(126, 58, 241, 0.08); }
@@ -538,7 +544,6 @@
 .fw-opt-t { flex: 1; min-width: 0; display: flex; flex-direction: column; }
 .fw-opt-t b { font-size: 14px; line-height: 20px; font-weight: 600; color: var(--text-primary); }
 .fw-opt-t small { font-size: 12px; line-height: 16px; color: var(--text-secondary); }
-.fw-opt--other { gap: 12px; }
 .fw-opt-in { flex: 1; min-width: 0; height: 40px; display: flex; align-items: center; padding: 0 14px; border-radius: var(--radius-full); border: 1px solid var(--stroke-weaker); background: var(--fill-component-tertiary); font-size: 14px; color: var(--text-secondary); }
 .fw-opt-go { flex: none; width: 32px; height: 32px; margin-left: -4px; display: grid; place-items: center; border-radius: var(--radius-full); background: var(--fill-component-disabled); }
 @keyframes fwAskIn { from { opacity: 0; } to { opacity: 1; } }
