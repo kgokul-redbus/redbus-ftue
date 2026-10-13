@@ -299,12 +299,16 @@
 .sf:has(.p4-wbar) .sf-scroll{background:linear-gradient(180deg,#fff 0,#fff 404px,#fcfcfe 412px,#f7f7fb 420px,#f4f4f9 428px,#f2f2f8 436px) 0 0/100% 436px no-repeat local}
 /* women rating (Figma 37512:17216, updated): a Woman/tertiary plate (79 × 36, p2, r6) holding the overall score on a
    white 16-high line and "Women 4.6" in Text/woman under it */
-.p4-wr{flex:none;width:79px;height:36px;box-sizing:border-box;padding:2px;display:flex;flex-direction:column;align-items:center;border-radius:6px;background:var(--fill-woman-tertiary,#f7e7ec)}
-.p4-wr-top{width:75px;height:16px;box-sizing:border-box;display:flex;align-items:center;gap:2px;padding-right:4px;border-radius:4px;background:#fff}
-.p4-wr-top b{height:16px;box-sizing:border-box;display:flex;align-items:center;gap:2px;padding:0 4px 0 2px;border-radius:4px;background:var(--fill-success-primary,#007b28);font-size:12px;line-height:16px;font-weight:500;letter-spacing:.01px;color:#fdfdfd}
-.p4-wr-top b svg{width:12px;height:12px;margin:0 0 1px 1px}
-.p4-wr-top span{flex:1;text-align:center;font-size:11px;line-height:14px;letter-spacing:.05px;color:#1d1d1d}
-.p4-wr-w{margin:0;width:75px;height:16px;text-align:center;font-size:12px;line-height:16px;letter-spacing:.01px;color:var(--text-woman,#c41685);white-space:nowrap}
+.p4-wr{flex:none;width:79px;height:36px;box-sizing:border-box;padding:2px;display:flex;flex-direction:column;align-items:center;gap:1px;border-radius:6px;background:var(--fill-woman-tertiary,#f7e7ec)}
+/* top line 75 × 16: green 41 (pl2 pr4: star frame 13 + gap 2 + score 20) · gap 2 · count 28 · pr 4 */
+.p4-wr-top{flex:none;width:75px;height:16px;box-sizing:border-box;display:flex;align-items:center;gap:2px;padding-right:4px;border-radius:4px;background:#fff}
+.p4-wr-top b{flex:none;width:41px;height:16px;box-sizing:border-box;display:flex;align-items:center;gap:2px;padding:0 4px 0 2px;border-radius:4px;background:var(--fill-success-primary,#007b28)}
+.p4-wr-star{flex:none;width:13px;height:13px;box-sizing:border-box;padding:0 0 1px 1px;display:block}
+.p4-wr-star svg{display:block;width:12px;height:12px}
+.p4-wr-top em{flex:none;width:20px;font-style:normal;text-align:center;font-size:12px;line-height:16px;font-weight:500;letter-spacing:.01px;color:#fdfdfd}
+.p4-wr-top span{flex:none;width:28px;text-align:center;font-size:11px;line-height:14px;letter-spacing:.05px;color:#1d1d1d}
+/* "Women 4.6": caption-R 11/14 in a 75 × 16 box, Text/woman */
+.p4-wr-w{flex:none;margin:0;width:75px;height:16px;text-align:center;font-size:11px;line-height:14px;letter-spacing:.05px;color:var(--text-woman,#c41685);white-space:nowrap}
 /* coach mark: a spotlight ring with a soft scrim around it, and a tip pointing up at the rating */
 .p4-coach{position:absolute;inset:0;z-index:20;pointer-events:none}
 .p4-coach.on{pointer-events:auto}

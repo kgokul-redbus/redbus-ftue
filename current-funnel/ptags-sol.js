@@ -237,6 +237,8 @@
   const p4Time = (m, b) => h('p', { className: 'o5-time p4-time' }, h('b', null, b.dep), h('span', null, h('i'), b.dur, h('i')),
     has(m, 'layover', b) && h('span', { className: 'px-next' }, 'Next day'), h('em', null, b.arr));
   const p4Sub = (m, b) => h('p', { className: 'p4-sub' + (has(m, 'layover', b) ? ' px-warn' : '') }, has(m, 'layover', b) ? '2h Layover at Delhi' : b.seats + ' ' + b.single);
+  /* Rubicon stars_full_filled (12 × 12), exported from the Figma rating */
+  const starRubicon = () => h('svg', { viewBox: '0 0 12 12', width: 12, height: 12, 'aria-hidden': true }, h('path', { fillRule: 'evenodd', clipRule: 'evenodd', fill: '#FDFDFD', d: 'M5.53183 1.56658C5.6938 1.13341 6.30651 1.13341 6.46848 1.56658L7.49883 4.32206L10.4378 4.45048C10.8999 4.47067 11.0892 5.05339 10.7273 5.3413L8.42506 7.1727L9.21112 10.0075C9.33469 10.4532 8.839 10.8133 8.45335 10.5581L6.00015 8.93449L3.54696 10.5581C3.16131 10.8133 2.66562 10.4532 2.78919 10.0075L3.57525 7.1727L1.27303 5.3413C0.911112 5.05339 1.10045 4.47067 1.56248 4.45048L4.50148 4.32206L5.53183 1.56658Z' }));
   /* women's rating per bus: not in the sheet, so illustrative, within ±0.2 of the overall rating */
   const wRate = (b) => Math.min(5, Math.max(3.5, b.rating + (((b.rank * 3) % 5) - 2) / 10));
   /* Women mode bar under the AI Smart filter (Option 4): the women icon, what the mode does, and its switch */
@@ -311,7 +313,7 @@
               /* Figma 37512:17216 "Rating women mode": a pink plate with the overall rating (green score + count) on top
                  and the women's rating under it in Text/woman; 79 × 36, the height of name + bus type */
               ? h('div', { className: 'p4-wr', 'aria-label': 'Rated ' + one(b.rating) + ' overall, ' + one(wRate(b)) + ' by women' },
-                  h('div', { className: 'p4-wr-top' }, h('b', null, h(Star), one(b.rating)), h('span', null, '0000')),
+                  h('div', { className: 'p4-wr-top' }, h('b', null, h('i', { className: 'p4-wr-star' }, starRubicon()), h('em', null, one(b.rating))), h('span', null, '0000')),
                   h('p', { className: 'p4-wr-w' }, 'Women ' + one(wRate(b))))
               : h('div', { className: 'px-rate', 'aria-label': 'Rated ' + b.rating }, h('b', null, h(Star), one(b.rating)), h('span', null, '0000'))),
           feats.length > 0 && h('div', { className: 'p4-badges' }, feats.map((k) => Tag({ key: k, className: 'p4-badge', icon: IC[k]() }, BADGE[k])))),
