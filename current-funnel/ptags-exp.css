@@ -303,16 +303,22 @@
 /* coach mark: a spotlight ring with a soft scrim around it, and a tip pointing up at the rating */
 .p4-coach{position:absolute;inset:0;z-index:20;pointer-events:none}
 .p4-coach.on{pointer-events:auto}
-.p4-coach-ring{position:absolute;border-radius:10px;box-shadow:0 0 0 2px #fff,0 0 0 9999px rgba(15,15,20,.56);animation:p4CoachIn .3s ease-out both}
-.p4-coach-tip{position:absolute;width:232px;box-sizing:border-box;padding:12px 14px 10px;border-radius:12px;background:#fff;box-shadow:0 8px 24px rgba(0,0,0,.18);animation:p4TipIn .35s cubic-bezier(.2,.8,.2,1) .1s both}
-.p4-coach-tip.up{animation-name:p4TipUp}
-.p4-coach-tip.up .p4-coach-arw{top:auto;bottom:-6px}
-@keyframes p4TipUp{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
-.p4-coach-arw{position:absolute;top:-6px;width:14px;height:14px;background:#fff;border-radius:2px;transform:rotate(45deg)}
-.p4-coach-tip b{display:block;font-size:14px;line-height:20px;font-weight:600;letter-spacing:-.09px;color:#1d1d1d}
-.p4-coach-tip p{margin:2px 0 8px;font-size:12px;line-height:16px;letter-spacing:.01px;color:rgba(29,29,29,.69)}
-.p4-coach-tip button{all:unset;float:right;padding:6px 10px;margin:0 -6px 0 0;border-radius:8px;font-size:14px;line-height:20px;font-weight:600;color:var(--text-woman,#c41685);cursor:pointer}
-.p4-coach-tip button:focus-visible{outline:2px solid var(--fill-woman-primary,#c41685)}
+/* overlay: Always Black at 70%, with the rating left clear */
+.p4-coach-hole{position:absolute;border-radius:10px;box-shadow:0 0 0 9999px rgba(0,0,0,.7);animation:p4CoachIn .3s ease-out both}
+/* Crystals DroidCoachmark */
+.p4-cm{position:absolute;width:290px;display:flex;flex-direction:column;align-items:flex-end;animation:p4TipIn .35s cubic-bezier(.2,.8,.2,1) .1s both}
+.p4-cm.up{animation-name:p4TipUp}
+.p4-cm-notch{display:block;height:10px;padding-right:24px}
+.p4-cm:not(.up) .p4-cm-notch{transform:rotate(180deg);padding:0 0 0 24px;align-self:flex-end;transform-origin:center}
+.p4-cm-notch svg{display:block;margin-top:0}
+.p4-cm.up .p4-cm-notch svg{margin-top:-1px}
+.p4-cm-card{align-self:stretch;box-sizing:border-box;display:flex;flex-direction:column;gap:8px;padding:12px;border-radius:20px;background:#fff}
+.p4-cm-card b{font-size:14px;line-height:20px;font-weight:700;letter-spacing:-.09px;color:#1d1d1d}
+.p4-cm-card p{margin:0;font-size:12px;line-height:16px;letter-spacing:.01px;color:#1d1d1d}
+.p4-cm-cta{display:flex;justify-content:flex-end;height:48px;align-items:center}
+.p4-cm-cta button{all:unset;box-sizing:border-box;height:40px;padding:0 16px;border-radius:999px;background:#fad9d7;font-size:14px;line-height:20px;font-weight:700;color:#1d1d1d;cursor:pointer}
+.p4-cm-cta button:focus-visible{outline:2px solid #1d1d1d;outline-offset:2px}
 @keyframes p4CoachIn{from{opacity:0}to{opacity:1}}
 @keyframes p4TipIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
-@media (prefers-reduced-motion:reduce){.p4-coach-ring,.p4-coach-tip{animation:none}.p4-sw,.p4-sw i,.p4-wbar{transition:none}}
+@keyframes p4TipUp{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.p4-coach-hole,.p4-cm{animation:none}.p4-sw,.p4-sw i,.p4-wbar{transition:none}}

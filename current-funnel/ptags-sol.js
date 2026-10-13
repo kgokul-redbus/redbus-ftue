@@ -268,18 +268,24 @@
       return () => clearTimeout(t);
     }, [on, seen]);
     const show = on && !seen && box;
+    /* Crystals DroidCoachmark (🔮 CRYSTALS • Rubicon): white card r20 p12, Headline Bold 14/20, Description 12/16, one
+       tonal CTA, notch 24 in from the side, on a 70% Always Black overlay with the rating left clear */
+    const up = show && box.y + box.h + 170 > box.sh;
+    const cx = show && box.x + box.w / 2;
     return h('div', { ref, className: 'p4-coach' + (show ? ' on' : ''), 'aria-hidden': !show },
       show && [
-        h('div', { key: 'ring', className: 'p4-coach-ring', style: { left: box.x - 4, top: box.y - 4, width: box.w + 8, height: box.h + 8 } }),
-        /* the tip sits under the rating, or above it when the rating is low on the screen */
-        h('div', { key: 'tip', className: 'p4-coach-tip' + (box.y + box.h + 150 > box.sh ? ' up' : ''), role: 'dialog', 'aria-label': 'Women ratings',
-          style: Object.assign({ right: box.sw - (box.x + box.w) - 4 }, box.y + box.h + 150 > box.sh ? { bottom: box.sh - box.y + 14 } : { top: box.y + box.h + 14 }) },
-          h('i', { className: 'p4-coach-arw', style: { right: box.w / 2 + 4 - 7 } }),
-          h('b', null, 'Ratings are now from women'),
-          h('p', null, 'With Women mode on, this rating shows how women travellers rated the bus.'),
-          h('button', { onClick: () => COACH.set(true) }, 'Got it')),
+        h('div', { key: 'hole', className: 'p4-coach-hole', style: { left: box.x - 4, top: box.y - 4, width: box.w + 8, height: box.h + 8 } }),
+        h('div', { key: 'cm', className: 'p4-cm' + (up ? ' up' : ''), role: 'dialog', 'aria-labelledby': 'p4-cm-t',
+          style: Object.assign({ right: box.sw - (cx + 32) }, up ? { bottom: box.sh - box.y + 6 } : { top: box.y + box.h + 6 }) },
+          !up && h('span', { className: 'p4-cm-notch' }, notch()),
+          h('div', { className: 'p4-cm-card' },
+            h('b', { id: 'p4-cm-t' }, 'Ratings shown are only from women'),
+            h('p', null, 'With Women mode on, every rating on this page counts reviews from women travellers only.'),
+            h('div', { className: 'p4-cm-cta' }, h('button', { onClick: () => COACH.set(true) }, 'Got it'))),
+          up && h('span', { className: 'p4-cm-notch' }, notch())),
       ]);
   }
+  const notch = () => h('svg', { viewBox: '0 0 16 9', width: 16, height: 9, 'aria-hidden': true }, h('path', { fill: '#fff', d: 'M0 0C1.55798 0 3.90512 3.21696 5.64503 6.00167C6.49804 7.36691 6.92454 8.04953 7.35582 8.23482C7.76338 8.40991 8.12808 8.41043 8.53613 8.23649C8.96793 8.05242 9.39695 7.37009 10.255 6.00542C12.0064 3.21985 14.381 0 16 0H0Z' }));
   function Card4({ b, go }) {
     const t = ugcFilter(b.proposed, useUgc()), m = useMaster(), women = useWomen();
     const feats = t.filter((k) => FEATS.includes(k));
