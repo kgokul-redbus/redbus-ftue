@@ -241,14 +241,6 @@
   const starRubicon = () => h('svg', { viewBox: '0 0 12 12', width: 12, height: 12, 'aria-hidden': true }, h('path', { fillRule: 'evenodd', clipRule: 'evenodd', fill: '#FDFDFD', d: 'M5.53183 1.56658C5.6938 1.13341 6.30651 1.13341 6.46848 1.56658L7.49883 4.32206L10.4378 4.45048C10.8999 4.47067 11.0892 5.05339 10.7273 5.3413L8.42506 7.1727L9.21112 10.0075C9.33469 10.4532 8.839 10.8133 8.45335 10.5581L6.00015 8.93449L3.54696 10.5581C3.16131 10.8133 2.66562 10.4532 2.78919 10.0075L3.57525 7.1727L1.27303 5.3413C0.911112 5.05339 1.10045 4.47067 1.56248 4.45048L4.50148 4.32206L5.53183 1.56658Z' }));
   /* women's rating per bus: not in the sheet, so illustrative, within ±0.2 of the overall rating */
   const wRate = (b) => Math.min(5, Math.max(3.5, b.rating + (((b.rank * 3) % 5) - 2) / 10));
-  /* Women mode bar under the AI Smart filter (Option 4): the women icon, what the mode does, and its switch */
-  function WomenBar() {
-    const on = useWomen();
-    return h('div', { className: 'p4-wbar' + (on ? ' on' : '') },
-      h('span', { className: 'p4-wbar-ic' }, IC.woman()),
-      h('p', null, h('b', null, 'Women mode'), h('small', null, on ? 'Ratings by women travellers' : 'Turn on to see ratings by women')),
-      h('button', { className: 'p4-sw', role: 'switch', 'aria-checked': on, 'aria-label': 'Women mode', onClick: () => WM.set(!on) }, h('i')));
-  }
   /* Coach mark: on landing with women mode on, a spotlight on the first card's rating explains the change */
   function WomenCoach() {
     const on = useWomen(), seen = useCoachSeen(), ref = React.useRef(null);
@@ -479,7 +471,7 @@
       { key: 'A', label: 'Production design · proposed tags', render: srp(ProdList('proposed')) },
       { key: 'B', label: 'Experiment design · proposed tags', render: srp(ExpList('proposed')) },
       { key: 'C', label: 'Comparator tags · feature icon + text · reassurance list', render: srp(({ go }) => h('div', { className: 'px-list' }, BUSES.map((b) => h(Card3, { key: b.rank, b, go })))) },
-      { key: 'D', label: 'Feature badges · comparators + reassurance as one ✓ list', render: (p) => h(window.SRPFIG.SrpFig, Object.assign({}, p, { list: ({ go }) => h('div', { className: 'px-list' }, BUSES.map((b) => h(Card4, { key: b.rank, b, go }))), belowAi: WomenBar, overlay: WomenCoach })) },
+      { key: 'D', label: 'Feature badges · comparators + reassurance as one ✓ list', render: (p) => h(window.SRPFIG.SrpFig, Object.assign({}, p, { list: ({ go }) => h('div', { className: 'px-list' }, BUSES.map((b) => h(Card4, { key: b.rank, b, go }))), overlay: WomenCoach })) },
       { key: 'E', label: 'Figma “New approach” · price column + ✓ list', render: srp(({ go }) => h('div', { className: 'px-list' }, BUSES.map((b) => h(Card5, { key: b.rank, b, go })))) },
       { key: 'F', label: 'From scratch · stat row', render: srp(({ go }) => h('div', { className: 'px-list' }, BUSES.map((b) => h(Card6, { key: b.rank, b, go })))) },
       { key: 'G', label: 'From scratch · score panel', render: srp(({ go }) => h('div', { className: 'px-list' }, BUSES.map((b) => h(Card7, { key: b.rank, b, go })))) },

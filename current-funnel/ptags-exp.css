@@ -280,23 +280,7 @@
 .p4-card--prev{background:var(--fill-success-primary,#298639)}
 .p4-prev{height:18px;box-sizing:border-box;margin:0;padding:2px var(--spacing-xs,4px);font-size:11px;line-height:14px;letter-spacing:.05px;color:var(--content-inverse-primary,#fff);text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .p4-main{background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 2px 4px rgba(0,0,0,.08),0 4px 8px rgba(0,0,0,.08)}
-/* ---- Option 4 · women mode: bar under the AI Smart filter, women rating, coach mark ---- */
-.p4-wbar{display:flex;align-items:center;gap:var(--spacing-md,8px);margin:var(--spacing-lg,12px) 16px 0;padding:0 12px;height:52px;border-radius:var(--radius-lg,12px);background:#f5f5f8;transition:background .2s}
-.p4-wbar.on{background:var(--fill-woman-tertiary,#f7e7ec)}
-.p4-wbar-ic{flex:none;width:32px;height:32px;border-radius:50%;display:grid;place-items:center;background:#fff;color:#6b6b73}
-.p4-wbar.on .p4-wbar-ic{color:var(--icon-woman,#c41685)}
-.p4-wbar-ic .p3-ic{width:20px;height:20px}
-.p4-wbar p{flex:1;min-width:0;margin:0;display:flex;flex-direction:column}
-.p4-wbar b{font-size:14px;line-height:20px;font-weight:600;letter-spacing:-.09px;color:#1d1d1d}
-.p4-wbar small{font-size:11px;line-height:14px;letter-spacing:.05px;color:rgba(29,29,29,.69);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-/* Android (Material 3) switch, as on Home; Fill/Woman/primary when on */
-.p4-sw{all:unset;flex:none;box-sizing:border-box;display:flex;align-items:center;width:52px;height:32px;padding:0 6px;border:2px solid #6b6b73;border-radius:999px;background:#e6e6e6;cursor:pointer;transition:background .15s,border-color .15s}
-.p4-sw i{width:16px;height:16px;border-radius:50%;background:#6b6b73;transition:transform .15s,width .15s,height .15s,background .15s}
-.p4-sw[aria-checked="true"]{background:var(--fill-woman-primary,#c41685);border-color:var(--fill-woman-primary,#c41685);padding:0 2px}
-.p4-sw[aria-checked="true"] i{width:24px;height:24px;background:#fff;transform:translateX(20px)}
-.p4-sw:focus-visible{outline:2px solid var(--fill-woman-primary,#c41685);outline-offset:2px}
-/* the bar adds 64 under the AI filter, so the white-to-grey fade moves down with it */
-.sf:has(.p4-wbar) .sf-scroll{background:linear-gradient(180deg,#fff 0,#fff 404px,#fcfcfe 412px,#f7f7fb 420px,#f4f4f9 428px,#f2f2f8 436px) 0 0/100% 436px no-repeat local}
+/* ---- Option 4 · women mode: women rating, coach mark ---- */
 /* women rating (Figma 37512:17216, updated): a Woman/tertiary plate (79 × 36, p2, r8; inner lines r6) holding the overall score on a
    white 16-high line and "Women 4.6" in Text/woman under it */
 .p4-wr{flex:none;width:79px;height:36px;box-sizing:border-box;padding:2px;display:flex;flex-direction:column;align-items:center;gap:1px;border-radius:8px;background:var(--fill-woman-tertiary,#f7e7ec)}
@@ -330,4 +314,4 @@
 @keyframes p4CoachIn{from{opacity:0}to{opacity:1}}
 @keyframes p4TipIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
 @keyframes p4TipUp{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
-@media (prefers-reduced-motion:reduce){.p4-coach-hole,.p4-cm{animation:none}.p4-sw,.p4-sw i,.p4-wbar{transition:none}}
+@media (prefers-reduced-motion:reduce){.p4-coach-hole,.p4-cm{animation:none}}
