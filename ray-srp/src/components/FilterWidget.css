@@ -1,0 +1,395 @@
+/* ============================================================
+   AI Smart Filter widget — bottom-anchored over the SRP list.
+   Specs mirror Figma node 2883:2881 "Filter container".
+   ============================================================ */
+
+.fw {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 20;
+  padding-top: 48px; /* fade region above the controls */
+
+  /* hidden below the fold until introduced */
+  transform: translateY(100%);
+  opacity: 0;
+  transition: transform 0.55s cubic-bezier(0.2, 0.85, 0.25, 1), opacity 0.4s ease,
+    bottom 0.28s cubic-bezier(0.2, 0.85, 0.25, 1);
+  will-change: transform;
+}
+.fw--reveal {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* ---- progressive blur stack ----
+   Sibling layers each sample the SRP list behind the widget. Non-overlapping
+   masked bands ramp the blur from ~0 at the top to 16px at the very bottom,
+   so the fade is gradual instead of an abrupt hard edge. */
+.fw-blur {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+.fw-blur > div {
+  position: absolute;
+  inset: 0;
+}
+/* to top: 0% = bottom, 100% = top. Kept light so the list content stays
+   readable through the glass (airy, like the design) rather than smeared grey. */
+.fw-blur > div:nth-child(1) {
+  backdrop-filter: blur(7px);
+  -webkit-backdrop-filter: blur(7px);
+  -webkit-mask-image: linear-gradient(to top, #000 0%, #000 16.6%, transparent 33.3%);
+  mask-image: linear-gradient(to top, #000 0%, #000 16.6%, transparent 33.3%);
+}
+.fw-blur > div:nth-child(2) {
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  -webkit-mask-image: linear-gradient(to top, transparent 0%, #000 16.6%, #000 33.3%, transparent 50%);
+  mask-image: linear-gradient(to top, transparent 0%, #000 16.6%, #000 33.3%, transparent 50%);
+}
+.fw-blur > div:nth-child(3) {
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+  -webkit-mask-image: linear-gradient(to top, transparent 16.6%, #000 33.3%, #000 50%, transparent 66.6%);
+  mask-image: linear-gradient(to top, transparent 16.6%, #000 33.3%, #000 50%, transparent 66.6%);
+}
+.fw-blur > div:nth-child(4) {
+  backdrop-filter: blur(1.5px);
+  -webkit-backdrop-filter: blur(1.5px);
+  -webkit-mask-image: linear-gradient(to top, transparent 33.3%, #000 50%, #000 66.6%, transparent 83.3%);
+  mask-image: linear-gradient(to top, transparent 33.3%, #000 50%, #000 66.6%, transparent 83.3%);
+}
+.fw-blur > div:nth-child(5) {
+  backdrop-filter: blur(0.7px);
+  -webkit-backdrop-filter: blur(0.7px);
+  -webkit-mask-image: linear-gradient(to top, transparent 50%, #000 66.6%, #000 83.3%, transparent 100%);
+  mask-image: linear-gradient(to top, transparent 50%, #000 66.6%, #000 83.3%, transparent 100%);
+}
+.fw-blur > div:nth-child(6) {
+  backdrop-filter: blur(0.3px);
+  -webkit-backdrop-filter: blur(0.3px);
+  -webkit-mask-image: linear-gradient(to top, transparent 66.6%, #000 83.3%, #000 100%);
+  mask-image: linear-gradient(to top, transparent 66.6%, #000 83.3%, #000 100%);
+}
+
+/* Separation gradient — spans the whole widget, 30% black at the bottom
+   fading to fully transparent at the top (per design). This is the primary
+   cue that lifts the widget off the list, together with the field/chip shadows. */
+.fw-tint {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0));
+}
+
+.fw-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--sp-xs); /* 4px real gap between the field row and chips row */
+  padding-bottom: 16px;
+}
+
+/* ---- Row 1: free text entry (kept inset 12px, aligned to the list) ---- */
+.fw-ai {
+  width: 336px;
+  margin: 0 12px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ---- Introduction highlight ----
+   A brand gradient (D63941 → 7E3AF1) flows across the ENTIRE widget
+   background and fades in then out once, drawing the eye to the newly
+   revealed widget. Masked to match the widget's own bottom-up fade. */
+.fw-highlight {
+  position: absolute;
+  top: -64px; /* extend the gradient well above the input field */
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0;
+  background: linear-gradient(
+    110deg,
+    rgba(214, 57, 65, 0.62) 0%,
+    rgba(126, 58, 241, 0.62) 18%,
+    rgba(214, 57, 65, 0.62) 36%,
+    rgba(126, 58, 241, 0.62) 54%,
+    rgba(214, 57, 65, 0.62) 72%,
+    rgba(126, 58, 241, 0.62) 90%,
+    rgba(214, 57, 65, 0.62) 100%
+  );
+  background-size: 280% 100%;
+  filter: blur(9px);
+  -webkit-mask-image: linear-gradient(to top, #000 0%, #000 28%, transparent 100%);
+  mask-image: linear-gradient(to top, #000 0%, #000 28%, transparent 100%);
+  /* the gradient flows continuously; opacity is toggled by .fw--glow so the
+     same highlight covers both the intro and the results-loading pulse */
+  animation: fwFlow 3.6s ease-in-out infinite;
+  transition: opacity 0.5s ease;
+}
+.fw--glow .fw-highlight,
+.fw--inuse .fw-highlight {
+  opacity: 0.95;
+}
+@keyframes fwFlow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.fw-field-wrap {
+  position: relative;
+  width: 336px;
+}
+
+.fw-field {
+  position: relative;
+  z-index: 1;
+  outline: none;
+  width: 336px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-left: var(--sp-lg); /* 12 */
+  padding-right: var(--sp-md); /* 8 */
+  border-radius: var(--radius-full);
+  border: 1.5px solid var(--stroke-inverse);
+  background: linear-gradient(to bottom, var(--fill-component-disabled), var(--fill-component-tertiary));
+  box-shadow: 0px 1px 18px rgba(29, 29, 29, 0.4);
+  text-align: left;
+}
+
+.fw-field-lead {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-sm); /* 6 */
+  flex: 1;
+  min-width: 0;
+}
+
+.fw-field-placeholder {
+  color: var(--text-secondary); /* #1d1d1d @ 69% */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.fw-field-value {
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+}
+
+/* blinking caret while typing */
+.fw-caret {
+  display: inline-block;
+  width: 2px;
+  height: 20px;
+  margin-left: 1px;
+  border-radius: 1px;
+  background: var(--fill-purple-primary);
+  animation: fwBlink 1s steps(1) infinite;
+  vertical-align: middle;
+}
+.fw-caret--lead { margin-left: 0; }
+/* caret shown while the placeholder types itself in on screen load */
+.fw-caret--ph {
+  height: 18px;
+  background: rgba(29, 29, 29, 0.55);
+  vertical-align: -3px;
+}
+@keyframes fwBlink {
+  0%, 50% { opacity: 1; }
+  50.01%, 100% { opacity: 0; }
+}
+
+/* ---- chip → input "fly" feedback ---- */
+.fw-fly {
+  position: fixed;
+  z-index: 60;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2xs);
+  height: 32px;
+  padding: 0 var(--sp-lg) 0 var(--sp-md);
+  border-radius: var(--radius-full);
+  white-space: nowrap;
+  pointer-events: none;
+  animation: fwFlyMove 0.42s cubic-bezier(0.4, 0.65, 0.3, 1) forwards;
+}
+.fw-fly-bg {
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius-full);
+  background: linear-gradient(to top, var(--fill-component-primary), var(--fill-component-disabled));
+  border: 1px solid var(--stroke-inverse);
+  box-shadow: 0px 1px 10px rgba(29, 29, 29, 0.2);
+  animation: fwFlyFade 0.42s ease forwards;
+}
+.fw-fly-ic {
+  position: relative;
+  display: inline-flex;
+  animation: fwFlyFade 0.42s ease forwards;
+}
+.fw-fly-text {
+  position: relative;
+  color: var(--text-primary);
+}
+@keyframes fwFlyMove {
+  to { transform: translate(var(--fly-dx), var(--fly-dy)); }
+}
+@keyframes fwFlyFade {
+  0%, 52% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+/* real text input, seamless inside the field */
+.fw-input {
+  flex: 1;
+  min-width: 0;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-family: inherit;
+  color: var(--text-primary);
+  caret-color: var(--text-primary);
+  padding: 0;
+  margin: 0;
+}
+
+/* --- enlarged field while typing: clean WHITE pill. The brand gradient lives
+   on the widget BACKGROUND behind it (.fw-highlight, activated below). --- */
+.fw--typing .fw-field {
+  height: 54px;
+  padding-left: 14px;
+  background: #fff;
+  border: 1.5px solid var(--stroke-inverse);
+  box-shadow: 0 2px 22px rgba(29, 29, 29, 0.22);
+}
+.fw--typing .fw-ai,
+.fw--typing .fw-field-wrap {
+  transition: height 0.2s ease;
+}
+
+/* send button (typing) */
+.fw-send {
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-full);
+  background: var(--fill-component-disabled);
+  border: 1px solid var(--stroke-inverse);
+  transition: background 0.15s ease;
+}
+.fw-send--on {
+  background: linear-gradient(120deg, var(--fill-brand-primary), var(--fill-purple-primary));
+  border-color: transparent;
+  box-shadow: 0 2px 8px rgba(126, 58, 241, 0.35);
+}
+
+/* clear button (applied) */
+.fw-clear {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-full);
+  background: var(--fill-component-disabled);
+  border: 1px solid var(--stroke-inverse);
+}
+
+/* raised circular mic button with a vertical GRADIENT stroke:
+   light (#f4f4f4, stroke-inverse) at the top → grey (#b0b0b0, stroke-weak)
+   at the bottom. Achieved via padding-box (fill) + border-box (border) layers. */
+.fw-mic {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-full);
+  border: 1.5px solid transparent;
+  background:
+    linear-gradient(180deg, #ededed, #e3e3e6) padding-box,
+    linear-gradient(180deg, var(--stroke-inverse), var(--stroke-weak)) border-box;
+  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.10);
+}
+
+/* ---- Row 2: filter chips ----
+   Full-bleed horizontal scroller: first chip aligns to 12px (under the
+   field), chips flow off the right screen edge instead of being clipped. */
+.fw-chips {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: var(--sp-xs); /* 4 */
+  overflow-x: auto;
+  overflow-y: visible;
+  padding-left: 12px;
+  padding-right: 12px;
+  scrollbar-width: none;
+}
+.fw-chips::-webkit-scrollbar { display: none; }
+
+/* 40px tap target wrapping a 32px-tall visual pill */
+.fw-tap {
+  flex-shrink: 0;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  padding: 0;
+  background: none;
+}
+
+.fw-pill {
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-2xs); /* 2 */
+  border-radius: var(--radius-full);
+  border: 1px solid var(--stroke-inverse);
+  background: linear-gradient(to top, var(--fill-component-primary), var(--fill-component-disabled));
+  box-shadow: 0px 1px 10px rgba(29, 29, 29, 0.2);
+  white-space: nowrap;
+}
+
+/* the little "all filters" square-ish button */
+.fw-allbtn {
+  width: 40px;
+  padding: 0 var(--sp-md);
+}
+
+.fw-chip {
+  padding-left: var(--sp-md); /* 8 */
+  padding-right: var(--sp-lg); /* 12 */
+}
+
+.fw-chip-label {
+  color: var(--text-primary);
+}
+
+/* pressed feedback */
+.fw-tap:active .fw-pill,
+.fw-field:active,
+.fw-mic:active {
+  filter: brightness(0.97);
+}

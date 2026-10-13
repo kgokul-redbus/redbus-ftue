@@ -16,7 +16,7 @@ Designers work on this repo through Claude Code. Claude does all git, server and
 - Build only the solves the designer asks for. Don't invent solves.
 - A screen's Current and Proposed versions are compared with the switch, not side by side. Several directions for one solve go under Option 1/2 (keys A, B in `solves.js`).
 - Use Rubicon Ions tokens: colours, type roles, `--radius-*`, `--spacing-*` and Ions icons (`IndiaBusDS.Icon`, `ion-*`). The font is Inter. Prefer soft custom shadows over the Ions elevation levels.
-- The deck hosts two separate projects, picked at the top right: **FTUE** (proposals in `current-funnel/solves.js`) and **Persuasion tags** (SRP only; proposals go in `window.PTAGS.PROPOSED`, see `current-funnel/ptags.js`). Never mix their solves.
+- The deck hosts three separate projects, picked from the project menu beside the logo: **FTUE** (proposals in `current-funnel/solves.js`), **Persuasion tags** (SRP only; proposals go in `window.PTAGS.PROPOSED`, see `current-funnel/ptags.js`) and **Ray on SRP unified** (its own Vite + React app in `ray-srp/`; edit `ray-srp/src`, then run `npm run build` in `ray-srp` and commit `ray-srp/app`, which is the copy the deck loads). Never mix their solves.
 - Leave the **current** screens untouched. Proposals live in `current-funnel/sol-*.js/.css` and are registered in `current-funnel/solves.js`.
 - Respect `prefers-reduced-motion`.
 

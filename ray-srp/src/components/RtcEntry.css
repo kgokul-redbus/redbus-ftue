@@ -1,0 +1,68 @@
+.rtc {
+  padding: 8px 12px 0;
+}
+.rtc-stack {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  padding-bottom: 8px;
+}
+
+.rtc-ghost {
+  position: absolute;
+  height: 72px;
+  border-radius: 20px;
+  background: var(--fill-component-primary);
+  border-bottom: 1px solid var(--stroke-weaker);
+  box-shadow: var(--elevation-2);
+  top: 12px;
+}
+.rtc-ghost-1 { width: 320px; opacity: 0.8; top: 8px; }
+.rtc-ghost-2 { width: 296px; opacity: 0.6; top: 16px; }
+
+.rtc-card {
+  position: relative;
+  z-index: 1;
+  width: 336px;
+  background: var(--fill-component-primary);
+  border-bottom: 1px solid var(--stroke-weaker);
+  border-radius: 20px;
+  box-shadow: var(--elevation-2);
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.rtc-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.rtc-logo {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+.rtc-info {
+  display: flex;
+  flex-direction: column;
+}
+.rtc-nameline {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.rtc-name { line-height: 24px; }
+.rtc-count {
+  font-size: 12px;
+  line-height: 16px;
+  color: var(--text-secondary);
+}
+.rtc-kn {
+  color: var(--text-primary);
+  width: 204px;
+}
+.rtc-from { line-height: 20px; }

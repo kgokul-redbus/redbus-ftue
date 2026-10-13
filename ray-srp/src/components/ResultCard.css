@@ -1,0 +1,205 @@
+.card {
+  background: var(--fill-component-primary);
+  border-radius: var(--radius-2xl); /* 16 */
+  box-shadow: var(--elevation-2);
+  width: 100%;
+}
+
+.card-meta {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-lg); /* 12 */
+  padding: var(--sp-lg);
+}
+
+/* --- top: primo + reddeal --- */
+.card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-xs);
+  height: 24px;
+}
+
+.primo {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  height: 24px;
+}
+.primo-text {
+  font-size: 15px;
+  font-weight: 800;
+  font-style: italic;
+  letter-spacing: -0.3px;
+  color: #1e5fb0;
+}
+
+.card-deals {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-xs);
+  justify-content: flex-end;
+}
+
+.reddeal {
+  display: inline-flex;
+  align-items: stretch;
+  border-radius: 4px;
+  overflow: hidden;
+  height: 20px;
+}
+.reddeal-body {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 0 2px;
+  font-size: 11px;
+  line-height: 14px;
+  letter-spacing: 0.05px;
+  color: var(--text-primary);
+}
+.reddeal-lead { font-weight: 400; }
+.reddeal-strong { font-weight: 700; }
+.reddeal-notch {
+  width: 3px;
+  align-self: stretch;
+  background-image: radial-gradient(circle at left center, transparent 1.6px, currentColor 1.7px);
+}
+.reddeal-notch-l { background-position: left center; }
+.reddeal-notch-r { transform: scaleX(-1); }
+
+.reddeal-group { color: var(--fill-reddeal-group); }
+.reddeal-group .reddeal-body { background: var(--fill-reddeal-group); }
+.reddeal-regular { color: var(--fill-reddeal-regular); }
+.reddeal-regular .reddeal-body { background: var(--fill-reddeal-regular); }
+
+/* --- time + price --- */
+.card-timeprice {
+  display: flex;
+  gap: var(--sp-md);
+  align-items: flex-start;
+}
+.card-time-seats {
+  display: flex;
+  flex-direction: column;
+  width: 176px;
+}
+.card-time {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+}
+.card-duration {
+  flex: 1 0 0;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  min-width: 0;
+}
+.card-sep {
+  flex: 1 0 0;
+  height: 1.5px;
+  min-width: 0;
+  background: var(--stroke-weaker);
+  border-radius: 1px;
+}
+.card-dur-text { color: var(--text-secondary); white-space: nowrap; }
+.card-seats { color: var(--text-secondary); }
+
+.card-price {
+  flex: 1 0 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  text-align: right;
+}
+.card-onwards { color: var(--text-tertiary); }
+
+/* --- operator + rating --- */
+.card-bo {
+  display: flex;
+  gap: var(--sp-md);
+  align-items: center;
+}
+.card-bo-info {
+  flex: 1 0 0;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+.card-operator {
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.card-bustype {
+  color: var(--text-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.rating {
+  flex-shrink: 0;
+  background: var(--fill-success-tertiary-2);
+  border-radius: 8px;
+  padding-bottom: 1px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+}
+.rating-top {
+  background: var(--fill-success-primary);
+  height: 18px;
+  min-width: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  padding: 0 5px;
+  border-radius: 6px 6px 4px 4px;
+}
+.rating-score {
+  color: var(--text-inverse);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 16px;
+  letter-spacing: 0.01px;
+}
+.rating-count {
+  font-size: 11px;
+  line-height: 14px;
+  letter-spacing: 0.05px;
+  color: var(--text-primary);
+  padding: 0 4px;
+}
+
+/* --- RTB --- */
+.card-rtb {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-xs);
+}
+.card-rtb-title { color: var(--text-success); }
+.card-props {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-xs);
+}
+.prop {
+  background: var(--fill-success-tertiary);
+  border-radius: var(--radius-sm);
+  padding: 2px 6px;
+  color: var(--text-primary);
+}
+
+.card-fallback {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--text-secondary);
+}

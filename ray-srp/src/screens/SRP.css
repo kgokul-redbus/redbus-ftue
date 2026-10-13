@@ -1,0 +1,133 @@
+.srp {
+  display: flex;
+  flex-direction: column;
+  background: #f2f2f8;
+}
+
+.srp-fixed {
+  position: relative;
+  z-index: 10;
+  background: var(--fill-component-primary);
+  flex-shrink: 0;
+}
+
+.srp-nav {
+  height: 64px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 12px;
+}
+.srp-back {
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.srp-title {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+.srp-route {
+  font-size: 13px;
+  line-height: 18px;
+  letter-spacing: -0.05px;
+  color: var(--text-secondary);
+}
+.srp-arrow { color: var(--text-secondary); }
+
+.srp-date {
+  flex-shrink: 0;
+  background: var(--fill-brand-tertiary);
+  border-radius: var(--radius-full);
+  padding: 4px 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  line-height: 1;
+}
+.srp-date-day {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--fill-brand-primary);
+  letter-spacing: 0;
+}
+.srp-date-wd {
+  font-size: 10px;
+  color: var(--text-secondary);
+  margin-top: 1px;
+}
+
+.srp-scroll {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: none;
+  background: #f2f2f8;
+}
+.srp-scroll::-webkit-scrollbar { display: none; }
+
+.srp-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 8px 12px 0;
+}
+
+/* RAY result summary after a filter is applied — logo inline with the text */
+.srp-rayhead {
+  padding: 14px 16px 2px;
+  font-size: 13px;
+  line-height: 19px;
+  letter-spacing: -0.05px;
+  color: #1d1d1d;
+}
+.srp-rayhead b {
+  color: #1d1d1d;
+  font-weight: 700;
+}
+
+/* scrim behind the field + keyboard while typing */
+.srp-scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 15;
+  background: rgba(0, 0, 0, 0.12);
+}
+
+/* filtering skeleton cards */
+.srp-sk-card {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: var(--elevation-2);
+  padding: 16px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.srp-sk-row {
+  display: flex;
+  justify-content: space-between;
+}
+.srp-sk {
+  display: inline-block;
+  background: #eceaf1;
+  border-radius: 6px;
+  position: relative;
+  overflow: hidden;
+}
+.srp-sk::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.65), transparent);
+  animation: srpShimmer 1.3s infinite;
+}
+@keyframes srpShimmer {
+  100% { transform: translateX(100%); }
+}

@@ -1,0 +1,65 @@
+.offers {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+  padding: 8px 16px 12px;
+  background: var(--fill-component-primary);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.offers::-webkit-scrollbar { display: none; }
+
+.offer-img-card {
+  position: relative;
+  width: 128px;
+  height: 100px;
+  border-radius: 16px;
+  overflow: hidden;
+  flex-shrink: 0;
+  background: #eef2c9;
+}
+.offer-nuego {
+  position: absolute;
+  width: 360px;
+  height: 779px;
+  left: -14px;
+  top: -116px;
+  max-width: none;
+}
+
+.offer-card {
+  position: relative;
+  width: 140px;
+  height: 100px;
+  border-radius: 16px;
+  overflow: hidden;
+  flex-shrink: 0;
+  padding: 8px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.offer-tag {
+  align-self: flex-start;
+  background: var(--fill-component-primary);
+  color: var(--text-primary);
+  padding: 2px 6px;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+
+.offer-title {
+  font-size: 12px;
+  line-height: 14px;
+  font-weight: 700;
+  letter-spacing: -0.072px;
+  color: var(--text-primary);
+  width: 96px;
+}
+
+.offer-illus {
+  position: absolute;
+  max-width: none;
+  pointer-events: none;
+}
