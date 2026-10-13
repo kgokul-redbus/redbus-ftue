@@ -297,13 +297,14 @@
 .p4-sw:focus-visible{outline:2px solid var(--fill-woman-primary,#c41685);outline-offset:2px}
 /* the bar adds 64 under the AI filter, so the white-to-grey fade moves down with it */
 .sf:has(.p4-wbar) .sf-scroll{background:linear-gradient(180deg,#fff 0,#fff 404px,#fcfcfe 412px,#f7f7fb 420px,#f4f4f9 428px,#f2f2f8 436px) 0 0/100% 436px no-repeat local}
-/* women rating (Figma 37512:17216): overall score + count on one line, "Women 4.6" under it */
-.p4-wr{flex:none;width:75px;height:36px;display:flex;flex-direction:column;align-items:center}
-.p4-wr-top{width:100%;height:20px;box-sizing:border-box;display:flex;align-items:center;gap:2px;padding-right:4px;border-radius:6px;background:var(--fill-success-tertiary,#e2eee3)}
-.p4-wr-top b{height:20px;box-sizing:border-box;display:flex;align-items:center;gap:2px;padding:0 4px 0 2px;border-radius:6px;background:var(--fill-success-primary,#007b28);font-size:12px;line-height:16px;font-weight:500;letter-spacing:.01px;color:#fdfdfd}
+/* women rating (Figma 37512:17216, updated): a Woman/tertiary plate (79 × 36, p2, r6) holding the overall score on a
+   white 16-high line and "Women 4.6" in Text/woman under it */
+.p4-wr{flex:none;width:79px;height:36px;box-sizing:border-box;padding:2px;display:flex;flex-direction:column;align-items:center;border-radius:6px;background:var(--fill-woman-tertiary,#f7e7ec)}
+.p4-wr-top{width:75px;height:16px;box-sizing:border-box;display:flex;align-items:center;gap:2px;padding-right:4px;border-radius:4px;background:#fff}
+.p4-wr-top b{height:16px;box-sizing:border-box;display:flex;align-items:center;gap:2px;padding:0 4px 0 2px;border-radius:4px;background:var(--fill-success-primary,#007b28);font-size:12px;line-height:16px;font-weight:500;letter-spacing:.01px;color:#fdfdfd}
 .p4-wr-top b svg{width:12px;height:12px;margin:0 0 1px 1px}
 .p4-wr-top span{flex:1;text-align:center;font-size:11px;line-height:14px;letter-spacing:.05px;color:#1d1d1d}
-.p4-wr-w{margin:0;width:75px;height:16px;text-align:center;font-size:12px;line-height:16px;letter-spacing:.01px;color:var(--text-success,#298639);white-space:nowrap}
+.p4-wr-w{margin:0;width:75px;height:16px;text-align:center;font-size:12px;line-height:16px;letter-spacing:.01px;color:var(--text-woman,#c41685);white-space:nowrap}
 /* coach mark: a spotlight ring with a soft scrim around it, and a tip pointing up at the rating */
 .p4-coach{position:absolute;inset:0;z-index:20;pointer-events:none}
 .p4-coach.on{pointer-events:auto}

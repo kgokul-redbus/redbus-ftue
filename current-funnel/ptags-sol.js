@@ -275,7 +275,7 @@
           !up && h('span', { className: 'p4-cm-notch' }, notch()),
           h('div', { className: 'p4-cm-card' },
             h('b', { id: 'p4-cm-t' }, 'See how women rated each bus'),
-            h('p', null, 'The green "Women" score under each rating comes only from reviews by women travellers.'),
+            h('p', null, 'The pink "Women" score under each rating comes only from reviews by women travellers.'),
             h('div', { className: 'p4-cm-cta' }, h('button', { onClick: () => COACH.set(true) }, 'Got it'))),
           up && h('span', { className: 'p4-cm-notch' }, notch())),
       ]);
@@ -308,8 +308,8 @@
               h('p', { className: 'px-ty' }, b.ev && !m && h('img', { src: X + 'ic-ev.svg', alt: '' }), h('span', null, b.type))),
             /* women mode: the rating graphic adds the women's rating (illustrative) under the overall one */
             women
-              /* Figma 37512:17216 "Rating women mode": the overall rating on one 20-high line (green score + count),
-                 the women's rating under it in Text/success; 75 × 36, the height of name + bus type */
+              /* Figma 37512:17216 "Rating women mode": a pink plate with the overall rating (green score + count) on top
+                 and the women's rating under it in Text/woman; 79 × 36, the height of name + bus type */
               ? h('div', { className: 'p4-wr', 'aria-label': 'Rated ' + one(b.rating) + ' overall, ' + one(wRate(b)) + ' by women' },
                   h('div', { className: 'p4-wr-top' }, h('b', null, h(Star), one(b.rating)), h('span', null, '0000')),
                   h('p', { className: 'p4-wr-w' }, 'Women ' + one(wRate(b))))
