@@ -5,7 +5,7 @@
    Only the RAY part is kept; Home and the SRP are FTUE's current screens. Styles in ray-widget.css. */
 (function () {
   const h = React.createElement;
-  const { useState, useEffect, useRef, useCallback, Fragment } = React;
+  const { useState, useEffect, useLayoutEffect, useRef, useCallback, Fragment } = React;
   const KB_HEIGHT = 300;
   const PLACEHOLDER = 'Ask your preference';
   const CHIPS = [
@@ -15,6 +15,15 @@
     { id: 'single-seat', label: 'Single seat', icon: 'add' },
     { id: 'toilet', label: 'Toilet', icon: 'add' },
   ];
+
+  /* Follow-up question RAY asks once a preference is applied (dummy copy). Three choices + "something else". */
+  const ASK = {
+    'Sleeper': { q: 'What kind of sleeper works for you?', opts: [['Lower berth', 'Easier to get in and out, closer to the aisle'], ['Single berth', 'A berth to yourself, no neighbour'], ['Window side', 'Views and a little more privacy']] },
+    'AC': { q: 'Any preference on the bus?', opts: [['Volvo or Scania', 'Smoother ride on long routes'], ['AC Sleeper', 'Lie flat through the night'], ['AC Seater', 'Usually cheaper for short trips']] },
+    'Toilet': { q: 'Anything else for the journey?', opts: [['Rest stops on the way', 'A break every few hours'], ['Charging point', 'Keep your phone topped up'], ['Blanket and water', 'Little comforts for the night']] },
+    '*': { q: 'Help me narrow these down. What matters most?', opts: [['Cheapest first', 'Lowest fares at the top'], ['Best rated', '4+ stars from verified travellers'], ['Leaves after 9 PM', 'Sleep through the journey']] },
+  };
+  const askFor = (q) => ASK[q] || ASK['*'];
 
   /* ---------- icons (from the prototype's Figma pulls) ---------- */
   let uid = 0;
@@ -41,6 +50,7 @@
   const Backspace = () => svg(22, '0 0 24 24', [
     h('path', { key: 1, d: 'M8.2 5h11.3A1.5 1.5 0 0 1 21 6.5v11A1.5 1.5 0 0 1 19.5 19H8.2a1.5 1.5 0 0 1-1.14-.52l-4.2-4.9a1 1 0 0 1 0-1.3l4.2-4.76A1.5 1.5 0 0 1 8.2 5Z', stroke: '#1D1D1D', strokeWidth: 1.5, strokeLinejoin: 'round' }),
     h('path', { key: 2, d: 'M11 9.5l5 5M16 9.5l-5 5', stroke: '#1D1D1D', strokeWidth: 1.5, strokeLinecap: 'round' })]);
+  const Check = () => svg(14, '0 0 16 16', h('path', { d: 'M3 8.5l3.2 3.2L13 5', stroke: '#fff', strokeWidth: 2, strokeLinecap: 'round', strokeLinejoin: 'round' }));
   const Shift = ({ filled }) => svg(20, '0 0 22 22', h('path', { d: 'M11 3.5l6.5 7H14v5.5H8V10.5H4.5L11 3.5Z', stroke: '#1D1D1D', strokeWidth: 1.6, strokeLinejoin: 'round', fill: filled ? '#1D1D1D' : 'none' }));
 
   /* ---------- simulated keyboard (letters / symbols, shift, space, send) ---------- */
@@ -75,11 +85,31 @@
   }
 
   /* ---------- the filter widget ---------- */
+  /* the field morphs into a taller box that asks one question: three choices and a free-text last row */
+  function AskPanel({ ask, picked, onPick, onOther, onClose, panelRef }) {
+    return h('div', { className: 'fw-ask', ref: panelRef, role: 'group', 'aria-label': ask.q },
+      h('div', { className: 'fw-ask-hd' },
+        h(Sparkle, { size: 18 }), h('p', null, ask.q),
+        h('button', { className: 'fw-ask-x', 'aria-label': 'Skip question', onClick: (e) => { e.stopPropagation(); onClose(); } }, h(Close))),
+      h('div', { className: 'fw-ask-list' },
+        ask.opts.map(([t, d], i) => h('button', { key: t, className: 'fw-opt' + (picked === i ? ' on' : ''), style: { '--i': i }, onClick: (e) => { e.stopPropagation(); onPick(i); } },
+          h('span', { className: 'fw-opt-n' }, picked === i ? h(Check) : i + 1),
+          h('span', { className: 'fw-opt-t' }, h('b', null, t), h('small', null, d)))),
+        h('button', { className: 'fw-opt fw-opt--other', style: { '--i': ask.opts.length }, onClick: (e) => { e.stopPropagation(); onOther(); } },
+          h('span', { className: 'fw-opt-n' }, ask.opts.length + 1),
+          h('span', { className: 'fw-opt-in' }, 'Type something else…'),
+          h('span', { className: 'fw-opt-go' }, h(ArrowUp, { color: 'rgba(29,29,29,0.45)' })))));
+  }
+
   function FilterWidget(p) {
+    const panelRef = useRef(null);
+    const [askH, setAskH] = useState(0);
+    useLayoutEffect(() => { setAskH(p.ask && panelRef.current ? panelRef.current.offsetHeight : 0); }, [p.ask]);
     const draft = !p.typing && !p.applied && p.prompt.length > 0;
     const showSend = (p.typing && p.prompt.length > 0) || draft;
     const inUse = p.typing || draft;
-    const cls = 'fw' + (p.reveal ? ' fw--reveal' : '') + (p.typing ? ' fw--typing' : '') + (p.glow ? ' fw--glow' : '') + (inUse ? ' fw--inuse' : '');
+    const asking = !!p.ask && !p.typing;
+    const cls = 'fw' + (p.reveal ? ' fw--reveal' : '') + (p.typing ? ' fw--typing' : '') + (p.glow ? ' fw--glow' : '') + (inUse || asking ? ' fw--inuse' : '') + (asking ? ' fw--ask' : '');
     const trailing = showSend
       ? h('span', { className: 'fw-send fw-send--on', role: 'button', 'aria-label': 'Send', onClick: (e) => { e.stopPropagation(); p.onSend(); } }, h(ArrowUp))
       : !p.typing && p.applied
@@ -92,7 +122,8 @@
       h('div', { className: 'fw-content' },
         h('div', { className: 'fw-ai' },
           h('div', { className: 'fw-field-wrap' },
-            h('div', { className: 'fw-field', onClick: p.onFieldClick },
+            h('div', { className: 'fw-field' + (asking ? ' fw-field--ask' : ''), style: asking && askH ? { height: askH } : null, onClick: asking ? undefined : p.onFieldClick },
+              p.ask && h(AskPanel, { ask: p.ask, picked: p.picked, onPick: p.onPick, onOther: p.onAskOther, onClose: p.onAskClose, panelRef }),
               h('span', { className: 'fw-field-lead' },
                 h(Sparkle, { size: 24 }),
                 p.typing
@@ -105,7 +136,7 @@
                     ? h('span', { className: 'fw-field-value t-body-r' }, p.applied || p.prompt)
                     : h('span', { className: 'fw-field-placeholder t-body-r' }, p.placeholder, p.phTyping && h('span', { className: 'fw-caret fw-caret--ph' }))),
               trailing))),
-        !p.typing && h('div', { className: 'fw-chips' },
+        !p.typing && !asking && h('div', { className: 'fw-chips' },
           h('button', { className: 'fw-tap', onClick: p.onAllFilters, 'aria-label': 'All filters' }, h('span', { className: 'fw-pill fw-allbtn' }, h(FilterAlt))),
           CHIPS.filter((c) => c.id !== p.usedChipId).map((c) => h('button', { key: c.id, className: 'fw-tap', onClick: (e) => p.onChipClick(c, e) },
             h('span', { className: 'fw-pill fw-chip' }, c.icon === 'ai' ? h(Sparkle, { size: 16 }) : h(Plus), h('span', { className: 'fw-chip-label t-subhead-r' }, c.label)))))));
@@ -130,6 +161,9 @@
     const [phTyping, setPhTyping] = useState(false);
     const [flying, setFlying] = useState(null);
     const [usedChipId, setUsedChipId] = useState(null);
+    const [ask, setAsk] = useState(null);
+    const [picked, setPicked] = useState(-1);
+    const askT = useRef(null);
     const inputRef = useRef(null);
     const rootRef = useRef(null);
 
@@ -149,12 +183,26 @@
     /* on-screen keys drive the real <input>, so cursor, selection and delete behave natively */
     const onKey = useCallback((ch) => { const el = inputRef.current; if (el) { el.focus(); document.execCommand('insertText', false, ch); } else setPrompt((x) => x + ch); }, []);
     const onBackspace = useCallback(() => { const el = inputRef.current; if (el) { el.focus(); document.execCommand('delete', false); } else setPrompt((x) => x.slice(0, -1)); }, []);
-    const runFilter = useCallback(() => { setFiltering(true); setGlow(true); setTimeout(() => setFiltering(false), 1600); setTimeout(() => setGlow(false), 2700); }, []);
-    const onSend = useCallback(() => setPrompt((x) => { const q = x.trim(); if (!q) return x; setApplied(q); setTyping(false); runFilter(); return q; }), [runFilter]);
-    const onClear = useCallback(() => { setApplied(null); setPrompt(''); setUsedChipId(null); }, []);
+    /* filter; for a fresh preference RAY then asks one follow-up, a beat after the results land */
+    const runFilter = useCallback((q, follow) => {
+      setFiltering(true); setGlow(true); setAsk(null); setPicked(-1); clearTimeout(askT.current);
+      setTimeout(() => setFiltering(false), 1600);
+      if (follow) askT.current = setTimeout(() => setAsk(askFor(q)), 2100);
+      else setTimeout(() => setGlow(false), 2700);
+    }, []);
+    useEffect(() => () => clearTimeout(askT.current), []);
+    const onPick = useCallback((i) => {
+      setPicked(i);
+      const q = applied + ' · ' + ask.opts[i][0];
+      setTimeout(() => { setAsk(null); setApplied(q); setPrompt(q); runFilter(q, false); }, 420);
+    }, [applied, ask, runFilter]);
+    const onAskOther = useCallback(() => { setAsk(null); setTyping(true); setPrompt((applied || '') + ', '); }, [applied]);
+    const onAskClose = useCallback(() => { setAsk(null); setGlow(false); }, []);
+    const onSend = useCallback(() => setPrompt((x) => { const q = x.trim().replace(/,$/, ''); if (!q) return x; const fresh = !applied; setApplied(q); setTyping(false); runFilter(q, fresh); return q; }), [runFilter, applied]);
+    const onClear = useCallback(() => { setApplied(null); setPrompt(''); setUsedChipId(null); setAsk(null); clearTimeout(askT.current); }, []);
     /* a chip flies into the field, drops its text there and filters at once (coordinates in the phone's own space) */
     const onChipTap = useCallback((chip, ev) => {
-      const apply = () => { setPrompt(chip.label); setApplied(chip.label); runFilter(); };
+      const apply = () => { setPrompt(chip.label); setApplied(chip.label); runFilter(chip.label, true); };
       const root = rootRef.current, pill = ev.currentTarget.querySelector('.fw-pill'), field = root && root.querySelector('.fw-field');
       if (!root || !pill || !field) { apply(); return; }
       const R = root.getBoundingClientRect(), k = root.offsetWidth / R.width;
@@ -177,15 +225,15 @@
       filtering ? [0, 1, 2].map((k) => h(Skeleton, { key: k })) : shown.map((t, k) => h(F.Tuple, { key: k, t, go })),
       h('div', { style: { height: 168 } }));
 
-    return h('div', { ref: rootRef, className: 'rw' + (typing ? ' rw--typing' : '') },
+    return h('div', { ref: rootRef, className: 'rw' + (typing ? ' rw--typing' : '') + (ask ? ' rw--ask' : '') },
       h(F.SrpFig, Object.assign({}, props, { list })),
-      typing && h('div', { className: 'rw-scrim', onClick: closeKeyboard }),
+      (typing || ask) && h('div', { className: 'rw-scrim', onClick: typing ? closeKeyboard : onAskClose }),
       flying && h('div', { className: 'fw-fly', style: { left: flying.from.left, top: flying.from.top, height: flying.from.height, '--fly-dx': (flying.to.left - flying.from.left) + 'px', '--fly-dy': (flying.to.top - flying.from.top) + 'px' } },
         h('span', { className: 'fw-fly-bg' }),
         h('span', { className: 'fw-fly-ic' }, flying.chip.icon === 'ai' ? h(Sparkle, { size: 16 }) : h(Plus)),
         h('span', { className: 'fw-fly-text t-subhead-r' }, flying.chip.label)),
       h(FilterWidget, {
-        reveal, typing, prompt, applied, placeholder: typedPh, phTyping, usedChipId, glow, inputRef,
+        reveal, typing, prompt, applied, placeholder: typedPh, phTyping, usedChipId, glow, inputRef, ask, picked, onPick, onAskOther, onAskClose,
         onFieldClick: openKeyboard, onSend, onClear, onChipClick: onChipTap, onChangeText: setPrompt, onCloseKeyboard: closeKeyboard,
         onAllFilters: () => props.set({ sheet: 'filter' }),
       }),

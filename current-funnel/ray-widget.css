@@ -192,11 +192,12 @@
   justify-content: space-between;
   padding-left: var(--sp-lg); /* 12 */
   padding-right: var(--sp-md); /* 8 */
-  border-radius: var(--radius-full);
+  border-radius: 24px; /* a full pill at 48px tall, and a radius that can morph into the question box */
   border: 1.5px solid var(--stroke-inverse);
   background: linear-gradient(to bottom, var(--fill-component-disabled), var(--fill-component-tertiary));
   box-shadow: 0px 1px 18px rgba(29, 29, 29, 0.4);
   text-align: left;
+  transition: height 0.5s cubic-bezier(0.2, 0.85, 0.25, 1), border-radius 0.5s cubic-bezier(0.2, 0.85, 0.25, 1), background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .fw-field-lead {
@@ -302,6 +303,7 @@
    on the widget BACKGROUND behind it (.fw-highlight, activated below). --- */
 .fw--typing .fw-field {
   height: 54px;
+  border-radius: 27px;
   padding-left: 14px;
   background: #fff;
   border: 1.5px solid var(--stroke-inverse);
@@ -513,5 +515,31 @@
   background: linear-gradient(120deg, var(--fill-brand-primary), var(--fill-purple-primary));
   box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
 }
+
+/* ---- ask: the field morphs into a taller box with one question, three choices and a free-text row ---- */
+.fw-field > .fw-field-lead, .fw-field > .fw-mic, .fw-field > .fw-clear, .fw-field > .fw-send { transition: opacity 0.2s ease; }
+.fw-field--ask { overflow: hidden; align-items: flex-start; background: #fff; box-shadow: 0 2px 26px rgba(29, 29, 29, 0.28); }
+.fw-field--ask > .fw-field-lead, .fw-field--ask > .fw-mic, .fw-field--ask > .fw-clear, .fw-field--ask > .fw-send { opacity: 0; pointer-events: none; }
+.fw-ask { position: absolute; left: 0; right: 0; top: 0; z-index: 1; padding: 14px 10px 10px; animation: fwAskIn 0.3s ease 0.12s both; }
+.fw-ask-hd { display: flex; align-items: flex-start; gap: 8px; padding: 0 2px 10px 6px; }
+.fw-ask-hd svg { flex: none; margin-top: 1px; }
+.fw-ask-hd p { flex: 1; margin: 0; font-size: 15px; line-height: 20px; font-weight: 600; letter-spacing: -0.15px; color: var(--text-primary); }
+.fw-ask-x { flex: none; width: 28px; height: 28px; margin: -4px -2px 0 0; display: grid; place-items: center; border-radius: var(--radius-full); }
+.fw-ask-x:active { background: #f1f1f4; }
+.fw-ask-list { display: flex; flex-direction: column; gap: 2px; }
+.fw-opt { display: flex; align-items: center; gap: 12px; width: 100%; min-height: 52px; padding: 8px 10px; border-radius: 14px; text-align: left; transition: background 0.18s ease; animation: fwOptIn 0.35s cubic-bezier(0.2, 0.85, 0.25, 1) both; animation-delay: calc(0.18s + var(--i) * 45ms); }
+.fw-opt:hover { background: #f6f5fa; }
+.fw-opt:active { background: #efedf6; }
+.fw-opt.on { background: rgba(126, 58, 241, 0.08); }
+.fw-opt-n { flex: none; width: 26px; height: 26px; display: grid; place-items: center; border-radius: var(--radius-full); background: #efeff3; font-size: 12px; font-weight: 600; color: var(--text-secondary); transition: background 0.2s ease, color 0.2s ease, transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1); }
+.fw-opt.on .fw-opt-n { background: linear-gradient(120deg, var(--fill-brand-primary), var(--fill-purple-primary)); color: #fff; transform: scale(1.08); }
+.fw-opt-t { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+.fw-opt-t b { font-size: 14px; line-height: 20px; font-weight: 600; color: var(--text-primary); }
+.fw-opt-t small { font-size: 12px; line-height: 16px; color: var(--text-secondary); }
+.fw-opt--other { gap: 12px; }
+.fw-opt-in { flex: 1; min-width: 0; height: 40px; display: flex; align-items: center; padding: 0 14px; border-radius: var(--radius-full); border: 1px solid var(--stroke-weaker); background: var(--fill-component-tertiary); font-size: 14px; color: var(--text-secondary); }
+.fw-opt-go { flex: none; width: 32px; height: 32px; margin-left: -4px; display: grid; place-items: center; border-radius: var(--radius-full); background: var(--fill-component-disabled); }
+@keyframes fwAskIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes fwOptIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
 
 @media (prefers-reduced-motion:reduce){.rw *{animation-duration:1ms!important;animation-iteration-count:1!important;transition-duration:1ms!important}}
