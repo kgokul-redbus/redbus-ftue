@@ -27,6 +27,17 @@
       h('p', null, 'Cleanliness & Staff', h('small', null, 'All proposed options')),
       h('button', { className: 'pt-sw' + (on ? ' on' : ''), role: 'switch', 'aria-checked': on, 'aria-label': 'Cleanliness & Staff', onClick: () => UGC.set(!on) }, h('i')));
   }
+  /* Comparator icon (Options 4 and 5, 2026-10-14 notes from Prakash): comparators get a 3D star, reassurance keeps the check.
+     One rail switch flips it, so the two treatments can be compared on the same screen. */
+  const CSTAR = { on: (() => { try { return localStorage.getItem('ptags-cstar') !== 'off'; } catch (e) { return true; } })(), subs: new Set() };
+  CSTAR.set = (v) => { CSTAR.on = v; try { localStorage.setItem('ptags-cstar', v ? 'on' : 'off'); } catch (e) {} CSTAR.subs.forEach((f) => f(v)); };
+  const useCstar = () => { const [v, setV] = React.useState(CSTAR.on); React.useEffect(() => { CSTAR.subs.add(setV); return () => CSTAR.subs.delete(setV); }, []); return v; };
+  function CstarToggle({ mode }) {
+    const on = useCstar();
+    return h('div', { className: 'pt-ugc' + (mode === 'proposed' ? '' : ' pt-ugc--off') },
+      h('p', null, '3D star for comparators', h('small', null, 'Options 4 and 5 · reassurance keeps the ✓')),
+      h('button', { className: 'pt-sw' + (on ? ' on' : ''), role: 'switch', 'aria-checked': on, 'aria-label': '3D star for comparators', onClick: () => CSTAR.set(!on) }, h('i')));
+  }
   window.PTAGS_UGC = { Toggle: UgcToggle, reset: () => { WM.set(true); COACH.set(false); } };
 
   /* Women mode (Option 4 only): adds the women reassurance items. Which buses qualify comes from today's
@@ -143,7 +154,7 @@
       h('ul', null, MASTER_EL.map(([k, l]) => h('li', { key: k },
         h('label', null, h('input', { type: 'checkbox', checked: !!m[k], onChange: (e) => MS.set(k, e.target.checked) }), h('span', null, l))))));
   }
-  function RailExtra(p) { return h(React.Fragment, null, h(window.PTAGS_UGC.Toggle, p), h(WomenToggle, p), h(MasterPanel, p)); }
+  function RailExtra(p) { return h(React.Fragment, null, h(window.PTAGS_UGC.Toggle, p), h(WomenToggle, p), h(CstarToggle, p), h(MasterPanel, p)); }
   window.PTAGS_UGC.Rail = RailExtra;
 
   function ProdCard({ b, go, set: tags }) {
@@ -292,7 +303,7 @@
   const Coach4 = () => h(WomenCoach, { v: 'p4' }), Coach5 = () => h(WomenCoach, { v: 'p5' });
   const notch = () => h('svg', { viewBox: '0 0 16 9', width: 16, height: 9, 'aria-hidden': true }, h('path', { fill: '#fff', d: 'M0 0C1.55798 0 3.90512 3.21696 5.64503 6.00167C6.49804 7.36691 6.92454 8.04953 7.35582 8.23482C7.76338 8.40991 8.12808 8.41043 8.53613 8.23649C8.96793 8.05242 9.39695 7.37009 10.255 6.00542C12.0064 3.21985 14.381 0 16 0H0Z' }));
   function Card4({ b, go }) {
-    const t = ugcFilter(b.proposed, useUgc()), m = useMaster(), women = useWomen();
+    const t = ugcFilter(b.proposed, useUgc()), m = useMaster(), women = useWomen(), cstar = useCstar();
     const feats = t.filter((k) => FEATS.includes(k));
     /* women mode: women travelling joins the end of the reassurance list ("Highly rated by women" now lives in the
        rating graphic as the Women score, so it is not repeated here) */
@@ -328,7 +339,7 @@
           feats.length > 0 && h('div', { className: 'p4-badges' }, feats.map((k) => Tag({ key: k, className: 'p4-badge', icon: IC[k]() }, BADGE[k])))),
         /* two columns, filled column by column */
         list.length > 0 && h('div', { className: 'p4-cols' }, [list.slice(0, per), list.slice(per, 2 * per)].filter((c) => c.length).map((col, i) =>
-          h('ul', { key: i, className: 'p4-list' }, col.map((k) => h('li', { key: k }, IC.check(), text(k)))))),
+          h('ul', { key: i, className: 'p4-list' }, col.map((k) => h('li', { key: k }, cstar && COMPS.includes(k) ? h('img', { className: 'p3-ic p4-star', src: X + 'ic-comp-star.png', alt: '' }) : IC.check(), text(k)))))),
         mPost(m, b)),
       mFoot(m, b));
   }
@@ -345,7 +356,7 @@
     toilet: 'In-bus toilet', new: 'New bus', fdc: 'Free date change',
   })[k] || label(k, sc);
   function Card5({ b, go }) {
-    const t = ugcFilter(b.proposed, useUgc()), m = useMaster(), women = useWomen();
+    const t = ugcFilter(b.proposed, useUgc()), m = useMaster(), women = useWomen(), cstar = useCstar();
     /* features as Option 4's badges under the seats line; the ✓ list keeps comparators → reassurance */
     const feats = t.filter((k) => FEATS.includes(k));
     const list = t.filter((k) => COMPS.includes(k)).concat(t.filter((k) => REASSURE.includes(k)));
@@ -371,7 +382,7 @@
           /* badges use the column's full width (under the rating too), so they only wrap when they run out of room */
           feats.length > 0 && h('div', { className: 'p4-badges o5-badges' }, feats.map((k) => Tag({ key: k, className: 'p4-badge', icon: IC[k]() }, BADGE[k]))),
           list.length > 0 && h('div', { className: 'o5-rtb' },
-            h('ul', null, list.map((k) => h('li', { key: k }, h('img', { src: X + 'o5-check.svg', alt: '' }), h('span', null, L5(k, b.sc)))))),
+            h('ul', null, list.map((k) => h('li', { key: k }, h('img', { className: cstar && COMPS.includes(k) ? 'o5-star' : null, src: X + (cstar && COMPS.includes(k) ? 'ic-comp-star.png' : 'o5-check.svg'), alt: '' }), h('span', null, L5(k, b.sc)))))),
           mPost(m, b)),
         h('div', { className: 'o5-r' },
           h('div', { className: 'o5-price' }, has(m, 'book0', b) && h('span', { className: 'mx-book0' }, 'Book for ₹0'), h('b', null, b.price), h('small', null, 'Onwards')),
