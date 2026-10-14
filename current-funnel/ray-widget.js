@@ -86,7 +86,7 @@
 
   /* ---------- the filter widget ---------- */
   /* the field morphs into a taller box that asks one question: three choices and a free-text last row */
-  function AskPanel({ ask, open, picked, onPick, onOther, onClose, panelRef }) {
+  function AskPanel({ ask, open, picked, draft, onPick, onOther, onClose, panelRef }) {
     return h('div', { className: 'fw-ask' + (open ? ' open' : ''), ref: panelRef, role: 'group', 'aria-label': ask.q, 'aria-hidden': !open },
       h('div', { className: 'fw-ask-hd' },
         h('p', null, ask.q),
@@ -97,7 +97,7 @@
           h('span', { className: 'fw-opt-t' }, h('b', null, t), h('small', null, d)))),
         h('button', { className: 'fw-opt fw-opt--other', style: { '--i': ask.opts.length }, onClick: (e) => { e.stopPropagation(); onOther(); } },
           h('span', { className: 'fw-opt-n' }, ask.opts.length + 1),
-          h('span', { className: 'fw-opt-in' }, 'Type something else…'),
+          h('span', { className: 'fw-opt-in' + (draft ? ' has' : '') }, draft || 'Type something else…'),
           h('span', { className: 'fw-opt-go' }, h(ArrowUp, { color: 'rgba(29,29,29,0.45)' })))));
   }
 
@@ -130,7 +130,7 @@
         h('div', { className: 'fw-ai' },
           h('div', { className: 'fw-field-wrap' },
             h('div', { className: 'fw-field' + (asking ? ' fw-field--ask' : ''), style: asking && askH ? { height: askH } : null, onClick: asking ? undefined : p.onFieldClick },
-              shown && !p.typing && h(AskPanel, { ask: p.ask || shown, open: asking && askH > 0, picked: p.picked, onPick: p.onPick, onOther: p.onAskOther, onClose: p.onAskClose, panelRef }),
+              shown && !p.typing && h(AskPanel, { ask: p.ask || shown, open: asking && askH > 0, picked: p.picked, draft: p.askDraft, onPick: p.onPick, onOther: p.onAskOther, onClose: p.onAskClose, panelRef }),
               h('span', { className: 'fw-field-lead' },
                 h(Sparkle, { size: 24 }),
                 p.typing
@@ -170,6 +170,7 @@
     const [usedChipId, setUsedChipId] = useState(null);
     const [ask, setAsk] = useState(null);
     const [picked, setPicked] = useState(-1);
+    const [askDraft, setAskDraft] = useState('');
     const askT = useRef(null);
     const inputRef = useRef(null);
     const rootRef = useRef(null);
@@ -186,13 +187,20 @@
     }, []);
 
     const openKeyboard = useCallback(() => { setTyping(true); setPrompt((x) => x || applied || ''); }, [applied]);
-    const closeKeyboard = useCallback(() => setTyping(false), []);
+    /* closing the keyboard from the question's own text row goes back to the question, with the draft kept in that row */
+    const closeKeyboard = useCallback(() => {
+      setTyping(false);
+      if (!ask) return;
+      const t = prompt.trim(), base = (applied || '').trim();
+      setAskDraft(t && t !== base && t !== base + ',' ? prompt.replace(/^\s+/, '') : '');
+      setPrompt(applied || '');
+    }, [ask, prompt, applied]);
     /* on-screen keys drive the real <input>, so cursor, selection and delete behave natively */
     const onKey = useCallback((ch) => { const el = inputRef.current; if (el) { el.focus(); document.execCommand('insertText', false, ch); } else setPrompt((x) => x + ch); }, []);
     const onBackspace = useCallback(() => { const el = inputRef.current; if (el) { el.focus(); document.execCommand('delete', false); } else setPrompt((x) => x.slice(0, -1)); }, []);
     /* filter; for a fresh preference RAY then asks one follow-up, a beat after the results land */
     const runFilter = useCallback((q, follow) => {
-      setFiltering(true); setGlow(true); setAsk(null); setPicked(-1); clearTimeout(askT.current);
+      setFiltering(true); setGlow(true); setAsk(null); setPicked(-1); setAskDraft(''); clearTimeout(askT.current);
       setTimeout(() => setFiltering(false), 1600);
       if (follow) askT.current = setTimeout(() => setAsk(askFor(q)), 2100);
       else setTimeout(() => setGlow(false), 2700);
@@ -203,10 +211,10 @@
       const q = applied + ' · ' + ask.opts[i][0];
       setTimeout(() => { setAsk(null); setApplied(q); setPrompt(q); runFilter(q, false); }, 420);
     }, [applied, ask, runFilter]);
-    const onAskOther = useCallback(() => { setAsk(null); setTyping(true); setPrompt((applied || '') + ', '); }, [applied]);
-    const onAskClose = useCallback(() => { setAsk(null); setGlow(false); }, []);
+    const onAskOther = useCallback(() => { setTyping(true); setPrompt(askDraft || (applied || '') + ', '); }, [applied, askDraft]);
+    const onAskClose = useCallback(() => { setAsk(null); setAskDraft(''); setGlow(false); }, []);
     const onSend = useCallback(() => setPrompt((x) => { const q = x.trim().replace(/,$/, ''); if (!q) return x; const fresh = !applied; setApplied(q); setTyping(false); runFilter(q, fresh); return q; }), [runFilter, applied]);
-    const onClear = useCallback(() => { setApplied(null); setPrompt(''); setUsedChipId(null); setAsk(null); clearTimeout(askT.current); }, []);
+    const onClear = useCallback(() => { setApplied(null); setPrompt(''); setUsedChipId(null); setAsk(null); setAskDraft(''); clearTimeout(askT.current); }, []);
     /* a chip flies into the field, drops its text there and filters at once (coordinates in the phone's own space) */
     const onChipTap = useCallback((chip, ev) => {
       const apply = () => { setPrompt(chip.label); setApplied(chip.label); runFilter(chip.label, true); };
@@ -240,7 +248,7 @@
         h('span', { className: 'fw-fly-ic' }, flying.chip.icon === 'ai' ? h(Sparkle, { size: 16 }) : h(Plus)),
         h('span', { className: 'fw-fly-text t-subhead-r' }, flying.chip.label)),
       h(FilterWidget, {
-        reveal, typing, prompt, applied, placeholder: typedPh, phTyping, usedChipId, glow, inputRef, ask, picked, onPick, onAskOther, onAskClose,
+        reveal, typing, prompt, applied, placeholder: typedPh, phTyping, usedChipId, glow, inputRef, ask, picked, askDraft, onPick, onAskOther, onAskClose,
         onFieldClick: openKeyboard, onSend, onClear, onChipClick: onChipTap, onChangeText: setPrompt, onCloseKeyboard: closeKeyboard,
         onAllFilters: () => props.set({ sheet: 'filter' }),
       }),

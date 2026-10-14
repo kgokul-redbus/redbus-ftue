@@ -544,6 +544,7 @@
 .fw-opt-t b { font-size: 14px; line-height: 20px; font-weight: 600; color: var(--text-primary); }
 .fw-opt-t small { font-size: 12px; line-height: 16px; color: var(--text-secondary); }
 .fw-opt-in { flex: 1; min-width: 0; height: 40px; display: flex; align-items: center; padding: 0 14px; border-radius: var(--radius-full); border: 1px solid var(--stroke-weaker); background: var(--fill-component-tertiary); font-size: 14px; color: var(--text-secondary); }
+.fw-opt-in.has { color: var(--text-primary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .fw-opt-go { flex: none; width: 32px; height: 32px; margin-left: -4px; display: grid; place-items: center; border-radius: var(--radius-full); background: var(--fill-component-disabled); }
 @keyframes fwAskIn { from { opacity: 0; } to { opacity: 1; } }
 @keyframes fwOptIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
