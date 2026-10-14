@@ -255,6 +255,10 @@
   const p4Sub = (m, b) => h('p', { className: 'p4-sub' + (has(m, 'layover', b) ? ' px-warn' : '') }, has(m, 'layover', b) ? '2h Layover at Delhi' : b.seats + ' ' + b.single);
   /* Rubicon stars_full_filled (12 × 12), exported from the Figma rating */
   const starRubicon = () => h('svg', { viewBox: '0 0 12 12', width: 12, height: 12, 'aria-hidden': true }, h('path', { fillRule: 'evenodd', clipRule: 'evenodd', fill: '#FDFDFD', d: 'M5.53183 1.56658C5.6938 1.13341 6.30651 1.13341 6.46848 1.56658L7.49883 4.32206L10.4378 4.45048C10.8999 4.47067 11.0892 5.05339 10.7273 5.3413L8.42506 7.1727L9.21112 10.0075C9.33469 10.4532 8.839 10.8133 8.45335 10.5581L6.00015 8.93449L3.54696 10.5581C3.16131 10.8133 2.66562 10.4532 2.78919 10.0075L3.57525 7.1727L1.27303 5.3413C0.911112 5.05339 1.10045 4.47067 1.56248 4.45048L4.50148 4.32206L5.53183 1.56658Z' }));
+  /* 3D icons off: comparators use the rating graphic's star (Rubicon stars_full_filled) in the same 16px box as the check,
+     in Ions Fill/Static/yellow (#F4BF08, via Colour/Special/OtherYellow) */
+  const STAR_D = (starRubicon().props.children.props || {}).d;
+  const starFlat = (cls) => h('svg', { className: cls, viewBox: '0 0 12 12', width: 16, height: 16, 'aria-hidden': true }, h('path', { fillRule: 'evenodd', clipRule: 'evenodd', fill: 'var(--fill-static-yellow,#F4BF08)', d: STAR_D }));
   /* women's rating per bus: not in the sheet, so illustrative, within ±0.2 of the overall rating */
   const wRate = (b) => Math.min(5, Math.max(3.5, b.rating + (((b.rank * 3) % 5) - 2) / 10));
   /* Coach mark: on landing with women mode on, a spotlight on the first card's rating explains the change */
@@ -339,7 +343,7 @@
           feats.length > 0 && h('div', { className: 'p4-badges' }, feats.map((k) => Tag({ key: k, className: 'p4-badge', icon: IC[k]() }, BADGE[k])))),
         /* two columns, filled column by column */
         list.length > 0 && h('div', { className: 'p4-cols' }, [list.slice(0, per), list.slice(per, 2 * per)].filter((c) => c.length).map((col, i) =>
-          h('ul', { key: i, className: 'p4-list' }, col.map((k) => h('li', { key: k }, cstar ? h('img', { className: 'p3-ic ' + (COMPS.includes(k) ? 'p4-star' : 'p4-check'), src: X + (COMPS.includes(k) ? 'ic-comp-star.png' : women ? 'ic-reassure-check-woman.png' : 'ic-reassure-check-blue.png'), alt: '' }) : IC.check(), text(k)))))),
+          h('ul', { key: i, className: 'p4-list' }, col.map((k) => h('li', { key: k }, !cstar && COMPS.includes(k) ? starFlat('p3-ic p4-flatstar') : cstar ? h('img', { className: 'p3-ic ' + (COMPS.includes(k) ? 'p4-star' : 'p4-check'), src: X + (COMPS.includes(k) ? 'ic-comp-star.png' : women ? 'ic-reassure-check-woman.png' : 'ic-reassure-check-blue.png'), alt: '' }) : IC.check(), text(k)))))),
         mPost(m, b)),
       mFoot(m, b));
   }
@@ -382,7 +386,7 @@
           /* badges use the column's full width (under the rating too), so they only wrap when they run out of room */
           feats.length > 0 && h('div', { className: 'p4-badges o5-badges' }, feats.map((k) => Tag({ key: k, className: 'p4-badge', icon: IC[k]() }, BADGE[k]))),
           list.length > 0 && h('div', { className: 'o5-rtb' },
-            h('ul', null, list.map((k) => h('li', { key: k }, h('img', { className: cstar ? (COMPS.includes(k) ? 'o5-star' : 'o5-3dcheck') : null, src: X + (cstar ? (COMPS.includes(k) ? 'ic-comp-star.png' : women ? 'ic-reassure-check-woman.png' : 'ic-reassure-check-blue.png') : 'o5-check.svg'), alt: '' }), h('span', null, L5(k, b.sc)))))),
+            h('ul', null, list.map((k) => h('li', { key: k }, !cstar && COMPS.includes(k) ? starFlat('o5-flatstar') : h('img', { className: cstar ? (COMPS.includes(k) ? 'o5-star' : 'o5-3dcheck') : null, src: X + (cstar ? (COMPS.includes(k) ? 'ic-comp-star.png' : women ? 'ic-reassure-check-woman.png' : 'ic-reassure-check-blue.png') : 'o5-check.svg'), alt: '' }), h('span', null, L5(k, b.sc)))))),
           mPost(m, b)),
         h('div', { className: 'o5-r' },
           h('div', { className: 'o5-price' }, has(m, 'book0', b) && h('span', { className: 'mx-book0' }, 'Book for ₹0'), h('b', null, b.price), h('small', null, 'Onwards')),

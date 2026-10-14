@@ -87,6 +87,8 @@
 @media (prefers-reduced-motion:reduce){.rail .pt-sw,.rail .pt-sw i{transition:none}}
 .rail .pt-ugc--off{opacity:.55}
 .p4-list li .p3-ic{color:var(--icon-information,#2c5ef6)}
+.p4-list li .p4-flatstar{flex:none;width:16px;height:16px;color:var(--fill-static-yellow,#F4BF08)} /* flat star keeps its fixed Ions yellow (not the blue/pink check colour) */
+.o5-rtb li .o5-flatstar{flex:none;width:16px;height:16px}
 .p4-list li .p4-star,.p4-list li .p4-check{width:16px;height:16px;padding:2px;object-fit:contain;filter:drop-shadow(0 1px 1px rgba(60,40,0,.25))} /* 3D icons: the glyph sits smaller inside the 16px box (2026-10-14) */
 .p4-list li .p4-check{padding:2px 2px 3px}
 .p4-card--women .p4-list li .p3-ic{color:var(--fill-woman-primary,#c41685)} /* women mode: Rubicon Fill/Woman/primary */ /* Rubicon Icon/information, the check blue in Option 2 / Experiment */
