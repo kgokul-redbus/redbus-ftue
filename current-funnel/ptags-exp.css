@@ -87,7 +87,7 @@
 @media (prefers-reduced-motion:reduce){.rail .pt-sw,.rail .pt-sw i{transition:none}}
 .rail .pt-ugc--off{opacity:.55}
 .p4-list li .p3-ic{color:var(--icon-information,#2c5ef6)}
-.p4-list li .p4-star,.p4-list li .p4-check{width:16px;height:16px;padding:2px;object-fit:contain;filter:drop-shadow(0 1px 1px rgba(60,40,0,.25))} /* 3D icons: the glyph sits smaller inside the 16px box (2026-10-14) */
+.p4-list li .p4-star,.p4-list li .p4-check{width:16px;height:16px;padding:2px;object-fit:contain;filter:drop-shadow(0 1px 1px rgba(150,100,0,.22))} /* 3D icons: the glyph sits smaller inside the 16px box (2026-10-14) */
 .p4-list li .p4-check{padding:2px 2px 3px}
 .p4-card--women .p4-list li .p3-ic{color:var(--fill-woman-primary,#c41685)} /* women mode: Rubicon Fill/Woman/primary */ /* Rubicon Icon/information, the check blue in Option 2 / Experiment */
 .p4-card .c-tag.p4-badge,.o5-card .c-tag.p4-badge{background:var(--fill-info-tertiary,#e4ecfd)} /* Rubicon Fill/Info/tertiary (IONS • Rubicon Figma library; not in this Ions build) */
@@ -194,7 +194,7 @@
 .o5-rtb ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column}
 .o5-rtb li{display:flex;align-items:center;gap:2px;font-size:11px;line-height:14px;letter-spacing:.05px;color:var(--text-primary,#1d1d1d);min-width:0} /* persuasions in Text/primary */
 .o5-rtb li img{width:16px;height:16px;flex:none}
-.o5-rtb li img.o5-star,.o5-rtb li img.o5-3dcheck{object-fit:contain;padding:2px;filter:drop-shadow(0 1px 1px rgba(60,40,0,.25))}
+.o5-rtb li img.o5-star,.o5-rtb li img.o5-3dcheck{object-fit:contain;padding:2px;filter:drop-shadow(0 1px 1px rgba(150,100,0,.22))}
 .o5-rtb li img.o5-3dcheck{padding:2px 2px 3px}
 .o5-rtb li span{min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .o5-r{flex:none;width:100px;box-sizing:border-box;display:flex;flex-direction:column;align-items:flex-end;justify-content:space-between;gap:12px;padding:var(--spacing-lg,12px);border-left:.5px solid #e6e6e6}
