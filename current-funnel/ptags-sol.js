@@ -343,7 +343,7 @@
           feats.length > 0 && h('div', { className: 'p4-badges' }, feats.map((k) => Tag({ key: k, className: 'p4-badge', icon: IC[k]() }, BADGE[k])))),
         /* two columns, filled column by column */
         list.length > 0 && h('div', { className: 'p4-cols' }, [list.slice(0, per), list.slice(per, 2 * per)].filter((c) => c.length).map((col, i) =>
-          h('ul', { key: i, className: 'p4-list' }, col.map((k) => h('li', { key: k }, !cstar && COMPS.includes(k) ? starFlat('p3-ic p4-flatstar') : cstar ? h('img', { className: 'p3-ic ' + (COMPS.includes(k) ? 'p4-star' : 'p4-check'), src: X + (COMPS.includes(k) ? 'ic-comp-star.png' : women ? 'ic-reassure-check-woman.png' : 'ic-reassure-check-blue.png'), alt: '' }) : IC.check(), text(k)))))),
+          h('ul', { key: i, className: 'p4-list' }, col.map((k) => h('li', { key: k }, !cstar && COMPS.includes(k) ? starFlat('p3-ic p4-flatstar') : cstar ? h('img', { className: 'p3-ic ' + (COMPS.includes(k) ? 'p4-star' : 'p4-check'), src: X + (COMPS.includes(k) ? 'ic-comp-star.png' : 'ic-reassure-check-blue.png'), alt: '' }) : IC.check(), text(k)))))),
         mPost(m, b)),
       mFoot(m, b));
   }
@@ -386,7 +386,7 @@
           /* badges use the column's full width (under the rating too), so they only wrap when they run out of room */
           feats.length > 0 && h('div', { className: 'p4-badges o5-badges' }, feats.map((k) => Tag({ key: k, className: 'p4-badge', icon: IC[k]() }, BADGE[k]))),
           list.length > 0 && h('div', { className: 'o5-rtb' },
-            h('ul', null, list.map((k) => h('li', { key: k }, !cstar && COMPS.includes(k) ? starFlat('o5-flatstar') : h('img', { className: cstar ? (COMPS.includes(k) ? 'o5-star' : 'o5-3dcheck') : null, src: X + (cstar ? (COMPS.includes(k) ? 'ic-comp-star.png' : women ? 'ic-reassure-check-woman.png' : 'ic-reassure-check-blue.png') : 'o5-check.svg'), alt: '' }), h('span', null, L5(k, b.sc)))))),
+            h('ul', null, list.map((k) => h('li', { key: k }, !cstar && COMPS.includes(k) ? starFlat('o5-flatstar') : h('img', { className: cstar ? (COMPS.includes(k) ? 'o5-star' : 'o5-3dcheck') : null, src: X + (cstar ? (COMPS.includes(k) ? 'ic-comp-star.png' : 'ic-reassure-check-blue.png') : 'o5-check.svg'), alt: '' }), h('span', null, L5(k, b.sc)))))),
           mPost(m, b)),
         h('div', { className: 'o5-r' },
           h('div', { className: 'o5-price' }, has(m, 'book0', b) && h('span', { className: 'mx-book0' }, 'Book for ₹0'), h('b', null, b.price), h('small', null, 'Onwards')),
