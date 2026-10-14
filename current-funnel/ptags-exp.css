@@ -91,7 +91,6 @@
 .o5-rtb li .o5-flatstar{flex:none;width:16px;height:16px}
 .p4-list li .p4-star,.p4-list li .p4-check{width:16px;height:16px;padding:2px;object-fit:contain;filter:drop-shadow(0 1px 1px rgba(60,40,0,.25))} /* 3D icons: the glyph sits smaller inside the 16px box (2026-10-14) */
 .p4-list li .p4-check{padding:2px 2px 3px}
-.p4-card--women .p4-list li .p3-ic{color:var(--fill-woman-primary,#c41685)} /* women mode: Rubicon Fill/Woman/primary */ /* Rubicon Icon/information, the check blue in Option 2 / Experiment */
 .p4-card .c-tag.p4-badge,.o5-card .c-tag.p4-badge{background:var(--fill-info-tertiary,#e4ecfd)} /* Rubicon Fill/Info/tertiary (IONS • Rubicon Figma library; not in this Ions build) */
 
 /* Persuasion tags · master-card elements on Proposed cards (ptags-sol.js mTop / mPre / mPost / mFoot). Figma 36958:20941 */
@@ -165,9 +164,6 @@
 /* one top section: white through the filters and AI search, easing into the listing grey only at its foot,
    so there is no hard edge between the AI search and the first card. The gradient scrolls with the page (local). */
 .sf:has(.p4-card,.o5-card,.tn) .sf-scroll{background:linear-gradient(180deg,#fff 0,#fff 332px,#fcfcfe 344px,#f7f7fb 356px,#f4f4f9 366px,#f2f2f8 374px) 0 0/100% 374px no-repeat local}
-/* women mode (Options 4 and 5): the listing ground and the fade into it use Fill/Woman/tertiary instead of the grey */
-.sf:has(.p4-card--women,.o5-card--women){background:var(--fill-woman-tertiary,#f7e7ec)}
-.sf:has(.p4-card--women,.o5-card--women) .sf-scroll{background:linear-gradient(180deg,#fff 0,#fff 332px,#fdf9fa 344px,#fbf3f6 356px,#f9edf1 366px,#f7e7ec 374px) 0 0/100% 374px no-repeat local}
 .sf:has(.p4-card,.o5-card,.tn) .sf-ads,.sf:has(.p4-card,.o5-card,.tn) .sf-filters{background:transparent}
 .sf:has(.p4-card,.o5-card,.tn) .sf-ai{padding-bottom:0}
 /* every offer card 128 wide, like the first; illustrations stay on the bottom-right corner */
