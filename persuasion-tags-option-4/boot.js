@@ -15,7 +15,8 @@
     railExtra: (p) => h(window.PTAGS_UGC.Rail, p),
     section: 'opt4-page',
     restart: 'Reset page',
-    onRestart: () => window.PTAGS_UGC.reset && window.PTAGS_UGC.reset(),
+    /* Reset page returns to this page's default state (index.html), not the deck's */
+    onRestart: () => { window.OPT4_RESET(); location.reload(); },
   });
   ReactDOM.createRoot(document.getElementById('app')).render(h(Flow));
 })();
