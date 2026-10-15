@@ -1,0 +1,108 @@
+/* Ray comparison · research data (UX Research Insights, "Ray | Comparison feature concept testing").
+   Cohort: 6 units (new / returning redBus users, Tier 1 and Tier 3). The doc is anecdotal; splits can't be read literally.
+   Problems follow the doc's own order and numbering (ref = the doc's section). `solves` can be pre-filled here;
+   solves typed on the page are kept in the viewer's browser and can be copied out with "Copy solves". */
+(function () {
+  const AREAS = ['Ray overall', 'Popup', 'Comparison page', 'Recommendation', 'Ray chat'];
+
+  const CONTEXT = [
+    { t: 'How users choose', items: [
+      'Not price or rating first. Operator familiarity, time and seat availability matter more than small price differences.',
+      'Ratings are only a pass/fail check, with a binary threshold at 4.0.',
+      'Reasons to open a bus: P1 seat availability, location and price · P2 amenities, photos, reviews · P3 cancellation policy, boarding points (direct or van) and boarding time.' ] },
+    { t: 'Two behaviours', items: [
+      'Need help choosing: new redBus users, new-route users and offline-to-online users, who lack knowledge of operators, stops or which filters to apply.',
+      'Looking for added value: tech-savvy and high-frequency users who already found an option and want to know if something better exists.' ] },
+    { t: 'Trade-offs observed', items: [
+      'Time and seat location beat price: users pay more, or take a lower-rated bus, to get the time or seat they want.',
+      'Seat location beats travel time: a slightly longer journey is fine for the preferred seat.',
+      'Time beats comfort: a comfort score above 8 is seen as the same, below 8 as the same. 8 is the line that matters.' ] },
+    { t: 'What worked', items: [
+      'Side-by-side comparison works, and "Your Usuals" is understood as reflecting past searches and filters.',
+      'It helps users who scroll instead of applying filters, by surfacing options and filters they would miss.',
+      'Charging point, wifi, rest-stop count and location and dinner break show value on long journeys more than price or rating.',
+      'Hesitation to rely on Ray comes from limited familiarity, not from a bad experience. Clearer prompts (for example "Compare these buses further" or "Change date") could help.' ] },
+  ];
+
+  /* ev = evidence: how many of the 6 units the doc attributes it to, when it says */
+  const PROBLEMS = [
+    { id: 'P01', ref: 'Caveat', area: 'Ray overall', title: 'Users are unsure what Ray can do',
+      problem: 'Users hesitate to rely on Ray because they are not familiar with it, not because of a bad experience. Nothing tells them what it can do, how reliable it is or how much time it could save.',
+      ev: 'Across the cohort',
+      quote: 'Users’ hesitation to rely on Ray stems from limited familiarity rather than negative experience; clearer prompts could better communicate its capabilities, practical benefits, reliability, or potential time savings and encourage exploration.' },
+    { id: 'P02', ref: 'A1', area: 'Popup', title: 'The compare popup comes too early for new routes and new users',
+      problem: 'The popup triggers after two bus options are opened. For new routes or new users that is too soon: they have not seen enough options to set benchmarks for price, traveller types or boarding points, so they dismiss it. This is worst for the first popup a user ever sees.',
+      ev: 'Observed in testing',
+      quote: 'Popup triggers after clicking two bus options are considered early for new routes / new users: users dismiss the popup because they haven’t explored enough options to establish benchmarks for price, traveller types, or boarding points.' },
+    { id: 'P03', ref: 'A2', area: 'Popup', title: 'A recommendation based on a mistakenly opened bus makes users abandon the feature',
+      problem: 'When the recommendations are built around a bus the user opened by mistake, they give up on the feature. Changing the bus used for comparison takes more effort than searching manually, so they search manually.',
+      ev: 'Observed in testing',
+      quote: 'When recommendations are based on a mistakenly opened bus, users abandon the feature and prefer manual search over the effort of changing the bus for comparison.' },
+    { id: 'P04', ref: 'A3', area: 'Popup', title: 'Users dismiss the popup as an ad without reading it',
+      problem: 'Users instinctively close the popup as an advertisement or a distraction, often without reading it, especially when they are focused on the information already on the SRP.',
+      ev: 'Observed in testing',
+      quote: 'Users instinctively dismiss the popup as an advertisement or distraction, often without reading it, especially when focused on existing information on SRP.' },
+    { id: 'P05', ref: 'A4', area: 'Popup', title: 'The AI recommendation is overshadowed by the generic "Want to compare?" prompt',
+      problem: 'Familiar, high-frequency users see value in recommendations but currently prefer to search directly, so they value a recommendation over a comparison. The AI recommendation gets lost behind the generic "Want to compare?" prompt and the tuples they have already viewed, so they see little value and dismiss the popup.',
+      ev: 'Familiar / high-frequency users',
+      quote: 'The AI powered recommendation gets overshadowed by the generic “Want to compare?” prompt and viewed bus tuples, causing users to perceive limited value and dismiss the popup.' },
+    { id: 'P06', ref: 'A5', area: 'Popup', title: 'It is unclear whether to tap the "Ray recommendation" tuple or "Compare bus"',
+      problem: 'Users who want to see the recommendation do not know which to tap: the "Ray recommendation" tuple or "Compare bus". The design assumes everyone wants to compare, rather than go straight to a recommendation.',
+      ev: 'Assumption in the current design',
+      quote: 'Users who want to see the recommendation are unclear to click on “Ray recommendation” tuple or “Compare bus” to view the recommendation directly. (We assume all users want to compare and not directly look for recommendations)' },
+    { id: 'P07', ref: 'B1', area: 'Comparison page', title: '"Your Usuals" repeats details the tuple already shows',
+      problem: 'The comparison does not make full use of the filters and preferences the user applied. "Your Usuals" repeats bus details already visible on the tuple, such as bus type AC or Sleeper. That adds no new value and clutters the card.',
+      ev: 'Observed in testing',
+      quote: 'Repeating bus details already visible on the tuple (Bus type: Ac/Sleeper) in “Your Usuals” adds no new value and creates unnecessary clutter.' },
+    { id: 'P08', ref: 'B1', area: 'Recommendation', title: 'Users who sort by price are shown costlier recommendations',
+      problem: 'Ray’s recommendation fails when a user has sorted by price and is shown a costlier bus that offers similar or better timing and comfort. The sort order is not treated as a preference.',
+      ev: 'Observed in testing',
+      quote: 'RAY recommendation fails when users who sort by price are shown costlier recommendations offering similar to better timings and comfort.' },
+    { id: 'P09', ref: 'B2', area: 'Comparison page', title: 'Users cannot shortlist or reject from the compare cards',
+      problem: 'On the compare cards users cannot tell direct bus boarding from van pickup, or the BP/DP timings for their preferred points. Unfamiliar with Ray at this stage, they reopen each bus to check. "This bus stops at Hebbal" without an arrival time makes buses that reach the same point at different times hard to compare.',
+      ev: 'Observed in testing',
+      quote: 'Showing only “This bus stops at Hebbal” without its arrival time makes it difficult to compare buses that reach the same boarding point at different times.' },
+    { id: 'P10', ref: 'B3', area: 'Comparison page', title: 'The cards lack journey duration, rest stops, amenities and bus visuals',
+      problem: 'Without journey duration, rest-stop details, amenities and bus visuals, users have to open each bus to find the differences that matter before they can choose.',
+      ev: 'Observed in testing',
+      quote: 'The lack of journey duration, rest stop details, amenities and bus visuals forces users to manually inspect buses to identify meaningful differences and make informed choices.' },
+    { id: 'P11', ref: 'B4', area: 'Comparison page', title: 'Up to 10 buses with no guidance leads to comparison fatigue',
+      problem: 'Users can add up to 10 buses to compare, with no cap in guidance and no advice on which buses to pick. This leads to comparison fatigue.',
+      ev: 'Researcher observation',
+      quote: 'Users can add up to 10 buses to compare, but without guidance on which buses to select, no limit cap or guidance leads to comparison fatigue (researchers observation).' },
+    { id: 'P12', ref: 'B5', area: 'Recommendation', title: 'Recommendations assume a single booking',
+      problem: 'If the user selected several seats on the seat layout before the recommendations, that is not carried forward. Ray assumes a single booking ("Your Usuals: lower single seats available"), so the suggestions miss the real booking need.',
+      ev: 'Observed in testing',
+      quote: 'Dynamically adapt recommendations for group bookings by carrying forward, if multi seat selected from the seat layout before recommendations, makes suggestions more relevant to the user’s actual booking needs.' },
+    { id: 'P13', ref: 'B5', area: 'Recommendation', title: 'Recommendations ignore the operators users trust and avoid',
+      problem: 'Users put trusted operators and past experiences ahead of price, rating or an AI recommendation. A recommendation fails if the operator is unfamiliar or the user had a bad experience with it. The doc suggests using their history: operator cancellations, delayed pickups, low ratings.',
+      ev: 'Observed in testing',
+      quote: 'Users prioritize trusted operators and past experiences over price, rating or AI recommendations, recommendations fail if the operator is unfamiliar or has bad past experiences.' },
+    { id: 'P14', ref: 'B5', area: 'Recommendation', title: 'Better-value recommendations go unnoticed',
+      problem: 'Ray’s recommendations are buried below the fold and have no clear visual highlight, so they are not noticed unless the user is nudged, even when they offer better value.',
+      ev: '2 of 6 users',
+      quote: 'Despite offering better value options, Ray’s recommendations are not noticed without nudging as it’s buried below the fold and lack a clear visual highlight (2/6 users).' },
+    { id: 'P15', ref: 'B6', area: 'Ray chat', title: 'Users do not realise Ray’s chat can act for them',
+      problem: 'Users manually check drop-off points, compare prices across dates, change dates and remove buses, because they do not realise Ray can do these things unless prompted.',
+      ev: 'Observed in testing',
+      quote: 'Users default to manually checking drop off points, comparing prices across dates, changing dates, and removing buses because they don’t realize Ray can perform these actions unless prompted.' },
+    { id: 'P16', ref: 'B7', area: 'Comparison page', title: 'The "View Seats" dropdown is easy to miss',
+      problem: 'Users usually open a bus tuple and go to the seat layout to check seat availability, price and placement. The "View Seats" dropdown lacks visual prominence, so they overlook it and tap "Choose Buses" to see seats instead.',
+      ev: 'Observed in testing',
+      quote: 'The “View Seats” dropdown lacks visual prominence. Since users typically click on bus tuples and visit the seat layout to check seat availability, pricing, and placement, they often overlook the dropdown and click “Choose Buses” to view seats instead.' },
+    { id: 'P17', ref: 'B8', area: 'Comparison page', title: 'There is no instant way to remove a bus',
+      problem: 'Users want to remove a bus right on the comparison screen with a cancel button (x). Having to go elsewhere, or type a prompt for a simple action, is too much effort.',
+      ev: '2 of 6 users',
+      quote: 'Users want to remove buses instantly by a cancel button (x) from the comparison screen rather than navigate elsewhere to remove it or type a prompt for a simple action (2/6 users).' },
+    { id: 'P18', ref: 'B9', area: 'Comparison page', title: 'Users cannot tell which buses they have already viewed or searched',
+      problem: 'On the comparison screen there is no sign of which buses the user has already viewed or searched. A "Viewed" or "Searched" label, or a checkmark, would give recognition and context.',
+      ev: '1 of 6 users (new user, Tier 3)',
+      quote: 'Users can’t identify which buses they’ve already viewed or searched on the comparison screen; adding clear “Viewed” or “Searched” labels or checkmarks would improve recognition and context (1/6 users, new user, Tier 3).' },
+    { id: 'P19', ref: 'B10', area: 'Comparison page', title: 'Users get no guidance on which buses to add',
+      problem: 'Users are not told which buses are worth adding to the comparison, so it is hard for them to find the most relevant options to compare. This is related to P11.',
+      ev: 'Researcher observation',
+      quote: 'Users lack clear guidance on which buses to add to the comparison, making it difficult to identify the most relevant options to compare. (researcher observation)' },
+  ].map((p) => Object.assign({ solves: [] }, p));
+
+  window.RAYCMP_DATA = { AREAS, CONTEXT, PROBLEMS };
+})();

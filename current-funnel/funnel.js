@@ -348,6 +348,7 @@
     { id: 'ftue', name: 'FTUE', title: 'redBus FTUE', sections: SECTIONS },
     { id: 'ptags', name: 'Persuasion tags', title: 'redBus Persuasion tags', sections: (window.PTAGS && window.PTAGS.sections) || [] },
     { id: 'ray', name: 'Ray on SRP unified', title: 'redBus Ray on SRP unified', sections: (window.RAY && window.RAY.sections) || [] },
+    { id: 'raycmp', name: 'Ray comparison', title: 'redBus Ray comparison', sections: (window.RAYCMP && window.RAYCMP.sections) || [] },
   ];
   const store = { get: (k) => { try { return localStorage.getItem(k); } catch (e) { return null; } }, set: (k, v) => { try { localStorage.setItem(k, v); } catch (e) {} } };
   /* hash: #section (FTUE, kept for old links) or #project/section */
