@@ -347,6 +347,49 @@
         mPost(m, b)),
       mFoot(m, b));
   }
+  /* Option 6 · working copy of Option 4 (2026-10-14). The card is an exact clone and keeps Option 4's classes, so it looks the same
+     today; it also carries .p6-card, so further changes go in ptags-exp.css as `.p6-card …` overrides and never touch Option 4. */
+  function Card4Copy({ b, go }) {
+    const t = ugcFilter(b.proposed, useUgc()), m = useMaster(), women = useWomen(), cstar = useCstar();
+    const feats = t.filter((k) => FEATS.includes(k));
+    /* women mode: women travelling joins the end of the reassurance list ("Highly rated by women" now lives in the
+       rating graphic as the Women score, so it is not repeated here) */
+    const wTags = women ? ['womenT'].filter((k) => b.shown.includes(k)) : [];
+    const list = t.filter((k) => COMPS.includes(k)).concat(t.filter((k) => REASSURE.includes(k)), wTags);
+    const text = (k) => (k === 'womenT' ? (6 + (b.rank * 5) % 19) + ' women travelling' : label(k, b.sc));
+    /* columns: 3 per column (max 6) normally; in women mode every item shows, split evenly over the two columns */
+    const per = women ? Math.max(3, Math.ceil(list.length / 2)) : 3;
+    /* Previously booked (Figma 36754:32115): the card turns Fill/Success/primary and an 18-high strip of inverse caption
+       text sits above the untouched white content, which keeps its 16 radius over the green */
+    const prev = has(m, 'prev', b);
+    const card = (...kids) => h('div', { className: 'px-card p3-card p4-card p6-card' + (women ? ' p4-card--women' : '') + (prev ? ' p4-card--prev' : ''), role: 'button', tabIndex: 0, onClick: () => go('seats') },
+      prev && h('p', { className: 'p4-prev' }, 'You booked this previously on ' + (b.rank === 3 ? '7th Jul' : '22nd Aug')),
+      ...(prev ? [h('div', { key: 'main', className: 'p4-main' }, ...kids)] : kids));
+    return card(
+      mTop(m, b),
+      h('div', { className: 'px-body' },
+        ...mPre(m, b),
+        h('div', { className: 'px-svc p4-svc' }, h('div', null, p4Time(m, b), p4Sub(m, b)), mPrice(m, b)),
+        h('div', { className: 'p3-op' },
+          h('div', { className: 'px-bo' },
+            h('div', { className: 'px-bo-l' },
+              mName(m, b),
+              h('p', { className: 'px-ty' }, b.ev && !m && h('img', { src: X + 'ic-ev.svg', alt: '' }), h('span', null, b.type))),
+            /* women mode: the rating graphic adds the women's rating (illustrative) under the overall one */
+            women
+              /* Figma 37512:17216 "Rating women mode": a pink plate with the overall rating (green score + count) on top
+                 and the women's rating under it in Text/woman; 79 × 36, the height of name + bus type */
+              ? h('div', { className: 'p4-wr', 'aria-label': 'Rated ' + one(b.rating) + ' overall, ' + one(wRate(b)) + ' by women' },
+                  h('div', { className: 'p4-wr-top' }, h('b', null, h('i', { className: 'p4-wr-star' }, starRubicon()), h('em', null, one(b.rating))), h('span', null, '0000')),
+                  h('p', { className: 'p4-wr-w' }, 'Women ' + one(wRate(b))))
+              : h('div', { className: 'px-rate', 'aria-label': 'Rated ' + b.rating }, h('b', null, h(Star), one(b.rating)), h('span', null, '0000'))),
+          feats.length > 0 && h('div', { className: 'p4-badges' }, feats.map((k) => Tag({ key: k, className: 'p4-badge', icon: IC[k]() }, BADGE[k])))),
+        /* two columns, filled column by column */
+        list.length > 0 && h('div', { className: 'p4-cols' }, [list.slice(0, per), list.slice(per, 2 * per)].filter((c) => c.length).map((col, i) =>
+          h('ul', { key: i, className: 'p4-list' }, col.map((k) => h('li', { key: k }, !cstar && COMPS.includes(k) ? starFlat('p3-ic p4-flatstar') : cstar ? h('img', { className: 'p3-ic ' + (COMPS.includes(k) ? 'p4-star' : 'p4-check'), src: X + (COMPS.includes(k) ? 'ic-comp-star.png' : 'ic-reassure-check-blue.png'), alt: '' }) : IC.check(), text(k)))))),
+        mPost(m, b)),
+      mFoot(m, b));
+  }
 
   /* Option 5 · Figma SRP - Cleanup "New approach" (36721:8339): a two-part card. Left: times with the duration
      between them, Primo logo over the operator, bus type, seats, then a green ✓ list of
@@ -508,6 +551,7 @@
       { key: 'C', label: 'Comparator tags · feature icon + text · reassurance list', render: srp(({ go }) => h('div', { className: 'px-list' }, BUSES.map((b) => h(Card3, { key: b.rank, b, go })))) },
       { key: 'D', label: 'Feature badges · comparators + reassurance as one ✓ list', render: (p) => h(window.SRPFIG.SrpFig, Object.assign({}, p, { list: ({ go }) => h('div', { className: 'px-list' }, BUSES.map((b) => h(Card4, { key: b.rank, b, go }))), overlay: Coach4 })) },
       { key: 'E', label: 'Figma “New approach” · price column + ✓ list', render: (p) => h(window.SRPFIG.SrpFig, Object.assign({}, p, { list: ({ go }) => h('div', { className: 'px-list' }, BUSES.map((b) => h(Card5, { key: b.rank, b, go }))), overlay: Coach5 })) },
+      { key: 'I', label: 'Working copy of Option 4', render: (p) => h(window.SRPFIG.SrpFig, Object.assign({}, p, { list: ({ go }) => h('div', { className: 'px-list' }, BUSES.map((b) => h(Card4Copy, { key: b.rank, b, go }))), overlay: Coach4 })) },
       { key: 'F', label: 'From scratch · stat row', render: srp(({ go }) => h('div', { className: 'px-list' }, BUSES.map((b) => h(Card6, { key: b.rank, b, go })))) },
       { key: 'G', label: 'From scratch · score panel', render: srp(({ go }) => h('div', { className: 'px-list' }, BUSES.map((b) => h(Card7, { key: b.rank, b, go })))) },
       { key: 'H', label: 'From scratch · price rail', render: srp(({ go }) => h('div', { className: 'px-list' }, BUSES.map((b) => h(Card8, { key: b.rank, b, go })))) },

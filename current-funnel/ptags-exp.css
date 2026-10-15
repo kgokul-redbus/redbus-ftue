@@ -91,7 +91,7 @@
 .o5-rtb li .o5-flatstar{flex:none;width:16px;height:16px}
 .p4-list li .p4-star,.p4-list li .p4-check{width:16px;height:16px;padding:2px;object-fit:contain;filter:drop-shadow(0 1px 1px rgba(60,40,0,.25))} /* 3D icons: the glyph sits smaller inside the 16px box (2026-10-14) */
 .p4-list li .p4-check{padding:2px 2px 3px}
-.p4-card .c-tag.p4-badge,.o5-card .c-tag.p4-badge{background:var(--fill-component-secondary,#f2f2f8);color:var(--text-primary,#1d1d1d)} /* Rubicon Fill/Component/secondary, with Text/primary and Icon/primary (2026-10-14; was Fill/Info/tertiary) */
+.p4-card .c-tag.p4-badge,.o5-card .c-tag.p4-badge{background:var(--fill-info-tertiary,#e4ecfd);color:var(--text-primary,#1d1d1d)} /* Rubicon Fill/Info/tertiary, with Text/primary and Icon/primary (Options 4, 5, 6; 2026-10-14) */
 .p4-card .c-tag.p4-badge .p3-ic,.o5-card .c-tag.p4-badge .p3-ic{color:var(--text-primary,#1d1d1d)}
 
 /* Persuasion tags · master-card elements on Proposed cards (ptags-sol.js mTop / mPre / mPost / mFoot). Figma 36958:20941 */
@@ -322,3 +322,5 @@
 @keyframes p4TipUp{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
 @media (prefers-reduced-motion:reduce){.p4-coach-hole,.p4-cm{animation:none}}
 .p5-rate--w b .p5-wsolid{width:13px;height:13px;margin-bottom:1px;color:#fff} /* Option 5 women mode: women icon in place of the star */
+
+/* ---- Option 6 (working copy of Option 4): overrides live here, scoped to .p6-card ---- */
