@@ -74,7 +74,7 @@
 
   /* list: optional render override for the listings (e.g. the persuasion-tag experiment cards) */
   /* belowAi: optional block under the AI Smart filter; overlay: optional layer over the whole screen (e.g. a coach mark) */
-  function SrpFig({ s, set, go, noAds, list, belowAi, overlay }) {
+  function SrpFig({ s, set, go, noAds, list, belowAi, overlay, route }) {
     const [on, setOn] = useState({});
     /* header hairline only once the list has scrolled under it */
     const [scrolled, setScrolled] = useState(false);
@@ -89,7 +89,7 @@
           h('img', { className: 'sf-status', src: A + 'statusbar.png', alt: '' }),
           h('div', { className: 'sf-nav' },
             h('button', { 'aria-label': 'Back', onClick: () => go('home') }, h('img', { src: A + 'ic-back.png', alt: '' })),
-            h('div', { className: 't' }, h('b', null, (s.origin || 'Bengaluru') + ' → ' + (s.dest || 'Chennai')), h('span', null, '237 Buses')),
+            h('div', { className: 't' }, h('b', null, (s.origin || 'Bengaluru') + ' → ' + (route ? route.dest : (s.dest || 'Chennai'))), h('span', null, (route ? route.total : 237) + ' Buses')),
             h('button', { className: 'sf-date', 'aria-label': 'Change date', onClick: () => set({ sheet: 'date' }) }, h('b', null, dt.getDate() + ' ' + dt.toLocaleDateString('en-GB', { month: 'short' })), h('small', null, dt.toLocaleDateString('en-GB', { weekday: 'short' }))))),
         !noAds && h('div', { className: 'sf-ads sf-x' }, ADS.map((a, i) => a.img
           ? h('div', { key: i, className: 'sf-ad sf-ad--img' }, h('img', { src: A + a.img, alt: '' }))
@@ -115,7 +115,7 @@
             h('i', { style: { top: 32, width: 288, opacity: .6 } }), h('i', { style: { top: 24, width: 312, opacity: .8 } }),
             h('button', { className: 'sf-rtc-card' },
               h('div', { className: 'l' }, h('img', { src: A + 'lg-ksrtc.png', alt: 'KSRTC' }),
-                h('div', null, h('div', { className: 'n' }, h('b', null, 'KSRTC'), h('small', null, '(108 Buses)')), h('p', { className: 'kn' }, 'ಕರ್ನಾಟಕ ರಾಜ್ಯ ರಸ್ತೆ ಸಾರಿಗೆ ಸಂಸ್ಥೆ'), h('p', { className: 'fr' }, 'From ₹800'))),
+                h('div', null, h('div', { className: 'n' }, h('b', null, 'KSRTC'), h('small', null, '(' + (route ? route.rtc.count : 108) + ' Buses)')), h('p', { className: 'kn' }, 'ಕರ್ನಾಟಕ ರಾಜ್ಯ ರಸ್ತೆ ಸಾರಿಗೆ ಸಂಸ್ಥೆ'), h('p', { className: 'fr' }, 'From ₹' + (route ? route.rtc.from : 800).toLocaleString('en-IN')))),
               h(window.IndiaBusDS.Icon, { name: 'ion-chevron-down', style: { transform: 'rotate(-90deg)' } })))),
         list ? list({ s, set, go }) : h('div', { className: 'sf-list', style: { marginTop: 2 } }, TUPLES.map((t, i) => h(Tuple, { key: i, t, go })))),
       s.sheet === 'date' && h(window.SEARCH.DateSheet, { s, set }),

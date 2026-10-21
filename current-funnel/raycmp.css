@@ -58,23 +58,18 @@
 .rcm-ib{width:26px;height:26px;box-sizing:border-box;display:grid;place-items:center;font-size:12px;line-height:1;color:var(--d-ink-2);background:var(--d-surface);border:1px solid var(--d-line);border-radius:8px;cursor:pointer;transition:border-color .15s var(--d-ease),color .15s}
 .rcm-ib:hover{border-color:#d6d6de;color:var(--d-ink)}
 .rcm-ib:last-child:hover{color:var(--d-accent-ink)}
-.rcm-add{margin-top:10px;height:30px;padding:0 12px;border-radius:999px;font:600 12px/1 var(--d-font);color:var(--d-accent-ink);background:var(--d-accent-soft);cursor:pointer;transition:filter .15s}
+.rcm-add{border:0;margin-top:10px;height:30px;padding:0 12px;border-radius:999px;font:600 12px/1 var(--d-font);color:var(--d-accent-ink);background:var(--d-accent-soft);cursor:pointer;transition:filter .15s}
 .rcm-add:hover{filter:brightness(.97)}
 .rcm-edit{flex:1;min-width:0}
 .rcm-edit textarea{width:100%;box-sizing:border-box;resize:vertical;padding:10px 12px;border:1px solid var(--d-line);border-radius:10px;background:var(--d-surface);font:14px/22px var(--d-font);color:var(--d-ink)}
 .rcm-edit textarea:focus{outline:0;border-color:var(--d-ink);box-shadow:0 0 0 3px rgba(28,28,33,.06)}
 .rcm-edit-foot{display:flex;align-items:center;justify-content:flex-end;gap:8px;margin-top:8px}
 .rcm-edit-foot span{flex:1;font-size:11px;color:var(--d-ink-3)}
-.rcm-btn{height:30px;padding:0 12px;border-radius:999px;font:600 12px/1 var(--d-font);background:var(--d-sunken);color:var(--d-ink-2);cursor:pointer}
+.rcm-btn{border:0;height:30px;padding:0 12px;border-radius:999px;font:600 12px/1 var(--d-font);background:var(--d-sunken);color:var(--d-ink-2);cursor:pointer}
 .rcm-btn--ink{background:var(--d-ink);color:#fff}
 .rcm-btn:disabled{opacity:.4;cursor:default}
 .rcm-foot{margin:28px 0 0;font-size:12px;line-height:18px;color:var(--d-ink-3);text-align:center}
 @media (prefers-reduced-motion:reduce){.rcm *{transition-duration:1ms!important}}
 
-/* Research tab: the PDF fills the page under a slim toolbar */
-.rcm-pdf{display:flex;flex-direction:column;height:calc(100vh - var(--bar));background:var(--d-canvas)}
-.rcm-pdf-bar{display:flex;align-items:center;gap:8px;padding:12px 24px;background:var(--d-surface);border-bottom:1px solid var(--d-line)}
-.rcm-pdf-bar b{display:block;font-size:14px;line-height:20px;font-weight:600}
-.rcm-pdf-bar span:not(.rcm-sp){display:block;font-size:12px;line-height:16px;color:var(--d-ink-3)}
-.rcm-pdf-bar .rcm-pill{display:inline-flex;align-items:center;text-decoration:none}
-.rcm-pdf-frame{flex:1;width:100%;border:0;background:#525659}
+/* Research tab: the PDF fills the whole page */
+.rcm-pdf-frame{display:block;width:100%;height:calc(100vh - var(--bar));border:0;background:#525659}

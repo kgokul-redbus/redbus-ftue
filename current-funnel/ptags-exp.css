@@ -324,3 +324,36 @@
 .p5-rate--w b .p5-wsolid{width:13px;height:13px;margin-bottom:1px;color:#fff} /* Option 5 women mode: women icon in place of the star */
 
 /* ---- Option 6 (working copy of Option 4): overrides live here, scoped to .p6-card ---- */
+
+/* Route switch in the rail (Option 12) */
+.rail .pt-route{display:flex;flex-direction:column;gap:8px;padding:8px 4px 0}
+.rail .pt-route p{margin:0;font:600 13px/16px var(--d-font,Inter);color:var(--d-ink,#1c1c21)}
+.rail .pt-route p small{display:block;font:500 11px/14px var(--d-font,Inter);color:var(--d-ink-3,#8a8a94)}
+.rail .pt-dd{position:relative}
+.rail .pt-dd-btn{all:unset;box-sizing:border-box;width:100%;height:38px;padding:0 14px;display:flex;align-items:center;justify-content:space-between;border:1px solid var(--d-line,#e6e6ec);border-radius:999px;background:var(--d-surface,#fff);font:600 13px/1 var(--d-font,Inter);color:var(--d-ink,#1c1c21);cursor:pointer}
+.rail .pt-dd-btn:focus-visible{outline:2px solid var(--d-ink,#1c1c21);outline-offset:2px}
+.rail .pt-dd-btn i{width:7px;height:7px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:rotate(45deg) translateY(-2px);transition:transform .15s}
+.rail .pt-dd-btn[aria-expanded=true] i{transform:rotate(225deg)}
+.rail .pt-dd-menu{position:absolute;top:calc(100% + 6px);left:0;right:0;z-index:30;margin:0;padding:6px;list-style:none;background:var(--d-surface,#fff);border:1px solid var(--d-line,#e6e6ec);border-radius:14px;box-shadow:0 10px 28px rgba(28,28,33,.14)}
+.rail .pt-dd-menu li{padding:10px 12px;border-radius:8px;font:600 13px/1 var(--d-font,Inter);color:var(--d-ink-2,#5a5a66);cursor:pointer}
+.rail .pt-dd-menu li:hover{background:var(--d-sunken,#f0f0f4);color:var(--d-ink,#1c1c21)}
+.rail .pt-dd-menu li.on{background:var(--d-ink,#1c1c21);color:#fff}
+
+/* Option 13 · one row of Crystals DroidTag, Size=Mid (Figma 36520:15283): 20 high, radius 6, 2 + 4 side padding, Inter Medium 12/16 in #1d1d1d on the info fill (#e9eaf7), no icons */
+.p13-tags{display:flex;flex-wrap:wrap;gap:6px 4px}
+.p13-card .c-tag.p13-tag{min-height:20px;height:20px;gap:0;padding:0 6px;border-radius:6px;font-size:12px;line-height:16px;font-weight:500;letter-spacing:.01px;color:#1d1d1d;background:#e9eaf7;white-space:nowrap}
+.p13-card .c-tag.p13-tag--ic{padding-left:4px;gap:2px}.p13-card .c-tag.p13-tag--ic .p3-ic{width:14px;height:14px;flex:none;color:#1d1d1d}
+
+/* Option 14 · women callout (Figma SRP - Cleanup 37562:7128): the pointer is a row above both columns, 16 in from the right edge, so the list and the
+   Fill/Info/tertiary (#e9eaf7 in the Figma file) box (radius 8, padding 4) start on the same line */
+.p14-rtb{position:relative;display:flex;flex-direction:column} /* the list keeps the card's 12px gap below the bus type; the pointer sits inside that gap */
+.p14-wc-arrow{position:absolute;z-index:1;top:-5.66px;right:16px;width:14.14px;height:6.66px;line-height:0;color:#e9eaf7} /* 1px overlap onto the box so no hairline shows */
+.p14-wc-arrow svg{display:block;width:14.14px;height:6.66px}
+.p14-card .p4-cols{align-items:flex-start}
+.p14-wc{flex:0 0 148px;width:148px;min-width:0} /* stays 148 wide and right-aligned, also when the list on the left is empty */
+.p14-wc-box{box-sizing:border-box;padding:4px;border-radius:8px;background:#e9eaf7;color:var(--text-secondary,rgba(29,29,29,.69))}
+.p14-wc-box p{margin:0;display:flex;align-items:center;justify-content:flex-start;gap:4px;font-size:12px;line-height:16px;font-weight:400;letter-spacing:.01px}
+.p14-wc-box .p3-ic{flex:none;width:16px;height:16px;color:#1d1d1d}
+.p14-card .p4-list.p14-onecol{flex:0 0 148px;width:148px}
+.p14-card .p4-cols{justify-content:flex-end}
+.p14-wc-box p span{flex:1;min-width:0;text-align:left} /* rows: icon first, text left-aligned */

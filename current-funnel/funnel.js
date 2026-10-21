@@ -266,7 +266,10 @@
     /* a solve can carry several options (spec.options); the chosen one is remembered per screen */
     const [optPick, setOptPick] = useState(() => { try { return JSON.parse(localStorage.getItem(cfg.keys.opts) || '{}'); } catch (e) { return {}; } });
     const opts = spec ? (spec.options || [{ key: 'A', render: spec.render, note: spec.note }]) : [];
-    const opt = opts.find((o) => o.key === optPick[s.screen]) || opts[0];
+    const [showArch, setShowArch] = useState(false);
+    const opt = opts.find((o) => o.key === optPick[s.screen]) || opts.find((o) => !o.archived) || opts[0];
+    /* options flagged archived: hidden behind one Archive tab (the chosen one stays visible) */
+    const hasArch = opts.some((o) => o.archived), tabs = opts.filter((o) => !o.archived);
     const pickOpt = (k) => setOptPick((x) => { const n = Object.assign({}, x, { [s.screen]: k }); try { localStorage.setItem(cfg.keys.opts, JSON.stringify(n)); } catch (e) {} return n; });
     useEffect(() => {
       const f = (e) => { if ((e.key === 't' || e.key === 'T') && document.body.dataset.section === cfg.section && !/INPUT|TEXTAREA/.test(document.activeElement.tagName)) setModeRaw((m) => { const n = m === 'current' ? 'proposed' : 'current'; try { localStorage.setItem(cfg.keys.mode, n); } catch (x) {} return n; }); };
@@ -296,14 +299,16 @@
         h('div', { className: 'tools' },
           cfg.restart && h('button', { onClick: () => { update(() => INIT); setResetN((n) => n + 1); if (cfg.onRestart) cfg.onRestart(); } }, cfg.restart),
           mode === 'current' && REF[s.screen] && h('button', { className: overlay ? 'on' : '', onClick: () => setOverlay(!overlay) }, overlay ? 'Hide reference overlay' : 'Overlay reference (50%)'),
-          cfg.railExtra && h(cfg.railExtra, { mode }),
+          cfg.railExtra && h(cfg.railExtra, { mode, opt: opt && opt.key }),
           h('div', { className: 'z' }, [['S', .8], ['M', 1], ['L', 1.15]].map(([l, z]) => h('button', { key: l, className: zoom === z ? 'on' : '', onClick: () => setZoom(z) }, l)))),
         cfg.note && h('p', { className: 'note' }, cfg.note)),
       h('main', { className: 'stage' },
         h('div', { className: 'col', key: mode },
           h('div', { className: 'col-h' },
             vars.length > 1 && h('div', { className: 'opts', role: 'tablist', 'aria-label': 'Version' }, vars.map((v) => h('button', { key: v.key, role: 'tab', 'aria-selected': v === variant, className: v === variant ? 'on' : '', onClick: () => pickVar(v.key) }, v.label))),
-            opts.length > 1 && h('div', { className: 'opts', role: 'tablist', 'aria-label': 'Option' }, opts.map((o, i) => h('button', { key: o.key, role: 'tab', 'aria-selected': o === opt, className: o === opt ? 'on' : '', title: o.label || '', onClick: () => pickOpt(o.key) }, 'Option ' + (i + 1))))),
+            opts.length > 1 && h('div', { className: 'opts', role: 'tablist', 'aria-label': 'Option' }, tabs.map((o) => h('button', { key: o.key, role: 'tab', 'aria-selected': o === opt, className: o === opt ? 'on' : '', title: o.label || '', onClick: () => pickOpt(o.key) }, (o.name || 'Option ' + (opts.indexOf(o) + 1)))).concat(hasArch ? [h('span', { key: '_arch', className: 'opts-arch' },
+              h('button', { role: 'tab', 'aria-haspopup': 'listbox', 'aria-expanded': showArch, 'aria-selected': !!opt.archived, className: opt.archived ? 'on' : '', title: 'Earlier options', onClick: () => setShowArch((v) => !v), onBlur: () => setTimeout(() => setShowArch(false), 120) }, opt.archived ? (opt.name || 'Option ' + (opts.indexOf(opt) + 1)) : 'Archive', ' ▾'),
+              showArch && h('ul', { className: 'opts-menu', role: 'listbox' }, opts.filter((o) => o.archived).map((o) => h('li', { key: o.key, role: 'option', 'aria-selected': o === opt, className: o === opt ? 'on' : '', title: o.label || '', onMouseDown: (e) => { e.preventDefault(); pickOpt(o.key); setShowArch(false); } }, (o.name || 'Option ' + (opts.indexOf(o) + 1))))))] : []))),
           h('div', { className: 'pw' },
             h('div', { className: 'pframe' }, h(D.IonsRoot, { key: resetN, device: true, style: { height: 800, minHeight: 0, background: page.bg, position: 'relative' } }, body, sheets()),
               mode === 'current' && overlay && REF[s.screen] && h('img', { className: 'ref', src: REF[s.screen](s), alt: '' }))))));

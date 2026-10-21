@@ -17,7 +17,7 @@
 
   /* comparators → features → other amenities → reassurance → women tags (shown today only) */
   /* Cleanliness + Staff behaviour are still under discussion: one switch (rail) turns them on or off in every option */
-  const UGC = { on: (() => { try { return localStorage.getItem('ptags-ugc') !== 'off'; } catch (e) { return true; } })(), subs: new Set() };
+  const UGC = { on: (() => { try { return localStorage.getItem('ptags-ugc') === 'on'; } catch (e) { return false; } })(), subs: new Set() };
   UGC.set = (v) => { UGC.on = v; try { localStorage.setItem('ptags-ugc', v ? 'on' : 'off'); } catch (e) {} UGC.subs.forEach((f) => f(v)); };
   const useUgc = () => { const [v, setV] = React.useState(UGC.on); React.useEffect(() => { UGC.subs.add(setV); return () => UGC.subs.delete(setV); }, []); return v; };
   const ugcFilter = (tags, on) => (on ? tags : tags.filter((k) => k !== 'clean' && k !== 'staff'));
@@ -37,6 +37,52 @@
     return h('div', { className: 'pt-ugc' + (mode === 'proposed' ? '' : ' pt-ugc--off') },
       h('p', null, '3D icons ★ ✓', h('small', null, 'Options 4 and 5 · comparators ★, reassurance ✓')),
       h('button', { className: 'pt-sw' + (on ? ' on' : ''), role: 'switch', 'aria-checked': on, 'aria-label': '3D icons', onClick: () => CSTAR.set(!on) }, h('i')));
+  }
+  /* Lounge (new Option 5, 2026-10-19): a boarding point with a lounge puts the Lounge badge on every service of that
+     operator on the page. Coverage is tiny (it needs a lounge at the source city's boarding point), so a rail switch
+     simulates it: off by default. */
+  const LOUNGE = { on: (() => { try { return localStorage.getItem('ptags-lounge') === 'on'; } catch (e) { return false; } })(), subs: new Set() };
+  LOUNGE.set = (v) => { LOUNGE.on = v; try { localStorage.setItem('ptags-lounge', v ? 'on' : 'off'); } catch (e) {} LOUNGE.subs.forEach((f) => f(v)); };
+  const useLounge = () => { const [v, setV] = React.useState(LOUNGE.on); React.useEffect(() => { LOUNGE.subs.add(setV); return () => LOUNGE.subs.delete(setV); }, []); return v; };
+  function LoungeToggle({ mode }) {
+    const on = useLounge();
+    return h('div', { className: 'pt-ugc pt-ugc--lounge' + (mode === 'proposed' ? '' : ' pt-ugc--off') },
+      h('p', null, 'Lounge', h('small', null, 'Options 5 and 12 · a boarding point has a lounge')),
+      h('button', { className: 'pt-sw' + (on ? ' on' : ''), role: 'switch', 'aria-checked': on, 'aria-label': 'Lounge', onClick: () => LOUNGE.set(!on) }, h('i')));
+  }
+  /* Option 14: relevant IONS icons for every persuasion instead of the check */
+  const PICON = { on: (() => { try { return localStorage.getItem('ptags-picons') === 'on'; } catch (e) { return false; } })(), subs: new Set() };
+  PICON.set = (v) => { PICON.on = v; try { localStorage.setItem('ptags-picons', v ? 'on' : 'off'); } catch (e) {} PICON.subs.forEach((f) => f(v)); };
+  const usePicon = () => { const [v, setV] = React.useState(PICON.on); React.useEffect(() => { PICON.subs.add(setV); return () => PICON.subs.delete(setV); }, []); return v; };
+  function PiconToggle({ mode }) {
+    const on = usePicon();
+    return h('div', { className: 'pt-ugc pt-ugc--lounge' + (mode === 'proposed' ? '' : ' pt-ugc--off') },
+      h('p', null, 'Persuasion icons', h('small', null, 'Option 14 · an icon for every persuasion')),
+      h('button', { className: 'pt-sw' + (on ? ' on' : ''), role: 'switch', 'aria-checked': on, 'aria-label': 'Persuasion icons', onClick: () => PICON.set(!on) }, h('i')));
+  }
+  /* Option 13: icons on the tags, on by default */
+  const PICON13 = { on: (() => { try { return localStorage.getItem('ptags-picons13') !== 'off'; } catch (e) { return true; } })(), subs: new Set() };
+  PICON13.set = (v) => { PICON13.on = v; try { localStorage.setItem('ptags-picons13', v ? 'on' : 'off'); } catch (e) {} PICON13.subs.forEach((f) => f(v)); };
+  const usePicon13 = () => { const [v, setV] = React.useState(PICON13.on); React.useEffect(() => { PICON13.subs.add(setV); return () => PICON13.subs.delete(setV); }, []); return v; };
+  function Picon13Toggle({ mode }) {
+    const on = usePicon13();
+    return h('div', { className: 'pt-ugc pt-ugc--lounge' + (mode === 'proposed' ? '' : ' pt-ugc--off') },
+      h('p', null, 'With icons', h('small', null, 'Option 13 · an icon on every tag')),
+      h('button', { className: 'pt-sw' + (on ? ' on' : ''), role: 'switch', 'aria-checked': on, 'aria-label': 'With icons', onClick: () => PICON13.set(!on) }, h('i')));
+  }
+  /* Route (Option 12): which live route the cards show */
+  const ROUTES = (window.PTAGS_LIVE || {}).routes || {};
+  const ROUTE = { key: (() => { try { const k = localStorage.getItem('ptags-route'); return ROUTES[k] ? k : 'chennai'; } catch (e) { return 'chennai'; } })(), subs: new Set() };
+  ROUTE.set = (k) => { ROUTE.key = k; try { localStorage.setItem('ptags-route', k); } catch (e) {} ROUTE.subs.forEach((f) => f(k)); };
+  const useRoute = () => { const [v, setV] = React.useState(ROUTE.key); React.useEffect(() => { ROUTE.subs.add(setV); return () => ROUTE.subs.delete(setV); }, []); return v; };
+  function RouteToggle({ mode }) {
+    const k = useRoute(), [open, setOpen] = React.useState(false), name = (r) => ROUTES[r].label.replace('Bengaluru to ', 'Bangalore - ');
+    return h('div', { className: 'pt-route' + (mode === 'proposed' ? '' : ' pt-ugc--off') },
+      h('p', null, 'Route'),
+      h('div', { className: 'pt-dd' },
+        h('button', { className: 'pt-dd-btn', 'aria-haspopup': 'listbox', 'aria-expanded': open, title: ROUTES[k].label + ' · ' + ROUTES[k].doj, onClick: () => setOpen((v) => !v), onBlur: () => setTimeout(() => setOpen(false), 120) }, name(k), h('i', { 'aria-hidden': true })),
+        open && h('ul', { className: 'pt-dd-menu', role: 'listbox' }, Object.keys(ROUTES).map((r) =>
+          h('li', { key: r, role: 'option', 'aria-selected': r === k, className: r === k ? 'on' : '', onMouseDown: (e) => { e.preventDefault(); ROUTE.set(r); setOpen(false); } }, name(r))))));
   }
   window.PTAGS_UGC = { Toggle: UgcToggle, reset: () => { WM.set(true); COACH.set(false); } };
 
@@ -91,6 +137,17 @@
     };
   });
 
+  /* Option 12 · real Bengaluru to Chennai listings (ptags-live.js): redbus.in rank order, times, rating, lowest fare, seats left, and the
+     tags the section 5 logic gives each bus. Cleanliness and Staff scores come from the simulation sheet; see ptags-data/. */
+  const LIVE = Object.fromEntries(Object.entries(ROUTES).map(([key, R]) => [key, R.buses.map((r) => ({
+    real: { primo: !!r.primo, deals: !!r.deals },
+    freeSnacks: !!r.freeSnacks, rank: r.rank, op: r.op, dep: r.dep, arr: r.arr, type: r.type, rating: r.rating, wr: r.wr, count: r.reviews, wn: r.wn, sc: r.sc, ev: r.ev, extra: r.extra,
+    proposed: ORDER.filter((k) => r.proposed.includes(k)), shown: r.women,
+    dur: Math.floor(r.dur / 60) + 'h ' + (r.dur % 60) + 'm', price: '₹' + Math.round(r.fare).toLocaleString('en-IN'),
+    seats: r.seats + ' Seats', single: '(' + r.single + ' Single)',
+  }))]));
+  /* Option 12 SRP: header, bus count and the KSRTC card follow the chosen route */
+
   const Star = () => h('svg', { viewBox: '0 0 12 12', 'aria-hidden': true }, h('path', { d: 'M6 .9l1.5 3.2 3.5.4-2.6 2.4.7 3.5L6 8.7 2.9 10.4l.7-3.5L1 4.5l3.5-.4z', fill: '#fff' }));
 
   /* Option 1 · production card design */
@@ -109,10 +166,11 @@
     prev: [3, 9], /* at most two cards on the SRP (not the first); Option 4 only. Every previously booked bus also gets BP/DP personalisation (not the reverse) */
   };
   RANKS.prev.forEach((r) => { if (!RANKS.highlight.includes(r)) RANKS.highlight.push(r); });
-  const MS = { on: (() => { try { return Object.assign(Object.fromEntries(MASTER_EL.map(([k]) => [k, true])), JSON.parse(localStorage.getItem('ptags-master') || '{}')); } catch (e) { return Object.fromEntries(MASTER_EL.map(([k]) => [k, true])); } })(), subs: new Set() };
+  const MS = { on: (() => { const d = Object.fromEntries(MASTER_EL.map(([k]) => [k, ['ad', 'prev', 'primo', 'deals'].includes(k)])); try { return Object.assign(d, JSON.parse(localStorage.getItem('ptags-master') || '{}')); } catch (e) { return d; } })(), subs: new Set() };
   MS.set = (k, v) => { MS.on = Object.assign({}, MS.on, { [k]: v }); try { localStorage.setItem('ptags-master', JSON.stringify(MS.on)); } catch (e) {} MS.subs.forEach((f) => f(MS.on)); };
   const useMaster = () => { const [v, setV] = React.useState(MS.on); React.useEffect(() => { MS.subs.add(setV); return () => MS.subs.delete(setV); }, []); return v; };
-  const has = (m, k, b) => !!(m && m[k] && RANKS[k].includes(b.rank));
+  /* live buses (Options 12 to 14) carry real flags for Primo and Deals; every other element is a demo placed by rank */
+  const has = (m, k, b) => !!(m && m[k] && (b.real && b.real[k] !== undefined ? b.real[k] : RANKS[k].includes(b.rank)));
   const arrow = () => h('img', { className: 'mx-arw', src: X + 'ic-arrow-fwd.svg', alt: '' });
 
   /* top section: Book-for-₹0 banner and live bus status */
@@ -154,7 +212,7 @@
       h('ul', null, MASTER_EL.map(([k, l]) => h('li', { key: k },
         h('label', null, h('input', { type: 'checkbox', checked: !!m[k], onChange: (e) => MS.set(k, e.target.checked) }), h('span', null, l))))));
   }
-  function RailExtra(p) { return h(React.Fragment, null, h(window.PTAGS_UGC.Toggle, p), h(WomenToggle, p), h(CstarToggle, p), h(MasterPanel, p)); }
+  function RailExtra(p) { return h(React.Fragment, null, h(RouteToggle, p), h(window.PTAGS_UGC.Toggle, p), h(WomenToggle, p), !['L', 'M', 'N'].includes(p.opt) && h(CstarToggle, p), h(LoungeToggle, p), p.mode === 'proposed' && p.opt === 'N' && h(PiconToggle, p), p.mode === 'proposed' && p.opt === 'M' && h(Picon13Toggle, p), h(MasterPanel, p)); }
   window.PTAGS_UGC.Rail = RailExtra;
 
   function ProdCard({ b, go, set: tags }) {
@@ -219,6 +277,27 @@
       h('circle', { cx: 12, cy: 4.4, r: 3.2, fill: 'currentColor' }),
       h('path', { fill: 'currentColor', d: 'M8.6 9.6h6.8c.6 0 1.2.4 1.4 1l3 7.3c.3.7-.2 1.5-1 1.5H15v2.6c0 .6-.4 1-1 1h-4c-.6 0-1-.4-1-1v-2.6H5.2c-.8 0-1.3-.8-1-1.5l3-7.3c.2-.6.8-1 1.4-1Z' })),
     new: () => ions([['M6.8335 14.8838C7.38578 14.8838 7.8335 15.3315 7.8335 15.8838C7.8335 16.4361 7.38578 16.8838 6.8335 16.8838C6.28121 16.8838 5.8335 16.4361 5.8335 15.8838C5.8335 15.3315 6.28121 14.8838 6.8335 14.8838Z'], ['M15.3335 14.8838C15.8858 14.8838 16.3335 15.3315 16.3335 15.8838C16.3335 16.4361 15.8858 16.8838 15.3335 16.8838C14.7812 16.8838 14.3335 16.4361 14.3335 15.8838C14.3335 15.3315 14.7812 14.8838 15.3335 14.8838Z'], ['M11.0835 2.63379C12.3134 2.63379 13.4 2.70698 14.3335 2.81445V4.32422C13.418 4.21211 12.3309 4.13379 11.0835 4.13379C8.97698 4.13379 7.32767 4.35843 6.18994 4.58887C5.4766 4.73336 4.95158 5.33816 4.85107 6.13379H14.3335V7.63379H4.8335V12.1338H17.3335V11.1338H18.8335V16.8838C18.8335 18.0498 18.1078 19.0463 17.0835 19.4463V20.8838C17.0835 21.4361 16.6358 21.8838 16.0835 21.8838C15.5312 21.8838 15.0835 21.4361 15.0835 20.8838V19.6338H7.0835V20.8838C7.0835 21.4361 6.63578 21.8838 6.0835 21.8838C5.53121 21.8838 5.0835 21.4361 5.0835 20.8838V19.4463C4.05916 19.0463 3.3335 18.0498 3.3335 16.8838V6.41504C3.3335 4.89348 4.28271 3.44513 5.89209 3.11914C7.12059 2.87031 8.86976 2.63379 11.0835 2.63379ZM4.8335 16.8838C4.8335 17.5741 5.39314 18.1338 6.0835 18.1338H16.0835C16.7739 18.1338 17.3335 17.5741 17.3335 16.8838V13.6338H4.8335V16.8838Z', 1], ['M18.4927 3.00391C18.6425 2.5435 19.2942 2.54338 19.4438 3.00391L19.8901 4.37891C19.9571 4.5849 20.1491 4.72459 20.3657 4.72461H21.812L21.8989 4.73145C22.3188 4.80054 22.4724 5.36199 22.105 5.62891L20.936 6.47852C20.7608 6.60584 20.6875 6.83207 20.7544 7.03809L21.2007 8.41309C21.3503 8.8737 20.823 9.25636 20.4312 8.97168L19.2622 8.12207C19.087 7.9948 18.8495 7.99489 18.6743 8.12207L17.5044 8.97168C17.1126 9.25634 16.5854 8.87365 16.7349 8.41309L17.1821 7.03809C17.2491 6.8321 17.1757 6.60585 17.0005 6.47852L15.8306 5.62891C15.4387 5.3442 15.6402 4.72461 16.1245 4.72461H17.5698C17.7864 4.72461 17.9785 4.58492 18.0454 4.37891L18.4927 3.00391Z']]),
+    /* IONS • Rubicon (ptags-ions.js): snacks, personal_tv, waiting_lounge */
+    snacks: () => ions(window.PTAGS_IONS.snacks),
+    tv: () => ions(window.PTAGS_IONS.tv),
+    lounge: () => ions(window.PTAGS_IONS.lounge),
+    /* Option 14 icons per persuasion: reclining_seat, deep_cleaned_bus, customer_care, always_on_time, today */
+    comfort: () => ions(window.PTAGS_IONS.comfort), clean: () => ions(window.PTAGS_IONS.clean), staff: () => ions(window.PTAGS_IONS.staff),
+    onTime: () => ions(window.PTAGS_IONS.onTime), fdc: () => ions(window.PTAGS_IONS.fdc),
+    /* Figma SRP - Cleanup 37560:6338 / 37560:6344: stars_outlined and women, 16 px artwork */
+    starsOutlined: () => h('svg', { viewBox: '0 0 16 16', width: 16, height: 16, 'aria-hidden': true, className: 'p3-ic' }, h('path', { fillRule: 'evenodd', clipRule: 'evenodd', fill: 'currentColor', d: 'M7.37533 2.0887C7.59134 1.5114 8.40791 1.5115 8.62402 2.0887L9.99837 5.76318L13.917 5.93441C14.5329 5.96149 14.7849 6.73808 14.3024 7.12191L11.2334 9.56396L12.2809 13.3433C12.4457 13.9375 11.7847 14.418 11.2705 14.0776L7.99967 11.9129L4.72884 14.0776C4.21465 14.4178 3.55367 13.9374 3.71843 13.3433L4.7666 9.56396L1.69694 7.12191C1.21447 6.73802 1.467 5.96132 2.08301 5.93441L6.00163 5.76318L7.37533 2.0887ZM6.861 6.31982C6.76733 6.57028 6.53309 6.74035 6.26595 6.75211L3.01725 6.89404L5.56217 8.91878C5.7713 9.08534 5.86083 9.361 5.78939 9.61865L4.92025 12.7515L7.63184 10.9572C7.85485 10.8096 8.14446 10.8097 8.36751 10.9572L11.0791 12.7515L10.2106 9.61865C10.1392 9.36094 10.2286 9.08533 10.4378 8.91878L12.9827 6.89404L9.73405 6.75211C9.46685 6.74043 9.23272 6.57031 9.139 6.31982L7.99967 3.27425L6.861 6.31982Z' })),
+    woman16: () => h('svg', { viewBox: '0 0 16 16', width: 16, height: 16, 'aria-hidden': true, className: 'p3-ic' },
+      h('path', { fillRule: 'evenodd', clipRule: 'evenodd', fill: 'currentColor', d: 'M8.13597 5.78353C8.68537 5.82594 9.1663 6.18201 9.36383 6.70345L11.136 11.3818C11.1941 11.5354 11.1726 11.7076 11.0793 11.8428C10.986 11.9779 10.8327 12.0588 10.6685 12.0589H9.84365V14.1715C9.84365 14.4477 9.6198 14.6715 9.34365 14.6715H6.66657C6.39043 14.6715 6.16657 14.4477 6.16657 14.1715V12.0589H5.33324C5.16814 12.0589 5.01366 11.9771 4.92048 11.8408C4.82742 11.7046 4.80722 11.531 4.86709 11.3773L6.69196 6.69108C6.90604 6.14145 7.43543 5.77964 8.02529 5.77962L8.13597 5.78353ZM8.02529 6.77962C7.84763 6.77964 7.68806 6.8888 7.6236 7.05436L6.06436 11.0589H6.66657L6.718 11.0615C6.96998 11.0873 7.16657 11.3001 7.16657 11.5589V13.6715H8.84365V11.5589C8.84365 11.2828 9.0676 11.059 9.34365 11.0589H9.94391L8.42829 7.05762C8.37276 6.91121 8.24311 6.8084 8.0917 6.78483L8.02529 6.77962Z' }),
+      h('path', { fill: 'currentColor', d: 'M9.91787 4.87337C9.8104 4.4428 10.1908 4.09333 10.6457 4.28418C10.9404 4.40782 11.3688 4.91994 11.0663 5.76595C10.9638 5.18656 10.0419 5.36944 9.91787 4.87337Z' }),
+      h('path', { fillRule: 'evenodd', clipRule: 'evenodd', fill: 'currentColor', d: 'M7.9999 1.33105C9.09837 1.33105 9.98882 2.22153 9.98883 3.31999C9.98883 4.41846 9.09838 5.30892 7.9999 5.30892C6.90143 5.30892 6.01097 4.41846 6.01097 3.31999C6.01099 2.22153 6.90144 1.33106 7.9999 1.33105ZM7.9999 2.33105C7.45372 2.33106 7.01099 2.77381 7.01097 3.31999C7.01097 3.86618 7.45371 4.30892 7.9999 4.30892C8.5461 4.30892 8.98883 3.86618 8.98883 3.31999C8.98882 2.77381 8.54608 2.33105 7.9999 2.33105Z' })),
+    /* Figma SRP - Cleanup (37562:7128): face_4, 16 px artwork, for "N women travelling" */
+    face4: () => h('svg', { viewBox: '0 0 16 16', width: 16, height: 16, 'aria-hidden': true, className: 'p3-ic' },
+      h('path', { fillRule: 'evenodd', clipRule: 'evenodd', fill: 'currentColor', d: 'M9.16678 13.5C6.77354 13.5 4.83345 11.5599 4.83345 9.16667C4.83345 6.77343 6.77354 4.83333 9.16678 4.83333C11.56 4.83333 13.5001 6.77343 13.5001 9.16667C13.5001 11.5599 11.56 13.5 9.16678 13.5ZM3.83345 9.16667C3.83345 12.1122 6.22126 14.5 9.16678 14.5C12.1123 14.5 14.5001 12.1122 14.5001 9.16667C14.5001 6.22115 12.1123 3.83333 9.16678 3.83333C6.22126 3.83333 3.83345 6.22115 3.83345 9.16667Z' }),
+      h('path', { fill: 'currentColor', d: 'M7.5001 9.16669C7.36825 9.16669 7.23936 9.20579 7.12973 9.27904C7.0201 9.35229 6.93465 9.45641 6.88419 9.57823C6.83373 9.70004 6.82053 9.83408 6.84625 9.9634C6.87198 10.0927 6.93547 10.2115 7.0287 10.3047C7.12194 10.398 7.24072 10.4615 7.37004 10.4872C7.49936 10.5129 7.6334 10.4997 7.75522 10.4493C7.87703 10.3988 7.98115 10.3133 8.0544 10.2037C8.12766 10.0941 8.16676 9.9652 8.16676 9.83334C8.16747 9.7456 8.15071 9.65859 8.11746 9.57739C8.08421 9.49618 8.03513 9.42241 7.97308 9.36036C7.91104 9.29832 7.83726 9.24924 7.75606 9.21599C7.67485 9.18274 7.58785 9.16598 7.5001 9.16669Z' }),
+      h('path', { fill: 'currentColor', d: 'M10.8334 9.16669C10.7016 9.16669 10.5727 9.20579 10.4631 9.27904C10.3534 9.35229 10.268 9.45641 10.2175 9.57823C10.1671 9.70004 10.1539 9.83408 10.1796 9.9634C10.2053 10.0927 10.2688 10.2115 10.362 10.3047C10.4553 10.398 10.5741 10.4615 10.7034 10.4872C10.8327 10.5129 10.9667 10.4997 11.0886 10.4493C11.2104 10.3988 11.3145 10.3133 11.3877 10.2037C11.461 10.0941 11.5001 9.9652 11.5001 9.83334C11.5008 9.7456 11.484 9.65859 11.4508 9.57739C11.4175 9.49618 11.3685 9.42241 11.3064 9.36036C11.2444 9.29832 11.1706 9.24924 11.0894 9.21599C11.0082 9.18274 10.9212 9.16598 10.8334 9.16669Z' }),
+      h('path', { fillRule: 'evenodd', clipRule: 'evenodd', fill: 'currentColor', d: 'M8.54996 4.196C8.53512 4.31941 8.52746 4.44528 8.52746 4.57319C8.52746 6.27281 9.88028 7.63631 11.5316 7.63631C12.1053 7.63631 12.6405 7.4728 13.0962 7.18861L13.6253 8.03717C13.0162 8.417 12.2986 8.63631 11.5316 8.63631C9.31232 8.63631 7.52746 6.80929 7.52746 4.57319C7.52746 4.40529 7.53752 4.23957 7.55711 4.07663L8.54996 4.196Z' }),
+      h('path', { fillRule: 'evenodd', clipRule: 'evenodd', fill: 'currentColor', d: 'M6.94277 5.00781C6.99032 5.10663 7.0296 5.21174 7.0593 5.32257C7.31065 6.26061 6.76824 7.20161 5.87584 7.44072C5.56537 7.52392 5.25222 7.51284 4.96367 7.42453L4.67102 8.38075C5.13256 8.522 5.63684 8.54004 6.13466 8.40665C7.58028 8.0193 8.41417 6.51529 8.02523 5.06375C7.97934 4.89251 7.91832 4.72891 7.84389 4.57422L6.94277 5.00781Z' }),
+      h('path', { fillRule: 'evenodd', clipRule: 'evenodd', fill: 'currentColor', d: 'M5.50011 3C4.48759 3 3.66678 3.82081 3.66678 4.83333C3.66678 5.6631 4.21842 6.36533 4.97607 6.59081L4.69082 7.54927C3.52081 7.20105 2.66678 6.11758 2.66678 4.83333C2.66678 3.26853 3.9353 2 5.50011 2C7.06492 2 8.33345 3.26853 8.33345 4.83333H7.33345C7.33345 3.82081 6.51263 3 5.50011 3Z' })),
     check: () => h('svg', { viewBox: '0 0 16 16', width: 16, height: 16, 'aria-hidden': true, className: 'p3-ic' }, h('path', { d: 'M3.5 8.4l3 3 6-6.6', fill: 'none', stroke: 'currentColor', strokeWidth: 1.5, strokeLinecap: 'round', strokeLinejoin: 'round' })),
   };
   const COMPS = ['comfort', 'clean', 'staff', 'onTime'], FEATS = ['toilet', 'new'], REASSURE = ['fdc'];
@@ -248,6 +327,17 @@
      Comparators → a ✓ list in the primary text colour, footnote size
      Reassurance → the same list, after the comparators, same style */
   const BADGE = { toilet: 'In-bus toilet', new: 'New bus' };
+  /* New Option 5 features. Coverage for Bengaluru → Chennai, from redbus.in on 19 Oct 2026 (174 buses): Free Snacks 7,
+     New Bus 41, Toilet 35, On Time 30; no Personal TV or Lounge filter exists. Snacks follow today's shown tags
+     (Snack on SRI SAI TRAVELS and GREEN CHANNEL EXPRESS, Free snacks on the three FRESHBUS services). Personal TV has no
+     coverage on the route, so two buses carry it as illustration. Lounge belongs to operators whose boarding point has
+     one: ACLS Navigator from today's tags, SST Limoliner (two services) as illustration of the operator-wide rule. */
+  const BADGE5 = { toilet: 'In-bus toilet', new: 'New bus', snacks: 'Snacks', tv: 'Personal TV', lounge: 'Lounge' };
+  const TV_RANKS = [4, 8], LOUNGE_OPS = ['ACLS Navigator', 'SST Limoliner'];
+  const extraFeats = (b, lounge) => [].concat(
+    b.shown.some((k) => k === 'snack' || k === 'freeSnacks') ? ['snacks'] : [],
+    TV_RANKS.includes(b.rank) ? ['tv'] : [],
+    lounge && LOUNGE_OPS.includes(b.op) ? ['lounge'] : []);
   /* Option 4 time and seats, as Figma SRP - Cleanup 36754:32065: departure (bold) · duration between two hairlines ·
      arrival (regular), spanning the column; seats and singles below in one secondary line */
   const p4Time = (m, b) => h('p', { className: 'o5-time p4-time' }, h('b', null, b.dep), h('span', null, h('i'), b.dur, h('i')),
@@ -264,7 +354,9 @@
   /* Coach mark: on landing with women mode on, a spotlight on the first card's rating explains the change */
   /* target: the rating graphic to spotlight; copy follows what that option's rating shows */
   const COACH_COPY = {
+    p14: ['.p14-card .p14-wc-box', 'Women’s view of every bus', 'With Women mode on, this box shows the rating women gave the bus and how many women are travelling on it.'],
     p4: ['.p4-card .p4-wr', 'See how women rated each bus', 'The pink "Women" score under each rating comes only from reviews by women travellers.'],
+    p12: ['.px-card .px-rate--w', 'Ratings shown are from women', 'The women icon replaces the star: with Women mode on, the rating is the average given by women travellers.'],
     p5: ['.o5-card .p5-rate--w', 'Ratings shown are only from women', 'With Women mode on, each rating on this page comes only from reviews by women travellers.'],
   };
   function WomenCoach({ v = 'p4' }) {
@@ -273,14 +365,21 @@
     const [box, setBox] = React.useState(null);
     React.useEffect(() => {
       if (!on || seen) { setBox(null); return undefined; }
-      const t = setTimeout(() => {
-        const el = ref.current, sf = el && el.closest('.sf'), r = sf && sf.querySelector(sel);
+      let n = 0;
+      const t = setInterval(() => {
+        if (++n > 12) { clearInterval(t); return; } /* retry for a few seconds while the list renders */
+        const el = ref.current, sf = el && el.closest('.sf');
+        if (!sf) return;
+        const S = sf.getBoundingClientRect(), k = S.width / sf.offsetWidth;
+        /* the first target that is fully on screen (the list may already be scrolled) */
+        const vis = [...sf.querySelectorAll(sel)].filter((x) => { const q = x.getBoundingClientRect(); return q.top >= S.top + 80 && q.bottom <= S.bottom; });
+        const r = vis.find((x) => x.childElementCount >= 2) || vis[0]; /* prefer a callout that shows both women lines */
         if (!r) return;
-        const S = sf.getBoundingClientRect(), k = S.width / sf.offsetWidth, R = r.getBoundingClientRect();
-        if (R.top < S.top || R.bottom > S.bottom) return;
+        clearInterval(t);
+        const R = r.getBoundingClientRect();
         setBox({ x: (R.left - S.left) / k, y: (R.top - S.top) / k, w: R.width / k, h: R.height / k, sw: sf.offsetWidth, sh: sf.offsetHeight });
-      }, 500);
-      return () => clearTimeout(t);
+      }, 400);
+      return () => clearInterval(t);
     }, [on, seen]);
     const show = on && !seen && box;
     /* Crystals DroidCoachmark (🔮 CRYSTALS • Rubicon): white card r20 p12, Headline Bold 14/20, Description 12/16, one
@@ -304,7 +403,7 @@
       ]);
   }
   /* stable overlay components, so the coach keeps its state across SRP re-renders */
-  const Coach4 = () => h(WomenCoach, { v: 'p4' }), Coach5 = () => h(WomenCoach, { v: 'p5' });
+  const Coach4 = () => h(WomenCoach, { v: 'p4' }), Coach5 = () => h(WomenCoach, { v: 'p5' }), Coach12 = () => h(WomenCoach, { v: 'p12' }), Coach14 = () => h(WomenCoach, { v: 'p14' });
   const notch = () => h('svg', { viewBox: '0 0 16 9', width: 16, height: 9, 'aria-hidden': true }, h('path', { fill: '#fff', d: 'M0 0C1.55798 0 3.90512 3.21696 5.64503 6.00167C6.49804 7.36691 6.92454 8.04953 7.35582 8.23482C7.76338 8.40991 8.12808 8.41043 8.53613 8.23649C8.96793 8.05242 9.39695 7.37009 10.255 6.00542C12.0064 3.21985 14.381 0 16 0H0Z' }));
   function Card4({ b, go }) {
     const t = ugcFilter(b.proposed, useUgc()), m = useMaster(), women = useWomen(), cstar = useCstar();
@@ -313,7 +412,7 @@
        rating graphic as the Women score, so it is not repeated here) */
     const wTags = women ? ['womenT'].filter((k) => b.shown.includes(k)) : [];
     const list = t.filter((k) => COMPS.includes(k)).concat(t.filter((k) => REASSURE.includes(k)), wTags);
-    const text = (k) => (k === 'womenT' ? (6 + (b.rank * 5) % 19) + ' women travelling' : label(k, b.sc));
+    const text = (k) => (k === 'womenT' ? (6 + (b.rank * 5) % 19) + ' women travelling' : k === 'comfort' ? 'Comfort' : label(k, b.sc));
     /* columns: 3 per column (max 6) normally; in women mode every item shows, split evenly over the two columns */
     const per = women ? Math.max(3, Math.ceil(list.length / 2)) : 3;
     /* Previously booked (Figma 36754:32115): the card turns Fill/Success/primary and an 18-high strip of inverse caption
@@ -341,6 +440,84 @@
                   h('p', { className: 'p4-wr-w' }, 'Women ' + one(wRate(b))))
               : h('div', { className: 'px-rate', 'aria-label': 'Rated ' + b.rating }, h('b', null, h(Star), one(b.rating)), h('span', null, '0000'))),
           feats.length > 0 && h('div', { className: 'p4-badges' }, feats.map((k) => Tag({ key: k, className: 'p4-badge', icon: IC[k]() }, BADGE[k])))),
+        /* two columns, filled column by column */
+        list.length > 0 && h('div', { className: 'p4-cols' }, [list.slice(0, per), list.slice(per, 2 * per)].filter((c) => c.length).map((col, i) =>
+          h('ul', { key: i, className: 'p4-list' }, col.map((k) => h('li', { key: k }, !cstar && COMPS.includes(k) ? starFlat('p3-ic p4-flatstar') : cstar ? h('img', { className: 'p3-ic ' + (COMPS.includes(k) ? 'p4-star' : 'p4-check'), src: X + (COMPS.includes(k) ? 'ic-comp-star.png' : 'ic-reassure-check-blue.png'), alt: '' }) : IC.check(), text(k)))))),
+        mPost(m, b)),
+      mFoot(m, b));
+  }
+  /* Option 6 (2026-10-19) · Option 4 with one treatment for all three tag types: comparators, features and reassurance
+     share a single ✓ list (no star, no badges) */
+  function Card6New({ b, go }) {
+    const t = ugcFilter(b.proposed, useUgc()), m = useMaster(), women = useWomen(), cstar = useCstar();
+    const feats = t.filter((k) => FEATS.includes(k));
+    /* women mode: women travelling joins the end of the reassurance list ("Highly rated by women" now lives in the
+       rating graphic as the Women score, so it is not repeated here) */
+    const wTags = women ? ['womenT'].filter((k) => b.shown.includes(k)) : [];
+    const list = t.filter((k) => COMPS.includes(k)).concat(feats, t.filter((k) => REASSURE.includes(k)), wTags);
+    const text = (k) => (BADGE[k] ? BADGE[k] : k === 'womenT' ? (6 + (b.rank * 5) % 19) + ' women travelling' : label(k, b.sc));
+    /* columns: 3 per column (max 6) normally; in women mode every item shows, split evenly over the two columns */
+    const per = women ? Math.max(3, Math.ceil(list.length / 2)) : 3;
+    /* Previously booked (Figma 36754:32115): the card turns Fill/Success/primary and an 18-high strip of inverse caption
+       text sits above the untouched white content, which keeps its 16 radius over the green */
+    const prev = has(m, 'prev', b);
+    const card = (...kids) => h('div', { className: 'px-card p3-card p4-card p6n-card' + (women ? ' p4-card--women' : '') + (prev ? ' p4-card--prev' : ''), role: 'button', tabIndex: 0, onClick: () => go('seats') },
+      prev && h('p', { className: 'p4-prev' }, 'You booked this previously on ' + (b.rank === 3 ? '7th Jul' : '22nd Aug')),
+      ...(prev ? [h('div', { key: 'main', className: 'p4-main' }, ...kids)] : kids));
+    return card(
+      mTop(m, b),
+      h('div', { className: 'px-body' },
+        ...mPre(m, b),
+        h('div', { className: 'px-svc p4-svc' }, h('div', null, p4Time(m, b), p4Sub(m, b)), mPrice(m, b)),
+        h('div', { className: 'p3-op' },
+          h('div', { className: 'px-bo' },
+            h('div', { className: 'px-bo-l' },
+              mName(m, b),
+              h('p', { className: 'px-ty' }, b.ev && !m && h('img', { src: X + 'ic-ev.svg', alt: '' }), h('span', null, b.type))),
+            /* women mode: the rating graphic adds the women's rating (illustrative) under the overall one */
+            women
+              /* Figma 37512:17216 "Rating women mode": a pink plate with the overall rating (green score + count) on top
+                 and the women's rating under it in Text/woman; 79 × 36, the height of name + bus type */
+              ? h('div', { className: 'p4-wr', 'aria-label': 'Rated ' + one(b.rating) + ' overall, ' + one(wRate(b)) + ' by women' },
+                  h('div', { className: 'p4-wr-top' }, h('b', null, h('i', { className: 'p4-wr-star' }, starRubicon()), h('em', null, one(b.rating))), h('span', null, '0000')),
+                  h('p', { className: 'p4-wr-w' }, 'Women ' + one(wRate(b))))
+              : h('div', { className: 'px-rate', 'aria-label': 'Rated ' + b.rating }, h('b', null, h(Star), one(b.rating)), h('span', null, '0000')))),
+        /* two columns, filled column by column */
+        list.length > 0 && h('div', { className: 'p4-cols' }, [list.slice(0, per), list.slice(per, 2 * per)].filter((c) => c.length).map((col, i) =>
+          h('ul', { key: i, className: 'p4-list' }, col.map((k) => h('li', { key: k }, cstar ? h('img', { className: 'p3-ic p4-check', src: X + 'ic-reassure-check-blue.png', alt: '' }) : IC.check(), text(k)))))),
+        mPost(m, b)),
+      mFoot(m, b));
+  }
+  /* Option 5 (2026-10-19) · Option 4 plus Snacks, Personal TV and Lounge badges; in women mode the rating stays the overall
+     rating and "Highly rated by women" is one more ✓ reassurance item */
+  function Card5New({ b, go }) {
+    const t = ugcFilter(b.proposed, useUgc()), m = useMaster(), women = useWomen(), cstar = useCstar(), lounge = useLounge();
+    const feats = t.filter((k) => FEATS.includes(k)).concat(extraFeats(b, lounge));
+    /* women mode: no separate women rating (the card keeps the overall-rating graphic); "Highly rated by women" joins
+       "N women travelling" at the end of the reassurance list, each with a check */
+    const wTags = women ? ['womenT', 'womenR'].filter((k) => b.shown.includes(k)) : [];
+    const list = t.filter((k) => COMPS.includes(k)).concat(t.filter((k) => REASSURE.includes(k)), wTags);
+    const text = (k) => (k === 'womenT' ? (6 + (b.rank * 5) % 19) + ' women travelling' : k === 'womenR' ? 'Highly rated by women' : label(k, b.sc));
+    /* columns: 3 per column (max 6) normally; in women mode every item shows, split evenly over the two columns */
+    const per = women ? Math.max(3, Math.ceil(list.length / 2)) : 3;
+    /* Previously booked (Figma 36754:32115): the card turns Fill/Success/primary and an 18-high strip of inverse caption
+       text sits above the untouched white content, which keeps its 16 radius over the green */
+    const prev = has(m, 'prev', b);
+    const card = (...kids) => h('div', { className: 'px-card p3-card p4-card p5n-card' + (prev ? ' p4-card--prev' : ''), role: 'button', tabIndex: 0, onClick: () => go('seats') },
+      prev && h('p', { className: 'p4-prev' }, 'You booked this previously on ' + (b.rank === 3 ? '7th Jul' : '22nd Aug')),
+      ...(prev ? [h('div', { key: 'main', className: 'p4-main' }, ...kids)] : kids));
+    return card(
+      mTop(m, b),
+      h('div', { className: 'px-body' },
+        ...mPre(m, b),
+        h('div', { className: 'px-svc p4-svc' }, h('div', null, p4Time(m, b), p4Sub(m, b)), mPrice(m, b)),
+        h('div', { className: 'p3-op' },
+          h('div', { className: 'px-bo' },
+            h('div', { className: 'px-bo-l' },
+              mName(m, b),
+              h('p', { className: 'px-ty' }, b.ev && !m && h('img', { src: X + 'ic-ev.svg', alt: '' }), h('span', null, b.type))),
+            h('div', { className: 'px-rate', 'aria-label': 'Rated ' + b.rating }, h('b', null, h(Star), one(b.rating)), h('span', null, '0000'))),
+          feats.length > 0 && h('div', { className: 'p4-badges' }, feats.map((k) => Tag({ key: k, className: 'p4-badge', icon: IC[k]() }, BADGE5[k])))),
         /* two columns, filled column by column */
         list.length > 0 && h('div', { className: 'p4-cols' }, [list.slice(0, per), list.slice(per, 2 * per)].filter((c) => c.length).map((col, i) =>
           h('ul', { key: i, className: 'p4-list' }, col.map((k) => h('li', { key: k }, !cstar && COMPS.includes(k) ? starFlat('p3-ic p4-flatstar') : cstar ? h('img', { className: 'p3-ic ' + (COMPS.includes(k) ? 'p4-star' : 'p4-check'), src: X + (COMPS.includes(k) ? 'ic-comp-star.png' : 'ic-reassure-check-blue.png'), alt: '' }) : IC.check(), text(k)))))),
@@ -537,6 +714,125 @@
       mFoot(m, b));
   }
 
+  /* Option 12 (2026-10-19) · starts as a copy of Option 5 (snacks, personal TV, lounge; women mode keeps the overall rating) */
+  function Card12New({ b, go }) {
+    const t = ugcFilter(b.proposed, useUgc()), m = useMaster(), women = useWomen(), cstar = false /* no 3D icons in Options 12 to 14 */, lounge = useLounge(), wr = women && b.wr ? b.wr : null; /* women mode: the women rating from the bus details, when redbus.in has one */
+    const feats = t.filter((k) => FEATS.includes(k)).concat(b.extra.filter((k) => k !== 'lounge' || lounge));
+    /* women mode: no separate women rating (the card keeps the overall-rating graphic); "Highly rated by women" joins
+       "N women travelling" at the end of the reassurance list, each with a check */
+    const wTags = women ? ['womenT', 'womenR'].filter((k) => b.shown.includes(k)) : [];
+    const list = t.filter((k) => COMPS.includes(k)).concat(t.filter((k) => REASSURE.includes(k)), wTags);
+    const text = (k) => (k === 'snacks' ? 'Free snacks' : k === 'comfort' ? 'Comfort ' + one(b.sc.comfort) + '/10' : k === 'womenT' ? (6 + (b.rank * 5) % 19) + ' women travelling' : k === 'womenR' ? 'Women rated highly' : label(k, b.sc));
+    /* columns: 3 per column (max 6) normally; in women mode every item shows, split evenly over the two columns */
+    const per = women ? Math.max(3, Math.ceil(list.length / 2)) : 3;
+    /* Previously booked (Figma 36754:32115): the card turns Fill/Success/primary and an 18-high strip of inverse caption
+       text sits above the untouched white content, which keeps its 16 radius over the green */
+    const prev = has(m, 'prev', b);
+    const card = (...kids) => h('div', { className: 'px-card p3-card p4-card p12-card' + (prev ? ' p4-card--prev' : ''), role: 'button', tabIndex: 0, onClick: () => go('seats') },
+      prev && h('p', { className: 'p4-prev' }, 'You booked this previously on ' + (b.rank === 3 ? '7th Jul' : '22nd Aug')),
+      ...(prev ? [h('div', { key: 'main', className: 'p4-main' }, ...kids)] : kids));
+    return card(
+      mTop(m, b),
+      h('div', { className: 'px-body' },
+        ...mPre(m, b),
+        h('div', { className: 'px-svc p4-svc' }, h('div', null, p4Time(m, b), p4Sub(m, b)), mPrice(m, b)),
+        h('div', { className: 'p3-op' },
+          h('div', { className: 'px-bo' },
+            h('div', { className: 'px-bo-l' },
+              mName(m, b),
+              h('p', { className: 'px-ty' }, b.ev && !m && h('img', { src: X + 'ic-ev.svg', alt: '' }), h('span', null, b.type))),
+            h('div', { className: 'px-rate' + (wr ? ' px-rate--w' : ''), 'aria-label': 'Rated ' + (wr || b.rating) + (wr ? ' by women' : '') }, h('b', null, wr ? IC.woman() : h(Star), one(wr || b.rating)), h('span', null, String(wr && b.wn != null ? b.wn : b.count)))),
+          feats.length > 0 && h('div', { className: 'p4-badges' }, feats.map((k) => Tag({ key: k, className: 'p4-badge', icon: IC[k]() }, (k === 'snacks' ? 'Free snacks' : BADGE5[k]))))),
+        /* two columns, filled column by column */
+        list.length > 0 && h('div', { className: 'p4-cols' }, [list.slice(0, per), list.slice(per, 2 * per)].filter((c) => c.length).map((col, i) =>
+          h('ul', { key: i, className: 'p4-list' }, col.map((k) => h('li', { key: k }, cstar ? h('img', { className: 'p3-ic p4-check', src: X + 'ic-reassure-check-blue.png', alt: '' }) : IC.check(), text(k)))))),
+        mPost(m, b)),
+      mFoot(m, b));
+  }
+  /* Option 14 (2026-10-21) · Option 12 with one ✓ list for all persuasions (comparators, features, reassurance); a switch swaps the check for an IONS icon per persuasion */
+  function Card14New({ b, go }) {
+    const t = ugcFilter(b.proposed, useUgc()), m = useMaster(), women = useWomen(), cstar = false /* no 3D icons in Options 12 to 14 */, lounge = useLounge(), picon = usePicon(), wr = null; /* Option 14 always shows the overall rating; the women rating sits in the women callout */
+    const feats = t.filter((k) => FEATS.includes(k)).concat(b.extra.filter((k) => k !== 'lounge' || lounge));
+    /* women mode: no separate women rating (the card keeps the overall-rating graphic); "Highly rated by women" joins
+       "N women travelling" at the end of the reassurance list, each with a check */
+    const wTags = [];
+    /* women callout (Figma SRP - Cleanup 37559:6151): Women rated {rating} and N women travelling, under the rating graphic */
+    const wN = women && b.shown.includes('womenT') ? 6 + (b.rank * 5) % 19 : null, wcall = women && (b.wr || wN != null);
+    const list = t.filter((k) => COMPS.includes(k)).concat(feats, t.filter((k) => REASSURE.includes(k)), wTags); /* priority: comparators, features, reassurance */
+    const text = (k) => (k === 'snacks' ? 'Free snacks' : k === 'comfort' ? 'Comfort ' + one(b.sc.comfort) + '/10' : BADGE5[k] ? BADGE5[k] : k === 'womenT' ? (6 + (b.rank * 5) % 19) + ' women travelling' : k === 'womenR' ? 'Women rated highly' : label(k, b.sc));
+    /* columns: 3 per column (max 6) normally; in women mode every item shows, split evenly over the two columns */
+    const per = Math.max(3, Math.ceil(list.length / 2));
+    /* Previously booked (Figma 36754:32115): the card turns Fill/Success/primary and an 18-high strip of inverse caption
+       text sits above the untouched white content, which keeps its 16 radius over the green */
+    const prev = has(m, 'prev', b);
+    const card = (...kids) => h('div', { className: 'px-card p3-card p4-card p14-card' + (prev ? ' p4-card--prev' : ''), role: 'button', tabIndex: 0, onClick: () => go('seats') },
+      prev && h('p', { className: 'p4-prev' }, 'You booked this previously on ' + (b.rank === 3 ? '7th Jul' : '22nd Aug')),
+      ...(prev ? [h('div', { key: 'main', className: 'p4-main' }, ...kids)] : kids));
+    return card(
+      mTop(m, b),
+      h('div', { className: 'px-body' },
+        ...mPre(m, b),
+        h('div', { className: 'px-svc p4-svc' }, h('div', null, p4Time(m, b), p4Sub(m, b)), mPrice(m, b)),
+        h('div', { className: 'p3-op' },
+          h('div', { className: 'px-bo' },
+            h('div', { className: 'px-bo-l' },
+              mName(m, b),
+              h('p', { className: 'px-ty' }, b.ev && !m && h('img', { src: X + 'ic-ev.svg', alt: '' }), h('span', null, b.type))),
+            h('div', { className: 'px-rate' + (wr ? ' px-rate--w' : ''), 'aria-label': 'Rated ' + (wr || b.rating) + (wr ? ' by women' : '') }, h('b', null, wr ? IC.woman() : h(Star), one(wr || b.rating)), h('span', null, String(wr && b.wn != null ? b.wn : b.count))))),
+        /* two columns only in normal mode; in women mode the list is one column (the callout takes the second when the bus has women data) */
+        /* the pointer is its own row above both columns, right-aligned under the rating (Figma 37562:7128) */
+        (list.length > 0 || wcall) && h('div', { className: wcall ? 'p14-rtb' : undefined },
+          wcall && h('span', { className: 'p14-wc-arrow', 'aria-hidden': true }, h('svg', { viewBox: '0 0 15 7', width: 15, height: 7 }, h('path', { d: 'M6.36396 0.292893C6.75449 -0.097631 7.38765 -0.0976312 7.77817 0.292893L14.1421 6.65685H0L6.36396 0.292893Z', fill: 'currentColor' }))),
+          h('div', { className: 'p4-cols' },
+          ...(women ? [list] : [list.slice(0, per), list.slice(per, 2 * per)]).filter((c) => c.length).map((col, i) =>
+            h('ul', { key: i, className: 'p4-list' + (picon ? ' p14-icons' : '') + (women ? ' p14-onecol' : '') }, col.map((k) => h('li', { key: k }, picon ? (k === 'womenR' || k === 'womenT' ? IC.woman() : IC[k]()) : cstar ? h('img', { className: 'p3-ic p4-check', src: X + 'ic-reassure-check-blue.png', alt: '' }) : IC.check(), text(k))))),
+          wcall && h('div', { key: 'wc', className: 'p14-wc' },
+            h('div', { className: 'p14-wc-box' },
+              b.wr && h('p', null, IC.starsOutlined(), h('span', null, 'Women rated ' + one(b.wr))),
+              wN != null && h('p', null, IC.face4(), h('span', null, wN + ' women travelling')))))),
+        mPost(m, b)),
+      mFoot(m, b));
+  }
+  /* Option 13 (2026-10-19) · Option 12 with every tag as a Crystals medium tag, no icons, in priority order */
+  function Card13New({ b, go }) {
+    const t = ugcFilter(b.proposed, useUgc()), m = useMaster(), women = useWomen(), cstar = false /* no 3D icons in Options 12 to 14 */, lounge = useLounge(), picon = usePicon13(), wr = women && b.wr ? b.wr : null; /* women mode: the women rating from the bus details, when redbus.in has one */
+    const feats = t.filter((k) => FEATS.includes(k)).concat(b.extra.filter((k) => k !== 'lounge' || lounge));
+    /* women mode: no separate women rating (the card keeps the overall-rating graphic); "Highly rated by women" joins
+       "N women travelling" at the end of the reassurance list, each with a check */
+    const wTags = women ? ['womenT', 'womenR'].filter((k) => b.shown.includes(k)) : [];
+    const list = t.filter((k) => COMPS.includes(k)).concat(feats, t.filter((k) => REASSURE.includes(k)), wTags); /* persuasion priority: comparators, features, reassurance */
+    const text = (k) => (k === 'snacks' ? 'Free snacks' : k === 'comfort' ? 'Comfort ' + one(b.sc.comfort) + '/10' : BADGE5[k] ? BADGE5[k] : k === 'womenT' ? (6 + (b.rank * 5) % 19) + ' women travelling' : k === 'womenR' ? 'Highly rated by women' : label(k, b.sc));
+    /* columns: 3 per column (max 6) normally; in women mode every item shows, split evenly over the two columns */
+    
+    /* Previously booked (Figma 36754:32115): the card turns Fill/Success/primary and an 18-high strip of inverse caption
+       text sits above the untouched white content, which keeps its 16 radius over the green */
+    const prev = has(m, 'prev', b);
+    const card = (...kids) => h('div', { className: 'px-card p3-card p4-card p13-card' + (prev ? ' p4-card--prev' : ''), role: 'button', tabIndex: 0, onClick: () => go('seats') },
+      prev && h('p', { className: 'p4-prev' }, 'You booked this previously on ' + (b.rank === 3 ? '7th Jul' : '22nd Aug')),
+      ...(prev ? [h('div', { key: 'main', className: 'p4-main' }, ...kids)] : kids));
+    return card(
+      mTop(m, b),
+      h('div', { className: 'px-body' },
+        ...mPre(m, b),
+        h('div', { className: 'px-svc p4-svc' }, h('div', null, p4Time(m, b), p4Sub(m, b)), mPrice(m, b)),
+        h('div', { className: 'p3-op' },
+          h('div', { className: 'px-bo' },
+            h('div', { className: 'px-bo-l' },
+              mName(m, b),
+              h('p', { className: 'px-ty' }, b.ev && !m && h('img', { src: X + 'ic-ev.svg', alt: '' }), h('span', null, b.type))),
+            h('div', { className: 'px-rate' + (wr ? ' px-rate--w' : ''), 'aria-label': 'Rated ' + (wr || b.rating) + (wr ? ' by women' : '') }, h('b', null, wr ? IC.woman() : h(Star), one(wr || b.rating)), h('span', null, String(wr && b.wn != null ? b.wn : b.count))))),
+        /* every tag is a Crystals medium tag; icons come from the Persuasion icons switch */
+        list.length > 0 && h('div', { className: 'p13-tags' }, list.map((k) => Tag(Object.assign({ key: k, className: 'p13-tag' + (picon ? ' p13-tag--ic' : '') }, picon ? { icon: k === 'womenR' || k === 'womenT' ? IC.woman() : IC[k]() } : {}), text(k)))),
+        mPost(m, b)),
+      mFoot(m, b));
+  }
+  /* Option 12 / 13 SRP: header, bus count and the KSRTC card follow the chosen route */
+  const srpLive = (Card, Coach) => function SrpLive(p) {
+    const k = useRoute(), R = ROUTES[k];
+    return h(window.SRPFIG.SrpFig, Object.assign({}, p, { route: { dest: R.dest, total: R.total, rtc: R.rtc }, overlay: Coach,
+      list: ({ go }) => h('div', { className: 'px-list' }, LIVE[k].map((b) => h(Card, { key: k + b.rank, b, go }))) }));
+  }
+  const Srp12 = srpLive(Card12New, Coach12), Srp13 = srpLive(Card13New, Coach12), Srp14 = srpLive(Card14New, Coach14);
   /* lists by tag set: 'shown' (Current tabs) or 'proposed' (Proposed options) */
   const ProdList = (set) => ({ go }) => h('div', { className: 'sf-list', style: { marginTop: 2 } }, BUSES.map((b) => h(ProdCard, { key: b.rank, b, go, set })));
   const ExpList = (set) => ({ go }) => h('div', { className: 'px-list' }, BUSES.map((b) => h(ExpCard, { key: b.rank, b, go, set })));
@@ -546,15 +842,20 @@
   window.PTAGS.PROPOSED.add('srp', {
     sols: ['PT'],
     options: [
-      { key: 'A', label: 'Production design · proposed tags', render: srp(ProdList('proposed')) },
-      { key: 'B', label: 'Experiment design · proposed tags', render: srp(ExpList('proposed')) },
-      { key: 'C', label: 'Comparator tags · feature icon + text · reassurance list', render: srp(({ go }) => h('div', { className: 'px-list' }, BUSES.map((b) => h(Card3, { key: b.rank, b, go })))) },
-      { key: 'D', label: 'Feature badges · comparators + reassurance as one ✓ list', render: (p) => h(window.SRPFIG.SrpFig, Object.assign({}, p, { list: ({ go }) => h('div', { className: 'px-list' }, BUSES.map((b) => h(Card4, { key: b.rank, b, go }))), overlay: Coach4 })) },
-      { key: 'E', label: 'Figma “New approach” · price column + ✓ list', render: (p) => h(window.SRPFIG.SrpFig, Object.assign({}, p, { list: ({ go }) => h('div', { className: 'px-list' }, BUSES.map((b) => h(Card5, { key: b.rank, b, go }))), overlay: Coach5 })) },
-      { key: 'I', label: 'Working copy of Option 4', render: (p) => h(window.SRPFIG.SrpFig, Object.assign({}, p, { list: ({ go }) => h('div', { className: 'px-list' }, BUSES.map((b) => h(Card4Copy, { key: b.rank, b, go }))), overlay: Coach4 })) },
-      { key: 'F', label: 'From scratch · stat row', render: srp(({ go }) => h('div', { className: 'px-list' }, BUSES.map((b) => h(Card6, { key: b.rank, b, go })))) },
-      { key: 'G', label: 'From scratch · score panel', render: srp(({ go }) => h('div', { className: 'px-list' }, BUSES.map((b) => h(Card7, { key: b.rank, b, go })))) },
-      { key: 'H', label: 'From scratch · price rail', render: srp(({ go }) => h('div', { className: 'px-list' }, BUSES.map((b) => h(Card8, { key: b.rank, b, go })))) },
+      { key: 'A', archived: true, label: 'Production design · proposed tags', render: srp(ProdList('proposed')) },
+      { key: 'B', archived: true, label: 'Experiment design · proposed tags', render: srp(ExpList('proposed')) },
+      { key: 'C', archived: true, label: 'Comparator tags · feature icon + text · reassurance list', render: srp(({ go }) => h('div', { className: 'px-list' }, BUSES.map((b) => h(Card3, { key: b.rank, b, go })))) },
+      { key: 'D', archived: true, label: 'Feature badges · comparators + reassurance as one ✓ list', render: (p) => h(window.SRPFIG.SrpFig, Object.assign({}, p, { list: ({ go }) => h('div', { className: 'px-list' }, BUSES.map((b) => h(Card4, { key: b.rank, b, go }))), overlay: Coach4 })) },
+      { key: 'J', archived: true, label: 'Option 4 + snacks, personal TV, lounge · women mode keeps the overall rating', render: (p) => h(window.SRPFIG.SrpFig, Object.assign({}, p, { list: ({ go }) => h('div', { className: 'px-list' }, BUSES.map((b) => h(Card5New, { key: b.rank, b, go }))) })) },
+      { key: 'K', archived: true, label: 'Option 4 · comparators, features and reassurance as one ✓ list', render: (p) => h(window.SRPFIG.SrpFig, Object.assign({}, p, { list: ({ go }) => h('div', { className: 'px-list' }, BUSES.map((b) => h(Card6New, { key: b.rank, b, go }))), overlay: Coach4 })) },
+      { key: 'E', archived: true, label: 'Figma “New approach” · price column + ✓ list', render: (p) => h(window.SRPFIG.SrpFig, Object.assign({}, p, { list: ({ go }) => h('div', { className: 'px-list' }, BUSES.map((b) => h(Card5, { key: b.rank, b, go }))), overlay: Coach5 })) },
+      { key: 'I', archived: true, label: 'Working copy of Option 4', render: (p) => h(window.SRPFIG.SrpFig, Object.assign({}, p, { list: ({ go }) => h('div', { className: 'px-list' }, BUSES.map((b) => h(Card4Copy, { key: b.rank, b, go }))), overlay: Coach4 })) },
+      { key: 'F', archived: true, label: 'From scratch · stat row', render: srp(({ go }) => h('div', { className: 'px-list' }, BUSES.map((b) => h(Card6, { key: b.rank, b, go })))) },
+      { key: 'G', archived: true, label: 'From scratch · score panel', render: srp(({ go }) => h('div', { className: 'px-list' }, BUSES.map((b) => h(Card7, { key: b.rank, b, go })))) },
+      { key: 'H', archived: true, label: 'From scratch · price rail', render: srp(({ go }) => h('div', { className: 'px-list' }, BUSES.map((b) => h(Card8, { key: b.rank, b, go })))) },
+      { key: 'N', name: 'Experiment version', label: 'Option 12 · one list for all persuasions, optional IONS icons', render: (p) => h(Srp14, p) },
+      { key: 'M', archived: true, label: 'Option 12 · every persuasion as a Crystals medium tag, no icons', render: (p) => h(Srp13, p) },
+      { key: 'L', name: 'Future experiment', label: 'Option 5 · working copy, live data', render: (p) => h(Srp12, p) },
     ],
   });
 })();

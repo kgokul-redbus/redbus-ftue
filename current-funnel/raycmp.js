@@ -85,16 +85,11 @@
         h('p', { className: 'rcm-foot' }, 'Solves you write are saved in this browser only. To share them, send them over and they will be added to the shared list.')));
   }
 
-  /* Research = the UX research doc the problems come from, shown in the page with open / download links */
+  /* Research = the UX research doc the problems come from, shown full-page */
   const PDF = '../ray-compare/ux-research-insights.pdf';
   function Research() {
-    return h('div', { className: 'rcm-pdf' },
-      h('div', { className: 'rcm-pdf-bar' },
-        h('div', null, h('b', null, 'UX Research Insights'), h('span', null, 'Ray · Comparison feature concept test · 6 units')),
-        h('span', { className: 'rcm-sp' }),
-        h('a', { className: 'rcm-pill', href: PDF, target: '_blank', rel: 'noopener' }, 'Open in new tab'),
-        h('a', { className: 'rcm-pill rcm-pill--ink', href: PDF, download: 'UX Research Insights - Ray Comparison Feature.pdf' }, 'Download')),
-      h('iframe', { className: 'rcm-pdf-frame', src: PDF + '#view=FitH', title: 'UX Research Insights · Ray comparison feature' }));
+    /* just the PDF: the viewer's own toolbar and thumbnail pane are switched off through the URL */
+    return h('iframe', { className: 'rcm-pdf-frame', src: PDF + '#toolbar=0&navpanes=0&scrollbar=0&view=FitH', title: 'UX Research Insights · Ray comparison feature' });
   }
 
   window.RAYCMP = {
