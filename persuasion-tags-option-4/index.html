@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Persuasion tags · Option 4</title>
+<title>Persuasion tags · Proposed options</title>
 <base href="../current-funnel/">
 <link rel="stylesheet" href="../ds-bundle/styles.css">
 <link rel="stylesheet" href="fonts.css">
@@ -28,28 +28,26 @@
 <style>
   /* standalone page: no deck bar, so the shell takes the whole viewport */
   :root{--bar:0px}
-  /* only the proposed Option 4 is shown: no flow switch, page list or option tabs */
-  .rail .switch.flow,.rail h1,.rail ol,.col-h,.rail .note{display:none}
+  /* all proposed options are shown, with their option tabs and the Archive dropdown; no Current / Proposed switch or page list */
+  .rail .switch.flow,.rail h1,.rail ol,.rail .note{display:none}
   .rail{padding-top:20px}
-  /* the Lounge switch belongs to the new Option 5 only */
-  .pt-ugc--lounge,.pt-route{display:none}
 </style>
 </head>
 <body class="deck-sec--ptags"><!-- the deck scopes Option 4's top-section spacing to this class (ptags-exp.css) -->
 <div id="app"></div>
 <script>
 /* Defaults for this page. The Persuasion tags stores read localStorage when their script loads, so this runs first:
-   it keeps this page's switches in their own storage (prefix "opt4-page-v2:", bumped when the defaults change so everyone gets the new ones), so they never touch the deck's, and it
-   seeds the default state: Cleanliness & Staff, Women mode and 3D icons all off; only Primo, Deals, Ad and Previously booked on. */
+   it keeps this page's switches in their own storage (prefix "opt4-page-v3:", bumped when the defaults change so everyone gets the new ones), so they never touch the deck's, and it
+   seeds the default state: Cleanliness & Staff, Women mode and 3D icons off; only Primo, Deals, Ad and Previously booked on. */
 (function () {
-  var P = 'opt4-page-v2:', get = Storage.prototype.getItem, set = Storage.prototype.setItem, rem = Storage.prototype.removeItem;
+  var P = 'opt4-page-v3:', get = Storage.prototype.getItem, set = Storage.prototype.setItem, rem = Storage.prototype.removeItem;
   var mine = function (k) { return typeof k === 'string' && k.indexOf('ptags-') === 0; };
   Storage.prototype.getItem = function (k) { return get.call(this, this === localStorage && mine(k) ? P + k : k); };
   Storage.prototype.setItem = function (k, v) { return set.call(this, this === localStorage && mine(k) ? P + k : k, v); };
   Storage.prototype.removeItem = function (k) { return rem.call(this, this === localStorage && mine(k) ? P + k : k); };
-  var OFF = ['seatlock', 'lmb', 'nonstop', 'rtc', 'via', 'layover', 'book0', 'award', 'highlight', 'reward'];
+  var ALL = ['seatlock', 'lmb', 'nonstop', 'rtc', 'primo', 'deals', 'via', 'layover', 'book0', 'award', 'ad', 'highlight', 'reward', 'prev'], ON = ['ad', 'prev', 'primo', 'deals'];
   var DEFAULTS = { 'ptags-ugc': 'off', 'ptags-women-v2': 'off', 'ptags-cstar': 'off',
-    'ptags-master': JSON.stringify(OFF.reduce(function (o, k) { o[k] = false; return o; }, {})) };
+    'ptags-master': JSON.stringify(ALL.reduce(function (o, k) { o[k] = ON.indexOf(k) >= 0; return o; }, {})) };
   window.OPT4_RESET = function () { Object.keys(DEFAULTS).forEach(function (k) { set.call(localStorage, P + k, DEFAULTS[k]); }); };
   try { Object.keys(DEFAULTS).forEach(function (k) { if (get.call(localStorage, P + k) === null) set.call(localStorage, P + k, DEFAULTS[k]); }); } catch (e) {}
 })();

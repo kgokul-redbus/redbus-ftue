@@ -350,10 +350,9 @@
 .p14-wc-arrow{position:absolute;z-index:1;top:-5.66px;right:16px;width:14.14px;height:6.66px;line-height:0;color:#e9eaf7} /* 1px overlap onto the box so no hairline shows */
 .p14-wc-arrow svg{display:block;width:14.14px;height:6.66px}
 .p14-card .p4-cols{align-items:flex-start}
-.p14-wc{flex:0 0 148px;width:148px;min-width:0} /* stays 148 wide and right-aligned, also when the list on the left is empty */
+.p14-wc{flex:0 0 148px;width:148px;min-width:0;margin-left:auto} /* stays 148 wide and right-aligned, also when the list on the left is empty */
 .p14-wc-box{box-sizing:border-box;padding:4px;border-radius:8px;background:#e9eaf7;color:var(--text-secondary,rgba(29,29,29,.69))}
 .p14-wc-box p{margin:0;display:flex;align-items:center;justify-content:flex-start;gap:4px;font-size:12px;line-height:16px;font-weight:400;letter-spacing:.01px}
 .p14-wc-box .p3-ic{flex:none;width:16px;height:16px;color:#1d1d1d}
 .p14-card .p4-list.p14-onecol{flex:0 0 148px;width:148px}
-.p14-card .p4-cols{justify-content:flex-end}
 .p14-wc-box p span{flex:1;min-width:0;text-align:left} /* rows: icon first, text left-aligned */

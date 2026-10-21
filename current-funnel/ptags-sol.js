@@ -141,7 +141,7 @@
      tags the section 5 logic gives each bus. Cleanliness and Staff scores come from the simulation sheet; see ptags-data/. */
   const LIVE = Object.fromEntries(Object.entries(ROUTES).map(([key, R]) => [key, R.buses.map((r) => ({
     real: { primo: !!r.primo, deals: !!r.deals },
-    freeSnacks: !!r.freeSnacks, rank: r.rank, op: r.op, dep: r.dep, arr: r.arr, type: r.type, rating: r.rating, wr: r.wr, count: r.reviews, wn: r.wn, sc: r.sc, ev: r.ev, extra: r.extra,
+    freeSnacks: !!r.freeSnacks, wt: r.wt, rank: r.rank, op: r.op, dep: r.dep, arr: r.arr, type: r.type, rating: r.rating, wr: r.wr, count: r.reviews, wn: r.wn, sc: r.sc, ev: r.ev, extra: r.extra,
     proposed: ORDER.filter((k) => r.proposed.includes(k)), shown: r.women,
     dur: Math.floor(r.dur / 60) + 'h ' + (r.dur % 60) + 'm', price: '₹' + Math.round(r.fare).toLocaleString('en-IN'),
     seats: r.seats + ' Seats', single: '(' + r.single + ' Single)',
@@ -212,7 +212,7 @@
       h('ul', null, MASTER_EL.map(([k, l]) => h('li', { key: k },
         h('label', null, h('input', { type: 'checkbox', checked: !!m[k], onChange: (e) => MS.set(k, e.target.checked) }), h('span', null, l))))));
   }
-  function RailExtra(p) { return h(React.Fragment, null, h(RouteToggle, p), h(window.PTAGS_UGC.Toggle, p), h(WomenToggle, p), !['L', 'M', 'N'].includes(p.opt) && h(CstarToggle, p), h(LoungeToggle, p), p.mode === 'proposed' && p.opt === 'N' && h(PiconToggle, p), p.mode === 'proposed' && p.opt === 'M' && h(Picon13Toggle, p), h(MasterPanel, p)); }
+  function RailExtra(p) { return h(React.Fragment, null, h(RouteToggle, p), !['L', 'M', 'N'].includes(p.opt) && h(window.PTAGS_UGC.Toggle, p), h(WomenToggle, p), !['L', 'M', 'N'].includes(p.opt) && h(CstarToggle, p), h(LoungeToggle, p), p.mode === 'proposed' && p.opt === 'N' && h(PiconToggle, p), p.mode === 'proposed' && p.opt === 'M' && h(Picon13Toggle, p), h(MasterPanel, p)); }
   window.PTAGS_UGC.Rail = RailExtra;
 
   function ProdCard({ b, go, set: tags }) {
@@ -722,7 +722,7 @@
        "N women travelling" at the end of the reassurance list, each with a check */
     const wTags = women ? ['womenT', 'womenR'].filter((k) => b.shown.includes(k)) : [];
     const list = t.filter((k) => COMPS.includes(k)).concat(t.filter((k) => REASSURE.includes(k)), wTags);
-    const text = (k) => (k === 'snacks' ? 'Free snacks' : k === 'comfort' ? 'Comfort ' + one(b.sc.comfort) + '/10' : k === 'womenT' ? (6 + (b.rank * 5) % 19) + ' women travelling' : k === 'womenR' ? 'Women rated highly' : label(k, b.sc));
+    const text = (k) => (k === 'snacks' ? 'Free snacks' : k === 'comfort' ? 'Comfort ' + one(b.sc.comfort) + '/10' : k === 'womenT' ? (b.wt != null ? b.wt : 6 + (b.rank * 5) % 19) + ' women travelling' : k === 'womenR' ? 'Women rated highly' : label(k, b.sc));
     /* columns: 3 per column (max 6) normally; in women mode every item shows, split evenly over the two columns */
     const per = women ? Math.max(3, Math.ceil(list.length / 2)) : 3;
     /* Previously booked (Figma 36754:32115): the card turns Fill/Success/primary and an 18-high strip of inverse caption
@@ -757,9 +757,9 @@
        "N women travelling" at the end of the reassurance list, each with a check */
     const wTags = [];
     /* women callout (Figma SRP - Cleanup 37559:6151): Women rated {rating} and N women travelling, under the rating graphic */
-    const wN = women && b.shown.includes('womenT') ? 6 + (b.rank * 5) % 19 : null, wcall = women && (b.wr || wN != null);
+    const wN = women && b.shown.includes('womenT') ? (b.wt != null ? b.wt : 6 + (b.rank * 5) % 19) : null, wcall = women && (b.wr || wN != null);
     const list = t.filter((k) => COMPS.includes(k)).concat(feats, t.filter((k) => REASSURE.includes(k)), wTags); /* priority: comparators, features, reassurance */
-    const text = (k) => (k === 'snacks' ? 'Free snacks' : k === 'comfort' ? 'Comfort ' + one(b.sc.comfort) + '/10' : BADGE5[k] ? BADGE5[k] : k === 'womenT' ? (6 + (b.rank * 5) % 19) + ' women travelling' : k === 'womenR' ? 'Women rated highly' : label(k, b.sc));
+    const text = (k) => (k === 'snacks' ? 'Free snacks' : k === 'comfort' ? 'Comfort ' + one(b.sc.comfort) + '/10' : BADGE5[k] ? BADGE5[k] : k === 'womenT' ? (b.wt != null ? b.wt : 6 + (b.rank * 5) % 19) + ' women travelling' : k === 'womenR' ? 'Women rated highly' : label(k, b.sc));
     /* columns: 3 per column (max 6) normally; in women mode every item shows, split evenly over the two columns */
     const per = Math.max(3, Math.ceil(list.length / 2));
     /* Previously booked (Figma 36754:32115): the card turns Fill/Success/primary and an 18-high strip of inverse caption
@@ -801,7 +801,7 @@
        "N women travelling" at the end of the reassurance list, each with a check */
     const wTags = women ? ['womenT', 'womenR'].filter((k) => b.shown.includes(k)) : [];
     const list = t.filter((k) => COMPS.includes(k)).concat(feats, t.filter((k) => REASSURE.includes(k)), wTags); /* persuasion priority: comparators, features, reassurance */
-    const text = (k) => (k === 'snacks' ? 'Free snacks' : k === 'comfort' ? 'Comfort ' + one(b.sc.comfort) + '/10' : BADGE5[k] ? BADGE5[k] : k === 'womenT' ? (6 + (b.rank * 5) % 19) + ' women travelling' : k === 'womenR' ? 'Highly rated by women' : label(k, b.sc));
+    const text = (k) => (k === 'snacks' ? 'Free snacks' : k === 'comfort' ? 'Comfort ' + one(b.sc.comfort) + '/10' : BADGE5[k] ? BADGE5[k] : k === 'womenT' ? (b.wt != null ? b.wt : 6 + (b.rank * 5) % 19) + ' women travelling' : k === 'womenR' ? 'Highly rated by women' : label(k, b.sc));
     /* columns: 3 per column (max 6) normally; in women mode every item shows, split evenly over the two columns */
     
     /* Previously booked (Figma 36754:32115): the card turns Fill/Success/primary and an 18-high strip of inverse caption

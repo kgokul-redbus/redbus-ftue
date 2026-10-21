@@ -1,0 +1,173 @@
+Rank,Operator,Bus type,AC,Departs,Arrives,Duration,Rating,Women rating§,Reviews,Women reviews§,From (₹),Seats left,Comfort score,On Time %,Toilet,New bus,Snacks,Personal TV,Lounge†,Free date change,Highly rated by women‡,Women travelling (count)‡,Proposed tags (section 5 logic)
+1,SRI SAI TRAVELS,A/C Seater / Sleeper (2+1),AC,23:10,06:20,7h 10m,4.9,4.9,1426,68,699,19,9.2,,,Y,Y,,,,,7,Comfort score · New bus · Snacks
+2,SABARI TRAVELS,Bharat Benz A/C Sleeper (2+1),AC,23:40,06:00,6h 20m,4.8,4.9,1472,79,869,20,9.4,86,,,,,,,Y,4,Comfort score
+3,V Bus Holidays,Bharat Benz A/C Sleeper (2+1),AC,22:30,05:20,6h 50m,4.8,4.9,1437,167,841,7,9.7,83,Y,,,,,,,15,Comfort score · Toilet
+4,COZYBUS,Bharat Benz A/C Sleeper (2+1),AC,22:10,04:50,6h 40m,4.9,4.9,120,5,850,13,,,,Y,,,,,,7,New bus
+5,MMK Travels,Bharat Benz A/C Sleeper (2+1),AC,22:40,06:40,8h 0m,4.8,4.8,1309,96,840,10,9.2,,,Y,,,,,Y,7,Comfort score · New bus
+6,EASYRIDE SMART BUS,A/C Sleeper (2+1),AC,21:50,04:55,7h 5m,4.5,4.5,671,39,749,11,8.9,,Y,,,,,,,5,Toilet
+7,V Bus Holidays,Bharat Benz A/C Sleeper (2+1),AC,22:00,04:50,6h 50m,4.8,4.9,1250,105,779,6,9.7,,Y,Y,,,,,,9,Comfort score · Toilet · New bus
+8,SURYA TRANSPORTS,Bharat Benz A/C Sleeper (2+1),AC,22:30,05:20,6h 50m,4.8,4.9,92,13,759,20,,,,Y,,,,,,8,New bus
+9,Jai Sai Baba Travels,A/C Sleeper (2+1),AC,23:30,06:20,6h 50m,4.8,4.7,1199,121,800,23,9.5,88,,,,,,,Y,,Comfort score
+10,GREEN CHANNEL EXPRESS,A/C Sleeper (2+1),AC,22:05,05:45,7h 40m,4.8,4.7,1089,97,799,10,9.6,,,Y,Y,,,,Y,12,Comfort score · New bus · Snacks
+11,BSR Luxura,A/C Sleeper (2+1),AC,23:05,05:40,6h 35m,4.7,4.2,654,26,700,21,9.2,,,Y,,,,,Y,3,Comfort score · New bus
+12,zingbus plus,A/C Semi Sleeper / Sleeper (2+1),AC,21:55,04:50,6h 55m,4.5,4.5,1211,119,536,24,8.9,,Y,Y,,,,,,9,Toilet · New bus
+13,SST Limoliner,Bharat Benz A/C Sleeper (2+1),AC,22:30,04:45,6h 15m,4.8,4.6,984,63,998,15,9.4,,,,,,,,Y,10,Comfort score
+14,zingbus plus,A/C Semi Sleeper / Sleeper (2+1),AC,23:10,06:00,6h 50m,4.6,4.6,854,27,537,23,8.5,,Y,Y,,,,,,6,Toilet · New bus
+15,SST Limoliner,Bharat Benz A/C Sleeper (2+1),AC,23:00,05:45,6h 45m,4.8,4.7,930,70,1109,11,9.5,81,Y,,,,,,,12,Comfort score · Toilet
+16,ADITHIYA AIRBUS,Bharat Benz A/C Sleeper (2+1),AC,21:30,04:20,6h 50m,4.7,4.5,643,62,820,17,9.6,85,,,,,,,Y,7,Comfort score
+17,KMRL kalaimakal Road Lines,A/C Seater / Sleeper (2+1),AC,21:45,04:30,6h 45m,4.8,4.8,840,72,529,13,9.7,,Y,Y,,,,,,15,Comfort score · Toilet · New bus
+18,KMRL Kalaimakal(sk),A/C Seater / Sleeper (2+1),AC,22:00,04:45,6h 45m,4.8,4.5,771,75,500,20,9.4,,,,,,,,Y,7,Comfort score
+19,Jabbar  Travels,Volvo 9600 Multi-Axle A/C Sleeper (2+1),AC,23:15,05:45,6h 30m,4.7,4.6,1423,103,708,9,9.1,87,,Y,,,,,Y,10,New bus
+20,KMRL kalaimakal Road Lines,A/C Seater / Sleeper (3+1),AC,22:45,05:30,6h 45m,4.7,4.5,845,95,900,10,9.2,93,Y,,,,,,,9,Comfort score · Toilet
+21,SRI SIDDHAN TRAVELS,Bharat Benz A/C Sleeper (2+1),AC,22:15,04:50,6h 35m,4.7,4.7,621,54,942,16,9.2,,Y,Y,,,,,,8,Comfort score · Toilet · New bus
+22,FlixBus,A/C Sleeper (2+1),AC,22:50,05:50,7h 0m,4.6,4.7,1138,158,570,10,8.5,,,,,,,,Y,,
+23,FlixBus,A/C Seater / Sleeper (2+1),AC,21:45,04:55,7h 10m,4.6,4.7,977,57,542,7,8.8,80,,Y,,,,,,,New bus
+24,FlixBus,A/C Sleeper (2+1),AC,22:55,05:45,6h 50m,4.6,4.6,937,58,570,13,8.3,86,,,,,,,Y,,
+25,FlixBus,A/C Sleeper (2+1),AC,23:20,06:20,7h 0m,4.6,4.7,889,95,780,14,8.7,,,,,,,,Y,,
+26,V2K Travels,A/C Sleeper (2+1),AC,21:50,04:50,7h 0m,4.6,4.6,603,45,750,14,9.0,83,,,,,,,Y,9,
+27,KBS Luxury Bus,Volvo 9600 SLX Multi-Axle AC Sleeper (2+1),AC,17:30,01:00,7h 30m,4.3,4.7,421,21,649,22,9.0,90,,Y,,,,,Y,7,New bus
+28,KBS Luxury Bus,Volvo 9600 SLX Multi-Axle AC Sleeper (2+1),AC,18:00,01:30,7h 30m,4.2,,379,18,629,33,8.5,83,,,,,,,Y,3,
+29,NueGo,Electric A/C Seater/Sleeper (2+1),AC,23:30,06:55,7h 25m,4.1,3.8,675,56,389,21,,,,,,,,,Y,9,
+30,FlixBus,A/C Seater / Sleeper (2+1),AC,00:10,07:25,7h 15m,4.7,4.5,422,18,494,9,9.1,,,Y,,,,,,,New bus
+31,EASYRIDE SMART BUS,A/C Seater / Sleeper (2+1),AC,00:25,06:25,6h 0m,4.7,4.8,525,18,549,22,9.6,,Y,Y,,,,,,11,Comfort score · Toilet · New bus
+32,Shri Abinesh Roadways,Bharat Benz A/C Seater /Sleeper (2+1),AC,23:59,06:30,6h 31m,4.6,4.6,688,45,799,11,9.3,,Y,,,,,,,12,Comfort score · Toilet
+33,FlixBus,A/C Sleeper (2+1),AC,22:00,04:35,6h 35m,4.6,4.6,662,91,713,17,8.1,,,,,,,,Y,,
+34,zingbus plus,A/C Semi Sleeper / Sleeper (2+1),AC,23:55,06:30,6h 35m,4.3,,453,23,513,26,9.1,,Y,,,,,,Y,8,Toilet
+35,KBS Luxury Bus,A/C Seater / Sleeper (2+1),AC,00:30,06:15,5h 45m,4.2,3.5,634,18,555,27,8.4,,,,,,,,Y,7,
+36,FlixBus,A/C Sleeper (2+1),AC,23:45,06:40,6h 55m,4.6,4.7,550,31,780,13,9.1,,,Y,,,,,,,New bus
+37,FlixBus,A/C Seater / Sleeper (2+1),AC,22:10,05:05,6h 55m,4.5,4.2,1014,69,351,16,,83,,Y,,,,,Y,,New bus
+38,IntrCity SmartBus,A/C Seater / Sleeper (2+1),AC,23:00,06:30,7h 30m,4.5,4.6,901,76,329,16,8.0,,Y,,,,Y,,,8,Toilet · Lounge
+39,FRESHBUS,Electric A/C Seater/Sleeper (2+1),AC,22:55,05:45,6h 50m,4.5,4.4,867,51,489,20,8.6,,,,Free,,,,Y,8,Snacks
+40,FRESHBUS,Electric A/C Seater/Sleeper (2+1),AC,22:20,05:05,6h 45m,4.5,4.1,803,54,399,33,9.0,,,,Free,,,,Y,8,Snacks
+41,NueGo,Electric A/C Seater/Sleeper (2+1),AC,21:15,04:50,7h 35m,4.1,3.8,547,35,444,30,,,,,,,,,Y,4,
+42,FRESHBUS,Electric A/C Seater/Sleeper (2+1),AC,19:40,02:35,6h 55m,4.5,4.2,756,47,399,24,9.0,,,,Free,,,,Y,7,Snacks
+43,FlixBus,A/C Sleeper (2+1),AC,23:30,06:25,6h 55m,4.5,4.2,694,77,561,20,9.1,81,,,,,,,Y,,
+44,FlixBus,A/C Sleeper (2+1),AC,23:25,06:25,7h 0m,4.5,4.4,607,43,475,24,8.3,,,,,,,,Y,,
+45,Jayavin Travels,A/C Seater / Sleeper (2+1),AC,22:45,05:40,6h 55m,4.4,4.2,1174,57,449,28,8.8,,,,,,,,Y,10,
+46,ADITHIYA AIRBUS,Bharat Benz A/C Sleeper (2+1),AC,23:00,05:50,6h 50m,4.5,4.7,518,37,600,17,8.7,,,,,,,,Y,3,
+47,ANT KING,Volvo B11R Multi-Axle A/C Sleeper (2+1),AC,23:45,06:00,6h 15m,4.3,4.1,1051,65,970,20,8.2,,,,,,,,Y,7,
+48,FlixBus,Bharat Benz A/C Sleeper (2+1),AC,23:59,07:00,7h 1m,4.5,4.7,442,30,494,24,9.0,88,,,,,,,,,
+49,KMRL Kalaimakal,A/C Seater / Sleeper (2+1),AC,22:30,05:25,6h 55m,4.4,,457,20,540,25,8.8,,,,,,,,Y,6,
+50,FRESHBUS,Electric A/C Seater/Sleeper (2+1),AC,21:10,04:05,6h 55m,4.4,4.3,827,47,399,22,8.8,,,,Free,,,,Y,8,Snacks
+51,CAC Travels,A/C Sleeper (2+1),AC,01:30,07:40,6h 10m,5,,,0,900,23,,,,,,,,,,,
+52,MMK Travels,Bharat Benz A/C Sleeper (2+1),AC,23:10,06:14,7h 4m,4.5,4.6,387,11,910,10,,,,Y,,,,,,10,New bus
+53,FRESHBUS,Electric A/C Seater/Sleeper (2+1),AC,23:50,06:55,7h 5m,4.4,4.4,692,35,399,31,8.8,,,,Free,,,,Y,,Snacks
+54,FlixBus,A/C Sleeper (2+1),AC,22:30,05:25,6h 55m,4.4,4.5,595,64,542,14,8.6,,,,,,,,Y,,
+55,RKK Travels,Volvo 9600 SLX Multi-Axle AC Sleeper (2+1),AC,23:15,05:45,6h 30m,4.4,3.9,565,33,1295,23,9.2,,,,,,,,Y,7,Comfort score
+56,PRM Roadways,A/C Sleeper (2+1),AC,23:15,05:25,6h 10m,4.4,4.1,434,47,845,17,8.7,,,,,,,,Y,12,
+57,RKK Travels,Volvo Multi-Axle A/C Semi Sleeper (2+2),AC,16:15,22:45,6h 30m,4.4,3.9,425,18,595,29,,80,,,,,,,,,
+58,EASYRIDE SMART BUS,A/C Sleeper (2+1),AC,22:25,06:05,7h 40m,4.4,4.3,94,4,709,16,,,,,,,,,,6,
+59,FlixBus,A/C Seater / Sleeper (2+1),AC,21:50,05:35,7h 45m,4.3,4.6,646,24,494,13,9.3,,,Y,,,,,,,Comfort score · New bus
+60,IntrCity SmartBus,A/C Seater / Sleeper (2+1),AC,22:10,04:50,6h 40m,4.3,4.6,643,91,339,14,8.0,,Y,,,,Y,,,12,Toilet · Lounge
+61,IntrCity SmartBus,A/C Seater / Sleeper (2+1),AC,22:00,04:45,6h 45m,4.3,4.5,612,80,369,13,8.0,,Y,Y,,,Y,,,14,Toilet · New bus · Lounge
+62,ACLS Navigator,Bharat Benz A/C Sleeper (2+1),AC,23:50,05:50,6h 0m,4.3,4.2,588,33,799,6,8.4,,Y,,,,Y,,,13,Toilet · Lounge
+63,Sri Sugam Bus Tours and Travels,Electric A/C Seater/Sleeper (2+1),AC,20:30,04:25,7h 55m,4.5,4.4,184,8,449,3,,,,Y,,,,,,10,New bus
+64,SRBT Travels,A/C Sleeper (2+1),AC,23:15,05:50,6h 35m,4.3,3.7,299,12,700,15,9.1,,,Y,,,,,Y,8,New bus
+65,Apple Travels,A/C Seater / Sleeper (3+1),AC,22:15,06:20,8h 5m,4.1,4.2,753,21,550,20,8.0,,Y,Y,,,,,,10,Toilet · New bus
+66,FlixBus,A/C Sleeper (2+1),AC,23:00,05:55,6h 55m,4.3,4.1,506,26,428,22,8.0,,,,,,,,Y,,
+67,KBS Luxury Bus,Volvo 9600 Multi-Axle A/C Sleeper (2+1),AC,20:30,03:00,6h 30m,4.2,3.9,397,19,999,22,8.4,,,,,,,,Y,4,
+68,ADITHIYA AIRBUS,Bharat Benz A/C Sleeper (2+1),AC,22:45,05:35,6h 50m,4.3,,493,28,600,21,8.5,,,,,,,,Y,,
+69,FlixBus,A/C Sleeper (2+1),AC,22:25,05:25,7h 0m,4.3,4.4,484,27,428,22,,82,,,,,,,Y,,
+70,RKK Travels,Volvo 9600 SLX Multi-Axle AC Sleeper (2+1),AC,21:00,03:15,6h 15m,4.3,,429,26,995,25,8.9,,Y,,,,,,,5,Toilet
+71,GRS Travels,A/C Sleeper (2+1),AC,22:00,05:00,7h 0m,4.1,3.8,585,56,799,18,8.1,,,,,,,,Y,10,
+72,IntrCity SmartBus,A/C Seater / Sleeper (2+1),AC,23:40,06:00,6h 20m,4.2,4.2,769,40,309,28,,,Y,,,,Y,,,9,Toilet · Lounge
+73,FRESHBUS,Electric A/C Seater (2+2),AC,17:35,00:50,7h 15m,4.3,4.4,376,8,349,27,8.3,,,,Free,,,,,5,Snacks
+74,VKV Travels,A/C Sleeper (2+1),AC,23:10,05:56,6h 46m,4.5,4.2,840,60,890,9,8.9,,Y,,,,,,,14,Toilet
+75,FlixBus,A/C Seater / Sleeper (2+1),AC,23:05,06:00,6h 55m,4.4,4.3,658,22,304,19,8.7,,,Y,,,,,,,New bus
+76,FlixBus,A/C Seater / Sleeper (2+1),AC,23:45,06:40,6h 55m,4.3,4.6,339,15,294,27,,,,Y,,,,,,,New bus
+77,IntrCity SmartBus,A/C Seater / Sleeper (2+1),AC,23:50,06:40,6h 50m,4.2,4.2,609,50,279,36,8.0,90,Y,,,,Y,,,4,Toilet · Lounge
+78,VKV Travels,A/C Sleeper (2+1),AC,22:45,05:30,6h 45m,4.5,4.6,201,13,690,30,,,,,,,,,,,
+79,Jabbar  Travels,VE A/C Sleeper (2+1),AC,22:15,04:30,6h 15m,4.1,4.1,633,57,558,12,8.4,,,,,,,,Y,13,
+80,IntrCity SmartBus,A/C Seater / Sleeper (2+1),AC,22:50,05:05,6h 15m,4.1,4,616,35,319,21,,,Y,,,,Y,,,4,Toilet · Lounge
+81,IntrCity SmartBus,A/C Seater / Sleeper (2+1),AC,22:40,06:25,7h 45m,4.1,4.2,602,26,369,9,,,Y,Y,,,Y,,,23,Toilet · New bus · Lounge
+82,IntrCity SmartBus,A/C Seater / Sleeper (2+1),AC,22:30,06:35,8h 5m,4,,,0,309,23,,,,,,,Y,,,7,Lounge
+83,IntrCity SmartBus,A/C Seater / Sleeper (2+1),AC,23:50,06:05,6h 15m,4.1,4.4,571,48,319,19,,,Y,,,,Y,,,10,Toilet · Lounge
+84,Jabbar  Travels,VE Non A/C Sleeper (2+1),Non-AC,23:40,05:30,5h 50m,4.1,4.2,524,30,456,17,,,,,,,,,Y,4,
+85,FlixBus,A/C Seater / Sleeper (2+1),AC,23:40,06:30,6h 50m,4.1,4.2,405,13,294,27,8.7,,,Y,,,,,,,New bus
+86,FlixBus,A/C Sleeper (2+1),AC,22:45,05:50,7h 5m,4.2,3.5,211,13,428,25,,,,,,,,,,,
+87,SAARAL TRAVELS,Bharat Benz A/C Seater /Sleeper (2+1),AC,22:40,05:10,6h 30m,4.2,4.4,708,27,550,25,8.2,,,Y,,,,,Y,8,New bus
+88,FlixBus,A/C Seater / Sleeper (2+1),AC,00:15,07:10,6h 55m,4.1,4,360,20,266,36,8.5,,,Y,,,,,,,New bus
+89,IntrCity SmartBus,A/C Seater / Sleeper (2+1),AC,22:00,04:15,6h 15m,4,4.1,643,64,429,17,,,Y,,,,Y,,,8,Toilet · Lounge
+90,Mettur Super Services(mss),A/C Seater / Sleeper (2+1),AC,23:00,05:35,6h 35m,4,4,631,47,600,6,,,,,,,,,Y,,
+91,Jayavin Travels,A/C Seater / Sleeper (2+1),AC,23:15,06:35,7h 20m,4.1,,320,22,586,27,,,,,,,,,Y,9,
+92,FlixBus,A/C Sleeper (2+1),AC,22:10,05:05,6h 55m,4,3.8,536,59,428,18,8.1,,,,,,,,Y,,
+93,Sri Sai Road Lines (SSR),A/C Seater / Sleeper (2+1),AC,21:50,04:40,6h 50m,4,3.9,174,10,555,26,9.0,,,Y,,,,,,10,New bus
+94,Krish Travels,Bharat Benz A/C Seater /Sleeper (2+1),AC,23:15,05:15,6h 0m,3.9,3.1,929,84,349,19,,,Y,,,,,,,6,Toilet
+95,NueGo,Electric A/C Seater/Sleeper (2+1),AC,23:00,06:20,7h 20m,3.9,4.2,584,40,444,22,,,,,,,,,Y,4,
+96,GTS TRAVELS,A/C Sleeper (2+1),AC,22:45,05:30,6h 45m,3.9,4.1,462,23,750,18,8.2,,Y,,,,,,,4,Toilet
+97,KBS Luxury Bus,Volvo 9600 SLX Multi-Axle AC Sleeper (2+1),AC,16:15,22:30,6h 15m,3.9,3.7,452,32,649,10,,,,,,,,,Y,7,
+98,KBS Luxury Bus,Bharat Benz A/C Sleeper (2+1),AC,23:40,05:40,6h 0m,3.6,4.1,625,18,629,25,,,,,,,,,Y,4,
+99,KBS Luxury Bus,A/C Seater / Sleeper (2+1),AC,23:15,05:15,6h 0m,3.7,,510,36,555,32,8.3,,,,,,,,Y,7,
+100,S.L  Travels,A/C Sleeper (2+1),AC,22:20,06:00,7h 40m,4,4,434,49,891,7,8.1,,,Y,,,,,Y,7,New bus
+101,IntrCity SmartBus,A/C Seater / Sleeper (2+1),AC,23:25,06:45,7h 20m,3.9,4,747,34,279,25,8.1,,Y,Y,,,Y,,,9,Toilet · New bus · Lounge
+102,IntrCity SmartBus,A/C Seater / Sleeper (2+1),AC,23:45,06:40,6h 55m,3.9,,676,62,259,34,,,Y,,,,Y,,,,Toilet · Lounge
+103,GREEN CHANNEL EXPRESS,A/C Sleeper (2+1),AC,21:30,07:00,9h 30m,4.9,5,40,2,799,12,,,,,,,,,,12,
+104,UST Bus,A/C Sleeper (2+1),AC,23:10,05:15,6h 5m,3.8,3.5,512,49,836,6,,,,,,,,,Y,9,
+105,GreenLine Travels And  Holidays,VE Executive A/C Sleeper (1+1),AC,23:00,05:00,6h 0m,4.2,4.8,345,20,1499,15,8.6,,,,,,,,Y,4,
+106,IntrCity SmartBus,AC Sleeper (2+1),AC,23:25,06:30,7h 5m,3.9,4.2,558,65,469,28,,,,,,,Y,,Y,4,Lounge
+107,KBS Luxury Bus,Bharat Benz A/C Sleeper (2+1),AC,22:30,05:00,6h 30m,4.1,3.4,173,8,999,17,,,,Y,,,,,,7,New bus
+108,Krish Travels,A/C Seater / Sleeper (2+1),AC,22:45,05:45,7h 0m,3.8,4.2,941,107,349,16,8.2,,Y,,,,,,,13,Toilet
+109,IntrCity SmartBus,A/C Seater / Sleeper (2+1),AC,00:25,06:40,6h 15m,3.9,,478,40,299,27,,,Y,,,,Y,,,6,Toilet · Lounge
+110,Sri Sugam Bus Tours and Travels,Bharat Benz A/C Sleeper (2+1),AC,23:45,07:00,7h 15m,3.9,3.8,405,26,575,14,,,,,,,,,Y,,
+111,KBS Luxury Bus,Volvo 9600 SLX Multi-Axle AC Sleeper (2+1),AC,22:00,04:30,6h 30m,4.2,,96,2,699,23,,86,,,,,,,Y,5,
+112,FlixBus,Bharat Benz A/C Sleeper (2+1),AC,23:45,06:50,7h 5m,4.5,,71,5,494,28,,,,Y,,,,,,,New bus
+113,Bharathi Travels,A/C Sleeper (2+1),AC,01:15,07:30,6h 15m,3.9,,371,50,700,22,9.1,,,,,,,,Y,5,
+114,FlixBus,A/C Sleeper (2+1),AC,22:40,06:05,7h 25m,4,3.8,763,57,428,18,8.5,,,,,,,,Y,,
+115,Sri Sugam Bus Tours and Travels,Electric A/C Seater/Sleeper (2+1),AC,16:20,22:45,6h 25m,3.9,4.1,349,13,449,7,,,,Y,,,,,Y,8,New bus
+116,KBS Luxury Bus,Volvo 9600 SLX Multi-Axle AC Sleeper (2+1),AC,19:00,01:30,6h 30m,4.1,,115,5,649,31,,,,,,,,,,5,
+117,ACLS Navigator,Bharat Benz A/C Sleeper (2+1),AC,23:10,05:35,6h 25m,3.7,3.9,927,68,799,19,,,,,,,Y,,Y,3,Lounge
+118,Sri Sugam Bus Tours and Travels,Bharat Benz A/C Seater /Sleeper (2+1),AC,23:30,06:30,7h 0m,3.8,4.1,454,32,449,32,,,,,,,,,Y,10,
+119,Sri Sugam Bus Tours and Travels,Scania A/C Semi Sleeper (2+2),AC,16:50,23:20,6h 30m,4,3.9,446,18,499,9,,,,,,,,,Y,,
+120,SHARMA TRANSPORTS,A/C Sleeper (2+1),AC,22:55,06:10,7h 15m,3.8,3.1,271,12,550,19,,,,,,,,,,,
+121,National Travels NTA,Bharat Benz A/C Sleeper (2+1),AC,00:40,06:55,6h 15m,4.3,,67,2,695,20,,,,,,,,,,6,
+122,GEE PEE TRAVELS,VE A/C Sleeper (2+1),AC,23:45,05:50,6h 5m,3.8,4,471,23,450,22,,,,,,,,,Y,,
+123,Sri Sugam Bus Tours and Travels,A/C Sleeper (2+1),AC,00:20,06:10,5h 50m,3.6,3.8,273,11,552,17,,,,,,,,,Y,,
+124,NueGo,Electric A/C Semi Sleeper (2+2),AC,18:00,02:05,8h 5m,4,4.4,123,5,355,34,,,,,,,,,,,
+125,FlixBus,A/C Seater / Sleeper (2+1),AC,21:00,04:10,7h 10m,3.8,3.2,95,4,266,29,,,,,,,,,,,
+126,PNS Travels,A/C Sleeper (2+1),AC,00:40,07:25,6h 45m,3.7,3.9,121,3,540,19,,,,Y,,,,,,4,New bus
+127,FlixBus,A/C Seater / Sleeper (2+1),AC,21:50,04:50,7h 0m,3.8,3.9,83,3,238,35,,,,,,,,,,,
+128,IntrCity SmartBus,A/C Seater / Sleeper (2+1),AC,23:55,06:10,6h 15m,3.7,,867,39,269,36,,,Y,,,,Y,,Y,,Toilet · Lounge
+129,Sri Sugam Bus Tours and Travels,A/C Sleeper (2+1),AC,23:55,06:20,6h 25m,3.4,,286,27,879,9,,,,,,,,,Y,,
+130,Sri Sugam Bus Tours and Travels,VE A/C Semi Sleeper (2+2),AC,19:40,04:00,8h 20m,3.7,,263,14,475,16,,,,,,,,,Y,,
+131,FlixBus,A/C Seater / Sleeper (2+1),AC,22:35,07:15,8h 40m,3.8,3,81,3,304,23,,,,,,,,,,,
+132,SHARMA TRANSPORTS,NON A/C Sleeper (2+1),Non-AC,22:35,06:30,7h 55m,3.6,,347,17,450,14,,,,,,,,,,3,
+133,Sri Sugam Bus Tours and Travels,Bharat Benz A/C Sleeper (2+1),AC,23:50,07:45,7h 55m,3.6,3.2,330,11,575,21,,,,,,,,,Y,,
+134,FlixBus,A/C Seater / Sleeper (2+1),AC,21:40,04:55,7h 15m,3.4,3.4,119,6,238,35,,,,,,,,,,,
+135,KBS Luxury Bus,Scania AC Multi Axle Sleeper (2+1),AC,23:00,05:30,6h 30m,4.4,,37,2,699,32,,,,,,,,,,,
+136,Olive Travels Lines,A/C Sleeper (2+1),AC,19:30,02:25,6h 55m,3.3,,161,6,530,19,,,,,,,,,Y,,
+137,FlixBus,A/C Seater / Sleeper (2+1),AC,22:15,05:15,7h 0m,4,4.1,70,5,266,28,,,,,,,,,,,
+138,YBM Travels(BLM),A/C Sleeper (2+1),AC,23:59,07:15,7h 16m,3.8,,79,2,1850,4,,,,,,,,,,6,
+139,National Travels,NON A/C Sleeper (2+1),Non-AC,23:45,05:50,6h 5m,2.9,,342,20,444,30,,,,,,,,,Y,,
+140,FlixBus,A/C Seater / Sleeper (2+1),AC,22:20,07:00,8h 40m,3.2,3.8,94,7,304,22,,,,,,,,,,,
+141,KBS Luxury Bus,Bharat Benz A/C Sleeper (2+1),AC,23:55,05:15,5h 20m,3.8,,21,0,899,24,,,,,,,,,,5,
+142,National Travels NTA,Volvo Multi Axle A/C Sleeper I-Shift B11R (2+1),AC,16:20,22:35,6h 15m,3.9,3.5,36,1,524,13,,,,,,,,,,,
+143,FlixBus,A/C Seater / Sleeper (2+1),AC,21:45,05:40,7h 55m,2.8,2.8,92,9,266,29,,,,,,,,,,,
+144,SPS Luxury Travels,A/C Sleeper (2+1),AC,21:10,04:10,7h 0m,2.7,2.5,203,21,619,17,,,,,,,,,,11,
+145,Pranav Nandhan Roadlines,A/C Sleeper (2+1),AC,22:45,05:25,6h 40m,3.5,,7,0,630,22,,,,,,,,,,,
+146,KBS Luxury Bus,A/C Sleeper (2+1),AC,18:30,02:15,7h 45m,3.1,,37,2,649,24,,,,,,,,,,3,
+147,Shama Sardar Travels HPM,A/C Sleeper (2+1),AC,00:25,08:15,7h 50m,2.6,,10,1,749,13,,,,,,,,,,4,
+148,FlixBus,A/C Seater / Sleeper (2+1),AC,21:25,04:25,7h 0m,4.4,,16,0,266,32,,,,,,,,,,,
+149,Apples Express,Bharat Benz A/C Sleeper (2+1),AC,23:55,06:30,6h 35m,4.4,,,0,949,12,,,Y,,,,,,,6,Toilet
+150,SRS TRAVELS,A/C Sleeper (2+1),AC,23:45,05:00,5h 15m,2.7,,45,2,705,27,,,,Y,,,,,,,New bus
+151,Sea Bird Tourist,A/C Sleeper (2+1),AC,23:25,05:30,6h 5m,3,,10,0,550,27,,,,,,,,,,,
+152,Pranav Nandhan Roadlines,A/C Sleeper (2+1),AC,00:35,07:30,6h 55m,1.7,,4,0,650,25,,,,,,,,,,,
+153,YA2 CONNECT,Volvo Multi-Axle I-Shift A/C Sleeper (2+1),AC,00:25,06:30,6h 5m,3.4,,18,1,600,25,,,,,,,,,,,
+154,Safe Bus,A/C Seater / Sleeper (2+1),AC,23:30,05:50,6h 20m,2.9,,19,3,399,30,,,,,,,,,,3,
+155,KBS Luxury Bus,Scania Multi-Axle AC Semi Sleeper (2+2),AC,16:30,23:00,6h 30m,3.5,,6,1,499,36,,,,,,,,,,3,
+156,Ziel Mobility,A/C Seater / Sleeper (2+1),AC,23:00,05:05,6h 5m,2.7,3.7,122,8,499,32,,,Y,Y,,,,,,,Toilet · New bus
+157,SRI MS TOURS AND TRAVELS,Volvo Multi-Axle A/C Sleeper (2+1) ,AC,22:00,04:50,6h 50m,2.3,,10,1,4999,3,,,,,,,,,,,
+158,Sri Renu Travels,A/C Seater / Sleeper (2+1),AC,23:05,05:35,6h 30m,4.5,,,0,2299,1,,,,,,,,,,,
+159,RKK Travels,Volvo Multi-Axle A/C Sleeper (2+1) ,AC,23:55,05:45,5h 50m,4.3,,,0,895,26,,,,,,,,,,,
+160,Sri Sugam Bus Tours and Travels,VE A/C Semi Sleeper (2+2),AC,00:45,08:25,7h 40m,3.1,,7,1,369,30,,,,,,,,,,,
+161,Bharathi Travels,A/C Sleeper (2+1),AC,00:25,06:40,6h 15m,3.4,,,0,690,28,,,,,,,,,,,
+162,National Travels NTA,A/C Sleeper (2+1),AC,00:30,07:10,6h 40m,2.8,,,0,695,14,,,,,,,,,,,
+KSRTC Karnataka,KSRTC (Karnataka),AMBAARI UTSAV (AC SLEEPER),AC,23:30,05:30,6h 0m,,,,,1493,6,,,,,,,,,,,
+KSRTC Karnataka,KSRTC (Karnataka),AMBAARI DREAM CLASS (AC SLEEPER),AC,23:55,05:29,5h 34m,,,,,1253,2,,,,,,,,,,,
+KSRTC Karnataka,KSRTC (Karnataka),AIRAVAT CLUB CLASS,AC,22:30,05:00,6h 30m,,,,,952,12,,,,,,,,,,,
+KSRTC Karnataka,KSRTC (Karnataka),AIRAVAT CLUB CLASS,AC,23:45,06:00,6h 15m,,,,,969,20,,,,,,,,,,,
+KSRTC Karnataka,KSRTC (Karnataka),PALLAKKI (NON AC SLEEPER),Non-AC,22:00,04:45,6h 45m,,,,,765,1,,,,,,,,,,,
+KSRTC Karnataka,KSRTC (Karnataka),PALLAKKI (NON AC SLEEPER),Non-AC,22:50,05:29,6h 39m,,,,,763,6,,,,,,,,,,,
+KSRTC Karnataka,KSRTC (Karnataka),PALLAKKI (NON AC SLEEPER),Non-AC,22:53,05:45,6h 52m,,,,,765,3,,,,,,,,,,,
+KSRTC Karnataka,KSRTC (Karnataka),AC SLEEPER,Non-AC,22:12,05:05,6h 53m,,,,,1003,8,,,,,,,,,,,
+KSRTC Karnataka,KSRTC (Karnataka),NON AC SLEEPER,Non-AC,23:10,05:30,6h 20m,,,,,763,2,,,,,,,,,,,
+KSRTC Karnataka,KSRTC (Karnataka),AC SLEEPER,Non-AC,23:20,06:30,7h 10m,,,,,1002,13,,,,,,,,,,,
