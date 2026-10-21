@@ -51,7 +51,7 @@
       h('button', { className: 'pt-sw' + (on ? ' on' : ''), role: 'switch', 'aria-checked': on, 'aria-label': 'Lounge', onClick: () => LOUNGE.set(!on) }, h('i')));
   }
   /* Option 14: relevant IONS icons for every persuasion instead of the check */
-  const PICON = { on: (() => { try { return localStorage.getItem('ptags-picons') === 'on'; } catch (e) { return false; } })(), subs: new Set() };
+  const PICON = { on: (() => { try { return localStorage.getItem('ptags-picons') !== 'off'; } catch (e) { return true; } })(), subs: new Set() };
   PICON.set = (v) => { PICON.on = v; try { localStorage.setItem('ptags-picons', v ? 'on' : 'off'); } catch (e) {} PICON.subs.forEach((f) => f(v)); };
   const usePicon = () => { const [v, setV] = React.useState(PICON.on); React.useEffect(() => { PICON.subs.add(setV); return () => PICON.subs.delete(setV); }, []); return v; };
   function PiconToggle({ mode }) {
