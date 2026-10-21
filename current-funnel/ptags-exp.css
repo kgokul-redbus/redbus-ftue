@@ -360,7 +360,7 @@
 
 /* Future experiment 3 (Figma SRP - Cleanup 37582:7811, 2026-10-22)
    card: plain white (pink gradient removed 2026-10-22); shadows 0 4 8 and 0 2 4 at 8% black, radius 16
-   BO block → list: 8px (BO and RTBs gap); list text Text/secondary; feature tag DroidTag Size=Min with its #dbe0fa → white gradient
+   BO block → list: 8px (BO and RTBs gap); list text Text/secondary; feature tag DroidTag Size=Min in solid Fill/Info/tertiary
    women data: no box fill, no padding, no pointer; text right-aligned, icon at the right edge, 4px apart; list and women data on one top line */
 .p17-card{background:var(--fill-component-primary,#fff);box-shadow:0 4px 8px rgba(0,0,0,.08),0 2px 4px rgba(0,0,0,.08);border-radius:16px}
 .p17-card .px-body{background:transparent}
@@ -371,6 +371,6 @@
 .p17-card .p14-wc-box p{flex-direction:row-reverse;gap:2px;color:var(--text-woman,#c41685)} /* text and icon 2px apart, both Text/woman (#c41685) */
 .p17-card .p14-wc-box .p3-ic{color:var(--text-woman,#c41685)}
 .p17-card .p14-wc-box p span{text-align:right}
-.p17-card .c-tag.p4-badge{height:14px;min-height:14px;border-radius:4px;background:linear-gradient(90deg,#dbe0fa,#fff);color:#1d1d1d}
+.p17-card .c-tag.p4-badge{height:14px;min-height:14px;border-radius:4px;background:var(--fill-info-tertiary,#e4ecfd);color:#1d1d1d} /* solid Fill/Info/tertiary, like the other options' feature tags */
 /* feature badges without an icon: even 4px padding (the 2px left padding of the icon version is only for the icon) */
 .p4-card .c-tag.p4-badge.p4-badge--plain{padding:0 var(--spacing-xs,4px)}
