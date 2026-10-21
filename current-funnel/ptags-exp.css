@@ -356,3 +356,21 @@
 .p14-wc-box .p3-ic{flex:none;width:16px;height:16px;color:#1d1d1d}
 .p14-card .p4-list.p14-onecol{flex:0 0 148px;width:148px}
 .p14-wc-box p span{flex:1;min-width:0;text-align:left} /* rows: icon first, text left-aligned */
+.p15-card .p15-cols .p4-list{flex:1;min-width:0}
+
+/* Future experiment 3 (Figma SRP - Cleanup 37582:7811, 2026-10-22)
+   card: plain white (pink gradient removed 2026-10-22); shadows 0 4 8 and 0 2 4 at 8% black, radius 16
+   BO block → list: 8px (BO and RTBs gap); list text Text/secondary; feature tag DroidTag Size=Min with its #dbe0fa → white gradient
+   women data: no box fill, no padding, no pointer; text right-aligned, icon at the right edge, 4px apart; list and women data on one top line */
+.p17-card{background:var(--fill-component-primary,#fff);box-shadow:0 4px 8px rgba(0,0,0,.08),0 2px 4px rgba(0,0,0,.08);border-radius:16px}
+.p17-card .px-body{background:transparent}
+.p17-card .p3-op + .p14-rtb,.p17-card .p3-op + div{margin-top:-4px}
+.p17-card .p4-list li{color:rgba(29,29,29,.69)}
+.p17-card .p4-cols{align-items:flex-start} /* Figma 37582:7890: the list and the women data start on the same top line */
+.p17-card .p14-wc-box{padding:0;background:none;border-radius:8px}
+.p17-card .p14-wc-box p{flex-direction:row-reverse;gap:2px;color:var(--text-woman,#c41685)} /* text and icon 2px apart, both Text/woman (#c41685) */
+.p17-card .p14-wc-box .p3-ic{color:var(--text-woman,#c41685)}
+.p17-card .p14-wc-box p span{text-align:right}
+.p17-card .c-tag.p4-badge{height:14px;min-height:14px;border-radius:4px;background:linear-gradient(90deg,#dbe0fa,#fff);color:#1d1d1d}
+/* feature badges without an icon: even 4px padding (the 2px left padding of the icon version is only for the icon) */
+.p4-card .c-tag.p4-badge.p4-badge--plain{padding:0 var(--spacing-xs,4px)}
