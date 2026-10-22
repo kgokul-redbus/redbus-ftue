@@ -341,7 +341,7 @@
 
 /* Option 13 · one row of Crystals DroidTag, Size=Mid (Figma 36520:15283): 20 high, radius 6, 2 + 4 side padding, Inter Medium 12/16 in #1d1d1d on the info fill (#e9eaf7), no icons */
 .p13-tags{display:flex;flex-wrap:wrap;gap:6px 4px}
-.p13-card .c-tag.p13-tag{min-height:20px;height:20px;gap:0;padding:0 6px;border-radius:6px;font-size:12px;line-height:16px;font-weight:500;letter-spacing:.01px;color:#1d1d1d;background:#e9eaf7;white-space:nowrap}
+.p13-card .c-tag.p13-tag{min-height:20px;height:20px;gap:0;padding:0 6px;border-radius:6px;font-size:12px;line-height:16px;font-weight:500;letter-spacing:.01px;color:var(--text-secondary,rgba(29,29,29,.69));background:var(--fill-component-secondary,#f2f2f8);white-space:nowrap} /* Fill/Component/secondary */ /* Fill/Component/secondary, every tag in Option 13 */
 .p13-card .c-tag.p13-tag--ic{padding-left:4px;gap:2px}.p13-card .c-tag.p13-tag--ic .p3-ic{width:14px;height:14px;flex:none;color:#1d1d1d}
 
 /* Option 14 · women callout (Figma SRP - Cleanup 37562:7128): the pointer is a row above both columns, 16 in from the right edge, so the list and the
@@ -374,3 +374,13 @@
 .p17-card .c-tag.p4-badge{height:14px;min-height:14px;border-radius:4px;background:var(--fill-info-tertiary,#e4ecfd);color:#1d1d1d} /* solid Fill/Info/tertiary, like the other options' feature tags */
 /* feature badges without an icon: even 4px padding (the 2px left padding of the icon version is only for the icon) */
 .p4-card .c-tag.p4-badge.p4-badge--plain{padding:0 var(--spacing-xs,4px)}
+/* Experiment version 2: the women tags (Women favourite, N women travelling) in the women fill. Ions has Fill/Woman/primary, secondary, tertiary and emphasis, no "surface": tertiary is used */
+.p13-card .c-tag.p13-tag.p13-tag--w{background:var(--fill-woman-tertiary,#f7e7ec)}
+
+/* Experiment version: women persuasion lines in the list (pink icon). Icon/woman = #c41685 in Ions Light (Ions has no Icon/woman/primary) */
+.p14-card .p4-list li.p14-wl .p3-ic{color:var(--icon-woman,#c41685)}
+
+/* Future experiment: feature tags in Fill/Component/secondary (#f2f2f8), Text/secondary and Icon/secondary (both the ink at 69%); list icons per persuasion, women lines in pink (Icon/woman #c41685) */
+.p12-card:not(.p16-card) .c-tag.p4-badge{background:var(--fill-info-tertiary,#e4ecfd);color:var(--text-secondary,rgba(29,29,29,.69))} /* the info fill (Ions has no Fill/Info/surface): the project's Fill/Info/tertiary, #e4ecfd */
+.p12-card:not(.p16-card) .c-tag.p4-badge .p3-ic{color:var(--icon-secondary,rgba(29,29,29,.69))}
+.p12-card:not(.p16-card) .p4-list li.p12-wl .p3-ic{color:var(--icon-woman,#c41685)}

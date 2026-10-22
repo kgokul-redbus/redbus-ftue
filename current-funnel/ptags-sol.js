@@ -70,6 +70,26 @@
       h('p', null, 'With icons', h('small', null, 'Option 13 · an icon on every tag')),
       h('button', { className: 'pt-sw' + (on ? ' on' : ''), role: 'switch', 'aria-checked': on, 'aria-label': 'With icons', onClick: () => PICON13.set(!on) }, h('i')));
   }
+  /* Fully loaded tuple: a made-up first card carrying every persuasion at once (List, Tag cloud, Tag and list); a switch in the rail turns it on or off */
+  const FULLT = { on: (() => { try { return localStorage.getItem('ptags-fulltuple') !== 'off'; } catch (e) { return true; } })(), subs: new Set() };
+  FULLT.set = (v) => { FULLT.on = v; try { localStorage.setItem('ptags-fulltuple', v ? 'on' : 'off'); } catch (e) {} FULLT.subs.forEach((f) => f(v)); };
+  const useFull = () => { const [v, setV] = React.useState(FULLT.on); React.useEffect(() => { FULLT.subs.add(setV); return () => FULLT.subs.delete(setV); }, []); return v; };
+  function FullToggle({ mode }) {
+    const on = useFull();
+    return h('div', { className: 'pt-ugc pt-ugc--lounge' + (mode === 'proposed' ? '' : ' pt-ugc--off') },
+      h('p', null, 'Fully loaded tuple', h('small', null, 'List, Tag cloud, Tag and list · every persuasion on the first card')),
+      h('button', { className: 'pt-sw' + (on ? ' on' : ''), role: 'switch', 'aria-checked': on, 'aria-label': 'Fully loaded tuple', onClick: () => FULLT.set(!on) }, h('i')));
+  }
+  /* Median tuple: a made-up card with 5 persuasions (Comfort, On Time, In-bus toilet, Free date change, Women favourite) after the fully loaded one */
+  const MEDT = { on: (() => { try { return localStorage.getItem('ptags-mediantuple') !== 'off'; } catch (e) { return true; } })(), subs: new Set() };
+  MEDT.set = (v) => { MEDT.on = v; try { localStorage.setItem('ptags-mediantuple', v ? 'on' : 'off'); } catch (e) {} MEDT.subs.forEach((f) => f(v)); };
+  const useMedian = () => { const [v, setV] = React.useState(MEDT.on); React.useEffect(() => { MEDT.subs.add(setV); return () => MEDT.subs.delete(setV); }, []); return v; };
+  function MedianToggle({ mode }) {
+    const on = useMedian();
+    return h('div', { className: 'pt-ugc pt-ugc--lounge' + (mode === 'proposed' ? '' : ' pt-ugc--off') },
+      h('p', null, 'Median tuple', h('small', null, 'List, Tag cloud, Tag and list · 5 persuasions')),
+      h('button', { className: 'pt-sw' + (on ? ' on' : ''), role: 'switch', 'aria-checked': on, 'aria-label': 'Median tuple', onClick: () => MEDT.set(!on) }, h('i')));
+  }
   /* Route (Option 12): which live route the cards show */
   const ROUTES = (window.PTAGS_LIVE || {}).routes || {};
   const ROUTE = { key: (() => { try { const k = localStorage.getItem('ptags-route'); return ROUTES[k] ? k : 'chennai'; } catch (e) { return 'chennai'; } })(), subs: new Set() };
@@ -212,7 +232,7 @@
       h('ul', null, MASTER_EL.map(([k, l]) => h('li', { key: k },
         h('label', null, h('input', { type: 'checkbox', checked: !!m[k], onChange: (e) => MS.set(k, e.target.checked) }), h('span', null, l))))));
   }
-  function RailExtra(p) { return h(React.Fragment, null, h(RouteToggle, p), !['L', 'M', 'N', 'O', 'P', 'Q'].includes(p.opt) && h(window.PTAGS_UGC.Toggle, p), h(WomenToggle, p), !['L', 'M', 'N', 'O', 'P', 'Q'].includes(p.opt) && h(CstarToggle, p), h(LoungeToggle, p), p.mode === 'proposed' && p.opt === 'N' && h(PiconToggle, p), p.mode === 'proposed' && p.opt === 'M' && h(Picon13Toggle, p), h(MasterPanel, p)); }
+  function RailExtra(p) { return h(React.Fragment, null, h(RouteToggle, p), !['L', 'M', 'N', 'O', 'P', 'Q', 'R'].includes(p.opt) && h(window.PTAGS_UGC.Toggle, p), h(WomenToggle, p), ['L', 'M', 'N'].includes(p.opt) && p.mode === 'proposed' && h(FullToggle, p), ['L', 'M', 'N'].includes(p.opt) && p.mode === 'proposed' && h(MedianToggle, p), !['L', 'M', 'N', 'O', 'P', 'Q', 'R'].includes(p.opt) && h(CstarToggle, p), h(LoungeToggle, p), p.mode === 'proposed' && p.opt === 'R' && h(PiconToggle, p), p.mode === 'proposed' && p.opt === 'M' && h(Picon13Toggle, p), h(MasterPanel, p)); }
   window.PTAGS_UGC.Rail = RailExtra;
 
   function ProdCard({ b, go, set: tags }) {
@@ -357,7 +377,7 @@
   /* target: the rating graphic to spotlight; copy follows what that option's rating shows */
   const COACH_COPY = {
     p17: ['.p17-card .p14-wc-box', 'What women say about each bus', 'With Women mode on, you can see which buses women love and how many women are travelling on each.'],
-    p14: ['.p14-card .p14-wc-box', 'Women’s view of every bus', 'With Women mode on, this box shows the rating women gave the bus and how many women are travelling on it.'],
+    p14: ['.p14-card .p14-wl', 'Women’s view of every bus', 'With Women mode on, the lines with a pink icon show the rating women gave the bus and how many women are travelling on it.'],
     p4: ['.p4-card .p4-wr', 'See how women rated each bus', 'The pink "Women" score under each rating comes only from reviews by women travellers.'],
     p12: ['.px-card .px-rate--w', 'Ratings shown are from women', 'The women icon replaces the star: with Women mode on, the rating is the average given by women travellers.'],
     p5: ['.o5-card .p5-rate--w', 'Ratings shown are only from women', 'With Women mode on, each rating on this page comes only from reviews by women travellers.'],
@@ -377,7 +397,7 @@
         /* the first target that is fully on screen (the list may already be scrolled) */
         const vis = [...sf.querySelectorAll(sel)].filter((x) => { const q = x.getBoundingClientRect(); return q.top >= S.top + 80 && q.bottom <= S.bottom; });
         const r = vis.find((x) => x.childElementCount >= 2) || vis[0]; /* prefer a callout that shows both women lines */
-        if (!r) return;
+        if (!r) { const first = sf.querySelector(sel); if (first && !sf.dataset.coachScrolled) { sf.dataset.coachScrolled = '1'; first.scrollIntoView({ block: 'center' }); } return; } /* nothing on screen yet: bring the first one into view, the next tick places the coach */
         clearInterval(t);
         const R = r.getBoundingClientRect();
         setBox({ x: (R.left - S.left) / k, y: (R.top - S.top) / k, w: R.width / k, h: R.height / k, sw: sf.offsetWidth, sh: sf.offsetHeight });
@@ -422,7 +442,7 @@
        text sits above the untouched white content, which keeps its 16 radius over the green */
     const prev = has(m, 'prev', b);
     const card = (...kids) => h('div', { className: 'px-card p3-card p4-card' + (women ? ' p4-card--women' : '') + (prev ? ' p4-card--prev' : ''), role: 'button', tabIndex: 0, onClick: () => go('seats') },
-      prev && h('p', { className: 'p4-prev' }, 'You booked this previously on ' + (b.rank === 3 ? '7th Jul' : '22nd Aug')),
+      prev && h('p', { className: 'p4-prev' }, 'You booked this on ' + (b.rank === 3 ? '7th July' : '22nd August')),
       ...(prev ? [h('div', { key: 'main', className: 'p4-main' }, ...kids)] : kids));
     return card(
       mTop(m, b),
@@ -465,7 +485,7 @@
        text sits above the untouched white content, which keeps its 16 radius over the green */
     const prev = has(m, 'prev', b);
     const card = (...kids) => h('div', { className: 'px-card p3-card p4-card p6n-card' + (women ? ' p4-card--women' : '') + (prev ? ' p4-card--prev' : ''), role: 'button', tabIndex: 0, onClick: () => go('seats') },
-      prev && h('p', { className: 'p4-prev' }, 'You booked this previously on ' + (b.rank === 3 ? '7th Jul' : '22nd Aug')),
+      prev && h('p', { className: 'p4-prev' }, 'You booked this on ' + (b.rank === 3 ? '7th July' : '22nd August')),
       ...(prev ? [h('div', { key: 'main', className: 'p4-main' }, ...kids)] : kids));
     return card(
       mTop(m, b),
@@ -507,7 +527,7 @@
        text sits above the untouched white content, which keeps its 16 radius over the green */
     const prev = has(m, 'prev', b);
     const card = (...kids) => h('div', { className: 'px-card p3-card p4-card p5n-card' + (prev ? ' p4-card--prev' : ''), role: 'button', tabIndex: 0, onClick: () => go('seats') },
-      prev && h('p', { className: 'p4-prev' }, 'You booked this previously on ' + (b.rank === 3 ? '7th Jul' : '22nd Aug')),
+      prev && h('p', { className: 'p4-prev' }, 'You booked this on ' + (b.rank === 3 ? '7th July' : '22nd August')),
       ...(prev ? [h('div', { key: 'main', className: 'p4-main' }, ...kids)] : kids));
     return card(
       mTop(m, b),
@@ -543,7 +563,7 @@
        text sits above the untouched white content, which keeps its 16 radius over the green */
     const prev = has(m, 'prev', b);
     const card = (...kids) => h('div', { className: 'px-card p3-card p4-card p6-card' + (women ? ' p4-card--women' : '') + (prev ? ' p4-card--prev' : ''), role: 'button', tabIndex: 0, onClick: () => go('seats') },
-      prev && h('p', { className: 'p4-prev' }, 'You booked this previously on ' + (b.rank === 3 ? '7th Jul' : '22nd Aug')),
+      prev && h('p', { className: 'p4-prev' }, 'You booked this on ' + (b.rank === 3 ? '7th July' : '22nd August')),
       ...(prev ? [h('div', { key: 'main', className: 'p4-main' }, ...kids)] : kids));
     return card(
       mTop(m, b),
@@ -725,14 +745,14 @@
        "N women travelling" at the end of the reassurance list, each with a check */
     const wTags = women ? ['womenT', 'womenR'].filter((k) => b.shown.includes(k)) : [];
     const list = t.filter((k) => COMPS.includes(k)).concat(t.filter((k) => REASSURE.includes(k)), wTags);
-    const text = (k) => (k === 'snacks' ? 'Free snacks' : k === 'comfort' ? 'Comfort ' + one(b.sc.comfort) + '/10' : k === 'womenT' ? (b.wt != null ? b.wt : 6 + (b.rank * 5) % 19) + ' women travelling' : k === 'womenR' ? 'Women rated highly' : label(k, b.sc));
+    const text = (k) => (k === 'snacks' ? 'Free meals' : k === 'comfort' ? 'Comfort ' + one(b.sc.comfort) + '/10' : k === 'womenT' ? (b.wt != null ? b.wt : 6 + (b.rank * 5) % 19) + ' women travelling' : k === 'womenR' ? 'Women favourite' : label(k, b.sc));
     /* columns: 3 per column (max 6) normally; in women mode every item shows, split evenly over the two columns */
     const per = women ? Math.max(3, Math.ceil(list.length / 2)) : 3;
     /* Previously booked (Figma 36754:32115): the card turns Fill/Success/primary and an 18-high strip of inverse caption
        text sits above the untouched white content, which keeps its 16 radius over the green */
     const prev = has(m, 'prev', b);
     const card = (...kids) => h('div', { className: 'px-card p3-card p4-card p12-card' + (prev ? ' p4-card--prev' : ''), role: 'button', tabIndex: 0, onClick: () => go('seats') },
-      prev && h('p', { className: 'p4-prev' }, 'You booked this previously on ' + (b.rank === 3 ? '7th Jul' : '22nd Aug')),
+      prev && h('p', { className: 'p4-prev' }, 'You booked this on ' + (b.rank === 3 ? '7th July' : '22nd August')),
       ...(prev ? [h('div', { key: 'main', className: 'p4-main' }, ...kids)] : kids));
     return card(
       mTop(m, b),
@@ -745,10 +765,10 @@
               mName(m, b),
               h('p', { className: 'px-ty' }, b.ev && !m && h('img', { src: X + 'ic-ev.svg', alt: '' }), h('span', null, b.type))),
             h('div', { className: 'px-rate' + (wr ? ' px-rate--w' : ''), 'aria-label': 'Rated ' + (wr || b.rating) + (wr ? ' by women' : '') }, h('b', null, wr ? IC.woman() : h(Star), one(wr || b.rating)), h('span', null, String(wr && b.wn != null ? b.wn : b.count)))),
-          feats.length > 0 && h('div', { className: 'p4-badges' }, feats.map((k) => Tag({ key: k, className: 'p4-badge', icon: IC[k]() }, (k === 'snacks' ? 'Free snacks' : BADGE5[k]))))),
+          feats.length > 0 && h('div', { className: 'p4-badges' }, feats.map((k) => Tag({ key: k, className: 'p4-badge', icon: IC[k]() }, (k === 'snacks' ? 'Free meals' : BADGE5[k]))))),
         /* two columns, filled column by column */
         list.length > 0 && h('div', { className: 'p4-cols' }, [list.slice(0, per), list.slice(per, 2 * per)].filter((c) => c.length).map((col, i) =>
-          h('ul', { key: i, className: 'p4-list' }, col.map((k) => h('li', { key: k }, cstar ? h('img', { className: 'p3-ic p4-check', src: X + 'ic-reassure-check-blue.png', alt: '' }) : IC.check(), text(k)))))),
+          h('ul', { key: i, className: 'p4-list' }, col.map((k) => h('li', { key: k, className: k === 'womenT' || k === 'womenR' ? 'p12-wl' : undefined }, k === 'womenT' ? IC.face4() : k === 'womenR' ? IC.heart() : IC.check(), text(k)))))),
         mPost(m, b)),
       mFoot(m, b));
   }
@@ -768,7 +788,7 @@
        text sits above the untouched white content, which keeps its 16 radius over the green */
     const prev = has(m, 'prev', b);
     const card = (...kids) => h('div', { className: 'px-card p3-card p4-card p12-card p16-card p14-card' + (prev ? ' p4-card--prev' : ''), role: 'button', tabIndex: 0, onClick: () => go('seats') },
-      prev && h('p', { className: 'p4-prev' }, 'You booked this previously on ' + (b.rank === 3 ? '7th Jul' : '22nd Aug')),
+      prev && h('p', { className: 'p4-prev' }, 'You booked this on ' + (b.rank === 3 ? '7th July' : '22nd August')),
       ...(prev ? [h('div', { key: 'main', className: 'p4-main' }, ...kids)] : kids));
     return card(
       mTop(m, b),
@@ -811,7 +831,7 @@
        text sits above the untouched white content, which keeps its 16 radius over the green */
     const prev = has(m, 'prev', b);
     const card = (...kids) => h('div', { className: 'px-card p3-card p4-card p12-card p16-card p14-card p17-card' + (prev ? ' p4-card--prev' : ''), role: 'button', tabIndex: 0, onClick: () => go('seats') },
-      prev && h('p', { className: 'p4-prev' }, 'You booked this previously on ' + (b.rank === 3 ? '7th Jul' : '22nd Aug')),
+      prev && h('p', { className: 'p4-prev' }, 'You booked this on ' + (b.rank === 3 ? '7th July' : '22nd August')),
       ...(prev ? [h('div', { key: 'main', className: 'p4-main' }, ...kids)] : kids));
     return card(
       mTop(m, b),
@@ -850,7 +870,7 @@
        text sits above the untouched white content, which keeps its 16 radius over the green */
     const prev = has(m, 'prev', b);
     const card = (...kids) => h('div', { className: 'px-card p3-card p4-card p12-card p15-card' + (prev ? ' p4-card--prev' : ''), role: 'button', tabIndex: 0, onClick: () => go('seats') },
-      prev && h('p', { className: 'p4-prev' }, 'You booked this previously on ' + (b.rank === 3 ? '7th Jul' : '22nd Aug')),
+      prev && h('p', { className: 'p4-prev' }, 'You booked this on ' + (b.rank === 3 ? '7th July' : '22nd August')),
       ...(prev ? [h('div', { key: 'main', className: 'p4-main' }, ...kids)] : kids));
     return card(
       mTop(m, b),
@@ -877,6 +897,41 @@
     const feats = t.filter((k) => FEATS.includes(k)).concat(b.extra.filter((k) => k !== 'lounge' || lounge));
     /* women mode: no separate women rating (the card keeps the overall-rating graphic); "Highly rated by women" joins
        "N women travelling" at the end of the reassurance list, each with a check */
+    const wN = women && b.shown.includes('womenT') ? (b.wt != null ? b.wt : 6 + (b.rank * 5) % 19) : null, wcall = false;
+    /* women persuasions are list lines too, with a pink icon: Women rated {rating}, N women travelling */
+    const wTags = (women && b.wr ? ['wRated'] : []).concat(wN != null ? ['wTrav'] : []);
+    const list = t.filter((k) => COMPS.includes(k)).concat(feats, t.filter((k) => REASSURE.includes(k)), wTags).slice(0, 8); /* priority: comparators, features, reassurance, women; two columns, 3 each, 4 each only when a card carries all 8 */
+    const text = (k) => (k === 'wRated' ? 'Women rated ' + one(b.wr) : k === 'wTrav' ? wN + ' women travelling' : k === 'snacks' ? 'Free meals' : k === 'comfort' ? 'Comfort ' + one(b.sc.comfort) + '/10' : BADGE5[k] ? BADGE5[k] : k === 'womenT' ? (b.wt != null ? b.wt : 6 + (b.rank * 5) % 19) + ' women travelling' : k === 'womenR' ? 'Women rated highly' : label(k, b.sc));
+    const per = list.length > 6 ? 4 : 3;
+    /* Previously booked (Figma 36754:32115): the card turns Fill/Success/primary and an 18-high strip of inverse caption
+       text sits above the untouched white content, which keeps its 16 radius over the green */
+    const prev = has(m, 'prev', b);
+    const card = (...kids) => h('div', { className: 'px-card p3-card p4-card p14-card' + (prev ? ' p4-card--prev' : ''), role: 'button', tabIndex: 0, onClick: () => go('seats') },
+      prev && h('p', { className: 'p4-prev' }, 'You booked this on ' + (b.rank === 3 ? '7th July' : '22nd August')),
+      ...(prev ? [h('div', { key: 'main', className: 'p4-main' }, ...kids)] : kids));
+    return card(
+      mTop(m, b),
+      h('div', { className: 'px-body' },
+        ...mPre(m, b),
+        h('div', { className: 'px-svc p4-svc' }, h('div', null, p4Time(m, b), p4Sub(m, b)), mPrice(m, b)),
+        h('div', { className: 'p3-op' },
+          h('div', { className: 'px-bo' },
+            h('div', { className: 'px-bo-l' },
+              mName(m, b),
+              h('p', { className: 'px-ty' }, b.ev && !m && h('img', { src: X + 'ic-ev.svg', alt: '' }), h('span', null, b.type))),
+            h('div', { className: 'px-rate' + (wr ? ' px-rate--w' : ''), 'aria-label': 'Rated ' + (wr || b.rating) + (wr ? ' by women' : '') }, h('b', null, wr ? IC.woman() : h(Star), one(wr || b.rating)), h('span', null, String(wr && b.wn != null ? b.wn : b.count))))),
+        /* all persuasions share one list treatment: an icon on every line, two columns, at most 3 per column; the women lines carry the pink Icon/woman */
+        list.length > 0 && h('div', { className: 'p4-cols' }, [list.slice(0, per), list.slice(per, 2 * per)].filter((c) => c.length).map((col, i) =>
+          h('ul', { key: i, className: 'p4-list' }, col.map((k) => h('li', { key: k, className: k === 'wRated' || k === 'wTrav' ? 'p14-wl' : undefined }, k === 'wRated' ? IC.starsOutlined() : k === 'wTrav' ? IC.face4() : IC[k](), text(k)))))),
+        mPost(m, b)),
+      mFoot(m, b));
+  }
+  /* Option 15 (2026-10-22) · an independent copy of Experiment version, archived */
+  function Card18New({ b, go }) {
+    const t = ugcFilter(b.proposed, useUgc()), m = useMaster(), women = useWomen(), cstar = false /* no 3D icons in Options 12 to 14 */, lounge = useLounge(), picon = usePicon(), wr = null; /* Option 14 always shows the overall rating; the women rating sits in the women callout */
+    const feats = t.filter((k) => FEATS.includes(k)).concat(b.extra.filter((k) => k !== 'lounge' || lounge));
+    /* women mode: no separate women rating (the card keeps the overall-rating graphic); "Highly rated by women" joins
+       "N women travelling" at the end of the reassurance list, each with a check */
     const wTags = [];
     /* women callout (Figma SRP - Cleanup 37559:6151): Women rated {rating} and N women travelling, under the rating graphic */
     const wN = women && b.shown.includes('womenT') ? (b.wt != null ? b.wt : 6 + (b.rank * 5) % 19) : null, wcall = women && (b.wr || wN != null);
@@ -887,8 +942,8 @@
     /* Previously booked (Figma 36754:32115): the card turns Fill/Success/primary and an 18-high strip of inverse caption
        text sits above the untouched white content, which keeps its 16 radius over the green */
     const prev = has(m, 'prev', b);
-    const card = (...kids) => h('div', { className: 'px-card p3-card p4-card p14-card' + (prev ? ' p4-card--prev' : ''), role: 'button', tabIndex: 0, onClick: () => go('seats') },
-      prev && h('p', { className: 'p4-prev' }, 'You booked this previously on ' + (b.rank === 3 ? '7th Jul' : '22nd Aug')),
+    const card = (...kids) => h('div', { className: 'px-card p3-card p4-card p14-card p18-card' + (prev ? ' p4-card--prev' : ''), role: 'button', tabIndex: 0, onClick: () => go('seats') },
+      prev && h('p', { className: 'p4-prev' }, 'You booked this on ' + (b.rank === 3 ? '7th July' : '22nd August')),
       ...(prev ? [h('div', { key: 'main', className: 'p4-main' }, ...kids)] : kids));
     return card(
       mTop(m, b),
@@ -923,14 +978,14 @@
        "N women travelling" at the end of the reassurance list, each with a check */
     const wTags = women ? ['womenT', 'womenR'].filter((k) => b.shown.includes(k)) : [];
     const list = t.filter((k) => COMPS.includes(k)).concat(feats, t.filter((k) => REASSURE.includes(k)), wTags); /* persuasion priority: comparators, features, reassurance */
-    const text = (k) => (k === 'snacks' ? 'Free snacks' : k === 'comfort' ? 'Comfort ' + one(b.sc.comfort) + '/10' : BADGE5[k] ? BADGE5[k] : k === 'womenT' ? (b.wt != null ? b.wt : 6 + (b.rank * 5) % 19) + ' women travelling' : k === 'womenR' ? 'Highly rated by women' : label(k, b.sc));
+    const text = (k) => (k === 'snacks' ? 'Free meals' : k === 'comfort' ? 'Comfort ' + one(b.sc.comfort) + '/10' : BADGE5[k] ? BADGE5[k] : k === 'womenT' ? (b.wt != null ? b.wt : 6 + (b.rank * 5) % 19) + ' women travelling' : k === 'womenR' ? 'Women favourite' : label(k, b.sc));
     /* columns: 3 per column (max 6) normally; in women mode every item shows, split evenly over the two columns */
     
     /* Previously booked (Figma 36754:32115): the card turns Fill/Success/primary and an 18-high strip of inverse caption
        text sits above the untouched white content, which keeps its 16 radius over the green */
     const prev = has(m, 'prev', b);
     const card = (...kids) => h('div', { className: 'px-card p3-card p4-card p13-card' + (prev ? ' p4-card--prev' : ''), role: 'button', tabIndex: 0, onClick: () => go('seats') },
-      prev && h('p', { className: 'p4-prev' }, 'You booked this previously on ' + (b.rank === 3 ? '7th Jul' : '22nd Aug')),
+      prev && h('p', { className: 'p4-prev' }, 'You booked this on ' + (b.rank === 3 ? '7th July' : '22nd August')),
       ...(prev ? [h('div', { key: 'main', className: 'p4-main' }, ...kids)] : kids));
     return card(
       mTop(m, b),
@@ -944,17 +999,23 @@
               h('p', { className: 'px-ty' }, b.ev && !m && h('img', { src: X + 'ic-ev.svg', alt: '' }), h('span', null, b.type))),
             h('div', { className: 'px-rate' + (wr ? ' px-rate--w' : ''), 'aria-label': 'Rated ' + (wr || b.rating) + (wr ? ' by women' : '') }, h('b', null, wr ? IC.woman() : h(Star), one(wr || b.rating)), h('span', null, String(wr && b.wn != null ? b.wn : b.count))))),
         /* every tag is a Crystals medium tag; icons come from the Persuasion icons switch */
-        list.length > 0 && h('div', { className: 'p13-tags' }, list.map((k) => Tag(Object.assign({ key: k, className: 'p13-tag' + (picon ? ' p13-tag--ic' : '') }, picon ? { icon: k === 'womenR' || k === 'womenT' ? IC.woman() : IC[k]() } : {}), text(k)))),
+        list.length > 0 && h('div', { className: 'p13-tags' }, list.map((k) => Tag(Object.assign({ key: k, className: 'p13-tag' + (picon ? ' p13-tag--ic' : '') + (k === 'womenR' || k === 'womenT' ? ' p13-tag--w' : '') }, picon ? { icon: k === 'womenR' ? IC.heart() : k === 'womenT' ? IC.face4() : IC[k]() } : {}), text(k)))),
         mPost(m, b)),
       mFoot(m, b));
   }
   /* Option 12 / 13 SRP: header, bus count and the KSRTC card follow the chosen route */
-  const srpLive = (Card, Coach) => function SrpLive(p) {
-    const k = useRoute(), R = ROUTES[k];
+  /* the fully loaded tuple: Comfort, On Time, New bus, In-bus toilet, Free meals, Free date change, Highly rated by women, N women travelling */
+  const FULL_BUS = { rank: 0, op: 'FULLY LOADED TRAVELS', dep: '22:00', arr: '06:00', type: 'Bharat Benz A/C Sleeper (2+1)', rating: 4.8, wr: 4.8, count: 1234, wn: 321, wt: 12, ev: false, extra: ['snacks'], freeSnacks: true,
+    sc: { comfort: 9.5, onTime: 92 }, proposed: ['comfort', 'onTime', 'toilet', 'new', 'fdc'], shown: ['womenT', 'womenR'], dur: '8h 0m', price: '₹1,299', seats: '20 Seats', single: '(6 Single)', real: { primo: false, deals: false } };
+  const MEDIAN_BUS = { rank: -1, op: 'MEDIAN TRAVELS', dep: '21:30', arr: '05:30', type: 'A/C Sleeper (2+1)', rating: 4.5, wr: 4.7, count: 640, wn: 96, ev: false, extra: [], freeSnacks: false,
+    sc: { comfort: 9.0, onTime: 88 }, proposed: ['comfort', 'onTime', 'toilet', 'fdc'], shown: ['womenR'], dur: '8h 0m', price: '₹999', seats: '24 Seats', single: '(8 Single)', real: { primo: false, deals: false } };
+  const srpLive = (Card, Coach, withFull) => function SrpLive(p) {
+    const k = useRoute(), R = ROUTES[k], full = useFull() && withFull, median = useMedian() && withFull;
     return h(window.SRPFIG.SrpFig, Object.assign({}, p, { route: { dest: R.dest, total: R.total, rtc: R.rtc }, overlay: Coach,
-      list: ({ go }) => h('div', { className: 'px-list' }, LIVE[k].map((b) => h(Card, { key: k + b.rank, b, go }))) }));
+      list: ({ go }) => h('div', { className: 'px-list' }, (full ? [FULL_BUS] : []).concat(median ? [MEDIAN_BUS] : [], LIVE[k]).map((b) => h(Card, { key: k + b.rank, b, go }))) }));
   }
-  const Srp12 = srpLive(Card12New, Coach12), Srp13 = srpLive(Card13New, Coach12), Srp14 = srpLive(Card14New, Coach14), Srp15 = srpLive(Card15New, Coach12), Srp16 = srpLive(Card16New, Coach14), Srp17 = srpLive(Card17New, Coach17);
+  /* List (Srp14), Tag cloud (Srp13) and Tag and list (Srp12) have no women mode coach mark */
+  const Srp12 = srpLive(Card12New, null, true), Srp13 = srpLive(Card13New, null, true), Srp14 = srpLive(Card14New, null, true), Srp15 = srpLive(Card15New, Coach12), Srp16 = srpLive(Card16New, Coach14), Srp17 = srpLive(Card17New, Coach17), Srp18 = srpLive(Card18New, Coach14);
   /* lists by tag set: 'shown' (Current tabs) or 'proposed' (Proposed options) */
   const ProdList = (set) => ({ go }) => h('div', { className: 'sf-list', style: { marginTop: 2 } }, BUSES.map((b) => h(ProdCard, { key: b.rank, b, go, set })));
   const ExpList = (set) => ({ go }) => h('div', { className: 'px-list' }, BUSES.map((b) => h(ExpCard, { key: b.rank, b, go, set })));
@@ -975,12 +1036,13 @@
       { key: 'F', archived: true, label: 'From scratch · stat row', render: srp(({ go }) => h('div', { className: 'px-list' }, BUSES.map((b) => h(Card6, { key: b.rank, b, go })))) },
       { key: 'G', archived: true, label: 'From scratch · score panel', render: srp(({ go }) => h('div', { className: 'px-list' }, BUSES.map((b) => h(Card7, { key: b.rank, b, go })))) },
       { key: 'H', archived: true, label: 'From scratch · price rail', render: srp(({ go }) => h('div', { className: 'px-list' }, BUSES.map((b) => h(Card8, { key: b.rank, b, go })))) },
-      { key: 'N', name: 'Experiment version', label: 'Option 12 · one list for all persuasions, optional IONS icons', render: (p) => h(Srp14, p) },
-      { key: 'M', archived: true, label: 'Option 12 · every persuasion as a Crystals medium tag, no icons', render: (p) => h(Srp13, p) },
-      { key: 'L', name: 'Future experiment', label: 'Option 5 · working copy, live data', render: (p) => h(Srp12, p) },
-      { key: 'P', name: 'Future experiment 2', label: 'Future experiment with the Experiment version women treatment', render: (p) => h(Srp16, p) },
-      { key: 'Q', name: 'Future experiment 3', label: 'Future experiment 2 · Experiment version women treatment, list icons, plain feature badges', render: (p) => h(Srp17, p) },
+      { key: 'N', name: 'List', label: 'Option 12 · one list for all persuasions, optional IONS icons', render: (p) => h(Srp14, p) },
+      { key: 'M', name: 'Tag cloud', label: 'Option 12 · every persuasion as a Crystals medium tag, no icons', render: (p) => h(Srp13, p) },
+      { key: 'L', name: 'Tag and list', label: 'Option 5 · working copy, live data', render: (p) => h(Srp12, p) },
+      { key: 'P', name: 'Future experiment 2', archived: true, label: 'Future experiment with the Experiment version women treatment', render: (p) => h(Srp16, p) },
+      { key: 'Q', name: 'Future experiment 3', archived: true, label: 'Future experiment 2 · Experiment version women treatment, list icons, plain feature badges', render: (p) => h(Srp17, p) },
       { key: 'O', name: 'Option 14', archived: true, label: 'Future experiment · comparators right with icons, reassurance left with ✓', render: (p) => h(Srp15, p) },
+      { key: 'R', name: 'Option 15', archived: true, label: 'Copy of Experiment version', render: (p) => h(Srp18, p) },
     ],
   });
 })();
