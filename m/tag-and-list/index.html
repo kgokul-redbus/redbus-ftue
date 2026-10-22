@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#ffffff">
+<title>Persuasion tags · Tag and list</title>
+<base href="../../current-funnel/">
+<link rel="stylesheet" href="../../ds-bundle/styles.css">
+<link rel="stylesheet" href="fonts.css">
+<link rel="stylesheet" href="funnel.css">
+<link rel="stylesheet" href="deck.css">
+<link rel="stylesheet" href="home.css">
+<link rel="stylesheet" href="onboarding.css">
+<link rel="stylesheet" href="seats.css">
+<link rel="stylesheet" href="points.css">
+<link rel="stylesheet" href="cust.css">
+<link rel="stylesheet" href="search.css">
+<link rel="stylesheet" href="srp-fig.css">
+<link rel="stylesheet" href="pay.css">
+<link rel="stylesheet" href="ticket.css">
+<link rel="stylesheet" href="sol-17.css">
+<link rel="stylesheet" href="sol-17b.css">
+<link rel="stylesheet" href="sol-onb.css">
+<link rel="stylesheet" href="sol-usp.css">
+<link rel="stylesheet" href="sol-lang.css">
+<link rel="stylesheet" href="sol-login.css">
+<link rel="stylesheet" href="ptags-exp.css">
+<link rel="stylesheet" href="../m/m.css">
+</head>
+<body class="deck-sec--ptags">
+<div id="app"></div>
+<script>
+/* Defaults for this page (Tag and list). The Persuasion tags stores read localStorage when their script loads, so this runs first: it keeps this page's switches in their own
+   storage so they never touch the deck's or the other pages', and seeds the default state: Cleanliness & Staff, Women mode and 3D icons off; only Primo, Deals, Ad and Previously booked on. */
+(function () {
+  var P = 'mob-tag-and-list-v1:', get = Storage.prototype.getItem, set = Storage.prototype.setItem, rem = Storage.prototype.removeItem;
+  var mine = function (k) { return typeof k === 'string' && k.indexOf('ptags-') === 0; };
+  Storage.prototype.getItem = function (k) { return get.call(this, this === localStorage && mine(k) ? P + k : k); };
+  Storage.prototype.setItem = function (k, v) { return set.call(this, this === localStorage && mine(k) ? P + k : k, v); };
+  Storage.prototype.removeItem = function (k) { return rem.call(this, this === localStorage && mine(k) ? P + k : k); };
+  var ALL = ['seatlock', 'lmb', 'nonstop', 'rtc', 'primo', 'deals', 'via', 'layover', 'book0', 'award', 'ad', 'highlight', 'reward', 'prev'], ON = ['ad', 'prev', 'primo', 'deals'];
+  var DEFAULTS = { 'ptags-ugc': 'off', 'ptags-women-v2': 'off', 'ptags-cstar': 'off',
+    'ptags-master': JSON.stringify(ALL.reduce(function (o, k) { o[k] = ON.indexOf(k) >= 0; return o; }, {})) };
+  window.M_RESET = function () { Object.keys(DEFAULTS).forEach(function (k) { set.call(localStorage, P + k, DEFAULTS[k]); }); };
+  window.M_ID = 'tag-and-list'; window.M_OPT = 'L';
+  try { Object.keys(DEFAULTS).forEach(function (k) { if (get.call(localStorage, P + k) === null) set.call(localStorage, P + k, DEFAULTS[k]); }); } catch (e) {}
+})();
+</script>
+
+<script src="../ds-bundle/_vendor/react.js"></script>
+<script src="../ds-bundle/_vendor/react-dom.js"></script>
+<script src="../ds-bundle/_ds_bundle.js"></script>
+<script src="proposed.js"></script>
+<script src="home-art.js"></script>
+<script src="onboarding.js"></script>
+<script src="seats.js"></script>
+<script src="points.js"></script>
+<script src="cust.js"></script>
+<script src="search.js"></script>
+<script src="srp-fig.js"></script>
+<script src="pay.js"></script>
+<script src="ticket.js"></script>
+<script src="sol-17.js"></script>
+<script src="sol-17b.js"></script>
+<script src="sol-onb.js"></script>
+<script src="sol-usp.js"></script>
+<script src="sol-lang.js"></script>
+<script src="sol-login.js"></script>
+<script src="solves.js"></script>
+<script src="ptags.js"></script>
+<script src="ptags-exp.js"></script>
+<script src="ptags-live.js"></script>
+<script src="ptags-ions.js"></script>
+<script src="ptags-sol.js"></script>
+<script>
+/* funnel.js mounts the whole deck on load; this page mounts only its own option, so that mount is a no-op */
+(function(){var c=ReactDOM.createRoot;ReactDOM.createRoot=function(){ReactDOM.createRoot=c;return{render:function(){}}}})();
+</script>
+<script src="funnel.js"></script>
+<script src="../m/boot.js"></script>
+</body>
+</html>
