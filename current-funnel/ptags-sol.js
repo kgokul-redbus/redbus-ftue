@@ -219,7 +219,9 @@
   const mSub = (m, b) => h('p', { className: 'px-sub' }, b.dur, h('i', { className: 'px-dot' }),
     has(m, 'layover', b) ? h('span', { className: 'px-warn px-med' }, '2h Layover at Delhi') : [h('span', { key: 's' }, b.seats), h('span', { key: 'g', className: 'px-warn' }, b.single)]);
   const mPrice = (m, b, onw) => h('div', { className: 'px-price' }, has(m, 'book0', b) && h('span', { className: 'mx-book0' }, 'Book for ₹0'), h('b', null, b.price), h('small', null, onw || 'Onwards'));
-  const mName = (m, b, cls) => h('p', { className: cls || 'px-nm' }, h('span', null, b.op),
+  /* List, Tag cloud, Tag and list and Tag and list 2 show operator names in title case, not all caps; letters-only words without a vowel (RKK, VRL) stay as acronyms */
+  const titleCase = (n) => n !== n.toUpperCase() ? n : n.toLowerCase().replace(/[a-z][a-z']*/g, (w) => /^[a-z]{2,4}$/.test(w) && !/[aeiouy]/.test(w) ? w.toUpperCase() : w[0].toUpperCase() + w.slice(1));
+  const mName = (m, b, cls, title) => h('p', { className: cls || 'px-nm' }, h('span', null, title ? titleCase(b.op) : b.op),
     has(m, 'award', b) && h('img', { className: 'px-award', src: X + 'ic-award.png', alt: 'Award' }),
     has(m, 'ad', b) && h('span', { className: 'px-ad' }, 'Ad'));
   const mPost = (m, b) => has(m, 'highlight', b) && h('span', { key: 'hl', className: 'px-tag' }, h('img', { src: X + 'ic-star-tag.png', alt: '' }), 'Stops at Aanad Rao Circle & Kanchipuram');
@@ -232,7 +234,7 @@
       h('ul', null, MASTER_EL.map(([k, l]) => h('li', { key: k },
         h('label', null, h('input', { type: 'checkbox', checked: !!m[k], onChange: (e) => MS.set(k, e.target.checked) }), h('span', null, l))))));
   }
-  function RailExtra(p) { return h(React.Fragment, null, h(RouteToggle, p), !['L', 'M', 'N', 'O', 'P', 'Q', 'R'].includes(p.opt) && h(window.PTAGS_UGC.Toggle, p), h(WomenToggle, p), ['L', 'M', 'N'].includes(p.opt) && p.mode === 'proposed' && h(FullToggle, p), ['L', 'M', 'N'].includes(p.opt) && p.mode === 'proposed' && h(MedianToggle, p), !['L', 'M', 'N', 'O', 'P', 'Q', 'R'].includes(p.opt) && h(CstarToggle, p), h(LoungeToggle, p), p.mode === 'proposed' && p.opt === 'R' && h(PiconToggle, p), p.mode === 'proposed' && p.opt === 'M' && h(Picon13Toggle, p), h(MasterPanel, p)); }
+  function RailExtra(p) { return h(React.Fragment, null, h(RouteToggle, p), !['L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S'].includes(p.opt) && h(window.PTAGS_UGC.Toggle, p), h(WomenToggle, p), ['L', 'M', 'N', 'S'].includes(p.opt) && p.mode === 'proposed' && h(FullToggle, p), ['L', 'M', 'N', 'S'].includes(p.opt) && p.mode === 'proposed' && h(MedianToggle, p), !['L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S'].includes(p.opt) && h(CstarToggle, p), !['L', 'M', 'N', 'S'].includes(p.opt) && h(LoungeToggle, p), p.mode === 'proposed' && p.opt === 'R' && h(PiconToggle, p), p.mode === 'proposed' && p.opt === 'M' && h(Picon13Toggle, p), h(MasterPanel, p)); }
   window.PTAGS_UGC.Rail = RailExtra;
 
   function ProdCard({ b, go, set: tags }) {
@@ -739,13 +741,13 @@
 
   /* Option 12 (2026-10-19) · starts as a copy of Option 5 (snacks, personal TV, lounge; women mode keeps the overall rating) */
   function Card12New({ b, go }) {
-    const t = ugcFilter(b.proposed, useUgc()), m = useMaster(), women = useWomen(), cstar = false /* no 3D icons in Options 12 to 14 */, lounge = useLounge(), wr = women && b.wr ? b.wr : null; /* women mode: the women rating from the bus details, when redbus.in has one */
-    const feats = t.filter((k) => FEATS.includes(k)).concat(b.extra.filter((k) => k !== 'lounge' || lounge));
+    const t = ugcFilter(b.proposed, useUgc()), m = useMaster(), women = useWomen(), cstar = false /* no 3D icons in Options 12 to 14 */, lounge = useLounge(), wr = null; /* women rating is not shown in the rating graphic */ /* women mode: the women rating from the bus details, when redbus.in has one */
+    const feats = t.filter((k) => FEATS.includes(k)).concat(b.extra.filter((k) => k !== 'lounge'));
     /* women mode: no separate women rating (the card keeps the overall-rating graphic); "Highly rated by women" joins
        "N women travelling" at the end of the reassurance list, each with a check */
     const wTags = women ? ['womenT', 'womenR'].filter((k) => b.shown.includes(k)) : [];
     const list = t.filter((k) => COMPS.includes(k)).concat(t.filter((k) => REASSURE.includes(k)), wTags);
-    const text = (k) => (k === 'snacks' ? 'Free meals' : k === 'comfort' ? 'Comfort ' + one(b.sc.comfort) + '/10' : k === 'womenT' ? (b.wt != null ? b.wt : 6 + (b.rank * 5) % 19) + ' women travelling' : k === 'womenR' ? 'Women favourite' : label(k, b.sc));
+    const text = (k) => (k === 'snacks' ? 'Free meals' : k === 'comfort' ? 'Comfort ' + one(b.sc.comfort) + '/10' : k === 'womenT' ? (b.wt != null ? b.wt : 6 + (b.rank * 5) % 19) + ' women travelling' : k === 'womenR' ? 'Women favourite' : label(k, b.sc).replace('On Time', 'On-time'));
     /* columns: 3 per column (max 6) normally; in women mode every item shows, split evenly over the two columns */
     const per = women ? Math.max(3, Math.ceil(list.length / 2)) : 3;
     /* Previously booked (Figma 36754:32115): the card turns Fill/Success/primary and an 18-high strip of inverse caption
@@ -762,10 +764,45 @@
         h('div', { className: 'p3-op' },
           h('div', { className: 'px-bo' },
             h('div', { className: 'px-bo-l' },
-              mName(m, b),
+              mName(m, b, null, true),
               h('p', { className: 'px-ty' }, b.ev && !m && h('img', { src: X + 'ic-ev.svg', alt: '' }), h('span', null, b.type))),
             h('div', { className: 'px-rate' + (wr ? ' px-rate--w' : ''), 'aria-label': 'Rated ' + (wr || b.rating) + (wr ? ' by women' : '') }, h('b', null, wr ? IC.woman() : h(Star), one(wr || b.rating)), h('span', null, String(wr && b.wn != null ? b.wn : b.count)))),
           feats.length > 0 && h('div', { className: 'p4-badges' }, feats.map((k) => Tag({ key: k, className: 'p4-badge', icon: IC[k]() }, (k === 'snacks' ? 'Free meals' : BADGE5[k]))))),
+        /* two columns, filled column by column */
+        list.length > 0 && h('div', { className: 'p4-cols' }, [list.slice(0, per), list.slice(per, 2 * per)].filter((c) => c.length).map((col, i) =>
+          h('ul', { key: i, className: 'p4-list' }, col.map((k) => h('li', { key: k, className: k === 'womenT' || k === 'womenR' ? 'p12-wl' : undefined }, k === 'womenT' ? IC.face4() : k === 'womenR' ? IC.heart() : IC.check(), text(k)))))),
+        mPost(m, b)),
+      mFoot(m, b));
+  }
+  function Card19New({ b, go }) {
+    const t = ugcFilter(b.proposed, useUgc()), m = useMaster(), women = useWomen(), cstar = false /* no 3D icons in Options 12 to 14 */, lounge = useLounge(), wr = null; /* women rating is not shown in the rating graphic */ /* women mode: the women rating from the bus details, when redbus.in has one */
+    const feats = t.filter((k) => FEATS.includes(k)).concat(b.extra.filter((k) => k !== 'lounge'));
+    /* women mode: no separate women rating (the card keeps the overall-rating graphic); "Highly rated by women" joins
+       "N women travelling" at the end of the reassurance list, each with a check */
+    const wTags = women ? ['womenT', 'womenR'].filter((k) => b.shown.includes(k)) : [];
+    const list = t.filter((k) => COMPS.includes(k)).concat(t.filter((k) => REASSURE.includes(k)), wTags);
+    const text = (k) => (k === 'snacks' ? 'Free meals' : k === 'comfort' ? 'Comfort ' + one(b.sc.comfort) + '/10' : k === 'womenT' ? (b.wt != null ? b.wt : 6 + (b.rank * 5) % 19) + ' women travelling' : k === 'womenR' ? 'Women favourite' : label(k, b.sc).replace('On Time', 'On-time'));
+    /* columns: 3 per column (max 6) normally; in women mode every item shows, split evenly over the two columns */
+    const per = women ? Math.max(3, Math.ceil(list.length / 2)) : 3;
+    /* Previously booked (Figma 36754:32115): the card turns Fill/Success/primary and an 18-high strip of inverse caption
+       text sits above the untouched white content, which keeps its 16 radius over the green */
+    const prev = has(m, 'prev', b);
+    const card = (...kids) => h('div', { className: 'px-card p3-card p4-card p12-card p19-card' + (prev ? ' p4-card--prev' : ''), role: 'button', tabIndex: 0, onClick: () => go('seats') },
+      prev && h('p', { className: 'p4-prev' }, 'You booked this on ' + (b.rank === 3 ? '7th July' : '22nd August')),
+      ...(prev ? [h('div', { key: 'main', className: 'p4-main' }, ...kids)] : kids));
+    return card(
+      mTop(m, b),
+      h('div', { className: 'px-body' },
+        ...mPre(m, b),
+        h('div', { className: 'px-svc p4-svc' }, h('div', null, p4Time(m, b), p4Sub(m, b)), mPrice(m, b)),
+        h('div', { className: 'p3-op' },
+          h('div', { className: 'px-bo' },
+            h('div', { className: 'px-bo-l' },
+              mName(m, b, null, true),
+              h('p', { className: 'px-ty' }, b.ev && !m && h('img', { src: X + 'ic-ev.svg', alt: '' }), h('span', null, b.type))),
+            h('div', { className: 'px-rate' + (wr ? ' px-rate--w' : ''), 'aria-label': 'Rated ' + (wr || b.rating) + (wr ? ' by women' : '') }, h('b', null, wr ? IC.woman() : h(Star), one(wr || b.rating)), h('span', null, String(wr && b.wn != null ? b.wn : b.count)))),
+          /* bus features (Figma SRP - Cleanup 37621:6409): plain 11px text with a 12px icon, 2px dots between, no tag fill */
+          feats.length > 0 && h('div', { className: 'p19-feats' }, feats.reduce((acc, k, i) => acc.concat(i ? [h('i', { key: 'd' + k, className: 'p19-dot', 'aria-hidden': true })] : [], [h('span', { key: k, className: 'p19-feat' }, IC[k](), (k === 'snacks' ? 'Free meals' : BADGE5[k]))]), []))),
         /* two columns, filled column by column */
         list.length > 0 && h('div', { className: 'p4-cols' }, [list.slice(0, per), list.slice(per, 2 * per)].filter((c) => c.length).map((col, i) =>
           h('ul', { key: i, className: 'p4-list' }, col.map((k) => h('li', { key: k, className: k === 'womenT' || k === 'womenR' ? 'p12-wl' : undefined }, k === 'womenT' ? IC.face4() : k === 'womenR' ? IC.heart() : IC.check(), text(k)))))),
@@ -894,14 +931,14 @@
   /* Option 14 (2026-10-21) · Option 12 with one ✓ list for all persuasions (comparators, features, reassurance); a switch swaps the check for an IONS icon per persuasion */
   function Card14New({ b, go }) {
     const t = ugcFilter(b.proposed, useUgc()), m = useMaster(), women = useWomen(), cstar = false /* no 3D icons in Options 12 to 14 */, lounge = useLounge(), picon = usePicon(), wr = null; /* Option 14 always shows the overall rating; the women rating sits in the women callout */
-    const feats = t.filter((k) => FEATS.includes(k)).concat(b.extra.filter((k) => k !== 'lounge' || lounge));
+    const feats = t.filter((k) => FEATS.includes(k)).concat(b.extra.filter((k) => k !== 'lounge'));
     /* women mode: no separate women rating (the card keeps the overall-rating graphic); "Highly rated by women" joins
        "N women travelling" at the end of the reassurance list, each with a check */
     const wN = women && b.shown.includes('womenT') ? (b.wt != null ? b.wt : 6 + (b.rank * 5) % 19) : null, wcall = false;
     /* women persuasions are list lines too, with a pink icon: Women rated {rating}, N women travelling */
     const wTags = (women && b.wr ? ['wRated'] : []).concat(wN != null ? ['wTrav'] : []);
     const list = t.filter((k) => COMPS.includes(k)).concat(feats, t.filter((k) => REASSURE.includes(k)), wTags).slice(0, 8); /* priority: comparators, features, reassurance, women; two columns, 3 each, 4 each only when a card carries all 8 */
-    const text = (k) => (k === 'wRated' ? 'Women rated ' + one(b.wr) : k === 'wTrav' ? wN + ' women travelling' : k === 'snacks' ? 'Free meals' : k === 'comfort' ? 'Comfort ' + one(b.sc.comfort) + '/10' : BADGE5[k] ? BADGE5[k] : k === 'womenT' ? (b.wt != null ? b.wt : 6 + (b.rank * 5) % 19) + ' women travelling' : k === 'womenR' ? 'Women rated highly' : label(k, b.sc));
+    const text = (k) => (k === 'wRated' ? 'Women favourite' : k === 'wTrav' ? wN + ' women travelling' : k === 'snacks' ? 'Free meals' : k === 'comfort' ? 'Comfort ' + one(b.sc.comfort) + '/10' : BADGE5[k] ? BADGE5[k] : k === 'womenT' ? (b.wt != null ? b.wt : 6 + (b.rank * 5) % 19) + ' women travelling' : k === 'womenR' ? 'Women rated highly' : label(k, b.sc).replace('On Time', 'On-time'));
     const per = list.length > 6 ? 4 : 3;
     /* Previously booked (Figma 36754:32115): the card turns Fill/Success/primary and an 18-high strip of inverse caption
        text sits above the untouched white content, which keeps its 16 radius over the green */
@@ -917,12 +954,12 @@
         h('div', { className: 'p3-op' },
           h('div', { className: 'px-bo' },
             h('div', { className: 'px-bo-l' },
-              mName(m, b),
+              mName(m, b, null, true),
               h('p', { className: 'px-ty' }, b.ev && !m && h('img', { src: X + 'ic-ev.svg', alt: '' }), h('span', null, b.type))),
             h('div', { className: 'px-rate' + (wr ? ' px-rate--w' : ''), 'aria-label': 'Rated ' + (wr || b.rating) + (wr ? ' by women' : '') }, h('b', null, wr ? IC.woman() : h(Star), one(wr || b.rating)), h('span', null, String(wr && b.wn != null ? b.wn : b.count))))),
         /* all persuasions share one list treatment: an icon on every line, two columns, at most 3 per column; the women lines carry the pink Icon/woman */
         list.length > 0 && h('div', { className: 'p4-cols' }, [list.slice(0, per), list.slice(per, 2 * per)].filter((c) => c.length).map((col, i) =>
-          h('ul', { key: i, className: 'p4-list' }, col.map((k) => h('li', { key: k, className: k === 'wRated' || k === 'wTrav' ? 'p14-wl' : undefined }, k === 'wRated' ? IC.starsOutlined() : k === 'wTrav' ? IC.face4() : IC[k](), text(k)))))),
+          h('ul', { key: i, className: 'p4-list' }, col.map((k) => h('li', { key: k, className: k === 'wRated' || k === 'wTrav' ? 'p14-wl' : undefined }, k === 'wRated' ? IC.heart() : k === 'wTrav' ? IC.face4() : IC[k](), text(k)))))),
         mPost(m, b)),
       mFoot(m, b));
   }
@@ -972,13 +1009,13 @@
   }
   /* Option 13 (2026-10-19) · Option 12 with every tag as a Crystals medium tag, no icons, in priority order */
   function Card13New({ b, go }) {
-    const t = ugcFilter(b.proposed, useUgc()), m = useMaster(), women = useWomen(), cstar = false /* no 3D icons in Options 12 to 14 */, lounge = useLounge(), picon = usePicon13(), wr = women && b.wr ? b.wr : null; /* women mode: the women rating from the bus details, when redbus.in has one */
-    const feats = t.filter((k) => FEATS.includes(k)).concat(b.extra.filter((k) => k !== 'lounge' || lounge));
+    const t = ugcFilter(b.proposed, useUgc()), m = useMaster(), women = useWomen(), cstar = false /* no 3D icons in Options 12 to 14 */, lounge = useLounge(), picon = usePicon13(), wr = null; /* women rating is not shown in the rating graphic */ /* women mode: the women rating from the bus details, when redbus.in has one */
+    const feats = t.filter((k) => FEATS.includes(k)).concat(b.extra.filter((k) => k !== 'lounge'));
     /* women mode: no separate women rating (the card keeps the overall-rating graphic); "Highly rated by women" joins
        "N women travelling" at the end of the reassurance list, each with a check */
     const wTags = women ? ['womenT', 'womenR'].filter((k) => b.shown.includes(k)) : [];
     const list = t.filter((k) => COMPS.includes(k)).concat(feats, t.filter((k) => REASSURE.includes(k)), wTags); /* persuasion priority: comparators, features, reassurance */
-    const text = (k) => (k === 'snacks' ? 'Free meals' : k === 'comfort' ? 'Comfort ' + one(b.sc.comfort) + '/10' : BADGE5[k] ? BADGE5[k] : k === 'womenT' ? (b.wt != null ? b.wt : 6 + (b.rank * 5) % 19) + ' women travelling' : k === 'womenR' ? 'Women favourite' : label(k, b.sc));
+    const text = (k) => (k === 'snacks' ? 'Free meals' : k === 'comfort' ? 'Comfort ' + one(b.sc.comfort) + '/10' : BADGE5[k] ? BADGE5[k] : k === 'womenT' ? (b.wt != null ? b.wt : 6 + (b.rank * 5) % 19) + ' women travelling' : k === 'womenR' ? 'Women favourite' : label(k, b.sc).replace('On Time', 'On-time'));
     /* columns: 3 per column (max 6) normally; in women mode every item shows, split evenly over the two columns */
     
     /* Previously booked (Figma 36754:32115): the card turns Fill/Success/primary and an 18-high strip of inverse caption
@@ -995,7 +1032,7 @@
         h('div', { className: 'p3-op' },
           h('div', { className: 'px-bo' },
             h('div', { className: 'px-bo-l' },
-              mName(m, b),
+              mName(m, b, null, true),
               h('p', { className: 'px-ty' }, b.ev && !m && h('img', { src: X + 'ic-ev.svg', alt: '' }), h('span', null, b.type))),
             h('div', { className: 'px-rate' + (wr ? ' px-rate--w' : ''), 'aria-label': 'Rated ' + (wr || b.rating) + (wr ? ' by women' : '') }, h('b', null, wr ? IC.woman() : h(Star), one(wr || b.rating)), h('span', null, String(wr && b.wn != null ? b.wn : b.count))))),
         /* every tag is a Crystals medium tag; icons come from the Persuasion icons switch */
@@ -1015,7 +1052,7 @@
       list: ({ go }) => h('div', { className: 'px-list' }, (full ? [FULL_BUS] : []).concat(median ? [MEDIAN_BUS] : [], LIVE[k]).map((b) => h(Card, { key: k + b.rank, b, go }))) }));
   }
   /* List (Srp14), Tag cloud (Srp13) and Tag and list (Srp12) have no women mode coach mark */
-  const Srp12 = srpLive(Card12New, null, true), Srp13 = srpLive(Card13New, null, true), Srp14 = srpLive(Card14New, null, true), Srp15 = srpLive(Card15New, Coach12), Srp16 = srpLive(Card16New, Coach14), Srp17 = srpLive(Card17New, Coach17), Srp18 = srpLive(Card18New, Coach14);
+  const Srp12 = srpLive(Card12New, null, true), Srp19 = srpLive(Card19New, null, true), Srp13 = srpLive(Card13New, null, true), Srp14 = srpLive(Card14New, null, true), Srp15 = srpLive(Card15New, Coach12), Srp16 = srpLive(Card16New, Coach14), Srp17 = srpLive(Card17New, Coach17), Srp18 = srpLive(Card18New, Coach14);
   /* lists by tag set: 'shown' (Current tabs) or 'proposed' (Proposed options) */
   const ProdList = (set) => ({ go }) => h('div', { className: 'sf-list', style: { marginTop: 2 } }, BUSES.map((b) => h(ProdCard, { key: b.rank, b, go, set })));
   const ExpList = (set) => ({ go }) => h('div', { className: 'px-list' }, BUSES.map((b) => h(ExpCard, { key: b.rank, b, go, set })));
@@ -1039,6 +1076,7 @@
       { key: 'N', name: 'List', label: 'Option 12 · one list for all persuasions, optional IONS icons', render: (p) => h(Srp14, p) },
       { key: 'M', name: 'Tag cloud', label: 'Option 12 · every persuasion as a Crystals medium tag, no icons', render: (p) => h(Srp13, p) },
       { key: 'L', name: 'Tag and list', label: 'Option 5 · working copy, live data', render: (p) => h(Srp12, p) },
+      { key: 'S', name: 'Tag and list 2', archived: true, label: 'Tag and list · bus features styled as in Figma SRP - Cleanup 37621:6251', render: (p) => h(Srp19, p) },
       { key: 'P', name: 'Future experiment 2', archived: true, label: 'Future experiment with the Experiment version women treatment', render: (p) => h(Srp16, p) },
       { key: 'Q', name: 'Future experiment 3', archived: true, label: 'Future experiment 2 · Experiment version women treatment, list icons, plain feature badges', render: (p) => h(Srp17, p) },
       { key: 'O', name: 'Option 14', archived: true, label: 'Future experiment · comparators right with icons, reassurance left with ✓', render: (p) => h(Srp15, p) },
